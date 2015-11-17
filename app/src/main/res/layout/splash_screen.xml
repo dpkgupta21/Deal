@@ -1,83 +1,68 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="2">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/splash_screen_footer" />
+        android:layout_height="0dp"
+        android:layout_weight=".8">
 
-    <RadioGroup
-        android:id="@+id/swipe_indicator_radio_group"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <RadioGroup
+            android:id="@+id/swipe_indicator_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/pic1_indicator"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/splash_screen_custom_radio_buttons"
+                android:button="@null" />
+
+            <RadioButton
+                android:id="@+id/pic2_indicator"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/splash_screen_custom_radio_buttons"
+                android:button="@null" />
+
+            <RadioButton
+                android:id="@+id/pic3_indicator"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/splash_screen_custom_radio_buttons"
+                android:button="@null" />
+
+            <RadioButton
+                android:id="@+id/pic4_indicator"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/splash_screen_custom_radio_buttons"
+                android:button="@null" />
+
+        </RadioGroup>
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_lay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/splash_screen_footer"
-        android:layout_marginBottom="10dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/pic1_indicator"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/splash_screen_custom_radio_buttons"
-            android:button="@null" />
-
-        <RadioButton
-            android:id="@+id/pic2_indicator"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/splash_screen_custom_radio_buttons"
-            android:button="@null" />
-
-        <RadioButton
-            android:id="@+id/pic3_indicator"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/splash_screen_custom_radio_buttons"
-            android:button="@null" />
-
-    </RadioGroup>
-
-    <LinearLayout
-        android:id="@+id/splash_screen_footer"
-        style="@android:style/ButtonBar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_weight="0"
-        android:background="@color/white"
-        android:orientation="horizontal">
-
-        <com.traveljar.memories.customviews.MyButtonView
-            android:id="@+id/splash_signup_btn"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:onClick="goToSignUp"
-            android:text="I&apos;m New"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-        <com.traveljar.memories.customviews.MyButtonView
-            android:id="@+id/splash_signin_btn"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:onClick="goToSignIn"
-            android:text="Sign In"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-
-</RelativeLayout>
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="1.2" />
+</LinearLayout>

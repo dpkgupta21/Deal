@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.deal.exap.login.SignIn;
+import com.deal.exap.login.SignInFragment;
 
 public class SessionManager {
 
@@ -29,7 +29,7 @@ public class SessionManager {
             Log.d(TAG, "USer is not logged in");
             Toast.makeText(_context, "Please log in to continue", Toast.LENGTH_LONG).show();
             // user is not logged in redirect him to Login Activity
-            Intent i = new Intent(_context, SignIn.class);
+            Intent i = new Intent(_context, SignInFragment.class);
             // Closing all the Activities
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -51,7 +51,7 @@ public class SessionManager {
         TJPreferences.setLoggedIn(mContext, false);
 
         // After logout redirect user to Loing Activity
-        Intent i = new Intent(_context, SignIn.class);
+        Intent i = new Intent(_context, SignInFragment.class);
         // Closing all the Activities
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 

@@ -1,11 +1,12 @@
 package com.deal.exap.login;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 
 import com.deal.exap.R;
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SplashScreen extends Activity {
+public class SplashScreen extends AppCompatActivity {
     private static final String TAG = "<SplashScreen>";
     private SessionManager session;
     private ViewPager mViewPager;
@@ -33,20 +34,11 @@ public class SplashScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
 
-        // Session class instance
-        session = new SessionManager(getApplicationContext());
-        //createTravelJarInitials();
 
-        // check if already logged in
-        if (session.isLoggedIn(this)) {
-            Log.d(TAG, "since already logged in");
-            Log.d(TAG, "SplashScreen ==> TimelineFragment");
-//            Intent intent = new Intent(getBaseContext(), ActivejourneyList.class);
-//            startActivity(intent);
-//            finish();
-        }
 
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
+
+        FrameLayout frame_lay = (FrameLayout) findViewById(R.id.frame_lay);
         populateRadioButtonIds();
         populateSplashBackgrounds();
 
@@ -73,6 +65,16 @@ public class SplashScreen extends Activity {
 
             }
         });
+
+
+        SignInFragment signInFragment = SignInFragment.newInstance();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        FragmentTransaction ft = fm
+                .beginTransaction();
+        ft.replace(R.id.frame_lay, signInFragment, "My_Fragment");
+        ft.setTransition(FragmentTransaction.TRANSIT_NONE);
+        ft.commit();
     }
 
     private void populateRadioButtonIds() {
@@ -80,62 +82,35 @@ public class SplashScreen extends Activity {
         mRadioButtonIds.add(R.id.pic1_indicator);
         mRadioButtonIds.add(R.id.pic2_indicator);
         mRadioButtonIds.add(R.id.pic3_indicator);
+        mRadioButtonIds.add(R.id.pic4_indicator);
     }
 
     private void populateSplashBackgrounds() {
         mPictures = new HashMap<>();
 
-        List<String> mPictureTextList = new ArrayList<>();
-        mPictureTextList.add("Capture all type of memories. Not just photos. Travel Jar can take anything");
-        mPictureTextList.add("Share those wonderful moments in the form of a small video created AUTOMATICALLY!.");
-        mPictureTextList.add("No need to chase people for pictures anymore. Travel Jar automatically syncs everything");
+//        List<String> mPictureTextList = new ArrayList<>();
+//        mPictureTextList.add("Capture all type of memories. Not just photos. Travel Jar can take anything");
+//        mPictureTextList.add("Share those wonderful moments in the form of a small video created AUTOMATICALLY!.");
+//        mPictureTextList.add("No need to chase people for pictures anymore. Travel Jar automatically syncs everything");
+//        mPictureTextList.add("No need to chase people for pictures anymore. Travel Jar automatically syncs everything");
 
         mPictureIdsList = new ArrayList<>();
-        mPictureIdsList.add(R.drawable.img_splash_1);
-        mPictureIdsList.add(R.drawable.img_splash_1);
-        mPictureIdsList.add(R.drawable.img_splash_1);
+        mPictureIdsList.add(R.drawable.slide_img);
+        mPictureIdsList.add(R.drawable.slide_img);
+        mPictureIdsList.add(R.drawable.slide_img);
+        mPictureIdsList.add(R.drawable.slide_img);
 
         int i = 0;
         for (Integer a : mPictureIdsList) {
-            mPictures.put(a, mPictureTextList.get(i));
+            mPictures.put(a, "");
             i++;
         }
 
     }
 
-//    private void createTravelJarInitials() {
-//        Log.d(TAG, "createTravelJarInitials called");
-//        // Create deals app pictures folder
-//        File file;
-//        file = new File(Constants.TRAVELJAR_FOLDER_PICTURE);
-//        if (!file.exists()) {
-//            file.mkdirs();
-//        }
-//        // Create traveljar VIDEO folder
-//        file = new File(Constants.TRAVELJAR_FOLDER_VIDEO);
-//        if (!file.exists()) {
-//            file.mkdirs();
-//        }
-//        // Create traveljar BUDDY PROFILES folder
-//        file = new File(Constants.TRAVELJAR_FOLDER_BUDDY_PROFILES);
-//        if (!file.exists()) {
-//            file.mkdirs();
-//        }
-//
-//        //If gumnaam image doesn't exists than create one
-//        HelpMe.createImageIfNotExist(this);
-//    }
 
-    public void goToSignUp(View v) {
-        Intent i = new Intent(getBaseContext(), SignUp.class);
-//        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(i);
-    }
 
-    public void goToSignIn(View v) {
-        Intent i = new Intent(getBaseContext(), SignIn.class);
-//        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(i);
-    }
+
+
 }
 

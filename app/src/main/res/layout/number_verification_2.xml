@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:weightSum="5">
+
+
+    <com.deal.exap.customviews.MyTextViewSemi16
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/verify_your_phone"
+        android:textColor="@color/black" />
+
+
+    <com.deal.exap.customviews.MyEditTextViewReg
+        android:id="@+id/edt_contry_code"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="14dp"
+        android:layout_weight="1"
+        android:background="@drawable/edt_txt_gray_bcg_shape"
+        android:hint="@string/country_code_hint"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLength="10"
+        android:minEms="10"
+        android:padding="10dp"
+        android:singleLine="true" />
+
+    <com.deal.exap.customviews.MyEditTextViewReg
+        android:id="@+id/edt_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="6dp"
+        android:layout_weight="1"
+        android:background="@drawable/edt_txt_gray_bcg_shape"
+        android:hint="@string/enter_your_phone_number_hint"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLength="10"
+        android:minEms="10"
+        android:padding="10dp"
+        android:singleLine="true" />
+
+
+    <com.deal.exap.customviews.MyButtonViewSemi
+        android:id="@+id/btn_send_code"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:background="@color/btn_color"
+        android:text="@string/send_confirmation_code"
+        android:textColor="@color/white" />
+
+
+    <com.deal.exap.customviews.MyTextViewReg12
+        android:id="@+id/txt_verify_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text="@string/verification_msg" />
+
+</LinearLayout>

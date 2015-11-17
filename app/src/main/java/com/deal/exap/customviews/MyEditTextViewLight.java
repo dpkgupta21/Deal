@@ -3,25 +3,21 @@ package com.deal.exap.customviews;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.widget.TextView;
+import android.widget.EditText;
 
-/**
- * Created by deepak on 16/11/15.
- */
+public class MyEditTextViewLight extends EditText {
 
-public class MyTextViewCustom extends TextView {
-
-    public MyTextViewCustom(Context context, AttributeSet attrs, int defStyle) {
+    public MyEditTextViewLight(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
 
-    public MyTextViewCustom(Context context, AttributeSet attrs) {
+    public MyEditTextViewLight(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public MyTextViewCustom(Context context) {
+    public MyEditTextViewLight(Context context) {
         super(context);
         init();
     }
@@ -32,5 +28,3 @@ public class MyTextViewCustom extends TextView {
     }
 
 }
-
-

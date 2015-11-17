@@ -27,7 +27,7 @@ public class MyTextViewReg16 extends TextView {
 
     private void init() {
 //        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/Roboto-Regular.ttf");
-        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/OmnesReg.ttf");
+        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lato-Regular.ttf");
         setTypeface(tf);
         setTextSize(16);
     }

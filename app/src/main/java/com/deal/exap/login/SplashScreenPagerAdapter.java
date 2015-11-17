@@ -42,12 +42,13 @@ public class SplashScreenPagerAdapter extends PagerAdapter {
         LayoutInflater inflater = (LayoutInflater) _activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.splash_screen_view_pager_item, container, false);
 
-        TextView text = (TextView) view.findViewById(R.id.image_description);
-        ImageView img = (ImageView) view.findViewById(R.id.image_item);
+        TextView txt_description = (TextView) view.findViewById(R.id.txt_description);
+        TextView txt_title = (TextView) view.findViewById(R.id.txt_title);
+        ImageView image_item = (ImageView) view.findViewById(R.id.image_item);
 
 
-        img.setImageResource(pictureIdsList.get(position));
-        text.setText(mPicturesList.get(pictureIdsList.get(position)));
+        image_item.setImageResource(pictureIdsList.get(position));
+        txt_description.setText(mPicturesList.get(pictureIdsList.get(position)));
         container.addView(view);
         return view;
     }

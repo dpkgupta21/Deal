@@ -1,0 +1,142 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:weightSum="3"
+    tools:context=".LoginActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/relative_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.2"
+        android:background="@drawable/slide_img">
+
+        <include
+            android:id="@+id/tool_bar"
+            layout="@xml/toolbar" />
+
+
+        <com.deal.exap.customviews.MyTextViewLight20
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/img_add_photo"
+            android:padding="10dp"
+            android:text="@string/add_photo"
+            android:textColor="@color/white"
+           />
+
+        <ImageView
+            android:id="@+id/img_add_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/add_icon" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_fields"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.8"
+        android:background="#bbbbbb"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:weightSum="5.8">
+
+        <com.deal.exap.customviews.MyEditTextViewLight
+            android:id="@+id/edt_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/edt_txt_white_bcg_shape"
+            android:drawableLeft="@drawable/user_icon_light"
+            android:hint="@string/name_hint"
+            android:textSize="@dimen/edit_text_color" />
+
+        <LinearLayout
+            android:id="@+id/linear_dob_and_gender"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="fill_horizontal"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.deal.exap.customviews.MyEditTextViewLight
+                android:id="@+id/edt_dob"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/edt_txt_white_bcg_shape"
+                android:drawableLeft="@drawable/dob_icon"
+                android:hint="@string/dob_hint"
+                android:textSize="@dimen/edit_text_color" />
+
+            <com.deal.exap.customviews.MyEditTextViewLight
+                android:id="@+id/edt_gender"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/edt_txt_white_bcg_shape"
+                android:drawableLeft="@drawable/gender_icon"
+                android:hint="@string/gender_hint"
+                android:textSize="@dimen/edit_text_color" />
+        </LinearLayout>
+
+        <com.deal.exap.customviews.MyEditTextViewLight
+            android:id="@+id/edt_email_id"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/edt_txt_white_bcg_shape"
+            android:drawableLeft="@drawable/email_icon"
+            android:hint="@string/email_id_hint"
+            android:textSize="@dimen/edit_text_color" />
+
+        <com.deal.exap.customviews.MyEditTextViewLight
+            android:id="@+id/edt_password"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/edt_txt_white_bcg_shape"
+            android:drawableLeft="@drawable/lock_icon_light"
+            android:hint="@string/password_hint"
+            android:textSize="@dimen/edit_text_color" />
+
+        <com.deal.exap.customviews.MyEditTextViewLight
+            android:id="@+id/edt_confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/edt_txt_white_bcg_shape"
+            android:drawableLeft="@drawable/lock_icon_light"
+            android:hint="@string/confirm_password_hint"
+            android:textSize="@dimen/edit_text_color" />
+
+        <com.deal.exap.customviews.MyButtonViewSemi
+            android:id="@+id/btn_signup"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight=".8"
+            android:background="@drawable/btn_red_bcg_shape"
+            android:text="@string/save_btn"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+
+</LinearLayout>
