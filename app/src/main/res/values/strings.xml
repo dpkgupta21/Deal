@@ -52,4 +52,18 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="terms_and_conditions">Terms &amp; conditions | Privacy Policy</string>
 
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
+    <!--Navigation drawer screen-->
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="name">MD Razak</string>
+    <string name="age_city">29F | Dubai</string>
+
+
+    <!--Interest screen-->
+    <string name="interest_screen_title">Interest</string>
 </resources>

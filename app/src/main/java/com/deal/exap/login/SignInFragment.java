@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.deal.exap.R;
+import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg12;
 
 /**
@@ -45,6 +46,8 @@ public class SignInFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         ((MyTextViewReg12) view.findViewById(R.id.txt_sign_up_click)).setOnClickListener(goToSignupClick);
+        ((MyButtonViewSemi)view.findViewById(R.id.btn_login)).setOnClickListener(goToInterestActivity);
+
         super.onActivityCreated(savedInstanceState);
 
 
@@ -59,6 +62,19 @@ public class SignInFragment extends Fragment {
 
         }
     };
+
+
+    View.OnClickListener goToInterestActivity = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(getContext(), InterestActivity.class);
+            startActivity(i);
+
+        }
+    };
+
+
+
 
 }
 

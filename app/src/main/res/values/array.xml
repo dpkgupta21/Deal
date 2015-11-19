@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="nav_drawer_labels">
+        <item>Alert</item>
+        <item>Near BY</item>
+        <item>Wallet</item>
+        <item>Interest</item>
+        <item>Favorite</item>
+        <item>Following</item>
+        <item>Categories</item>
+        <item>Settings</item>
+    </array>
+
+
+    <array name="interset_values">
+        <item>Maecenas</item>
+        <item>Peretium</item>
+        <item>Fringilla</item>
+        <item>Donec</item>
+        <item>Condimentum</item>
+        <item>Risus</item>
+        <item>Accumsam</item>
+    </array>
+
+</resources>
