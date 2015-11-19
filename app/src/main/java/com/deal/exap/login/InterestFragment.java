@@ -80,23 +80,23 @@ public class InterestFragment extends Fragment {
 
             // Add textview at middle side
             if ((i + counter + 1) < interestValues.length) {
-                LayoutParams params_right = new LayoutParams(0, LayoutParams.WRAP_CONTENT);
-                params_right.weight = 2;
-                params_right.setMargins(0, 0, 0, 0);
-                TextView txt_category_right = new TextView(getActivity());
-                txt_category_right.setBackgroundResource(R.drawable.txt_outer_border);
-                txt_category_right.setText(interestValues[i + counter + 1]);
-                txt_category_right.setTag(i + counter + 1);
-                txt_category_right.setPadding(10, 10, 10, 10);
-                txt_category_right.setGravity(Gravity.CENTER);
-                txt_category_right.setLayoutParams(params_right);
-                linear_horizontal.addView(txt_category_right);
+                LayoutParams params_middle = new LayoutParams(0, LayoutParams.WRAP_CONTENT);
+                params_middle.weight = 2;
+                params_middle.setMargins(0, 0, 0, 0);
+                TextView txt_interest_middle = new TextView(getActivity());
+                txt_interest_middle.setBackgroundResource(R.drawable.txt_outer_border);
+                txt_interest_middle.setText(interestValues[i + counter + 1]);
+                txt_interest_middle.setTag(i + counter + 1);
+                txt_interest_middle.setPadding(10, 10, 10, 10);
+                txt_interest_middle.setGravity(Gravity.CENTER);
+                txt_interest_middle.setLayoutParams(params_middle);
+                linear_horizontal.addView(txt_interest_middle);
             }
             // Add space between text view
             LayoutParams params_view1 = new LayoutParams(0, LayoutParams.WRAP_CONTENT);
             params_view.weight = 1;
             View view_transparent1 = new View(getActivity());
-            view_transparent.setLayoutParams(params_view);
+            view_transparent.setLayoutParams(params_view1);
             linear_horizontal.addView(view_transparent1);
 
 
@@ -105,18 +105,18 @@ public class InterestFragment extends Fragment {
                 LayoutParams params_right = new LayoutParams(0, LayoutParams.WRAP_CONTENT);
                 params_right.weight = 2;
                 params_right.setMargins(0, 0, 0, 0);
-                TextView txt_category_right = new TextView(getActivity());
-                txt_category_right.setBackgroundResource(R.drawable.txt_outer_border);
-                txt_category_right.setText(interestValues[i + counter + 2]);
-                txt_category_right.setTag(i + counter + 2);
-                txt_category_right.setPadding(10, 10, 10, 10);
-                txt_category_right.setGravity(Gravity.CENTER);
-                txt_category_right.setLayoutParams(params_right);
-                linear_horizontal.addView(txt_category_right);
+                TextView txt_interest_right = new TextView(getActivity());
+                txt_interest_right.setBackgroundResource(R.drawable.txt_outer_border);
+                txt_interest_right.setText(interestValues[i + counter + 2]);
+                txt_interest_right.setTag(i + counter + 2);
+                txt_interest_right.setPadding(10, 10, 10, 10);
+                txt_interest_right.setGravity(Gravity.CENTER);
+                txt_interest_right.setLayoutParams(params_right);
+                linear_horizontal.addView(txt_interest_right);
             }
             // Add all five child in parent
             linear.addView(linear_horizontal);
-            counter++;
+            counter = counter+2;
         }
 
 
