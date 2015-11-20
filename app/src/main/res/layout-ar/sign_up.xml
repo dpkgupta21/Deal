@@ -26,7 +26,7 @@
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/img_add_photo"
             android:padding="10dp"
-            android:text="@string/add_photo_arabic"
+            android:text="@string/add_photo"
             android:textColor="@color/white"
             />
 
@@ -58,7 +58,7 @@
             android:layout_weight="1"
             android:background="@drawable/edt_txt_white_bcg_shape"
             android:drawableRight="@drawable/user_icon_light"
-            android:hint="@string/name_hint_arabic"
+            android:hint="@string/name_hint"
             android:textSize="@dimen/edit_text_color" />
 
         <LinearLayout
@@ -78,7 +78,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/edt_txt_white_bcg_shape"
                 android:drawableRight="@drawable/dob_icon"
-                android:hint="@string/dob_hint_arabic"
+                android:hint="@string/dob_hint"
                 android:textSize="@dimen/edit_text_color" />
 
             <com.deal.exap.customviews.MyEditTextViewLight
@@ -90,7 +90,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/edt_txt_white_bcg_shape"
                 android:drawableRight="@drawable/gender_icon"
-                android:hint="@string/gender_hint_arabic"
+                android:hint="@string/gender_hint"
                 android:textSize="@dimen/edit_text_color" />
         </LinearLayout>
 
@@ -102,7 +102,7 @@
             android:layout_weight="1"
             android:background="@drawable/edt_txt_white_bcg_shape"
             android:drawableRight="@drawable/email_icon"
-            android:hint="@string/email_id_hint_arabic"
+            android:hint="@string/email_id_hint"
             android:textSize="@dimen/edit_text_color" />
 
         <com.deal.exap.customviews.MyEditTextViewLight
@@ -113,7 +113,7 @@
             android:layout_weight="1"
             android:background="@drawable/edt_txt_white_bcg_shape"
             android:drawableRight="@drawable/lock_icon_light"
-            android:hint="@string/password_hint_arabic"
+            android:hint="@string/password_hint"
             android:textSize="@dimen/edit_text_color" />
 
         <com.deal.exap.customviews.MyEditTextViewLight
@@ -124,7 +124,7 @@
             android:layout_weight="1"
             android:background="@drawable/edt_txt_white_bcg_shape"
             android:drawableRight="@drawable/lock_icon_light"
-            android:hint="@string/confirm_password_hint_arabic"
+            android:hint="@string/confirm_password_hint"
             android:textSize="@dimen/edit_text_color" />
 
         <com.deal.exap.customviews.MyButtonViewSemi
@@ -134,7 +134,7 @@
             android:layout_marginTop="10dp"
             android:layout_weight=".8"
             android:background="@drawable/btn_red_bcg_shape"
-            android:text="@string/save_btn_arabic"
+            android:text="@string/save_btn"
             android:textColor="@color/white" />
     </LinearLayout>
 

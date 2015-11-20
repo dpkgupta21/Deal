@@ -1,6 +1,7 @@
 package com.deal.exap.login;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -20,6 +21,7 @@ import com.deal.exap.utility.TJPreferences;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class SplashScreen extends AppCompatActivity {
@@ -39,16 +41,14 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
+
         String language = TJPreferences.getAPP_LANG(SplashScreen.this);
         setUpToolbar();
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         FrameLayout frame_lay = (FrameLayout) findViewById(R.id.frame_lay);
         populateRadioButtonIds();
-        if (language.equalsIgnoreCase("ENG")) {
-            populateEnglishSplashBackgrounds();
-        } else {
-            populateArabicSplashBackgrounds();
-        }
+        populateEnglishSplashBackgrounds();
+
 
         mAdapter = new SplashScreenPagerAdapter(this, mPictures, mPictureIdsList);
         mViewPager.setAdapter(mAdapter);
@@ -113,28 +113,7 @@ public class SplashScreen extends AppCompatActivity {
             mPictures.put(a, "");
             i++;
         }
-
     }
-
-
-    private void populateArabicSplashBackgrounds() {
-        mPictures = new HashMap<>();
-
-
-        mPictureIdsList = new ArrayList<>();
-        mPictureIdsList.add(R.drawable.slide_img);
-        mPictureIdsList.add(R.drawable.slide_img);
-        mPictureIdsList.add(R.drawable.slide_img);
-        mPictureIdsList.add(R.drawable.slide_img);
-
-        int i = 0;
-        for (Integer a : mPictureIdsList) {
-            mPictures.put(a, "");
-            i++;
-        }
-
-    }
-
 
     private void setUpToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
@@ -152,8 +131,14 @@ public class SplashScreen extends AppCompatActivity {
     View.OnClickListener engLanguage = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            Locale locale = new Locale("en");
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config,
+                    getBaseContext().getResources().getDisplayMetrics());
 
-            TJPreferences.setAPP_LANG(SplashScreen.this, "ENG");
+            TJPreferences.setAPP_LANG(SplashScreen.this, "en");
             Intent i = new Intent(SplashScreen.this, SplashScreen.class);
             startActivity(i);
             finish();
@@ -165,8 +150,15 @@ public class SplashScreen extends AppCompatActivity {
     View.OnClickListener arbLanguage = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            Locale locale = new Locale("ar");
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config,
+                    getBaseContext().getResources().getDisplayMetrics());
 
-            TJPreferences.setAPP_LANG(SplashScreen.this, "ARB");
+
+            TJPreferences.setAPP_LANG(SplashScreen.this, "ar");
             Intent i = new Intent(SplashScreen.this, SplashScreen.class);
             startActivity(i);
             finish();

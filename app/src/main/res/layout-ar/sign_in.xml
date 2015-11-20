@@ -19,7 +19,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="@color/facebook_btn_color"
-        android:text="@string/connect_with_facebook_btn_arabic"
+        android:text="@string/connect_with_facebook_btn"
         android:textColor="@color/white" />
 
     <com.deal.exap.customviews.MyTextViewReg14
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:padding="10dp"
-        android:text="@string/or_arabic"
+        android:text="@string/or"
         android:textColor="@color/black" />
 
 
@@ -39,7 +39,7 @@
         android:background="@drawable/edt_txt_gray_bcg_shape"
         android:drawableRight="@drawable/user_icon_dark"
         android:drawablePadding="10dp"
-        android:hint="@string/username_hint_arabic"
+        android:hint="@string/username_hint"
         android:imeOptions="actionDone"
         android:inputType="text"
         android:maxLength="10"
@@ -54,7 +54,7 @@
         android:background="@drawable/edt_txt_gray_bcg_shape"
         android:drawableRight="@drawable/lock_icon_dark"
         android:drawablePadding="10dp"
-        android:hint="@string/password_sign_in_hint_arabic"
+        android:hint="@string/password_sign_in_hint"
         android:imeOptions="actionDone"
         android:inputType="text"
         android:maxLength="10"
@@ -68,7 +68,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:background="@color/btn_color"
-        android:text="@string/login_btn_arabic"
+        android:text="@string/login_btn"
         android:textColor="@color/white" />
 
     <LinearLayout
@@ -84,7 +84,7 @@
             android:layout_weight="2"
             android:gravity="left"
             android:paddingTop="10dp"
-            android:text="@string/not_yet_registered_arabic"
+            android:text="@string/not_yet_registered"
             android:textColor="@color/black"
             android:textSize="12sp" />
 
@@ -95,7 +95,7 @@
             android:layout_weight="1"
             android:gravity="right"
             android:paddingTop="10dp"
-            android:text="@string/forgot_password_arabic"
+            android:text="@string/forgot_password"
             android:textColor="@color/black"
             android:textSize="12sp" />
     </LinearLayout>
@@ -106,7 +106,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:paddingTop="15dp"
-        android:text="@string/terms_and_conditions_arabic"
+        android:text="@string/terms_and_conditions"
         android:textColor="@color/black"
         android:textSize="10sp" />
 </LinearLayout>

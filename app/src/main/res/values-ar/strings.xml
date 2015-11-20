@@ -1,0 +1,34 @@
+<resources>
+
+    <!-- Number verification screen arabic step1 -->
+    <string name="verify_your_phone">التحقق من رقم هاتفك</string>
+    <string name="country_code_hint">المتحدة الدولة +1</string>
+    <string name="enter_your_phone_number_hint">أدخل رقم هاتفك</string>
+    <string name="send_confirmation_code">إرسال رمز التأكيد</string>
+    <string name="verification_msg">من خلال النقر فوق التالي، سوف Exap نرسل لك رسالة SMS لتأكيد رقم هاتفك وهنا فإنك توافق على شروط الخدمة و سياسة الخصوصية</string>
+
+
+    <!-- Sign up screen arabic-->
+    <string name="name_hint">اسم</string>
+    <string name="dob_hint">تاريخ الميلاد</string>
+    <string name="gender_hint">جنس</string>
+    <string name="email_id_hint">البريد الإلكتروني</string>
+    <string name="password_hint">كلمة المرور</string>
+    <string name="confirm_password_hint">تأكيد كلمة السر</string>
+    <string name="save_btn">حفظ</string>
+    <string name="profile_header">الملف الشخصي</string>
+    <string name="add_photo">إضافة صورة</string>
+
+    <!--Sign in screen arabic-->
+
+    <string name="connect_with_facebook_btn">تواصل مع الفيسبوك</string>
+    <string name="or">أو</string>
+    <string name="username_hint">اسم المستخدم</string>
+    <string name="password_sign_in_hint">كلمة المرور</string>
+    <string name="login_btn">تسجيل الدخول</string>
+    <string name="not_yet_registered">غير مسجل حتى الآن؟ سجل الان!</string>
+    <string name="forgot_password">هل نسيت كلمة المرور؟</string>
+    <string name="terms_and_conditions">البنود و الشروط | سياسة الخصوصية</string>
+
+
+</resources>

@@ -1,15 +1,12 @@
 package com.deal.exap.login;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.deal.exap.R;
-import com.deal.exap.customviews.MyTextViewReg12;
 import com.deal.exap.utility.TJPreferences;
 
 /**
@@ -44,7 +41,7 @@ public class NumberVerificationFragment extends Fragment {
         if (language.equalsIgnoreCase("ENG")) {
             view = inflater.inflate(R.layout.number_verification_1, container, false);
         } else {
-            view = inflater.inflate(R.layout.number_verification_1_arabic, container, false);
+            view = inflater.inflate(R.layout.number_verification_1, container, false);
         }
         return view;
     }
