@@ -1,16 +1,21 @@
 package com.deal.exap.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.utility.SessionManager;
+import com.deal.exap.utility.TJPreferences;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,18 +34,21 @@ public class SplashScreen extends AppCompatActivity {
     // List of Ids of radio buttons for displaying the dot of currently displayed picture
     private List<Integer> mRadioButtonIds;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
-
-
-
+        String language = TJPreferences.getAPP_LANG(SplashScreen.this);
+        setUpToolbar();
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
-
         FrameLayout frame_lay = (FrameLayout) findViewById(R.id.frame_lay);
         populateRadioButtonIds();
-        populateSplashBackgrounds();
+        if (language.equalsIgnoreCase("ENG")) {
+            populateEnglishSplashBackgrounds();
+        } else {
+            populateArabicSplashBackgrounds();
+        }
 
         mAdapter = new SplashScreenPagerAdapter(this, mPictures, mPictureIdsList);
         mViewPager.setAdapter(mAdapter);
@@ -85,7 +93,7 @@ public class SplashScreen extends AppCompatActivity {
         mRadioButtonIds.add(R.id.pic4_indicator);
     }
 
-    private void populateSplashBackgrounds() {
+    private void populateEnglishSplashBackgrounds() {
         mPictures = new HashMap<>();
 
 //        List<String> mPictureTextList = new ArrayList<>();
@@ -109,7 +117,62 @@ public class SplashScreen extends AppCompatActivity {
     }
 
 
+    private void populateArabicSplashBackgrounds() {
+        mPictures = new HashMap<>();
 
+
+        mPictureIdsList = new ArrayList<>();
+        mPictureIdsList.add(R.drawable.slide_img);
+        mPictureIdsList.add(R.drawable.slide_img);
+        mPictureIdsList.add(R.drawable.slide_img);
+        mPictureIdsList.add(R.drawable.slide_img);
+
+        int i = 0;
+        for (Integer a : mPictureIdsList) {
+            mPictures.put(a, "");
+            i++;
+        }
+
+    }
+
+
+    private void setUpToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        TextView titleExp = (TextView) toolbar.findViewById(R.id.toolbar_title_left);
+        titleExp.setText(getString(R.string.title_left));
+        titleExp.setOnClickListener(engLanguage);
+
+        TextView titleArb = (TextView) toolbar.findViewById(R.id.toolbar_title_right);
+        titleArb.setText(getString(R.string.title_right));
+        titleArb.setOnClickListener(arbLanguage);
+
+    }
+
+
+    View.OnClickListener engLanguage = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            TJPreferences.setAPP_LANG(SplashScreen.this, "ENG");
+            Intent i = new Intent(SplashScreen.this, SplashScreen.class);
+            startActivity(i);
+            finish();
+
+        }
+    };
+
+
+    View.OnClickListener arbLanguage = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            TJPreferences.setAPP_LANG(SplashScreen.this, "ARB");
+            Intent i = new Intent(SplashScreen.this, SplashScreen.class);
+            startActivity(i);
+            finish();
+
+        }
+    };
 
 
 }

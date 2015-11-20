@@ -29,6 +29,7 @@ public class TJPreferences {
     public static final String TIME_CAPSULE_DURATION = "DURATION";
     public static final String TIME_CAPSULE_MEMORY_COUNT = "MEMORY_COUNT";
     public static final String USER_OTP = "OTP";
+    public static final String APP_LANG = "LANG";
 
     public static void setLoggedIn(Context context, Boolean loggedIn) {
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
@@ -259,6 +260,20 @@ public class TJPreferences {
     public static String getUSER_OTP(Context context) {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(
                 USER_OTP, "");
+    }
+
+    public static void setAPP_LANG(Context context, String lang) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(APP_LANG, lang);
+        editor.apply();
+    }
+
+    // use ENG for english by default language
+    public static String getAPP_LANG(Context context) {
+        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(
+                APP_LANG, "ENG");
     }
 
 

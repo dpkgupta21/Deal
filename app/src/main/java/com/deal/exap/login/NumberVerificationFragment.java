@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyTextViewReg12;
+import com.deal.exap.utility.TJPreferences;
 
 /**
  * A login screen that offers login via email/password.
@@ -18,7 +19,7 @@ import com.deal.exap.customviews.MyTextViewReg12;
 public class NumberVerificationFragment extends Fragment {
 
 
-    private  View view;
+    private View view;
 
     public static NumberVerificationFragment newInstance() {
         NumberVerificationFragment fragment = new NumberVerificationFragment();
@@ -39,9 +40,12 @@ public class NumberVerificationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-         view = inflater.inflate(R.layout.number_verification_1, container, false);
-
+        String language = TJPreferences.getAPP_LANG(getActivity());
+        if (language.equalsIgnoreCase("ENG")) {
+            view = inflater.inflate(R.layout.number_verification_1, container, false);
+        } else {
+            view = inflater.inflate(R.layout.number_verification_1_arabic, container, false);
+        }
         return view;
     }
 
@@ -51,8 +55,6 @@ public class NumberVerificationFragment extends Fragment {
 
 
     }
-
-
 
 
 }

@@ -26,8 +26,25 @@
     <string name="profile_header">Profile</string>
     <string name="add_photo">Add Photo</string>
 
+
+    <!-- Sign up screen arabic-->
+    <string name="name_hint_arabic">اسم</string>
+    <string name="dob_hint_arabic">تاريخ الميلاد</string>
+    <string name="gender_hint_arabic">جنس</string>
+    <string name="email_id_hint_arabic">البريد الإلكتروني</string>
+    <string name="password_hint_arabic">كلمة المرور</string>
+    <string name="confirm_password_hint_arabic">تأكيد كلمة السر</string>
+    <string name="save_btn_arabic">حفظ</string>
+    <string name="profile_header_arabic">الملف الشخصي</string>
+    <string name="add_photo_arabic">إضافة صورة</string>
+
+
+
     <!-- Splash screen-->
     <string name="title">Lorem ipsum</string>
+    <string name="title_separator">|</string>
+    <string name="title_left">EXAP</string>
+    <string name="title_right">صفقة</string>
 
     <!-- Number verification screen step1 -->
     <string name="verify_your_phone">Verify your Phone Number</string>
@@ -36,6 +53,16 @@
     <string name="send_confirmation_code">Send Confirmation Code</string>
     <string name="verification_msg">By tapping next above, Exap will send you a SMS message to
         confirm your phone number and here by you agree to our Terms of services and Privacy Policy.</string>
+
+
+    <!-- Number verification screen arabic step1 -->
+    <string name="verify_your_phone_arabic">التحقق من رقم هاتفك</string>
+    <string name="country_code_hint_arabic">المتحدة الدولة +1</string>
+    <string name="enter_your_phone_number_hint_arabic">أدخل رقم هاتفك</string>
+    <string name="send_confirmation_code_arabic">إرسال رمز التأكيد</string>
+    <string name="verification_msg_arabic">من خلال النقر فوق التالي، سوف Exap نرسل لك رسالة SMS لتأكيد رقم هاتفك وهنا فإنك توافق على شروط الخدمة و سياسة الخصوصية</string>
+
+
 
     <!-- Number verification screen step2 -->
     <string name="enter_confirmation_code">Enter Confirmation Code</string>
@@ -52,9 +79,20 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="terms_and_conditions">Terms &amp; conditions | Privacy Policy</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--Sign in screen arabic-->
 
+    <string name="connect_with_facebook_btn_arabic">تواصل مع الفيسبوك</string>
+    <string name="or_arabic">أو</string>
+    <string name="username_hint_arabic">اسم المستخدم</string>
+    <string name="password_sign_in_hint_arabic">كلمة المرور</string>
+    <string name="login_btn_arabic">تسجيل الدخول</string>
+    <string name="not_yet_registered_arabic">غير مسجل حتى الآن؟ سجل الان!</string>
+    <string name="forgot_password_arabic">هل نسيت كلمة المرور؟</string>
+    <string name="terms_and_conditions_arabic">البنود و الشروط | سياسة الخصوصية</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
     <!--Navigation drawer screen-->

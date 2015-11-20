@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg12;
+import com.deal.exap.utility.TJPreferences;
 
 /**
  * A login screen that offers login via email/password.
@@ -38,16 +39,21 @@ public class SignInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        view = inflater.inflate(R.layout.sign_in, container, false);
+        String language = TJPreferences.getAPP_LANG(getActivity());
+        if (language.equalsIgnoreCase("ENG")) {
+            view = inflater.inflate(R.layout.sign_in, container, false);
+        }
+        else
+        {
+            view =inflater.inflate(R.layout.sign_in_arabic, container, false);
+        }
         return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         ((MyTextViewReg12) view.findViewById(R.id.txt_sign_up_click)).setOnClickListener(goToSignupClick);
-        ((MyButtonViewSemi)view.findViewById(R.id.btn_login)).setOnClickListener(goToInterestActivity);
-
+//        ((MyButtonViewSemi)view.findViewById(R.id.btn_login)).setOnClickListener(goToInterestActivity);
         super.onActivityCreated(savedInstanceState);
 
 

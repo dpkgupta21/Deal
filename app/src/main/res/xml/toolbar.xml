@@ -11,17 +11,36 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:gravity="center_horizontal"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <com.deal.exap.customviews.MyTextViewLight20
-            android:id="@+id/toolbar_title"
-            android:layout_width="0dp"
+            android:id="@+id/toolbar_title_left"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
+            android:gravity="center_horizontal"
+            android:layout_marginRight="10dp"
+            android:text="Title"
+            android:textColor="@color/white" />
+
+        <com.deal.exap.customviews.MyTextViewLight20
+            android:id="@+id/toolbar_title_separator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="|"
+            android:textColor="@color/white" />
+
+        <com.deal.exap.customviews.MyTextViewLight20
+            android:id="@+id/toolbar_title_right"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="Title"
             android:textColor="@color/white" />
+
     </LinearLayout>
 
 

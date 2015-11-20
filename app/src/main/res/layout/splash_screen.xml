@@ -4,15 +4,24 @@
     android:orientation="vertical"
     android:weightSum="2">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight=".8">
 
+
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <include
+            android:id="@+id/tool_bar"
+            layout="@xml/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true" />
 
         <RadioGroup
             android:id="@+id/swipe_indicator_radio_group"
