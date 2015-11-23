@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.deal.exap.R;
+import com.deal.exap.misc.CustomAlertDialog;
 import com.deal.exap.utility.TJPreferences;
 
 public class SignUp extends Activity {
@@ -17,16 +18,10 @@ public class SignUp extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String language = TJPreferences.getAPP_LANG(SignUp.this);
-        if(language.equalsIgnoreCase("ENG")) {
-            setContentView(R.layout.sign_up);
-        }
-        else {
-            setContentView(R.layout.sign_up);
-        }
-       // setUpToolbar();
+        setContentView(R.layout.sign_up);
+        // setUpToolbar();
 
-        ((Button)findViewById(R.id.btn_signup)).setOnClickListener(signUpClick);
+        ((Button) findViewById(R.id.btn_signup)).setOnClickListener(signUpClick);
 
 
     }
@@ -38,11 +33,14 @@ public class SignUp extends Activity {
 //        title.setText(getString(R.string.profile_header));
 //    }
 
-    View.OnClickListener signUpClick=new View.OnClickListener() {
+    View.OnClickListener signUpClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(SignUp.this, NumberVerificationActivity.class);
-            startActivity(i);
+//            Intent i = new Intent(SignUp.this, NumberVerificationActivity.class);
+//            startActivity(i);
+
+            CustomAlertDialog.getCustomAlert(SignUp.this).singleButtonAlertDialog(getString(R.string.uname_pwd_not_match), "", "");
+
         }
     };
 

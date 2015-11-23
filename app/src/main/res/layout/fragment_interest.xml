@@ -1,61 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.deal.exap.login.InterestFragment">
+    android:background="@color/white">
 
-    <LinearLayout
-        android:id="@+id/linear"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <org.apmem.tools.layouts.FlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:f="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/flowLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:paddingBottom="12dp"
+        android:paddingLeft="6dp"
+        android:paddingRight="12dp"
+        android:paddingTop="6dp"
+        f:layoutDirection="rtl"
+        f:weightDefault="1.0">
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/txt_outer_border"
-                android:singleLine="true"
-                android:text="Deepakdfsdsd  "
-                android:textSize="20sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="fill_horizontal"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/txt_outer_border"
-                android:singleLine="true"
-                android:text="Deepak"
-                android:textSize="20sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/txt_outer_border"
-                android:singleLine="true"
-                android:text="Deepak"
-                android:textSize="20sp" />
-        </RelativeLayout>
-    </LinearLayout>
+    </org.apmem.tools.layouts.FlowLayout>
 
 
 </LinearLayout>

@@ -47,7 +47,7 @@ public class SignInFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         ((MyTextViewReg12) view.findViewById(R.id.txt_sign_up_click)).setOnClickListener(goToSignupClick);
-        //((MyButtonViewSemi) view.findViewById(R.id.btn_login)).setOnClickListener(goToInterestActivity);
+        ((MyButtonViewSemi) view.findViewById(R.id.btn_login)).setOnClickListener(goToInterestActivity);
         super.onActivityCreated(savedInstanceState);
 
 

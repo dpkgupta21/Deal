@@ -1,22 +1,28 @@
 package com.deal.exap.login;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.TextView;
 
 import com.deal.exap.R;
+import com.deal.exap.customviews.MyTextViewReg16;
+
+import org.apmem.tools.layouts.FlowLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class InterestFragment extends Fragment {
 
     private View view;
+    private List<String> interestValues;
+    private List<String> interestValuesSelected;
 
 //    public static InterestFragment newInstance() {
 //        InterestFragment fragment = new InterestFragment();
@@ -44,83 +50,55 @@ public class InterestFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        interestValues = new ArrayList<>();
+        interestValuesSelected = new ArrayList<>();
+        String[] interest = getActivity().getResources().getStringArray(R.array.interset_values);
+        for (int i = 0; i < interest.length; i++) {
+            interestValues.add(interest[i]);
+        }
 
-        String interestValues[] = getActivity().getResources().getStringArray(R.array.interset_values);
-        int count = (interestValues.length % 3) == 0 ? interestValues.length / 3 : (interestValues.length / 3) + 1;
-        int counter = 0;
-        LinearLayout linear = (LinearLayout) view.findViewById(R.id.linear);
-
-        for (int i = 0; i < count; i++) {
-            LinearLayout linear_horizontal = new LinearLayout(getActivity());
-            LinearLayout.LayoutParams params_horizontal = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            linear_horizontal.setWeightSum(8);
-            linear_horizontal.setOrientation(LinearLayout.HORIZONTAL);
-            linear_horizontal.setLayoutParams(params_horizontal);
+        final FlowLayout layout = (FlowLayout) view.findViewById(R.id.flowLayout);
 
 
-            LinearLayout.LayoutParams params_left = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
-            params_left.weight = 2;
-            params_left.setMargins(0, 0, 0, 0);
-            TextView txt_interest_left = new TextView(getActivity());
-            txt_interest_left.setBackgroundResource(R.drawable.txt_outer_border);
-            txt_interest_left.setText(interestValues[i + counter]);
-            txt_interest_left.setTag(i + counter);
-            txt_interest_left.setGravity(Gravity.CENTER);
-            txt_interest_left.setPadding(10, 10, 10, 10);
-            txt_interest_left.setLayoutParams(params_left);
-            linear_horizontal.addView(txt_interest_left);
-
-            // Add space between text view
-            LayoutParams params_view = new LayoutParams(0, LayoutParams.WRAP_CONTENT);
-            params_view.weight = 1;
-            View view_transparent = new View(getActivity());
-            view_transparent.setLayoutParams(params_view);
-            linear_horizontal.addView(view_transparent);
-
-
-            // Add textview at middle side
-            if ((i + counter + 1) < interestValues.length) {
-                LayoutParams params_middle = new LayoutParams(0, LayoutParams.WRAP_CONTENT);
-                params_middle.weight = 2;
-                params_middle.setMargins(0, 0, 0, 0);
-                TextView txt_interest_middle = new TextView(getActivity());
-                txt_interest_middle.setBackgroundResource(R.drawable.txt_outer_border);
-                txt_interest_middle.setText(interestValues[i + counter + 1]);
-                txt_interest_middle.setTag(i + counter + 1);
-                txt_interest_middle.setPadding(10, 10, 10, 10);
-                txt_interest_middle.setGravity(Gravity.CENTER);
-                txt_interest_middle.setLayoutParams(params_middle);
-                linear_horizontal.addView(txt_interest_middle);
-            }
-            // Add space between text view
-            LayoutParams params_view1 = new LayoutParams(0, LayoutParams.WRAP_CONTENT);
-            params_view.weight = 1;
-            View view_transparent1 = new View(getActivity());
-            view_transparent.setLayoutParams(params_view1);
-            linear_horizontal.addView(view_transparent1);
-
-
-            // Add textview at right side
-            if ((i + counter + 2) < interestValues.length) {
-                LayoutParams params_right = new LayoutParams(0, LayoutParams.WRAP_CONTENT);
-                params_right.weight = 2;
-                params_right.setMargins(0, 0, 0, 0);
-                TextView txt_interest_right = new TextView(getActivity());
-                txt_interest_right.setBackgroundResource(R.drawable.txt_outer_border);
-                txt_interest_right.setText(interestValues[i + counter + 2]);
-                txt_interest_right.setTag(i + counter + 2);
-                txt_interest_right.setPadding(10, 10, 10, 10);
-                txt_interest_right.setGravity(Gravity.CENTER);
-                txt_interest_right.setLayoutParams(params_right);
-                linear_horizontal.addView(txt_interest_right);
-            }
-            // Add all five child in parent
-            linear.addView(linear_horizontal);
-            counter = counter+2;
+        for (int i = 0; i < interestValues.size(); i++) {
+            final MyTextViewReg16 textView = new MyTextViewReg16(getActivity());
+            FlowLayout.LayoutParams param = new FlowLayout.LayoutParams(FlowLayout.LayoutParams.WRAP_CONTENT, FlowLayout.LayoutParams.WRAP_CONTENT);
+            param.setMargins(10, 10, 10, 10);
+            textView.setLayoutParams(param);
+            textView.setTextSize(16);
+            textView.setBackgroundResource(R.drawable.txt_interest_border_unselect);
+            textView.setGravity(Gravity.CENTER);
+            textView.setTextColor(getResources().getColor(R.color.black));
+            textView.setText(interestValues.get(i));
+            textView.setTag(i);
+            textView.setClickable(true);
+            textView.setOnClickListener(interestSelectListener);
+            layout.addView(textView, 0);
         }
 
 
     }
+
+
+    View.OnClickListener interestSelectListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            MyTextViewReg16 textViewReg16 =(MyTextViewReg16)v;
+            int position = Integer.parseInt(textViewReg16.getTag().toString());
+            if (interestValuesSelected.contains(interestValues.get(position))) {
+                textViewReg16.setBackgroundResource(R.drawable.txt_interest_border_unselect);
+                textViewReg16.setTextColor(getResources().getColor(R.color.black));
+                interestValuesSelected.remove(interestValues.get(position));
+
+            } else {
+                textViewReg16.setBackgroundResource(R.drawable.txt_interest_border_select);
+                textViewReg16.setTextColor(getResources().getColor(R.color.white));
+                interestValuesSelected.add(interestValues.get(position));
+
+            }
+
+        }
+    };
 
 
 }

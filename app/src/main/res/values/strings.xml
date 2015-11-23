@@ -81,7 +81,23 @@
     <string name="name">MD Razak</string>
     <string name="age_city">29F | Dubai</string>
 
+    <string name="menu_alert">Alert</string>
+    <string name="menu_near_by">Near BY</string>
+    <string name="menu_wallet">Wallet</string>
+    <string name="menu_interest">Interest</string>
+    <string name="menu_favorite">Favorite</string>
+    <string name="menu_following">Following</string>
+    <string name="menu_categories">Categories</string>
+    <string name="menu_setting">Settings</string>
+
 
     <!--Interest screen-->
     <string name="interest_screen_title">Interest</string>
+
+
+    <!--Alert Screen-->
+    <string name="btn_text">Ok</string>
+    <string name="uname_pwd_not_match">The username and password do not match.</string>
+    <string name="sms_verification_error">The SMS verification code you entered is not correct</string>
+
 </resources>

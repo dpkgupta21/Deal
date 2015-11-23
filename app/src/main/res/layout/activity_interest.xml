@@ -12,17 +12,17 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--<LinearLayout-->
-            <!--android:id="@+id/container_toolbar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="vertical">-->
+        <LinearLayout
+            android:id="@+id/container_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <!--<include-->
-                <!--android:id="@+id/tool_bar"-->
-                <!--layout="@xml/toolbar" />-->
+            <include
+                android:id="@+id/tool_bar"
+                layout="@xml/toolbar" />
 
-        <!--</LinearLayout>-->
+        </LinearLayout>
 
         <FrameLayout
             android:id="@+id/body_layout"
@@ -34,13 +34,17 @@
     </LinearLayout>
 
 
-    <fragment
-        android:id="@+id/fragment_navigation_drawer"
-        android:name="com.deal.exap.navdrawer.FragmentDrawer"
-        android:layout_width="@dimen/nav_drawer_width"
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigation_view"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:layout="@layout/fragment_navigation_drawer"
-        tools:layout="@layout/fragment_navigation_drawer" />
+        android:background="@color/nav_drw_bg"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/drawer_header"
+        app:itemTextColor="@color/white"
+        app:itemIconTint="@color/white"
+        app:menu="@menu/drawer" />
+
 
 </android.support.v4.widget.DrawerLayout>

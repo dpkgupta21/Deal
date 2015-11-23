@@ -31,4 +31,11 @@
     <string name="terms_and_conditions">البنود و الشروط | سياسة الخصوصية</string>
 
 
+    <!--Alert Screen arabic-->
+    <string name="btn_text">حسنا</string>
+    <string name="uname_pwd_not_match">اسم المستخدم وكلمة المرور غير متطابقة.</string>
+    <string name="sms_verification_error">رمز التحقق SMS الذي أدخلته غير صحيح</string>
+
+
+
 </resources>

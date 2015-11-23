@@ -1,41 +1,126 @@
 package com.deal.exap.login;
 
 
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.deal.exap.R;
 import com.deal.exap.navdrawer.FragmentDrawer;
 
-public class InterestActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
+public class InterestActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
-    private FragmentDrawer drawerFragment;
+    private DrawerLayout mDrawerLayout;
+    private NavigationView mNavigationView;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private int mCurrentSelectedPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interest);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
+        mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
+
         setSupportActionBar(mToolbar);
+
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        drawerFragment = (FragmentDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
-        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
-        drawerFragment.setDrawerListener(this);
-        displayRecycleItems(3);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                InterestActivity.this.invalidateOptionsMenu();
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                InterestActivity.this.invalidateOptionsMenu();
+            }
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+                mToolbar.setAlpha(1 - slideOffset / 2);
+            }
+        };
+
+
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mDrawerToggle.syncState();
+            }
+        });
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                item.setChecked(true);
+                switch (item.getItemId()) {
+                    case R.id.nav_item_alert:
+
+                        mCurrentSelectedPosition = 0;
+                        return true;
+                    case R.id.nav_item_near_by:
+
+                        mCurrentSelectedPosition = 1;
+                        return true;
+                    case R.id.nav_item_wallet:
+
+                        mCurrentSelectedPosition = 2;
+                        return true;
+                    case R.id.nav_item_interest:
+                        displayView(3);
+                        mCurrentSelectedPosition = 3;
+                        return true;
+                    case R.id.nav_item_favorite:
+
+                        mCurrentSelectedPosition = 4;
+                        return true;
+                    case R.id.nav_item_following:
+
+                        mCurrentSelectedPosition = 5;
+                        return true;
+                    case R.id.nav_item_categories:
+
+                        mCurrentSelectedPosition = 6;
+                        return true;
+                    case R.id.nav_item_settings:
+
+                        mCurrentSelectedPosition = 7;
+                        return true;
+
+
+                    default:
+                        return true;
+                }
+            }
+        });
+
+
+        displayView(3);
+
 
     }
 
-    private void displayRecycleItems(int position) {
-        String title = getString(R.string.app_name);
-        Fragment fragment = null;
 
+    private void displayView(int position) {
+        Fragment fragment = null;
+        String title = getString(R.string.app_name);
         switch (position) {
             case 3:
                 fragment = new InterestFragment();
@@ -45,6 +130,7 @@ public class InterestActivity extends AppCompatActivity implements FragmentDrawe
             default:
                 break;
         }
+
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -52,14 +138,8 @@ public class InterestActivity extends AppCompatActivity implements FragmentDrawe
             fragmentTransaction.commit();
 
             // set the toolbar title
-            //    getSupportActionBar().setTitle(title);
+            getSupportActionBar().setTitle(title);
         }
     }
 
-
-    @Override
-    public void onDrawerItemSelected(View view, int position) {
-        displayRecycleItems(position);
-
-    }
 }
