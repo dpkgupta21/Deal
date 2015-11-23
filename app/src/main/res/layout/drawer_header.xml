@@ -9,13 +9,23 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true">
 
-        <com.deal.exap.customviews.RoundedImageView
+        <!--<com.deal.exap.customviews.RoundedImageView-->
+        <!--android:id="@+id/img_user_image"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:scaleType="fitCenter"-->
+        <!--android:src="@drawable/slide_img" />-->
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/img_user_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_centerInParent="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/slide_img" />
+            android:src="@drawable/slide_img"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="1dp" />
+
 
         <com.deal.exap.customviews.MyTextViewReg16
             android:id="@+id/txt_name"

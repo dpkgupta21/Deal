@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:checkableBehavior="single">
 
         <item
@@ -19,7 +20,8 @@
             android:id="@+id/nav_item_interest"
             android:checked="true"
             android:icon="@drawable/gender_icon"
-            android:title="@string/menu_interest" />
+            android:title="@string/menu_interest"
+            app:actionLayout="@layout/custom_nav_row"/>
 
         <item
             android:id="@+id/nav_item_favorite"

@@ -27,5 +27,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.+'
 
     compile 'org.apmem.tools:layouts:1.10@aar'
+    compile 'de.hdodenhof:circleimageview:2.0.0'
 
 }
