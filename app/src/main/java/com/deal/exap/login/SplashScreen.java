@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -117,6 +118,8 @@ public class SplashScreen extends AppCompatActivity {
 
     private void setUpToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        LinearLayout ll = (LinearLayout) toolbar.findViewById(R.id.ll_title_twice);
+        ll.setVisibility(View.VISIBLE);
         TextView titleExp = (TextView) toolbar.findViewById(R.id.toolbar_title_left);
         titleExp.setText(getString(R.string.title_left));
         titleExp.setOnClickListener(engLanguage);

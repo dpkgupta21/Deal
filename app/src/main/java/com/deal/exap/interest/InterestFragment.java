@@ -1,4 +1,4 @@
-package com.deal.exap.login;
+package com.deal.exap.interest;
 
 
 import android.graphics.Color;

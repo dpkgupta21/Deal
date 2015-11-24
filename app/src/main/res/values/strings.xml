@@ -27,8 +27,6 @@
     <string name="add_photo">Add Photo</string>
 
 
-
-
     <!-- Splash screen-->
     <string name="title">Lorem ipsum</string>
     <string name="title_separator">|</string>
@@ -44,19 +42,14 @@
         confirm your phone number and here by you agree to our Terms of services and Privacy Policy.</string>
 
 
-    <!-- Number verification screen arabic step1 -->
-    <string name="verify_your_phone_arabic">التحقق من رقم هاتفك</string>
-    <string name="country_code_hint_arabic">المتحدة الدولة +1</string>
-    <string name="enter_your_phone_number_hint_arabic">أدخل رقم هاتفك</string>
-    <string name="send_confirmation_code_arabic">إرسال رمز التأكيد</string>
-    <string name="verification_msg_arabic">من خلال النقر فوق التالي، سوف Exap نرسل لك رسالة SMS لتأكيد رقم هاتفك وهنا فإنك توافق على شروط الخدمة و سياسة الخصوصية</string>
-
 
 
     <!-- Number verification screen step2 -->
     <string name="enter_confirmation_code">Enter Confirmation Code</string>
     <string name="enter_code_hint">Enter Code</string>
     <string name="create_profile">Create Profile</string>
+
+
 
     <!-- Sign in screen-->
     <string name="connect_with_facebook_btn">Connect with Facebook</string>
@@ -67,8 +60,6 @@
     <string name="not_yet_registered">Not yet Registered? Register Now!</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="terms_and_conditions">Terms &amp; conditions | Privacy Policy</string>
-
-
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -99,5 +90,12 @@
     <string name="btn_text">Ok</string>
     <string name="uname_pwd_not_match">The username and password do not match.</string>
     <string name="sms_verification_error">The SMS verification code you entered is not correct</string>
+
+
+    <!--Setting Screen-->
+    <string name="location_service">Location Service</string>
+    <string name="notification_range">Notification Range</string>
+    <string name="km_miles">KM / Miles</string>
+    <string name="alert">Alerts</string>
 
 </resources>

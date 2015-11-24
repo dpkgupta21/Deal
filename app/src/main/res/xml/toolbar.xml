@@ -4,23 +4,26 @@
     android:id="@+id/app_bar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/primary"
+    android:background="@color/btn_color"
     android:minHeight="?attr/actionBarSize"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
     <LinearLayout
+        android:id="@+id/ll_title_twice"
         android:layout_width="match_parent"
-        android:gravity="center_horizontal"
         android:layout_height="match_parent"
+        android:visibility="gone"
+        android:gravity="center_horizontal"
         android:orientation="horizontal">
 
         <com.deal.exap.customviews.MyTextViewLight20
             android:id="@+id/toolbar_title_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:layout_marginRight="10dp"
+
+            android:gravity="center_horizontal"
             android:text="Title"
             android:textColor="@color/white" />
 
@@ -34,13 +37,30 @@
 
         <com.deal.exap.customviews.MyTextViewLight20
             android:id="@+id/toolbar_title_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:gravity="center_horizontal"
+            android:text="Title"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_title_single"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        android:orientation="horizontal">
+        <com.deal.exap.customviews.MyTextViewLight20
+            android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="Title"
             android:textColor="@color/white" />
-
     </LinearLayout>
 
 

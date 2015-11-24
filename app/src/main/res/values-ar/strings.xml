@@ -8,6 +8,13 @@
     <string name="verification_msg">من خلال النقر فوق التالي، سوف Exap نرسل لك رسالة SMS لتأكيد رقم هاتفك وهنا فإنك توافق على شروط الخدمة و سياسة الخصوصية</string>
 
 
+    <!-- Number verification screen  arabic step2 -->
+    <string name="enter_confirmation_code">أدخل رمز التأكيد</string>
+    <string name="enter_code_hint">الكود</string>
+    <string name="create_profile">إنشاء الملف الشخصي</string>
+
+
+
     <!-- Sign up screen arabic-->
     <string name="name_hint">اسم</string>
     <string name="dob_hint">تاريخ الميلاد</string>
@@ -36,6 +43,31 @@
     <string name="uname_pwd_not_match">اسم المستخدم وكلمة المرور غير متطابقة.</string>
     <string name="sms_verification_error">رمز التحقق SMS الذي أدخلته غير صحيح</string>
 
+
+    <!--Navigation drawer screen-->
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="name">MD الرزاق</string>
+    <string name="age_city">29F | دبي</string>
+
+    <string name="menu_alert">إنذار</string>
+    <string name="menu_near_by">قريب</string>
+    <string name="menu_wallet">محفظة جيب</string>
+    <string name="menu_interest">اهتمام</string>
+    <string name="menu_favorite">المفضل</string>
+    <string name="menu_following">التالي</string>
+    <string name="menu_categories">الفئات</string>
+    <string name="menu_setting">إعدادات</string>
+
+    <!--Interest screen-->
+    <string name="interest_screen_title">اهتمام</string>
+
+
+    <!--Setting Screen-->
+    <string name="location_service">Location Service</string>
+    <string name="notification_range">Notification Range</string>
+    <string name="km_miles">KM / Miles</string>
+    <string name="alert">Alerts</string>
 
 
 </resources>

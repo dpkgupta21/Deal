@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.deal.exap.R;
+import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg12;
 
 /**
@@ -38,13 +39,13 @@ public class NumberVerificationFragment2 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        view = inflater.inflate(R.layout.sign_in, container, false);
+        view = inflater.inflate(R.layout.number_verification_2, container, false);
         return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        ((MyTextViewReg12) view.findViewById(R.id.txt_sign_up_click)).setOnClickListener(goToSignupClick);
+        ((MyButtonViewSemi) view.findViewById(R.id.btn_create_profile)).setOnClickListener(goToSignupClick);
         super.onActivityCreated(savedInstanceState);
 
 

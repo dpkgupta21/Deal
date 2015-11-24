@@ -33,8 +33,6 @@ public class NumberVerificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.number_verification_base);
 
-
-
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
 
         FrameLayout frame_lay = (FrameLayout) findViewById(R.id.frame_lay);
@@ -86,12 +84,6 @@ public class NumberVerificationActivity extends AppCompatActivity {
 
     private void populateSplashBackgrounds() {
         mPictures = new HashMap<>();
-
-//        List<String> mPictureTextList = new ArrayList<>();
-//        mPictureTextList.add("Capture all type of memories. Not just photos. Travel Jar can take anything");
-//        mPictureTextList.add("Share those wonderful moments in the form of a small video created AUTOMATICALLY!.");
-//        mPictureTextList.add("No need to chase people for pictures anymore. Travel Jar automatically syncs everything");
-//        mPictureTextList.add("No need to chase people for pictures anymore. Travel Jar automatically syncs everything");
 
         mPictureIdsList = new ArrayList<>();
         mPictureIdsList.add(R.drawable.slide_img);

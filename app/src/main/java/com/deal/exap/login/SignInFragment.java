@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg12;
-import com.deal.exap.utility.TJPreferences;
+import com.deal.exap.navigationdrawer.NavigationDrawerActivity;
 
 /**
  * A login screen that offers login via email/password.
@@ -46,28 +46,30 @@ public class SignInFragment extends Fragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        ((MyTextViewReg12) view.findViewById(R.id.txt_sign_up_click)).setOnClickListener(goToSignupClick);
-        ((MyButtonViewSemi) view.findViewById(R.id.btn_login)).setOnClickListener(goToInterestActivity);
+        ((MyTextViewReg12) view.findViewById(R.id.txt_sign_up_click)).setOnClickListener(goToNumberVerificationClick);
+        ((MyButtonViewSemi) view.findViewById(R.id.btn_login)).setOnClickListener(goToHomePage);
         super.onActivityCreated(savedInstanceState);
 
 
     }
 
 
-    View.OnClickListener goToSignupClick = new View.OnClickListener() {
+    View.OnClickListener goToNumberVerificationClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent i = new Intent(getContext(), SignUp.class);
             startActivity(i);
+//            Intent i = new Intent(getContext(), NumberVerificationActivity.class);
+//            startActivity(i);
 
         }
     };
 
 
-    View.OnClickListener goToInterestActivity = new View.OnClickListener() {
+    View.OnClickListener goToHomePage = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(getContext(), InterestActivity.class);
+            Intent i = new Intent(getContext(), NavigationDrawerActivity.class);
             startActivity(i);
 
         }

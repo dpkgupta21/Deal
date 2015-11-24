@@ -10,4 +10,5 @@
     <color name="gray_light">#DADADA</color>
     <color name="facebook_btn_color">#4966B6</color>
     <color name="nav_drw_bg">#5b1717</color>
+    <color name="screen_bg_color">#e6e6e6</color>
 </resources>
