@@ -3,6 +3,8 @@ package com.deal.exap.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,10 +59,13 @@ public class SignInFragment extends Fragment {
     View.OnClickListener goToNumberVerificationClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(getContext(), SignUp.class);
-            startActivity(i);
-//            Intent i = new Intent(getContext(), NumberVerificationActivity.class);
-//            startActivity(i);
+            NumberVerificationFragment numberVerificationFragment = NumberVerificationFragment.newInstance();
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm
+                    .beginTransaction();
+            ft.replace(R.id.frame_lay, numberVerificationFragment);
+            ft.addToBackStack(null);
+            ft.commit();
 
         }
     };
