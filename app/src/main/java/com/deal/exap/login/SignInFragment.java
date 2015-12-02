@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyButtonViewSemi;
@@ -48,8 +49,13 @@ public class SignInFragment extends Fragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        ((MyTextViewReg12) view.findViewById(R.id.txt_sign_up_click)).setOnClickListener(goToNumberVerificationClick);
-        ((MyButtonViewSemi) view.findViewById(R.id.btn_login)).setOnClickListener(goToHomePage);
+        ((MyTextViewReg12) view.findViewById(R.id.txt_sign_up_click)).
+                setOnClickListener(goToNumberVerificationClick);
+        ((MyButtonViewSemi) view.findViewById(R.id.btn_login)).
+                setOnClickListener(goToHomePage);
+        ((TextView) view.findViewById(R.id.txt_forget_password_click)).
+                setOnClickListener(goToForgetPasswordPage);
+
         super.onActivityCreated(savedInstanceState);
 
 
@@ -70,6 +76,20 @@ public class SignInFragment extends Fragment {
         }
     };
 
+
+    View.OnClickListener goToForgetPasswordPage = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            ForgetPasswordFragment forgetPasswordFragment = ForgetPasswordFragment.newInstance();
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm
+                    .beginTransaction();
+            ft.replace(R.id.frame_lay, forgetPasswordFragment);
+            ft.addToBackStack(null);
+            ft.commit();
+
+        }
+    };
 
     View.OnClickListener goToHomePage = new View.OnClickListener() {
         @Override

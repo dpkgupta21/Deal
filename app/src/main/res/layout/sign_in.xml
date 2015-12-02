@@ -1,113 +1,120 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    android:paddingBottom="10dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingTop="10dp"
-    tools:context=".LoginActivity">
-
-
-    <com.deal.exap.customviews.MyButtonViewSemi
-        android:id="@+id/btn_facebook_login"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:background="@color/facebook_btn_color"
-        android:text="@string/connect_with_facebook_btn"
-        android:textColor="@color/white" />
-
-    <com.deal.exap.customviews.MyTextViewReg14
-        android:id="@+id/txt_or"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:padding="10dp"
-        android:text="@string/or"
-        android:textColor="@color/black" />
-
-
-    <com.deal.exap.customviews.MyEditTextViewReg
-        android:id="@+id/edt_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/edt_txt_gray_bcg_shape"
-        android:drawableLeft="@drawable/user_icon_dark"
-        android:drawablePadding="10dp"
-        android:hint="@string/username_hint"
-        android:imeOptions="actionDone"
-        android:inputType="text"
-        android:maxLength="10"
-        android:minEms="10"
-        android:singleLine="true" />
-
-    <com.deal.exap.customviews.MyEditTextViewReg
-        android:id="@+id/edt_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:background="@drawable/edt_txt_gray_bcg_shape"
-        android:drawableLeft="@drawable/lock_icon_dark"
-        android:drawablePadding="10dp"
-        android:hint="@string/password_hint"
-        android:imeOptions="actionDone"
-        android:inputType="text"
-        android:maxLength="10"
-        android:minEms="10"
-        android:singleLine="true" />
-
-    <com.deal.exap.customviews.MyButtonViewSemi
-        android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="@color/btn_color"
-        android:text="@string/login_btn"
-        android:textColor="@color/white" />
+    android:focusable="false"
+    android:focusableInTouchMode="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        tools:context=".LoginActivity">
+
+
+        <com.deal.exap.customviews.MyButtonViewSemi
+            android:id="@+id/btn_facebook_login"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@color/facebook_btn_color"
+            android:text="@string/connect_with_facebook_btn"
+            android:textColor="@color/white" />
+
+        <com.deal.exap.customviews.MyTextViewReg14
+            android:id="@+id/txt_or"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="@string/or"
+            android:textColor="@color/black" />
+
+
+        <com.deal.exap.customviews.MyEditTextViewReg
+            android:id="@+id/edt_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edt_txt_gray_bcg_shape"
+            android:drawableLeft="@drawable/user_icon_dark"
+            android:drawablePadding="10dp"
+            android:hint="@string/username_hint"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLength="10"
+            android:minEms="10"
+            android:singleLine="true" />
+
+        <com.deal.exap.customviews.MyEditTextViewReg
+            android:id="@+id/edt_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/edt_txt_gray_bcg_shape"
+            android:drawableLeft="@drawable/lock_icon_dark"
+            android:drawablePadding="10dp"
+            android:hint="@string/password_hint"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLength="10"
+            android:minEms="10"
+            android:singleLine="true" />
+
+        <com.deal.exap.customviews.MyButtonViewSemi
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@color/btn_color"
+            android:text="@string/login_btn"
+            android:textColor="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <com.deal.exap.customviews.MyTextViewReg12
+                android:id="@+id/txt_sign_up_click"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="left"
+                android:paddingTop="10dp"
+                android:text="@string/not_yet_registered"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <com.deal.exap.customviews.MyTextViewReg12
+                android:id="@+id/txt_forget_password_click"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:paddingTop="10dp"
+                android:text="@string/forgot_password"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
 
         <com.deal.exap.customviews.MyTextViewReg12
-            android:id="@+id/txt_sign_up_click"
-            android:layout_width="0dp"
+            android:id="@+id/txt_terms_conditions_click"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="left"
-            android:paddingTop="10dp"
-            android:text="@string/not_yet_registered"
+            android:gravity="center_horizontal"
+            android:paddingTop="15dp"
+            android:text="@string/terms_and_conditions"
             android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <com.deal.exap.customviews.MyTextViewReg12
-            android:id="@+id/txt_forget_password_click"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:paddingTop="10dp"
-            android:text="@string/forgot_password"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
     </LinearLayout>
-
-    <com.deal.exap.customviews.MyTextViewReg12
-        android:id="@+id/txt_terms_conditions_click"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:paddingTop="15dp"
-        android:text="@string/terms_and_conditions"
-        android:textColor="@color/black"
-        android:textSize="10sp" />
-</LinearLayout>
+</ScrollView>

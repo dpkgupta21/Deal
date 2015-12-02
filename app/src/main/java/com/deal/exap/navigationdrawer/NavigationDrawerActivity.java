@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.fragment.AlertFragment;
-import com.deal.exap.fragment.CategoriesFragment;
+import com.deal.exap.category.CategoriesFragment;
 import com.deal.exap.favorite.FavoriteFragment;
 import com.deal.exap.following.FollowingFragment;
 import com.deal.exap.fragment.NearByFragment;

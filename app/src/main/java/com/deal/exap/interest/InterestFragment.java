@@ -4,13 +4,20 @@ package com.deal.exap.interest;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.deal.exap.R;
+import com.deal.exap.category.CategoriesFragment;
 import com.deal.exap.customviews.MyTextViewReg16;
+import com.deal.exap.login.NumberVerificationFragment2;
 
 import org.apmem.tools.layouts.FlowLayout;
 
@@ -35,7 +42,9 @@ public class InterestFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
     }
 
@@ -43,6 +52,7 @@ public class InterestFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         view = inflater.inflate(R.layout.fragment_interest, container, false);
         return view;
     }
@@ -83,7 +93,7 @@ public class InterestFragment extends Fragment {
     View.OnClickListener interestSelectListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            MyTextViewReg16 textViewReg16 =(MyTextViewReg16)v;
+            MyTextViewReg16 textViewReg16 = (MyTextViewReg16) v;
             int position = Integer.parseInt(textViewReg16.getTag().toString());
             if (interestValuesSelected.contains(interestValues.get(position))) {
                 textViewReg16.setBackgroundResource(R.drawable.txt_interest_border_unselect);
@@ -101,4 +111,28 @@ public class InterestFragment extends Fragment {
     };
 
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_interest, menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.menu_check:
+
+                CategoriesFragment categoriesFragment = new CategoriesFragment();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm
+                        .beginTransaction();
+                ft.replace(R.id.body_layout, categoriesFragment);
+                ft.commit();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
 }

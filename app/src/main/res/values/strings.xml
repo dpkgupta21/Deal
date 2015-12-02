@@ -81,6 +81,7 @@
 
     <!--Interest screen-->
     <string name="interest_screen_title">Interest</string>
+    <string name="menu_check">Check</string>
 
 
     <!--Alert Screen-->
@@ -119,4 +120,9 @@
     <string name="txt_downloads_val">154</string>
     <string name="txt_followers_val">95</string>
 
+
+    <!--Forget Password screen-->
+    <string name="forget_password_header">Forget Password</string>
+    <string name="enter_your_email_id_hint">Enter your email id</string>
+    <string name="submit_btn">Submit</string>
 </resources>
