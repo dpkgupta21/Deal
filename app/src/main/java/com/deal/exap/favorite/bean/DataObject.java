@@ -1,8 +1,6 @@
 package com.deal.exap.favorite.bean;
 
-/**
- * Created by Nicky on 11/24/2015.
- */
+
 public class DataObject {
 
     private String mText1;

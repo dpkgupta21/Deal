@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
-/**
- * Created by deepak on 16/11/15.
- */
+
 
 public class SMSReceiver extends BroadcastReceiver {
     private String TAG = SMSReceiver.class.getSimpleName();

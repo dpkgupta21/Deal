@@ -14,9 +14,7 @@ import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg16;
 import com.deal.exap.login.NumberVerificationActivity;
 
-/**
- * Created by Nicky Gupta on 11/21/2015.
- */
+
 public class CustomAlertDialog {
 
     private Object object;

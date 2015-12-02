@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 
-/**
- * Created by deepak on 16/11/15.
- */
+
 
 
 public class TJPreferences {

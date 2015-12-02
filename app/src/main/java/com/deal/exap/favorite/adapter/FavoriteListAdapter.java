@@ -12,9 +12,6 @@ import com.deal.exap.favorite.bean.DataObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by Nicky on 11/24/2015.
- */
 public class FavoriteListAdapter extends RecyclerView
         .Adapter<FavoriteListAdapter
         .DataObjectHolder> {
