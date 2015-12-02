@@ -1,10 +1,7 @@
 package com.deal.exap.favorite;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.deal.exap.R;
-import com.deal.exap.favorite.adapter.MyRecyclerViewAdapter;
+import com.deal.exap.favorite.adapter.FavoriteListAdapter;
 import com.deal.exap.favorite.bean.DataObject;
 
 import java.util.ArrayList;
@@ -61,7 +58,7 @@ public class FavoriteFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new MyRecyclerViewAdapter(getDataSet());
+        mAdapter = new FavoriteListAdapter(getDataSet());
         mRecyclerView.setAdapter(mAdapter);
 
 
@@ -69,12 +66,13 @@ public class FavoriteFragment extends Fragment {
 
     private ArrayList<DataObject> getDataSet() {
         ArrayList results = new ArrayList<DataObject>();
-        for (int index = 0; index < 20; index++) {
-            DataObject obj = new DataObject("Some Primary Text " + index,
-                    "Secondary " + index);
+        for (int index = 0; index < 10; index++) {
+            DataObject obj = new DataObject("Auto",
+                    "" + index);
             results.add(index, obj);
         }
         return results;
     }
+
 
 }

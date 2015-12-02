@@ -20,7 +20,7 @@ import com.deal.exap.R;
 import com.deal.exap.fragment.AlertFragment;
 import com.deal.exap.fragment.CategoriesFragment;
 import com.deal.exap.favorite.FavoriteFragment;
-import com.deal.exap.fragment.FollowingFragment;
+import com.deal.exap.following.FollowingFragment;
 import com.deal.exap.fragment.NearByFragment;
 import com.deal.exap.fragment.WalletFragment;
 import com.deal.exap.interest.InterestFragment;
@@ -134,7 +134,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                 break;
             case 4:
                 fragment = new FavoriteFragment();
-                title = "";
+                title = getString(R.string.favorite_screen_title);
                 break;
 
             case 5:

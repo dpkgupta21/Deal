@@ -4,74 +4,224 @@
     android:layout_height="match_parent"
     android:background="@color/screen_bg_color"
     android:orientation="vertical"
-    android:paddingBottom="10dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingTop="10dp"
     tools:context="com.deal.exap.fragment.SettingFragment">
 
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@color/white">
+        android:layout_height="match_parent">
 
-        <com.deal.exap.customviews.MyTextViewReg16
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:padding="10dp"
-            android:text="@string/location_service" />
-
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:padding="10dp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
-
-        <com.deal.exap.customviews.MyTextViewReg14
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="@string/notification_range" />
-
-        <com.deal.exap.customviews.MyTextViewReg14
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@string/km_miles" />
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@color/white">
-
-        <SeekBar
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp">
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/white">
 
-    <com.deal.exap.customviews.MyTextViewReg14
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/alert" />
+                <com.deal.exap.customviews.MyTextViewReg16
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:padding="10dp"
+                    android:text="@string/location_service" />
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="10dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <com.deal.exap.customviews.MyTextViewReg14
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/notification_range" />
+
+                <com.deal.exap.customviews.MyTextViewReg14
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/km_miles" />
+
+            </RelativeLayout>
 
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white">
+
+                <SeekBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp" />
+
+            </RelativeLayout>
+
+            <com.deal.exap.customviews.MyTextViewReg14
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/alert" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white">
+
+                <com.deal.exap.customviews.MyTextViewReg16
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:padding="10dp"
+                    android:text="@string/push_alert" />
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="10dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white">
+
+                <com.deal.exap.customviews.MyTextViewReg16
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:padding="10dp"
+                    android:text="@string/message_alert" />
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="10dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white">
+
+                <com.deal.exap.customviews.MyTextViewReg16
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:padding="10dp"
+                    android:text="@string/deal_expiry_alert" />
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="10dp" />
+
+            </RelativeLayout>
+
+            <com.deal.exap.customviews.MyTextViewReg14
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/change_language" />
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:weightSum="1">
+
+                <com.deal.exap.customviews.MyTextViewReg16
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="@string/txt_english"
+                    android:textSize="16sp" />
+
+
+                <com.deal.exap.customviews.MyTextViewReg16
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="@string/txt_arabic"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/white">
+
+                <com.deal.exap.customviews.MyTextViewReg16
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="@string/txt_change_currency" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/white">
+
+                <com.deal.exap.customviews.MyTextViewReg16
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="@string/txt_edit_profile" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/white">
+
+                <com.deal.exap.customviews.MyTextViewReg16
+                    android:id="@+id/txt_payment_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="@string/txt_edit_payment_details" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
 </LinearLayout>

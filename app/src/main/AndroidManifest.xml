@@ -33,11 +33,11 @@
         <activity
             android:name=".login.SignUp"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".login.NumberVerificationActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <!-- To recive and read text messages -->
         <receiver
@@ -53,6 +53,8 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
         </activity>
+        <activity android:name=".settings.PaymentDetailsActivity"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog"></activity>
     </application>
 
 </manifest>

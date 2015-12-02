@@ -15,10 +15,10 @@ import java.util.ArrayList;
 /**
  * Created by Nicky on 11/24/2015.
  */
-public class MyRecyclerViewAdapter extends RecyclerView
-        .Adapter<MyRecyclerViewAdapter
+public class FavoriteListAdapter extends RecyclerView
+        .Adapter<FavoriteListAdapter
         .DataObjectHolder> {
-    private static String LOG_TAG = "MyRecyclerViewAdapter";
+    private static String LOG_TAG = "FollowingListAdapter";
     private ArrayList<DataObject> mDataset;
     private static MyClickListener myClickListener;
 
@@ -30,8 +30,8 @@ public class MyRecyclerViewAdapter extends RecyclerView
 
         public DataObjectHolder(View itemView) {
             super(itemView);
-            label = (TextView) itemView.findViewById(R.id.title);
-            dateTime = (TextView) itemView.findViewById(R.id.subtitle);
+            label = (TextView) itemView.findViewById(R.id.txt_category_name);
+            dateTime = (TextView) itemView.findViewById(R.id.txt_like_number);
             Log.i(LOG_TAG, "Adding Listener");
             itemView.setOnClickListener(this);
         }
@@ -46,7 +46,7 @@ public class MyRecyclerViewAdapter extends RecyclerView
         this.myClickListener = myClickListener;
     }
 
-    public MyRecyclerViewAdapter(ArrayList<DataObject> myDataset) {
+    public FavoriteListAdapter(ArrayList<DataObject> myDataset) {
         mDataset = myDataset;
     }
 
