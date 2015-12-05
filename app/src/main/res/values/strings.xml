@@ -91,6 +91,7 @@
 
 
     <!--Setting Screen-->
+    <string name="setting_screen_title">SETTINGS</string>
     <string name="location_service">Location Service</string>
     <string name="notification_range">Notification Range</string>
     <string name="km_miles">KM / Miles</string>
@@ -104,6 +105,7 @@
     <string name="txt_edit_payment_details">Edit Payment Details</string>
     <string name="txt_edit_profile">Edit Profile</string>
     <string name="txt_change_currency">Change Currency -USD</string>
+
     <!--Payment Details Screen-->
     <string name="hint_card_no">Card No.</string>
     <string name="hint_name_on_card">Name On Card</string>
@@ -125,4 +127,46 @@
     <string name="forget_password_header">Forget Password</string>
     <string name="enter_your_email_id_hint">Enter your email id</string>
     <string name="submit_btn">Submit</string>
+
+
+    <!--Categories screen-->
+    <string name="menu_notification">Notification</string>
+    <string name="categories_title">Categories</string>
+
+    <!--following scrren-->
+    <string name="following_screen_title">Following</string>
+
+
+    <!-- Near By Screen-->
+
+    <string name="txt_selcted_category">Food &amp; Dining</string>
+    <string name="txt_high_to_low">High To Low</string>
+    <string name="txt_low_to_high">Low To High</string>
+    <string name="txt_distance">Distance</string>
+    <string name="txt_discount">Discount</string>
+    <string name="txt_end_date">End Date</string>
+    <string name="nearby_screen_title">NearBy</string>
+    <string name="menu_filter">Filter</string>
+
+
+    <!--Store details Screen-->
+    <string name="btn_reedme">Redeem</string>
+    <string name="title_activity_store_details">Map</string>
+    <string name="txt_store_online">IN STORE AND ONLINE</string>
+    <string name="txt_store_dis">libero eu sed rhoncus varius, metus nulla ruturm magna, sed rhoncus  augue lectus porttitor nisi.</string>
+    <string name="txt_discount_per">Discount</string>
+    <string name="txt_store_price">Store Price</string>
+    <string name="txt_cutomer_review">Customer Review</string>
+    <string name="txt_term_condition">Term &amp; Conditions</string>
+
+
+    <!-- coupon Details Screen-->
+    <string name="title_activity_cuopon_details">Coupon</string>
+    <string name="btn_rate">Rate this Coupon</string>
+    <string name="btn_buy">Buy Online</string>
+    <string name="txt_coupon_code">Coupon Code</string>
+    <string name="title_activity_rate_coupon">Map</string>
+    <string name="title_activity_buy_coupon">Map</string>
+    <string name="txt_buy">Buy</string>
+
 </resources>

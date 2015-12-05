@@ -21,7 +21,7 @@ import com.deal.exap.fragment.AlertFragment;
 import com.deal.exap.category.CategoriesFragment;
 import com.deal.exap.favorite.FavoriteFragment;
 import com.deal.exap.following.FollowingFragment;
-import com.deal.exap.fragment.NearByFragment;
+import com.deal.exap.nearby.NearByFragment;
 import com.deal.exap.fragment.WalletFragment;
 import com.deal.exap.interest.InterestFragment;
 import com.deal.exap.settings.SettingFragment;
@@ -44,17 +44,17 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
         LinearLayout ll = (LinearLayout) mToolbar.findViewById(R.id.ll_title_single);
         ll.setVisibility(View.VISIBLE);
-        mToolBarTitle = (TextView)mToolbar.findViewById(R.id.toolbar_title);
+        mToolBarTitle = (TextView) mToolbar.findViewById(R.id.toolbar_title);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
 
         setSupportActionBar(mToolbar);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) ;
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-                mDrawerToggle.syncState();
+        mDrawerToggle.syncState();
 
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -122,7 +122,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
             case 1:
                 fragment = new NearByFragment();
-                title = "";
+                title = getString(R.string.nearby_screen_title);
                 break;
             case 2:
                 fragment = new WalletFragment();
@@ -139,16 +139,16 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
             case 5:
                 fragment = new FollowingFragment();
-                title = "";
+                title = getString(R.string.following_screen_title);
                 break;
 
             case 6:
                 fragment = new CategoriesFragment();
-                title = "";
+                title = getString(R.string.categories_title);
                 break;
             case 7:
                 fragment = new SettingFragment();
-                title = "";
+                title = getString(R.string.setting_screen_title);
                 break;
 
             default:

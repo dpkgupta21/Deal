@@ -1,12 +1,12 @@
-package com.deal.exap.category;
+package com.deal.exap.nearby;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,26 +21,25 @@ import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.category.adapter.CategoriesListAdapter;
-import com.deal.exap.favorite.adapter.FavoriteListAdapter;
 import com.deal.exap.favorite.bean.DataObject;
+import com.deal.exap.nearby.adapter.NearByListAdapter;
 
 import java.util.ArrayList;
 
 
-public class CategoriesFragment extends Fragment {
-
+public class NearByFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private View view;
-//    public static CategoriesFragment newInstance() {
-//        CategoriesFragment fragment = new CategoriesFragment();
+//    public static NearByFragment newInstance() {
+//        NearByFragment fragment = new NearByFragment();
 //
 //        return fragment;
 //    }
 
-    public CategoriesFragment() {
+    public NearByFragment() {
         // Required empty public constructor
     }
 
@@ -51,32 +50,34 @@ public class CategoriesFragment extends Fragment {
 
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragmen
+        // Inflate the layout for this fragment
 
-        view = inflater.inflate(R.layout.fragment_blank, container, false);
+        view = inflater.inflate(R.layout.fragment_near_by, container, false);
+
         return view;
     }
 
-
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setTitleFragment(getString(R.string.categories_title));
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_category);
+        setTitleFragment(getString(R.string.nearby_screen_title));
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_nearby);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new CategoriesListAdapter(getDataSet());
+        mAdapter = new NearByListAdapter(getDataSet());
         mRecyclerView.setAdapter(mAdapter);
 
 
-        ((CategoriesListAdapter) mAdapter).setOnItemClickListener(new CategoriesListAdapter.MyClickListener() {
+        ((NearByListAdapter) mAdapter).setOnItemClickListener(new NearByListAdapter.MyClickListener() {
             @Override
             public void onItemClick(int position, View v) {
+
+                Intent i = new Intent(getActivity(),StoreDetailsActivity.class);
+                startActivity(i);
 
             }
         });
@@ -96,7 +97,7 @@ public class CategoriesFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_categories, menu);
+        inflater.inflate(R.menu.menu_nearby, menu);
     }
 
 
@@ -104,7 +105,7 @@ public class CategoriesFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.menu_notification:
+            case R.id.menu_filter:
 
 
             default:
@@ -118,6 +119,5 @@ public class CategoriesFragment extends Fragment {
         TextView txtTitle = ((TextView) mToolbar.findViewById(R.id.toolbar_title));
         txtTitle.setText(strTitle);
     }
-
 
 }

@@ -13,4 +13,7 @@
     <color name="screen_bg_color">#e6e6e6</color>
     <color name="strip_bg_color">#f8f8f8</color>
     <color name="transparent_10">#1AFFFFFF</color>
+    <color name="track_color">#9b5756</color>
+
+
 </resources>
