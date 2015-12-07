@@ -333,11 +333,13 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center_horizontal">
 
-                <com.deal.exap.customviews.MyTextViewReg16
+                <com.deal.exap.customviews.MyTextViewRegCustom
+                    android:id="@+id/txt_customer_reviews"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/txt_cutomer_review"
-                    android:textColor="@color/btn_color" />
+                    android:textColor="@color/btn_color"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="1dp"
@@ -345,12 +347,14 @@
                     android:layout_marginLeft="10dp"
                     android:background="@color/btn_color"></View>
 
-                <com.deal.exap.customviews.MyTextViewReg16
+                <com.deal.exap.customviews.MyTextViewRegCustom
+                    android:id="@+id/txt_terms_conditions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="@string/txt_term_condition"
-                    android:textColor="@color/btn_color" />
+                    android:textColor="@color/btn_color"
+                    android:textSize="16sp" />
 
             </LinearLayout>
         </LinearLayout>

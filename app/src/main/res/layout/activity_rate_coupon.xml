@@ -26,22 +26,21 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="70dp"
                 android:layout_alignParentBottom="true"
-                android:gravity="center_vertical"
-                android:padding="3dp">
+                android:gravity="center_vertical">
 
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight=".6">
+                    android:layout_weight=".7">
 
                     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/img_title"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight=".3"
+                        android:layout_weight=".2"
                         android:src="@drawable/payment_type_icon"
                         app:civ_border_color="@color/white"
                         app:civ_border_width="1dp" />
@@ -50,59 +49,50 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="2dp"
-                        android:layout_weight=".7"
-                        android:orientation="vertical">
+                        android:layout_weight=".8"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="3dp">
 
-                        <com.deal.exap.customviews.MyTextViewReg14
+                        <com.deal.exap.customviews.MyTextViewRegCustom
                             android:id="@+id/txt_discount_rate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="35% off"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
 
-                        <com.deal.exap.customviews.MyTextViewReg14
+                        <com.deal.exap.customviews.MyTextViewRegCustom
                             android:id="@+id/txt_on_which"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="on Fanta Pride"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="10sp" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/nav_nearby_icon" />
-
-                            <com.deal.exap.customviews.MyTextViewLight14
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="21Street, Hansonberg, Berlin "
-                                android:textColor="@color/white" />
-
-                        </LinearLayout>
-
+                        <com.deal.exap.customviews.MyTextViewLightCustom
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/nav_nearby_icon"
+                            android:text="21Street, Hansonberg, Berlin "
+                            android:textColor="@color/white"
+                            android:textSize="10sp" />
 
                     </LinearLayout>
 
-
                 </LinearLayout>
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/gray_light"></View>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight=".4"
+                    android:layout_weight=".3"
+                    android:gravity="center_vertical"
                     android:orientation="vertical">
 
                     <LinearLayout
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -111,19 +101,21 @@
                         android:background="@drawable/txt_outer_border_grey"
                         android:orientation="vertical">
 
-                        <com.deal.exap.customviews.MyTextViewReg14
+                        <com.deal.exap.customviews.MyTextViewRegCustom
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:text="USD 10"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
 
-                        <com.deal.exap.customviews.MyTextViewLight14
+                        <com.deal.exap.customviews.MyTextViewLightCustom
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:text="USD 15"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="6sp" />
 
                     </LinearLayout>
 
@@ -131,38 +123,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:layout_width="18dp"
+                        <RatingBar
+                            android:id="@+id/rating_bar"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/heart_fill_icon" />
+                            android:numStars="5"
+                            android:rating="5.0"
+                            android:stepSize="1.0" />
 
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/heart_fill_icon" />
-
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/heart_fill_icon" />
-
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/heart_fill_icon" />
-
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/heart_icon" />
-
-                        <com.deal.exap.customviews.MyTextViewReg14
+                        <com.deal.exap.customviews.MyTextViewRegCustom
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="(15)"
                             android:textColor="@color/white"
-                            android:textSize="8sp" />
+                            android:textSize="6sp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -181,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/gray_light"
                 android:orientation="horizontal"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:weightSum="1.2">
 
                 <LinearLayout
@@ -190,19 +166,20 @@
                     android:layout_weight=".4"
                     android:orientation="vertical">
 
-                    <com.deal.exap.customviews.MyTextViewLight14
+                    <com.deal.exap.customviews.MyTextViewRegCustom
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="End Date"
-                        android:textSize="14sp" />
+                        android:textSize="10sp" />
 
-                    <com.deal.exap.customviews.MyTextViewReg16
+                    <com.deal.exap.customviews.MyTextViewRegCustom
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="30th Nov"
-                        android:textColor="@color/btn_color" />
+                        android:textColor="@color/btn_color"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -213,19 +190,20 @@
                     android:layout_weight=".4"
                     android:orientation="vertical">
 
-                    <com.deal.exap.customviews.MyTextViewLight14
+                    <com.deal.exap.customviews.MyTextViewRegCustom
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="Redeemed"
-                        android:textSize="14sp" />
+                        android:textSize="10sp" />
 
-                    <com.deal.exap.customviews.MyTextViewReg16
+                    <com.deal.exap.customviews.MyTextViewRegCustom
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="456"
-                        android:textColor="@color/btn_color" />
+                        android:textColor="@color/btn_color"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -236,19 +214,20 @@
                     android:layout_weight=".4"
                     android:orientation="vertical">
 
-                    <com.deal.exap.customviews.MyTextViewLight14
+                    <com.deal.exap.customviews.MyTextViewRegCustom
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="Distance"
-                        android:textSize="14sp" />
+                        android:textSize="10sp" />
 
-                    <com.deal.exap.customviews.MyTextViewReg16
+                    <com.deal.exap.customviews.MyTextViewRegCustom
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="1.2 Km"
-                        android:textColor="@color/btn_color" />
+                        android:textColor="@color/btn_color"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -256,21 +235,21 @@
             </LinearLayout>
 
 
-            <com.deal.exap.customviews.MyTextViewReg16
+            <com.deal.exap.customviews.MyTextViewRegCustom
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:gravity="center_horizontal"
-                android:padding="10dp"
                 android:text="@string/txt_store_online"
                 android:textStyle="bold" />
 
-            <com.deal.exap.customviews.MyTextViewLight14
+            <com.deal.exap.customviews.MyTextViewLightCustom
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:padding="10dp"
-                android:text="@string/txt_store_dis" />
+                android:text="@string/txt_store_dis"
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -284,18 +263,20 @@
                     android:layout_weight=".5"
                     android:orientation="vertical">
 
-                    <com.deal.exap.customviews.MyTextViewReg16
+                    <com.deal.exap.customviews.MyTextViewRegCustom
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="AD457S"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <com.deal.exap.customviews.MyTextViewReg16
+                    <com.deal.exap.customviews.MyTextViewRegCustom
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="@string/txt_coupon_code"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -311,11 +292,13 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center_horizontal">
 
-                <com.deal.exap.customviews.MyTextViewReg16
+                <com.deal.exap.customviews.MyTextViewRegCustom
+                    android:id="@+id/txt_customer_reviews"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/txt_cutomer_review"
-                    android:textColor="@color/btn_color" />
+                    android:textColor="@color/btn_color"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="1dp"
@@ -323,12 +306,14 @@
                     android:layout_marginLeft="10dp"
                     android:background="@color/btn_color"></View>
 
-                <com.deal.exap.customviews.MyTextViewReg16
+                <com.deal.exap.customviews.MyTextViewRegCustom
+                    android:id="@+id/txt_terms_conditions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="@string/txt_term_condition"
-                    android:textColor="@color/btn_color" />
+                    android:textColor="@color/btn_color"
+                    android:textSize="16sp" />
 
             </LinearLayout>
         </LinearLayout>
@@ -349,9 +334,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight=".5"
-        android:padding="10dp">
+        android:paddingBottom="8dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="8dp">
 
-        <com.deal.exap.customviews.MyButtonViewSemi
+        <com.deal.exap.customviews.MyButtonViewRegCustom
             android:id="@+id/btn_rate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

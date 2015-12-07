@@ -169,4 +169,10 @@
     <string name="title_activity_buy_coupon">Map</string>
     <string name="txt_buy">Buy</string>
 
+    <!--Post your feedback screen-->
+    <string name="post_your_feedback_header">Post your feedback</string>
+    <string name="write_your_comments_hint">Write your comments...</string>
+    <string name="post_comments_btn">Post Comments</string>
+    <string name="cancel_btn">Cancel</string>
+
 </resources>

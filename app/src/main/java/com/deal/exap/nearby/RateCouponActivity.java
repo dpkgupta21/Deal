@@ -1,9 +1,13 @@
 package com.deal.exap.nearby;
 
-import android.support.v4.app.FragmentActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.TextView;
 
 import com.deal.exap.R;
+import com.deal.exap.feedback.PostFeedbackActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -23,6 +27,9 @@ public class RateCouponActivity extends FragmentActivity implements OnMapReadyCa
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        TextView txt_customer_reviews = (TextView) findViewById(R.id.txt_customer_reviews);
+        txt_customer_reviews.setOnClickListener(customerReviewClickListener);
     }
 
 
@@ -44,4 +51,13 @@ public class RateCouponActivity extends FragmentActivity implements OnMapReadyCa
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
+
+    private View.OnClickListener customerReviewClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent postFeedbackIntent = new Intent(RateCouponActivity.this, PostFeedbackActivity.class);
+            startActivity(postFeedbackIntent);
+
+        }
+    };
 }

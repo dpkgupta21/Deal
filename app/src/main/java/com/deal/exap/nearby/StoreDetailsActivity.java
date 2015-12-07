@@ -1,13 +1,14 @@
 package com.deal.exap.nearby;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.deal.exap.R;
-import com.deal.exap.navigationdrawer.NavigationDrawerActivity;
+import com.deal.exap.feedback.PostFeedbackActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -28,9 +29,10 @@ public class StoreDetailsActivity extends FragmentActivity implements OnMapReady
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        TextView txt_customer_reviews = (TextView) findViewById(R.id.txt_customer_reviews);
+        txt_customer_reviews.setOnClickListener(customerReviewClickListener);
         ((Button) findViewById(R.id.btn_redeem)).setOnClickListener(gotoRedeemCoupon);
     }
-
 
     /**
      * Manipulates the map once available.
@@ -51,12 +53,20 @@ public class StoreDetailsActivity extends FragmentActivity implements OnMapReady
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
+    private View.OnClickListener customerReviewClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent postFeedbackIntent = new Intent(StoreDetailsActivity.this, PostFeedbackActivity.class);
+            startActivity(postFeedbackIntent);
+
+        }
+    };
 
 
     View.OnClickListener gotoRedeemCoupon = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(StoreDetailsActivity.this, CuoponDetailsActivity.class);
+            Intent i = new Intent(StoreDetailsActivity.this, CouponDetailsActivity.class);
             startActivity(i);
 
             // CustomAlertDialog.getCustomAlert(SignUp.this).singleButtonAlertDialog(getString(R.string.uname_pwd_not_match), "", "");

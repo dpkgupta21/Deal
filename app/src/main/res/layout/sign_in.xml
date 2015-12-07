@@ -19,7 +19,6 @@
 
         <com.deal.exap.customviews.MyButtonViewSemi
             android:id="@+id/btn_facebook_login"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linearLayout1"

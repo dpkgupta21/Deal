@@ -1,9 +1,17 @@
 package com.deal.exap.nearby;
 
-import android.support.v4.app.FragmentActivity;
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.deal.exap.R;
+import com.deal.exap.feedback.PostFeedbackActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -19,12 +27,36 @@ public class BuyCouponActivity extends FragmentActivity implements OnMapReadyCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_coupon);
+
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        TextView txt_customer_reviews = (TextView) findViewById(R.id.txt_customer_reviews);
+        txt_customer_reviews.setOnClickListener(customerReviewClickListener);
+
+        ((LinearLayout) findViewById(R.id.linear_payment_dialog)).setOnClickListener(dialogClickListener);
     }
 
+
+    View.OnClickListener dialogClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            openPaymentDialog();
+        }
+    };
+
+    private void openPaymentDialog() {
+        final Dialog dialog = new Dialog(BuyCouponActivity.this, R.style.Theme_Dialog);
+        // Include dialog.xml file
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_payment);
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        dialog.show();
+    }
 
     /**
      * Manipulates the map once available.
@@ -44,4 +76,14 @@ public class BuyCouponActivity extends FragmentActivity implements OnMapReadyCal
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
+
+
+    private View.OnClickListener customerReviewClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent postFeedbackIntent = new Intent(BuyCouponActivity.this, PostFeedbackActivity.class);
+            startActivity(postFeedbackIntent);
+
+        }
+    };
 }

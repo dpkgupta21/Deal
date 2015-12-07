@@ -7,6 +7,8 @@
     <color name="black">#000000</color>
     <color name="btn_color">#E54444</color>
     <color name="primary">#99E54444</color>
+    <color name="toolbar_color">#E54444</color>
+    <color name="toolbar_transparent_color">#99E54444</color>
     <color name="gray_light">#DADADA</color>
     <color name="facebook_btn_color">#4966B6</color>
     <color name="nav_drw_bg">#5b1717</color>
@@ -14,6 +16,7 @@
     <color name="strip_bg_color">#f8f8f8</color>
     <color name="transparent_10">#1AFFFFFF</color>
     <color name="track_color">#9b5756</color>
-
+    <color name="btn_dark_gray_color">#858585</color>
+    <color name="btn_green_color">#73B64F</color>
 
 </resources>
