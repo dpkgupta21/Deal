@@ -7,7 +7,8 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.LinearLayout;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.deal.exap.R;
@@ -37,16 +38,29 @@ public class BuyCouponActivity extends FragmentActivity implements OnMapReadyCal
         TextView txt_customer_reviews = (TextView) findViewById(R.id.txt_customer_reviews);
         txt_customer_reviews.setOnClickListener(customerReviewClickListener);
 
-        ((LinearLayout) findViewById(R.id.linear_payment_dialog)).setOnClickListener(dialogClickListener);
+
+        init();
     }
 
 
-    View.OnClickListener dialogClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openPaymentDialog();
-        }
-    };
+    private void init(){
+
+        ImageView ivBack = (ImageView) findViewById(R.id.iv_back);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        Button btnBuy = (Button) findViewById(R.id.btn_buy);
+        btnBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openPaymentDialog();
+            }
+        });
+    }
 
     private void openPaymentDialog() {
         final Dialog dialog = new Dialog(BuyCouponActivity.this, R.style.Theme_Dialog);
@@ -55,6 +69,13 @@ public class BuyCouponActivity extends FragmentActivity implements OnMapReadyCal
         dialog.setContentView(R.layout.dialog_payment);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
+        ImageView ivClose = (ImageView) dialog.findViewById(R.id.iv_close);
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
         dialog.show();
     }
 

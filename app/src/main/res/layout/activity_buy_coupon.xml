@@ -12,7 +12,7 @@
         android:layout_weight="4.5"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.5">
@@ -24,10 +24,26 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/slide_img" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginBottom="20dp"
+                android:padding="5dp"
+                android:src="@drawable/share_active_icon" />
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/back_btn" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
                 android:gravity="center_vertical">
 
 
@@ -147,7 +163,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-        </RelativeLayout>
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -361,7 +377,7 @@
         android:padding="8dp">
 
         <com.deal.exap.customviews.MyButtonViewRegCustom
-            android:id="@+id/btn_redeem"
+            android:id="@+id/btn_buy"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/btn_green_bcg_shape"

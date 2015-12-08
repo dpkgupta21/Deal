@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.feedback.PostFeedbackActivity;
+import com.deal.exap.termscondition.TermsConditionActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -16,7 +18,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class CouponDetailsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class CouponDetailsActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener{
 
     private GoogleMap mMap;
 
@@ -34,8 +36,21 @@ public class CouponDetailsActivity extends FragmentActivity implements OnMapRead
         ((Button) findViewById(R.id.btn_rate)).setOnClickListener(gotoRateCoupon);
         ((Button) findViewById(R.id.btn_buy)).setOnClickListener(gotoBuyCoupon);
 
+        ((TextView) findViewById(R.id.txt_terms_conditions)).setOnClickListener(this);
+        init();
     }
 
+
+    private void init(){
+
+        ImageView ivBack = (ImageView) findViewById(R.id.iv_back);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
 
     /**
      * Manipulates the map once available.
@@ -69,9 +84,11 @@ public class CouponDetailsActivity extends FragmentActivity implements OnMapRead
     View.OnClickListener gotoRateCoupon = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(CouponDetailsActivity.this, RateCouponActivity.class);
-            startActivity(i);
+            /*Intent i = new Intent(CouponDetailsActivity.this, RateCouponActivity.class);
+            startActivity(i);*/
 
+            Intent postFeedbackIntent = new Intent(CouponDetailsActivity.this, PostFeedbackActivity.class);
+            startActivity(postFeedbackIntent);
             // CustomAlertDialog.getCustomAlert(SignUp.this).singleButtonAlertDialog(getString(R.string.uname_pwd_not_match), "", "");
 
         }
@@ -88,4 +105,13 @@ public class CouponDetailsActivity extends FragmentActivity implements OnMapRead
 
         }
     };
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.txt_terms_conditions:
+                startActivity(new Intent(this, TermsConditionActivity.class));
+                break;
+        }
+    }
 }

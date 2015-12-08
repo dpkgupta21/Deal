@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.deal.exap.R;
@@ -32,8 +33,20 @@ public class StoreDetailsActivity extends FragmentActivity implements OnMapReady
         TextView txt_customer_reviews = (TextView) findViewById(R.id.txt_customer_reviews);
         txt_customer_reviews.setOnClickListener(customerReviewClickListener);
         ((Button) findViewById(R.id.btn_redeem)).setOnClickListener(gotoRedeemCoupon);
+
+        init();
     }
 
+    private void init(){
+
+        ImageView ivBack = (ImageView) findViewById(R.id.iv_back);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
