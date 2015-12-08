@@ -12,8 +12,8 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="50dp"
+            android:layout_height="105dp"
+            android:layout_marginTop="70dp"
             android:background="@color/gray_light"
             android:orientation="vertical">
 
@@ -25,11 +25,24 @@
                 android:src="@drawable/close_pop_icon" />
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/featured_tag" />
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/popup_logo" />
+
+            <com.deal.exap.customviews.MyTextViewSemiCustom
+                style="@style/tv_subheading"
+                android:layout_gravity="center"
+                android:text="@string/title_left"
+                android:textColor="@color/tv_color" />
+        </LinearLayout>
     </FrameLayout>
 
     <LinearLayout
@@ -87,7 +100,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
-                android:text="Remember Me" />
+                android:text="Remember Me"
+                android:textColor="@color/tv_color" />
 
             <Button
                 style="@style/btn_style"
