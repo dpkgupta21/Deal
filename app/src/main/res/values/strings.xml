@@ -183,5 +183,9 @@
     <string name="write_your_comments_hint">Write your comments...</string>
     <string name="post_comments_btn">Post Comments</string>
     <string name="cancel_btn">Cancel</string>
+    <string name="title_activity_org_splash">OrgSplashActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

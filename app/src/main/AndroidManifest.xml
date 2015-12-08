@@ -113,22 +113,10 @@
             android:label="@string/title_activity_buy_coupon"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
-
-        <!--<activity
-            android:name=".login.OrgSplashActivity"
-            android:label="@string/title_activity_org_splash"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
-            android:name=".login.IntroActivity"
-            android:label="@string/title_activity_intro" >
-        </activity>-->
+            android:name=".login.OrgSplashActivity"
+            android:label="@string/title_activity_org_splash" >
+        </activity>
     </application>
 
 </manifest>
