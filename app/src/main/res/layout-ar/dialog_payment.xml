@@ -60,14 +60,14 @@
 
             <EditText
                 style="@style/et_style"
-                android:drawableLeft="@drawable/user_icon_light"
+                android:drawableRight="@drawable/user_icon_light"
                 android:hint="@string/hint_card_no"
                 android:inputType="number" />
 
             <EditText
                 style="@style/et_style"
                 android:layout_marginTop="5dp"
-                android:drawableLeft="@drawable/user_icon_light"
+                android:drawableRight="@drawable/user_icon_light"
                 android:hint="@string/hint_name_on_card"
                 android:inputType="textCapWords" />
 
@@ -78,21 +78,22 @@
                 android:orientation="horizontal"
                 android:weightSum="3">
 
-                <EditText
-                    style="@style/et_style"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:drawableLeft="@drawable/expiry_date"
-                    android:hint="@string/hint_mm_yy"
-                    android:inputType="number" />
+
 
                 <EditText
                     style="@style/et_style"
                     android:layout_width="0dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
-                    android:drawableLeft="@drawable/lock_icon_dark"
+                    android:drawableRight="@drawable/lock_icon_dark"
                     android:hint="@string/hint_ccv"
+                    android:inputType="number" />
+                <EditText
+                    style="@style/et_style"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:drawableRight="@drawable/expiry_date"
+                    android:hint="@string/hint_mm_yy"
                     android:inputType="number" />
             </LinearLayout>
 

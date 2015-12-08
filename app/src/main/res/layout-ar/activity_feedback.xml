@@ -42,20 +42,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:padding="10dp"
-        android:background="@color/white"
         android:weightSum="2">
 
-        <Button
-            android:id="@+id/btn_post_comments"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-
-            android:layout_weight="1"
-            android:background="@drawable/btn_red_bcg_shape"
-            android:text="@string/post_comments_btn"
-            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btn_cancel"
@@ -65,6 +56,16 @@
             android:layout_weight="1"
             android:background="@drawable/btn_gray_bcg_shape"
             android:text="@string/cancel_btn"
+            android:textColor="@color/white" />
+
+
+        <Button
+            android:id="@+id/btn_post_comments"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_red_bcg_shape"
+            android:text="@string/post_comments_btn"
             android:textColor="@color/white" />
     </LinearLayout>
 </RelativeLayout>

@@ -1,17 +1,6 @@
 <resources>
 
-    <!-- Number verification screen arabic step1 -->
-    <string name="verify_your_phone">التحقق من رقم هاتفك</string>
-    <string name="country_code_hint">المتحدة الدولة +1</string>
-    <string name="enter_your_phone_number_hint">أدخل رقم هاتفك</string>
-    <string name="send_confirmation_code">إرسال رمز التأكيد</string>
-    <string name="verification_msg">من خلال النقر فوق التالي، سوف Exap نرسل لك رسالة SMS لتأكيد رقم هاتفك وهنا فإنك توافق على شروط الخدمة و سياسة الخصوصية</string>
 
-
-    <!-- Number verification screen  arabic step2 -->
-    <string name="enter_confirmation_code">أدخل رمز التأكيد</string>
-    <string name="enter_code_hint">الكود</string>
-    <string name="create_profile">إنشاء الملف الشخصي</string>
 
 
 
@@ -38,10 +27,20 @@
     <string name="terms_and_conditions">البنود و الشروط | سياسة الخصوصية</string>
 
 
-    <!--Alert Screen arabic-->
-    <string name="btn_text">حسنا</string>
-    <string name="uname_pwd_not_match">اسم المستخدم وكلمة المرور غير متطابقة.</string>
-    <string name="sms_verification_error">رمز التحقق SMS الذي أدخلته غير صحيح</string>
+    <!-- Number verification screen arabic step1 -->
+    <string name="verify_your_phone">التحقق من رقم هاتفك</string>
+    <string name="country_code_hint">المتحدة الدولة +1</string>
+    <string name="enter_your_phone_number_hint">أدخل رقم هاتفك</string>
+    <string name="send_confirmation_code">إرسال رمز التأكيد</string>
+    <string name="verification_msg">من خلال النقر فوق التالي، سوف Exap نرسل لك رسالة SMS لتأكيد رقم هاتفك وهنا فإنك توافق على شروط الخدمة و سياسة الخصوصية</string>
+
+
+    <!-- Number verification screen  arabic step2 -->
+    <string name="enter_confirmation_code">أدخل رمز التأكيد</string>
+    <string name="enter_code_hint">الكود</string>
+    <string name="create_profile">إنشاء الملف الشخصي</string>
+
+
 
 
     <!--Navigation drawer screen-->
@@ -49,7 +48,6 @@
     <string name="drawer_close">Close</string>
     <string name="name">MD الرزاق</string>
     <string name="age_city">29F | دبي</string>
-
     <string name="menu_alert">إنذار</string>
     <string name="menu_near_by">قريب</string>
     <string name="menu_wallet">محفظة جيب</string>
@@ -61,7 +59,12 @@
 
     <!--Interest screen-->
     <string name="interest_screen_title">اهتمام</string>
+    <string name="menu_check">Check</string>
 
+    <!--Alert Screen arabic-->
+    <string name="btn_text">حسنا</string>
+    <string name="uname_pwd_not_match">اسم المستخدم وكلمة المرور غير متطابقة.</string>
+    <string name="sms_verification_error">رمز التحقق SMS الذي أدخلته غير صحيح</string>
 
     <!--Setting Screen-->
     <string name="setting_screen_title">إعدادات</string>
@@ -80,12 +83,39 @@
     <string name="txt_change_currency">تغيير العملة -USD</string>
 
 
+    <!--Payment Details Screen-->
+    <string name="hint_card_no">بطاقة رقم</string>
+    <string name="hint_name_on_card">الاسم على البطاقة</string>
+    <string name="hint_mm_yy">MM / YY</string>
+    <string name="hint_ccv">CCV</string>
+    <string name="btn_pay_usd">Pay USD 20</string>
+    <string name="btn_save">Save</string>
+    <string name="chk_remember_me">تذكرنى</string>
+    <string name="title_payment_pop_up">Payment Details</string>
+
+    <!--Favorite Screen-->
+    <string name="favorite_screen_title">المفضل</string>
+    <string name="txt_active_coupons"># كوبونات النشطة</string>
+    <string name="txt_downloads"># التحميلات</string>
+    <string name="txt_followers"># أتباع</string>
+    <string name="txt_active_coupons_val">10</string>
+    <string name="txt_downloads_val">154</string>
+    <string name="txt_followers_val">95</string>
+
+
+    <!--Forget Password screen-->
+    <string name="forget_password_header">نسيت كلمة المرور</string>
+    <string name="enter_your_email_id_hint">Enter your email id</string>
+    <string name="submit_btn">Submit</string>
+
+
     <!--Categories screen-->
     <string name="menu_notification">إعلام</string>
     <string name="categories_title">الفئات</string>
     <string name="txt_category_name">السيارات</string>
 
-
+    <!--following scrren-->
+    <string name="following_screen_title">Following</string>
 
     <!-- Near By Screen-->
 
@@ -95,14 +125,46 @@
     <string name="txt_distance">المسافات</string>
     <string name="txt_discount">Discount</string>
     <string name="txt_end_date">تاريخ الانتهاء</string>
-
-
     <string name="nearby_screen_title">قريب</string>
     <string name="menu_filter">فلتر</string>
     <string name="txt_off">35٪ أقل</string>
     <string name="txt_on_off">على فانتا الكبرياء</string>
     <string name="txt_distance_val">1.5 كم</string>
 
+    <!--Store details Screen-->
+    <string name="btn_reedme">Redeem</string>
+    <string name="title_activity_store_details">Map</string>
+    <string name="txt_store_online">IN STORE AND ONLINE</string>
+    <string name="txt_store_dis">libero eu sed rhoncus varius, metus nulla ruturm magna, sed rhoncus  augue lectus porttitor nisi.</string>
+    <string name="txt_discount_per">Discount</string>
+    <string name="txt_store_price">Store Price</string>
+    <string name="txt_cutomer_review">Customer Review</string>
+    <string name="txt_term_condition"><![CDATA[Term &Conditions]]></string>
+
+
+    <!-- coupon Details Screen-->
+    <string name="title_activity_cuopon_details">Coupon</string>
+    <string name="btn_rate">Rate this Coupon</string>
+    <string name="btn_buy">Buy Online</string>
+    <string name="txt_coupon_code">Coupon Code</string>
+    <string name="title_activity_rate_coupon">Map</string>
+    <string name="title_activity_buy_coupon">Map</string>
+    <string name="txt_buy">Buy</string>
+
+    <!--Post your feedback screen-->
+    <string name="post_your_feedback_header">Post your feedback</string>
+    <string name="write_your_comments_hint">Write your comments...</string>
+    <string name="post_comments_btn">Post Comments</string>
+    <string name="cancel_btn">Cancel</string>
+    <string name="title_activity_org_splash">OrgSplashActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_intro">IntroActivity</string>
+
+    <!-- Welcome screen -->
+    <string name="skip_right">Skip</string>
+    <string name="skip_left">تخطى</string>
 
 
 </resources>

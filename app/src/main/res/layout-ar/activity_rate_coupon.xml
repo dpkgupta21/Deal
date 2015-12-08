@@ -50,6 +50,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="2dp"
                         android:layout_weight=".8"
+                        android:layout_marginRight="5dp"
                         android:gravity="center_vertical"
                         android:orientation="vertical"
                         android:paddingLeft="5dp"
@@ -76,6 +77,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/nav_nearby_icon"
+                            android:gravity="center_vertical"
                             android:text="21Street, Hansonberg, Berlin "
                             android:textColor="@color/white"
                             android:textSize="10sp" />

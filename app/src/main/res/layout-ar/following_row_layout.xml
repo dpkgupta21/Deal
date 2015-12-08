@@ -44,6 +44,7 @@
                         android:layout_width="60dp"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="10dp"
+                        android:layout_alignParentRight="true"
                         android:src="@drawable/payment_type_icon"
                         app:civ_border_color="@color/white"
                         app:civ_border_width="1dp" />
@@ -55,7 +56,8 @@
                         android:layout_alignTop="@+id/img_company"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@id/img_company"
+                        android:layout_marginTop="5dp"
+                        android:layout_toLeftOf="@id/img_company"
                         android:orientation="vertical">
 
                         <com.deal.exap.customviews.MyTextViewSemiCustom
@@ -72,7 +74,7 @@
                             android:id="@+id/txt_place_tag"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/place_marker"
+                            android:drawableRight="@drawable/place_marker"
                             android:singleLine="true"
                             android:text="@string/cancel_btn"
                             android:textColor="@color/white"
@@ -84,7 +86,7 @@
                         android:id="@+id/img_featured"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentLeft="true"
                         android:layout_gravity="right"
                         android:src="@drawable/featured_tag" />
                 </RelativeLayout>
@@ -103,22 +105,23 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:padding="5dp">
 
                         <com.deal.exap.customviews.MyTextViewLightCustom
-                            android:id="@+id/txt_active_coupons"
+                            android:id="@+id/txt_followers"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="@string/txt_active_coupons"
+                            android:text="@string/txt_followers"
                             android:textSize="10sp" />
 
                         <com.deal.exap.customviews.MyTextViewRegCustom
-                            android:id="@+id/txt_active_coupons_val"
+                            android:id="@+id/txt_followers_val"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="@string/txt_active_coupons_val"
+                            android:text="@string/txt_followers_val"
                             android:textColor="@color/btn_color"
                             android:textSize="14sp" />
 
@@ -167,28 +170,28 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="5dp">
+                        android:orientation="vertical">
 
                         <com.deal.exap.customviews.MyTextViewLightCustom
-                            android:id="@+id/txt_followers"
+                            android:id="@+id/txt_active_coupons"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="@string/txt_followers"
+                            android:text="@string/txt_active_coupons"
                             android:textSize="10sp" />
 
                         <com.deal.exap.customviews.MyTextViewRegCustom
-                            android:id="@+id/txt_followers_val"
+                            android:id="@+id/txt_active_coupons_val"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="@string/txt_followers_val"
+                            android:text="@string/txt_active_coupons_val"
                             android:textColor="@color/btn_color"
                             android:textSize="14sp" />
 
 
                     </LinearLayout>
+
                 </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>

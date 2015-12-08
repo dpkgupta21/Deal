@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Exap</string>
 
+    <!-- Splash screen-->
+    <string name="title">Lorem ipsum</string>
+    <string name="title_separator">|</string>
+    <string name="title_left">EXAP</string>
+    <string name="title_right">صفقة</string>
+
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -15,6 +22,7 @@
     </string>
 
 
+
     <!-- Sign up screen-->
     <string name="name_hint">Name</string>
     <string name="dob_hint">DOB</string>
@@ -26,12 +34,17 @@
     <string name="profile_header">Profile</string>
     <string name="add_photo">Add Photo</string>
 
+    <!-- Sign in screen-->
+    <string name="connect_with_facebook_btn">Connect with Facebook</string>
+    <string name="or">or</string>
+    <string name="username_hint">Username</string>
+    <string name="password_sign_in_hint">Password</string>
+    <string name="login_btn">Login</string>
+    <string name="not_yet_registered">Not yet Registered? Register Now!</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="terms_and_conditions">Terms &amp; conditions | Privacy Policy</string>
 
-    <!-- Splash screen-->
-    <string name="title">Lorem ipsum</string>
-    <string name="title_separator">|</string>
-    <string name="title_left">EXAP</string>
-    <string name="title_right">صفقة</string>
+
 
     <!-- Number verification screen step1 -->
     <string name="verify_your_phone">Verify your Phone Number</string>
@@ -48,27 +61,12 @@
     <string name="create_profile">Create Profile</string>
 
 
-    <!-- Sign in screen-->
-    <string name="connect_with_facebook_btn">Connect with Facebook</string>
-    <string name="or">or</string>
-    <string name="username_hint">Username</string>
-    <string name="password_sign_in_hint">Password</string>
-    <string name="login_btn">Login</string>
-    <string name="not_yet_registered">Not yet Registered? Register Now!</string>
-    <string name="forgot_password">Forgot Password?</string>
-    <string name="terms_and_conditions">Terms &amp; conditions | Privacy Policy</string>
-
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 
     <!--Navigation drawer screen-->
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
     <string name="name">MD Razak</string>
     <string name="age_city">29F | Dubai</string>
-
     <string name="menu_alert">Alert (2)</string>
     <string name="menu_near_by">Near BY (9)</string>
     <string name="menu_wallet">Wallet (7)</string>
@@ -106,12 +104,17 @@
     <string name="txt_edit_profile">Edit Profile</string>
     <string name="txt_change_currency">Change Currency -USD</string>
 
+
     <!--Payment Details Screen-->
     <string name="hint_card_no">Card No.</string>
     <string name="hint_name_on_card">Name On Card</string>
     <string name="hint_mm_yy">MM / YY</string>
+    <string name="hint_ccv">CCV</string>
+    <string name="btn_pay_usd">Pay USD 20</string>
     <string name="btn_save">Save</string>
+    <string name="chk_remember_me">Remember Me</string>
     <string name="title_payment_pop_up">Payment Details</string>
+
 
     <!--Favorite Screen-->
     <string name="favorite_screen_title">Favorite</string>
@@ -146,8 +149,6 @@
     <string name="txt_distance">Distance</string>
     <string name="txt_discount">Discount</string>
     <string name="txt_end_date">End Date</string>
-
-
     <string name="nearby_screen_title">NearBy</string>
     <string name="menu_filter">Filter</string>
     <string name="txt_off">35% off</string>
