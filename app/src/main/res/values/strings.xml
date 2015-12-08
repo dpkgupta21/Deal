@@ -187,5 +187,9 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_intro">IntroActivity</string>
 
+    <!-- Welcome screen -->
+    <string name="skip_right">Skip</string>
+    <string name="skip_left">تخطى</string>
 </resources>
