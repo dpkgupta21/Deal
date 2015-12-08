@@ -84,27 +84,29 @@
             android:orientation="horizontal"
             android:weightSum="3">
 
-            <com.deal.exap.customviews.MyTextViewReg12
-                android:id="@+id/txt_sign_up_click"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="right"
-                android:paddingTop="10dp"
-                android:text="@string/not_yet_registered"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
 
             <com.deal.exap.customviews.MyTextViewReg12
                 android:id="@+id/txt_forget_password_click"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="left"
+                android:gravity="right"
                 android:paddingTop="10dp"
                 android:text="@string/forgot_password"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
+
+            <com.deal.exap.customviews.MyTextViewReg12
+                android:id="@+id/txt_sign_up_click"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="left"
+                android:paddingTop="10dp"
+                android:text="@string/not_yet_registered"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
         </LinearLayout>
 
         <com.deal.exap.customviews.MyTextViewReg12

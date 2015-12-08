@@ -72,7 +72,7 @@ public class NearByFragment extends Fragment {
             @Override
             public void onItemClick(int position, View v) {
 
-                Intent i = new Intent(getActivity(),StoreDetailsActivity.class);
+                Intent i = new Intent(getActivity(),RedeemCouponActivity.class);
                 startActivity(i);
 
             }

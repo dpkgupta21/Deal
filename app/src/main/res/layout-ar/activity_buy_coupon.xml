@@ -12,7 +12,7 @@
         android:layout_weight="4.5"
         android:orientation="vertical">
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.5">
@@ -24,29 +24,11 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/slide_img" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginBottom="20dp"
-                android:padding="5dp"
-                android:src="@drawable/share_active_icon" />
-
-            <ImageView
-                android:id="@+id/iv_back"
-                android:padding="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
-                android:src="@drawable/back_btn" />
-
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity="bottom"
-                android:gravity="center_vertical"
-                android:padding="3dp">
+                android:layout_height="70dp"
+                android:layout_alignParentBottom="true"
+                android:gravity="center_vertical">
 
 
                 <LinearLayout
@@ -67,8 +49,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="2dp"
-                        android:layout_weight=".7"
+                        android:layout_weight=".8"
                         android:gravity="center_vertical"
                         android:orientation="vertical"
                         android:paddingLeft="5dp"
@@ -102,6 +83,7 @@
 
                     </LinearLayout>
 
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -112,6 +94,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/linear_payment_dialog"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -142,6 +125,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
+                        <com.deal.exap.customviews.MyTextViewReg14
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="(15)"
+                            android:textColor="@color/white"
+                            android:textSize="6sp" />
+
                         <RatingBar
                             android:id="@+id/rating_bar"
                             style="?android:attr/ratingBarStyleSmall"
@@ -151,19 +142,13 @@
                             android:rating="5.0"
                             android:stepSize="1.0" />
 
-                        <com.deal.exap.customviews.MyTextViewRegCustom
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="(15)"
-                            android:textColor="@color/white"
-                            android:textSize="8sp" />
+
                     </LinearLayout>
 
                 </LinearLayout>
             </LinearLayout>
 
-        </FrameLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -176,15 +161,14 @@
                 android:layout_height="wrap_content"
                 android:background="@color/gray_light"
                 android:orientation="horizontal"
-
+                android:padding="5dp"
                 android:weightSum="1.2">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".4"
-                    android:orientation="vertical"
-                    android:padding="5dp">
+                    android:orientation="vertical">
 
                     <com.deal.exap.customviews.MyTextViewRegCustom
                         android:layout_width="match_parent"
@@ -192,7 +176,6 @@
                         android:gravity="center_horizontal"
                         android:text="End Date"
                         android:textSize="10sp" />
-
 
                     <com.deal.exap.customviews.MyTextViewRegCustom
                         android:layout_width="match_parent"
@@ -204,17 +187,12 @@
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/btn_dark_gray_color" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".4"
-                    android:orientation="vertical"
-                    android:padding="5dp">
+                    android:orientation="vertical">
 
                     <com.deal.exap.customviews.MyTextViewRegCustom
                         android:layout_width="match_parent"
@@ -233,17 +211,12 @@
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/btn_dark_gray_color" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".4"
-                    android:orientation="vertical"
-                    android:padding="5dp">
+                    android:orientation="vertical">
 
                     <com.deal.exap.customviews.MyTextViewRegCustom
                         android:layout_width="match_parent"
@@ -261,6 +234,7 @@
                         android:textSize="14sp" />
 
                 </LinearLayout>
+
 
             </LinearLayout>
 
@@ -288,6 +262,7 @@
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal">
 
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -298,20 +273,39 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="AD457S"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:text="$10"
+                        android:textSize="18sp" />
 
                     <com.deal.exap.customviews.MyTextViewRegCustom
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/txt_coupon_code"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:text="@string/txt_store_price"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:orientation="vertical">
+
+                    <com.deal.exap.customviews.MyTextViewRegCustom
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="35%"
+                        android:textSize="18sp" />
+
+                    <com.deal.exap.customviews.MyTextViewRegCustom
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/txt_discount_per"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -320,7 +314,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center_horizontal">
 
                 <com.deal.exap.customviews.MyTextViewRegCustom
@@ -335,6 +329,7 @@
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:background="@color/btn_color"></View>
 
                 <com.deal.exap.customviews.MyTextViewRegCustom
@@ -365,29 +360,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight=".5"
-        android:padding="10dp"
-        android:weightSum="1">
+        android:padding="8dp">
 
         <com.deal.exap.customviews.MyButtonViewRegCustom
-            android:id="@+id/btn_rate"
-            android:layout_width="0dp"
+            android:id="@+id/btn_redeem"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight=".5"
-            android:background="@drawable/btn_red_bcg_shape"
-            android:text="@string/btn_rate"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
-
-        <com.deal.exap.customviews.MyButtonViewRegCustom
-            android:id="@+id/btn_buy"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_weight=".5"
-            android:background="@drawable/btn_red_bcg_shape"
-            android:text="@string/btn_buy"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:background="@drawable/btn_green_bcg_shape"
+            android:text="@string/txt_buy"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 

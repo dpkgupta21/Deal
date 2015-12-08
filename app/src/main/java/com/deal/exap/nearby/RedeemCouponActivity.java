@@ -17,14 +17,14 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class StoreDetailsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class RedeemCouponActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_store_details);
+        setContentView(R.layout.activity_redeem);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -69,7 +69,7 @@ public class StoreDetailsActivity extends FragmentActivity implements OnMapReady
     private View.OnClickListener customerReviewClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent postFeedbackIntent = new Intent(StoreDetailsActivity.this, PostFeedbackActivity.class);
+            Intent postFeedbackIntent = new Intent(RedeemCouponActivity.this, PostFeedbackActivity.class);
             startActivity(postFeedbackIntent);
 
         }
@@ -79,7 +79,7 @@ public class StoreDetailsActivity extends FragmentActivity implements OnMapReady
     View.OnClickListener gotoRedeemCoupon = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(StoreDetailsActivity.this, CouponDetailsActivity.class);
+            Intent i = new Intent(RedeemCouponActivity.this, CouponDetailsActivity.class);
             startActivity(i);
 
             // CustomAlertDialog.getCustomAlert(SignUp.this).singleButtonAlertDialog(getString(R.string.uname_pwd_not_match), "", "");

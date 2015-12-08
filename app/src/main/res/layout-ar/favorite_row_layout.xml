@@ -19,14 +19,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/transparent_10"
             android:layout_alignParentBottom="true"
+            android:background="@color/transparent_10"
             android:padding="10dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_alignParentLeft="true">
+                android:layout_alignParentRight="true">
 
                 <ImageView
                     android:id="@+id/img_category"
@@ -49,13 +49,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/coupon" />
+                android:layout_alignParentLeft="true">
 
                 <com.deal.exap.customviews.MyTextViewReg16
                     android:id="@+id/txt_follower_number"
@@ -72,17 +66,25 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/heart_fill_icon" />
+                    android:src="@drawable/coupon" />
+
 
                 <com.deal.exap.customviews.MyTextViewReg16
                     android:id="@+id/txt_like_number"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
                     android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
                     android:text=""
                     android:textColor="@color/white"
                     android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/heart_fill_icon" />
+
             </LinearLayout>
 
 
