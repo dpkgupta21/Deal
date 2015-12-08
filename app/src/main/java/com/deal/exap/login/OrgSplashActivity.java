@@ -23,7 +23,7 @@ public class OrgSplashActivity extends FragmentActivity {
             public void run() {
                 Intent i = null;
 
-                i = new Intent(OrgSplashActivity.this, SplashScreen.class);
+                i = new Intent(OrgSplashActivity.this, IntroActivity.class);
                 finish();
                 startActivity(i);
             }

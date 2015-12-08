@@ -9,7 +9,43 @@
         android:layout_height="wrap_content">
 
         <com.deal.exap.customviews.MyTextViewSemiCustom
+            style="@style/tv_subheading"
             android:padding="10dp"
-            style="@style/tv_normal" android:text="@string/skip_left"/>
+            android:text="@string/skip_left"
+            android:textColor="@color/white" />
+
+        <com.deal.exap.customviews.MyTextViewSemiCustom
+            style="@style/tv_subheading"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:text="@string/skip_right"
+            android:textColor="@color/white" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottom_btn"
+        android:orientation="horizontal">
+
+        <com.deal.exap.customviews.MyTextViewSemiCustom
+            style="@style/tv_subheading"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/tv_imnew"
+            android:padding="10dp"
+            android:text="I'm new" />
+
+        <com.deal.exap.customviews.MyTextViewSemiCustom
+            style="@style/tv_subheading"
+            android:layout_width="0dp"
+            android:id="@+id/tv_siginin"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Sign in" />
+    </LinearLayout>
 </RelativeLayout>
