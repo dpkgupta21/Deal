@@ -22,4 +22,5 @@
     <color name="transparent_white_50">#80FFFFFF</color>
     <color name="app_color">#E54444</color>
     <color name="boundary_color">#33000000</color>
+    <color name="transparent">#00000000</color>
 </resources>

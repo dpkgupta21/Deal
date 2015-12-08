@@ -193,4 +193,14 @@
     <!-- Welcome screen -->
     <string name="skip_right">Skip</string>
     <string name="skip_left">تخطى</string>
+
+    <!-- add photo screen-->
+
+    <string name="choose_camera">Camera</string>
+    <string name="choose_gallery">Gallery</string>
+    <string name="title_dialog_photo_choose">Add photo</string>
+
+
+    <!--Wallet Screen-->
+    <string name="wallet_screen_title">Wallet</string>
 </resources>

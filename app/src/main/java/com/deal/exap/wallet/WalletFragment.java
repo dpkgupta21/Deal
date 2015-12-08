@@ -1,9 +1,10 @@
-package com.deal.exap.following;
+package com.deal.exap.wallet;
 
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,33 +13,32 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.deal.exap.R;
-import com.deal.exap.favorite.adapter.FavoriteListAdapter;
 import com.deal.exap.favorite.bean.DataObject;
-import com.deal.exap.following.adapter.FollowingListAdapter;
+import com.deal.exap.wallet.adapter.WalletListAdapter;
 
 import java.util.ArrayList;
 
 
-public class FollowingFragment extends Fragment {
-
+public class WalletFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private View view;
-//    public static FollowingFragment newInstance(String param1, String param2) {
-//        FollowingFragment fragment = new FollowingFragment();
+
+//    public static WalletFragment newInstance() {
+//        WalletFragment fragment = new WalletFragment();
 //
 //        return fragment;
 //    }
 
-    public FollowingFragment() {
+    public WalletFragment() {
         // Required empty public constructor
     }
 
@@ -53,32 +53,25 @@ public class FollowingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view= inflater.inflate(R.layout.fragment_following, container, false);
+
+        view = inflater.inflate(R.layout.fragment_wallet, container, false);
         return view;
     }
 
-
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setTitleFragment(getString(R.string.following_screen_title));
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.following_recycler_view);
+        setTitleFragment(getString(R.string.wallet_screen_title));
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_wallet);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new FollowingListAdapter(getDataSet());
+        mAdapter = new WalletListAdapter(getDataSet());
         mRecyclerView.setAdapter(mAdapter);
-
-
-
     }
 
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_settings, menu);
-    }
 
     private ArrayList<DataObject> getDataSet() {
         ArrayList results = new ArrayList<DataObject>();
@@ -90,10 +83,31 @@ public class FollowingFragment extends Fragment {
         return results;
     }
 
+
     protected void setTitleFragment(String strTitle) {
         Toolbar mToolbar = (Toolbar) ((AppCompatActivity) getActivity()).findViewById(R.id.tool_bar);
         TextView txtTitle = ((TextView) mToolbar.findViewById(R.id.toolbar_title));
         txtTitle.setText(strTitle);
     }
 
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_wallet, menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.menu_notification:
+
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
 }

@@ -105,8 +105,8 @@
 
     <!--Forget Password screen-->
     <string name="forget_password_header">نسيت كلمة المرور</string>
-    <string name="enter_your_email_id_hint">Enter your email id</string>
-    <string name="submit_btn">Submit</string>
+    <string name="enter_your_email_id_hint">أدخل اسم المستخدم البريد الالكتروني</string>
+    <string name="submit_btn">عرض</string>
 
 
     <!--Categories screen-->
@@ -115,15 +115,14 @@
     <string name="txt_category_name">السيارات</string>
 
     <!--following scrren-->
-    <string name="following_screen_title">Following</string>
+    <string name="following_screen_title">التالي</string>
 
     <!-- Near By Screen-->
-
     <string name="txt_selcted_category">Food &amp; Dining</string>
     <string name="txt_high_to_low">High To Low</string>
     <string name="txt_low_to_high">Low To High</string>
     <string name="txt_distance">المسافات</string>
-    <string name="txt_discount">Discount</string>
+    <string name="txt_discount">تخفيض السعر</string>
     <string name="txt_end_date">تاريخ الانتهاء</string>
     <string name="nearby_screen_title">قريب</string>
     <string name="menu_filter">فلتر</string>
@@ -133,29 +132,29 @@
 
     <!--Store details Screen-->
     <string name="btn_reedme">Redeem</string>
-    <string name="title_activity_store_details">Map</string>
-    <string name="txt_store_online">IN STORE AND ONLINE</string>
+    <string name="title_activity_store_details">رسم خريطة</string>
+    <string name="txt_store_online">في مخزن وONLINE</string>
     <string name="txt_store_dis">libero eu sed rhoncus varius, metus nulla ruturm magna, sed rhoncus  augue lectus porttitor nisi.</string>
-    <string name="txt_discount_per">Discount</string>
-    <string name="txt_store_price">Store Price</string>
-    <string name="txt_cutomer_review">Customer Review</string>
+    <string name="txt_discount_per">تخفيض السعر</string>
+    <string name="txt_store_price">مخزن الأسعار</string>
+    <string name="txt_cutomer_review">استعراض الزبون</string>
     <string name="txt_term_condition"><![CDATA[Term &Conditions]]></string>
 
 
     <!-- coupon Details Screen-->
-    <string name="title_activity_cuopon_details">Coupon</string>
-    <string name="btn_rate">Rate this Coupon</string>
-    <string name="btn_buy">Buy Online</string>
-    <string name="txt_coupon_code">Coupon Code</string>
-    <string name="title_activity_rate_coupon">Map</string>
-    <string name="title_activity_buy_coupon">Map</string>
+    <string name="title_activity_cuopon_details">كوبون</string>
+    <string name="btn_rate">قيم هذا القسيمة</string>
+    <string name="btn_buy">اشتري عبر الانترنت</string>
+    <string name="txt_coupon_code">رمز القسيمة</string>
+    <string name="title_activity_rate_coupon">رسم خريطة</string>
+    <string name="title_activity_buy_coupon">رسم خريطة</string>
     <string name="txt_buy">Buy</string>
 
     <!--Post your feedback screen-->
-    <string name="post_your_feedback_header">Post your feedback</string>
-    <string name="write_your_comments_hint">Write your comments...</string>
-    <string name="post_comments_btn">Post Comments</string>
-    <string name="cancel_btn">Cancel</string>
+    <string name="post_your_feedback_header">إضافة ملاحظاتك</string>
+    <string name="write_your_comments_hint">إرسال تعليقاتكم ...</string>
+    <string name="post_comments_btn">آخر تعليقات</string>
+    <string name="cancel_btn">إلغاء</string>
     <string name="title_activity_org_splash">OrgSplashActivity</string>
 
     <string name="hello_world">Hello world!</string>

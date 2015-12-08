@@ -1,15 +1,15 @@
 package com.deal.exap.feedback;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.deal.exap.R;
+import com.deal.exap.customerfeedback.CustomerFeedBackActivity;
 
-public class PostFeedbackActivity extends Activity implements View.OnClickListener{
-
+public class PostFeedbackActivity extends Activity {
 
 
     @Override
@@ -17,27 +17,15 @@ public class PostFeedbackActivity extends Activity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
 
-
-        init();
+        ((Button) findViewById(R.id.btn_post_comments)).setOnClickListener(callFeedBack);
     }
 
-    private void init(){
-
-        Button btnCancel = (Button) findViewById(R.id.btn_cancel);
-        ImageView ivBack = (ImageView) findViewById(R.id.img_close);
-        ivBack.setOnClickListener(this);
-        btnCancel.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.img_close:
-                finish();
-                break;
-            case R.id.btn_cancel:
-                finish();
-                break;
+    View.OnClickListener callFeedBack = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(PostFeedbackActivity.this, CustomerFeedBackActivity.class);
+            startActivity(i);
         }
-    }
+    };
+
 }

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:weightSum="2">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="1.5"
+        android:orientation="vertical">
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:numStars="5"
+            android:rating="2.0"
+            android:stepSize="1.0" />
+
+        <com.deal.exap.customviews.MyTextViewReg14
+            android:id="@+id/txt_comment"
+            android:text="It's Great! to save money"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal"
+            android:singleLine="false" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <com.deal.exap.customviews.MyTextViewReg12
+                android:id="@+id/txt_customer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BY Asvin Mizak"
+                android:textColor="@color/btn_color" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="3dp"
+                android:background="@color/gray_light"></View>
+
+
+            <com.deal.exap.customviews.MyTextViewReg12
+                android:id="@+id/txt_post_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:text="23 Sep" />
+
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="3dp"
+                android:background="@color/gray_light"></View>
+
+
+            <com.deal.exap.customviews.MyTextViewReg12
+                android:id="@+id/txt_post_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:text="11:00 PM" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight=".5">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/img_user_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/slide_img"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="1dp" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
