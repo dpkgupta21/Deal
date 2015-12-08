@@ -86,7 +86,7 @@ public class CategoriesFragment extends Fragment {
     private ArrayList<DataObject> getDataSet() {
         ArrayList results = new ArrayList<DataObject>();
         for (int index = 0; index < 10; index++) {
-            DataObject obj = new DataObject("Auto",
+            DataObject obj = new DataObject(getString(R.string.txt_category_name),
                     "" + index);
             results.add(index, obj);
         }

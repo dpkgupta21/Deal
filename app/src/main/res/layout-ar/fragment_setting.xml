@@ -28,14 +28,14 @@
                 <com.deal.exap.customviews.MyTextViewReg16
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
                     android:padding="10dp"
                     android:text="@string/location_service" />
 
                 <Switch
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentLeft="true"
                     android:padding="10dp" />
 
             </RelativeLayout>
@@ -48,13 +48,13 @@
                 <com.deal.exap.customviews.MyTextViewReg14
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
                     android:text="@string/notification_range" />
 
                 <com.deal.exap.customviews.MyTextViewReg14
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentLeft="true"
                     android:text="@string/km_miles" />
 
             </RelativeLayout>
@@ -70,22 +70,22 @@
                     android:id="@+id/txt_dis_min_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
                     android:padding="10dp"
                     android:text="0" />
 
                 <SeekBar
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/txt_dis_max_val"
-                    android:layout_toRightOf="@+id/txt_dis_min_val"
+                    android:layout_toRightOf="@+id/txt_dis_max_val"
+                    android:layout_toLeftOf="@+id/txt_dis_min_val"
                     android:padding="10dp" />
 
                 <com.deal.exap.customviews.MyTextViewReg16
                     android:id="@+id/txt_dis_max_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentLeft="true"
                     android:padding="10dp"
                     android:text="5" />
 
@@ -106,14 +106,14 @@
                 <com.deal.exap.customviews.MyTextViewReg16
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
                     android:padding="10dp"
                     android:text="@string/push_alert" />
 
                 <Switch
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentLeft="true"
                     android:padding="10dp" />
 
             </RelativeLayout>
@@ -127,14 +127,14 @@
                 <com.deal.exap.customviews.MyTextViewReg16
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
                     android:padding="10dp"
                     android:text="@string/message_alert" />
 
                 <Switch
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentLeft="true"
                     android:padding="10dp" />
 
             </RelativeLayout>
@@ -148,14 +148,14 @@
                 <com.deal.exap.customviews.MyTextViewReg16
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
                     android:padding="10dp"
                     android:text="@string/deal_expiry_alert" />
 
                 <Switch
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentLeft="true"
                     android:padding="10dp" />
 
             </RelativeLayout>

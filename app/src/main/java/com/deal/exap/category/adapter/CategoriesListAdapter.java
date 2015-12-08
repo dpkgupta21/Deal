@@ -22,13 +22,16 @@ public class CategoriesListAdapter extends RecyclerView
     public static class DataObjectHolder extends RecyclerView.ViewHolder
             implements View
             .OnClickListener {
-        TextView label;
-        TextView dateTime;
+        TextView txtCategoryName;
+        TextView txtFavNumber;
+        TextView txtFolloNumber;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
-            label = (TextView) itemView.findViewById(R.id.txt_category_name);
-            dateTime = (TextView) itemView.findViewById(R.id.txt_like_number);
+            txtCategoryName = (TextView) itemView.findViewById(R.id.txt_category_name);
+            txtFavNumber = (TextView) itemView.findViewById(R.id.txt_like_number);
+            txtFolloNumber = (TextView) itemView.findViewById(R.id.txt_follower_number);
+
             Log.i(LOG_TAG, "Adding Listener");
             itemView.setOnClickListener(this);
         }
@@ -60,8 +63,9 @@ public class CategoriesListAdapter extends RecyclerView
 
     @Override
     public void onBindViewHolder(DataObjectHolder holder, int position) {
-        holder.label.setText(mDataset.get(position).getmText1());
-        holder.dateTime.setText(mDataset.get(position).getmText2());
+        holder.txtCategoryName.setText(mDataset.get(position).getmText1());
+        holder.txtFavNumber.setText(mDataset.get(position).getmText2());
+        holder.txtFolloNumber.setText(mDataset.get(position).getmText2());
     }
 
     public void addItem(DataObject dataObj, int index) {

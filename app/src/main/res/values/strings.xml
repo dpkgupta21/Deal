@@ -132,6 +132,7 @@
     <!--Categories screen-->
     <string name="menu_notification">Notification</string>
     <string name="categories_title">Categories</string>
+    <string name="txt_category_name">Auto</string>
 
     <!--following scrren-->
     <string name="following_screen_title">Following</string>
@@ -145,8 +146,16 @@
     <string name="txt_distance">Distance</string>
     <string name="txt_discount">Discount</string>
     <string name="txt_end_date">End Date</string>
+
+
     <string name="nearby_screen_title">NearBy</string>
     <string name="menu_filter">Filter</string>
+    <string name="txt_off">35% off</string>
+    <string name="txt_on_off">on Fanta Pride</string>
+    <string name="txt_distance_val">1.5 Km</string>
+
+
+
 
 
     <!--Store details Screen-->

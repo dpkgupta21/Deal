@@ -64,10 +64,45 @@
 
 
     <!--Setting Screen-->
-    <string name="location_service">Location Service</string>
-    <string name="notification_range">Notification Range</string>
+    <string name="setting_screen_title">إعدادات</string>
+    <string name="location_service">خدمة الموقع</string>
+    <string name="notification_range">نطاق إعلام</string>
     <string name="km_miles">KM / Miles</string>
-    <string name="alert">Alerts</string>
+    <string name="alert">التنبيهات</string>
+    <string name="push_alert">دفع تنبيه</string>
+    <string name="message_alert">رسالة تنبيه</string>
+    <string name="deal_expiry_alert">التعامل انتهاء تنبيه</string>
+    <string name="change_language">غير اللغة</string>
+    <string name="txt_english">English</string>
+    <string name="txt_arabic">العربية</string>
+    <string name="txt_edit_payment_details">تفاصيل تحرير الدفع</string>
+    <string name="txt_edit_profile">تعديل الملف الشخصي</string>
+    <string name="txt_change_currency">تغيير العملة -USD</string>
+
+
+    <!--Categories screen-->
+    <string name="menu_notification">إعلام</string>
+    <string name="categories_title">الفئات</string>
+    <string name="txt_category_name">السيارات</string>
+
+
+
+    <!-- Near By Screen-->
+
+    <string name="txt_selcted_category">Food &amp; Dining</string>
+    <string name="txt_high_to_low">High To Low</string>
+    <string name="txt_low_to_high">Low To High</string>
+    <string name="txt_distance">المسافات</string>
+    <string name="txt_discount">Discount</string>
+    <string name="txt_end_date">تاريخ الانتهاء</string>
+
+
+    <string name="nearby_screen_title">قريب</string>
+    <string name="menu_filter">فلتر</string>
+    <string name="txt_off">35٪ أقل</string>
+    <string name="txt_on_off">على فانتا الكبرياء</string>
+    <string name="txt_distance_val">1.5 كم</string>
+
 
 
 </resources>
