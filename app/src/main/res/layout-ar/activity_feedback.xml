@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@xml/merge_toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tool_bar"
+        android:background="@color/transparent_10">
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:numStars="5"
+            android:rating="2.0"
+            android:stepSize="1.0" />
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ratingBar"
+            android:layout_margin="15dp"
+            android:background="@drawable/edt_txt_white_bcg_shape"
+            android:gravity="start"
+            android:hint="@string/write_your_comments_hint"
+            android:maxLines="7"
+            android:minLines="7"
+            android:padding="10dp"
+            android:singleLine="false" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="@color/white"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btn_post_comments"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+            android:background="@drawable/btn_red_bcg_shape"
+            android:text="@string/post_comments_btn"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_gray_bcg_shape"
+            android:text="@string/cancel_btn"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</RelativeLayout>

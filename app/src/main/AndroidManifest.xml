@@ -77,7 +77,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".nearby.StoreDetailsActivity"
+            android:name=".nearby.RedeemCouponActivity"
             android:label="@string/title_activity_store_details" />
         <activity
             android:name=".nearby.CouponDetailsActivity"

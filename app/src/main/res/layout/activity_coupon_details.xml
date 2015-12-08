@@ -140,7 +140,7 @@
                             android:gravity="center"
                             android:text="(15)"
                             android:textColor="@color/white"
-                            android:textSize="6sp" />
+                            android:textSize="8sp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -328,7 +328,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            tools:context="com.deal.exap.nearby.StoreDetailsActivity" />
+            tools:context=".nearby.RedeemCouponActivity" />
 
     </LinearLayout>
 

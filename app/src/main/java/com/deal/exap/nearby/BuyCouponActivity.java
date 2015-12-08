@@ -35,20 +35,20 @@ public class BuyCouponActivity extends FragmentActivity implements OnMapReadyCal
         mapFragment.getMapAsync(this);
 
         TextView txt_customer_reviews = (TextView) findViewById(R.id.txt_customer_reviews);
-        txt_customer_reviews.setOnClickListener(customerReviewClickListener);
 
-        ((LinearLayout) findViewById(R.id.linear_payment_dialog)).setOnClickListener(dialogClickListener);
+        txt_customer_reviews.setOnClickListener(customerReviewClickListener);
+        ((LinearLayout)findViewById(R.id.linear_payment_dialog)).setOnClickListener(dialogClickListener);
     }
 
 
-    View.OnClickListener dialogClickListener = new View.OnClickListener() {
+    View.OnClickListener dialogClickListener=new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             openPaymentDialog();
         }
     };
 
-    private void openPaymentDialog() {
+    private void openPaymentDialog(){
         final Dialog dialog = new Dialog(BuyCouponActivity.this, R.style.Theme_Dialog);
         // Include dialog.xml file
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
