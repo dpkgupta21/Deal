@@ -33,7 +33,7 @@ public class CustomerFeedBackListAdapter extends RecyclerView
 //            txtFolloNumber = (TextView) itemView.findViewById(R.id.txt_follower_number);
 
             Log.i(LOG_TAG, "Adding Listener");
-            itemView.setOnClickListener(this);
+            //itemView.setOnClickListener(this);
         }
 
         @Override

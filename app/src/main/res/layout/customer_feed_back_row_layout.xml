@@ -11,9 +11,11 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_weight="1.5"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/">
 
         <RatingBar
+            style="?android:attr/ratingBarStyleSmall"
             android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +30,7 @@
             android:text="It's Great! to save money"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="7dp"
             android:gravity="center_horizontal"
             android:singleLine="false" />
 
@@ -36,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="7dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
@@ -85,14 +87,15 @@
 
     <LinearLayout
         android:layout_width="0dp"
+        android:gravity="center"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_weight=".5">
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/img_user_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerInParent="true"
             android:src="@drawable/slide_img"
             app:civ_border_color="@color/white"

@@ -32,12 +32,11 @@
 
         <ImageView
             android:id="@+id/img_close"
-            android:padding="5dp"
-            android:visibility="invisible"
+            android:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/close_pop_icon" />
+            android:background="@drawable/cross_btn" />
 
     </RelativeLayout>
 

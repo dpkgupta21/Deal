@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.deal.exap.R;
+import com.deal.exap.customerfeedback.CustomerFeedBackActivity;
 import com.deal.exap.feedback.PostFeedbackActivity;
 import com.deal.exap.termscondition.TermsConditionActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -74,7 +75,7 @@ public class CouponDetailsActivity extends FragmentActivity implements OnMapRead
     private View.OnClickListener customerReviewClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent postFeedbackIntent = new Intent(CouponDetailsActivity.this, PostFeedbackActivity.class);
+            Intent postFeedbackIntent = new Intent(CouponDetailsActivity.this, CustomerFeedBackActivity.class);
             startActivity(postFeedbackIntent);
 
         }
