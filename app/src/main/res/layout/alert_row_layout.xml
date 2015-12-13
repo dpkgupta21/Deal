@@ -5,6 +5,7 @@
     android:padding="10dp">
 
     <LinearLayout
+        android:gravity="center"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight=".2">
@@ -19,30 +20,28 @@
 
     <LinearLayout
         android:layout_width="0dp"
+        android:layout_marginLeft="10dp"
         android:layout_height="match_parent"
         android:layout_weight=".8"
         android:orientation="vertical">
 
-        <com.deal.exap.customviews.MyTextViewReg16
+        <com.deal.exap.customviews.MyTextViewRegCustom
             android:id="@+id/txt_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/tv_medium"
             android:text="Brger King"
             android:textColor="@color/btn_color" />
 
-        <com.deal.exap.customviews.MyTextViewReg14
+        <com.deal.exap.customviews.MyTextViewRegCustom
             android:id="@+id/txt_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Weekend offer get 50% off on in store purchase." />
+            style="@style/tv_small"
+            android:layout_marginTop="5dp"
+            android:text="Weekend offer get 50% off on in store purchase."
+            android:textStyle="bold" />
 
         <com.deal.exap.customviews.MyTextViewRegCustom
             android:id="@+id/date_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="23 Sep | 11:00 PM"
-            android:textColor="@color/btn_color"
-            android:textSize="10dp" />
+            style="@style/tv_small1"
+            android:text="23 Sep | 11:00 PM" />
 
     </LinearLayout>
 

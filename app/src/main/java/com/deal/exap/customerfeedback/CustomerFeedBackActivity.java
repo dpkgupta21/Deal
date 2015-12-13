@@ -1,45 +1,48 @@
 package com.deal.exap.customerfeedback;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.customerfeedback.adapter.CustomerFeedBackListAdapter;
 import com.deal.exap.favorite.bean.DataObject;
+import com.deal.exap.login.BaseActivity;
 
 import java.util.ArrayList;
 
-public class CustomerFeedBackActivity extends AppCompatActivity {
+public class CustomerFeedBackActivity extends BaseActivity {
 
     private ListView listView;
-    private Toolbar mToolbar;
-    private TextView mToolBarTitle;
-
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_feed_back);
-        mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        mToolBarTitle = (TextView) mToolbar.findViewById(R.id.txt_title);
-        setSupportActionBar(mToolbar);
-
-        mToolBarTitle.setText(getString(R.string.customer_feedback_title));
-
 
         listView =(ListView)findViewById(R.id.list_view_feedback);
         listView.setAdapter(new CustomerFeedBackListAdapter(CustomerFeedBackActivity.this,getDataSet()));
 
-
+        init();
     }
 
+    private void init(){
+        setRightClick();
+        setHeader(getString(R.string.title_custom_feedback));
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.iv_close:
+                finish();
+                break;
+        }
+    }
 
     private ArrayList<DataObject> getDataSet() {
         ArrayList results = new ArrayList<DataObject>();
-        for (int index = 0; index < 10; index++) {
+        for (int index = 0; index < 2; index++) {
             DataObject obj = new DataObject(getString(R.string.txt_category_name),
                     "" + index);
             results.add(index, obj);

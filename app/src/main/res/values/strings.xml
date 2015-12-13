@@ -185,6 +185,7 @@
     <string name="post_comments_btn">Post Comments</string>
     <string name="cancel_btn">Cancel</string>
     <string name="title_activity_org_splash">OrgSplashActivity</string>
+    <string name="title_custom_feedback">Customer Feedbacks</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -203,4 +204,8 @@
 
     <!--Wallet Screen-->
     <string name="wallet_screen_title">Wallet</string>
+
+    <!-- Alert Screen -->
+    <string name="alert_screen_title">Alerts</string>
+    <string name="title_activity_coupon_list">CouponListActivity</string>
 </resources>

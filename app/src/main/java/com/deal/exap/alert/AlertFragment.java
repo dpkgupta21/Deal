@@ -1,16 +1,10 @@
 package com.deal.exap.alert;
 
 
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
-
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.StyleSpan;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,16 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Switch;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.alert.adapter.AlertListAdapter;
 import com.deal.exap.favorite.bean.DataObject;
+import com.deal.exap.login.BaseFragment;
 
 import java.util.ArrayList;
 
 
-public class AlertFragment extends Fragment {
+public class AlertFragment extends BaseFragment {
 
 
     private View view;
@@ -62,36 +57,9 @@ public class AlertFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         switchbtn = (Switch) view.findViewById(R.id.swtch);
         listView = (ListView) view.findViewById(R.id.alert_list_view);
-        applyStyle(switchbtn.getTextOn(), switchbtn.getTextOff());
+        //applyStyle(switchbtn.getTextOn(), switchbtn.getTextOff());
         listView.setAdapter(new AlertListAdapter(getActivity(), getDataSet()));
-
-    }
-
-    public void applyStyle(CharSequence switchTxtOn, CharSequence switchTxtOff) {
-
-        Spannable styleText = new SpannableString(switchTxtOn);
-        StyleSpan style = new StyleSpan(Typeface.BOLD);
-        styleText.setSpan(style, 0, switchTxtOn.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-        styleText.setSpan(new ForegroundColorSpan(Color.GREEN), 0, switchTxtOn.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-        switchbtn.setTextOn(styleText);
-
-        styleText = new SpannableString(switchTxtOff);
-        styleText.setSpan(style, 0, switchTxtOff.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-        styleText.setSpan(new ForegroundColorSpan(Color.RED), 0, switchTxtOff.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-        switchbtn.setTextOff(styleText);
-
-    }
-
-    public void togglestatehandler(View v) {
-        Switch switchbtn = (Switch) v;
-        boolean isChecked = switchbtn.isChecked();
-
-        if (isChecked) {
-            Toast.makeText(getActivity(), "STARTED......", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getActivity(), "STOPPED......", Toast.LENGTH_SHORT).show();
-        }
-
+        setTitleFragment(getString(R.string.alert_screen_title));
     }
 
     @Override
@@ -108,5 +76,11 @@ public class AlertFragment extends Fragment {
             results.add(index, obj);
         }
         return results;
+    }
+
+    protected void setTitleFragment(String strTitle) {
+        Toolbar mToolbar = (Toolbar) ((AppCompatActivity) getActivity()).findViewById(R.id.tool_bar);
+        TextView txtTitle = ((TextView) mToolbar.findViewById(R.id.toolbar_title));
+        txtTitle.setText(strTitle);
     }
 }

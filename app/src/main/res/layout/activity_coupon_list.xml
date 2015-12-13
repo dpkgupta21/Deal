@@ -5,9 +5,9 @@
 
     <include layout="@layout/header" />
 
-    <WebView
-        android:id="@+id/webview_terms_condition"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_nearby"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
 </LinearLayout>

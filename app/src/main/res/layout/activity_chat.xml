@@ -1,83 +1,120 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
     android:orientation="vertical">
 
-
-    <FrameLayout
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="150dp">
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/thumbnail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/slide_img" />
-
-        <RelativeLayout
-            android:id="@+id/linear_image"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/rect_transparent_bcg_shape"
-            android:gravity="fill"
-            android:layout_gravity="bottom"
-            android:orientation="horizontal">
-
-
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/img_company"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/payment_type_icon"
-                app:civ_border_color="@color/white"
-                app:civ_border_width="1dp" />
-
-            <LinearLayout
-                android:id="@+id/linear_company_name"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignTop="@+id/img_company"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/img_company"
-                android:orientation="vertical">
-
-                <com.deal.exap.customviews.MyTextViewSemiCustom
-                    android:id="@+id/txt_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:text="Burger King"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-
-                <com.deal.exap.customviews.MyTextViewRegCustom
-                    android:id="@+id/txt_place_tag"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/place_marker"
-                    android:singleLine="true"
-                    android:text="Ficility cimi"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="150dp">
 
             <ImageView
-                android:id="@+id/img_featured"
+                android:id="@+id/thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/slide_img" />
+
+            <RelativeLayout
+                android:id="@+id/linear_image"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/rect_transparent_bcg_shape"
+                android:gravity="fill"
+                android:orientation="horizontal">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/img_company"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/payment_type_icon"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="1dp" />
+
+                <LinearLayout
+                    android:id="@+id/linear_company_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignTop="@+id/img_company"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/img_company"
+                    android:orientation="vertical">
+
+                    <com.deal.exap.customviews.MyTextViewSemiCustom
+                        android:id="@+id/txt_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="Burger King"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+
+                    <com.deal.exap.customviews.MyTextViewRegCustom
+                        android:id="@+id/txt_place_tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:drawableLeft="@drawable/place_marker"
+                        android:singleLine="true"
+                        android:text="Ficility cimi"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/img_featured"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="right"
+                    android:src="@drawable/featured_tag" />
+            </RelativeLayout>
+        </FrameLayout>
+
+        <ListView
+            android:id="@+id/lv_chat"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:dividerHeight="0dp"
+            android:divider="@null"
+            android:layout_weight="1"></ListView>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray_light"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <com.deal.exap.customviews.MyEditTextViewLight
+                android:id="@+id/et_message"
+                style="@style/et_style1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@color/gray_light1"
+                android:hint="Message" />
+
+            <ImageView
+                android:padding="5dp"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="right"
-                android:src="@drawable/featured_tag" />
-        </RelativeLayout>
-    </FrameLayout>
+                android:src="@drawable/add_icon" />
+        </LinearLayout>
+    </LinearLayout>
 
     <include
         layout="@layout/header"

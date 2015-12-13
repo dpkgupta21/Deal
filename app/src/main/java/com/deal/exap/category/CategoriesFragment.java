@@ -1,12 +1,8 @@
 package com.deal.exap.category;
 
-import android.app.Activity;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +17,6 @@ import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.category.adapter.CategoriesListAdapter;
-import com.deal.exap.favorite.adapter.FavoriteListAdapter;
 import com.deal.exap.favorite.bean.DataObject;
 
 import java.util.ArrayList;
@@ -77,7 +72,8 @@ public class CategoriesFragment extends Fragment {
         ((CategoriesListAdapter) mAdapter).setOnItemClickListener(new CategoriesListAdapter.MyClickListener() {
             @Override
             public void onItemClick(int position, View v) {
-
+                Intent i = new Intent(getActivity(), CouponListActivity.class);
+                startActivity(i);
             }
         });
 

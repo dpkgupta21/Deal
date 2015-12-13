@@ -18,7 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:src="@drawable/back_btn" />
+            android:src="@drawable/back_btn"
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/iv_close"
@@ -27,13 +28,13 @@
             android:layout_alignParentRight="true"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:src="@drawable/cross_btn" />
+            android:src="@drawable/cross_btn"
+            android:visibility="invisible" />
 
         <com.deal.exap.customviews.MyTextViewLight20
             android:id="@+id/tv_header"
             style="@style/tv_header"
             android:layout_centerInParent="true"
-            android:layout_marginRight="10dp"
             android:text="Title" />
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

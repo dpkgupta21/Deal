@@ -1,27 +1,25 @@
 package com.deal.exap.termscondition;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.deal.exap.R;
+import com.deal.exap.login.BaseActivity;
 
-public class TermsConditionActivity extends Activity implements View.OnClickListener {
+public class TermsConditionActivity extends BaseActivity  {
 
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_terms_condition);
         init();
     }
 
     private void init(){
-
-        ImageView ivBack = (ImageView) findViewById(R.id.img_close);
-        ivBack.setOnClickListener(this);
+        setRightClick();
+        setHeader("Terms and Condition");
     }
 
     @Override

@@ -8,16 +8,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
 
 import com.deal.exap.R;
 import com.deal.exap.camera.CameraChooseDialogFragment;
@@ -30,17 +24,16 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 
-public class SignUp extends AppCompatActivity {
+public class SignUp extends BaseActivity {
 
     private static final String TAG = "SignUp";
     private int CAMERA_REQUEST = 1001;
     private int GALLERY_REQUEST = 1002;
     private ImageLoader image_loader;
     private CameraChooseDialogFragment dFragment;
+    ImageView ivProfile;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -49,10 +42,10 @@ public class SignUp extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
-        setUpToolbar();
+        init();
         ((Button) findViewById(R.id.btn_signup)).setOnClickListener(signUpClick);
         ((ImageView) findViewById(R.id.img_add_photo)).setOnClickListener(addImageClick);
 
@@ -63,12 +56,11 @@ public class SignUp extends AppCompatActivity {
     }
 
 
-    private void setUpToolbar() {
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        LinearLayout ll = (LinearLayout) mToolbar.findViewById(R.id.ll_title_single);
-        ll.setVisibility(View.VISIBLE);
-        TextView mToolBarTitle = (TextView) mToolbar.findViewById(R.id.toolbar_title);
-        mToolBarTitle.setText(getString(R.string.profile_header));
+    private void init() {
+
+        setHeader(getString(R.string.profile_header));
+        ivProfile = (ImageView) findViewById(R.id.iv_profile);
+
     }
 
     View.OnClickListener signUpClick = new View.OnClickListener() {
@@ -198,7 +190,7 @@ public class SignUp extends AppCompatActivity {
                     dFragment = null;
                 }
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
-
+                ivProfile.setImageBitmap(photo);
                 // Converting image's bitmap to byte array.
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 photo.compress(Bitmap.CompressFormat.JPEG, 30, bos);
@@ -235,7 +227,7 @@ public class SignUp extends AppCompatActivity {
                 // TODO: Make sure this auto-generated app deep link URI is correct.
                 Uri.parse("android-app://com.deal.exap.login/http/host/path")
         );
-        AppIndex.AppIndexApi.start(client, viewAction);
+        //AppIndex.AppIndexApi.start(client, viewAction);
     }
 
     @Override
@@ -254,7 +246,7 @@ public class SignUp extends AppCompatActivity {
                 // TODO: Make sure this auto-generated app deep link URI is correct.
                 Uri.parse("android-app://com.deal.exap.login/http/host/path")
         );
-        AppIndex.AppIndexApi.end(client, viewAction);
+        //AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     }
 }

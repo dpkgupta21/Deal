@@ -1,9 +1,7 @@
 package com.deal.exap.wallet;
 
-import android.app.Activity;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +18,8 @@ import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.favorite.bean.DataObject;
-import com.deal.exap.wallet.adapter.WalletListAdapter;
+import com.deal.exap.nearby.RedeemCouponActivity;
+import com.deal.exap.nearby.adapter.NearByListAdapter;
 
 import java.util.ArrayList;
 
@@ -67,8 +66,18 @@ public class WalletFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new WalletListAdapter(getDataSet());
+        mAdapter = new NearByListAdapter(getDataSet(), getActivity());
         mRecyclerView.setAdapter(mAdapter);
+
+        ((NearByListAdapter) mAdapter).setOnItemClickListener(new NearByListAdapter.MyClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+
+                Intent i = new Intent(getActivity(), RedeemCouponActivity.class);
+                startActivity(i);
+
+            }
+        });
     }
 
 

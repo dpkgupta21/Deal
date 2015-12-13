@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:switch="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Switch
-        android:id="@+id/swtch"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal"
-        android:minWidth="100dp"
-        android:switchPadding="10dp"
-        android:textOff="Stop"
-        android:textOn="Start"
-        android:textStyle="bold|italic"
-        android:thumb="@drawable/customswitchselector"
-        android:thumbTextPadding="15dp"
-        android:track="@drawable/customtrack"
-        android:typeface="sans" />
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Switch
+            android:id="@+id/swtch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:showText="true"
+            android:switchPadding="10dp"
+            android:textAllCaps="false"
+            android:switchTextAppearance="@style/SwitchTextAppearance"
+            android:textOff="Notification"
+            android:textOn="Message"
+            android:thumb="@drawable/customswitchselector"
+            android:thumbTextPadding="15dp"
+            android:track="@drawable/customtrack" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/alert_list_view"
         android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"></ListView>
 
 
 </LinearLayout>

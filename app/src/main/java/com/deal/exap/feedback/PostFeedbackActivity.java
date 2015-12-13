@@ -1,36 +1,38 @@
 package com.deal.exap.feedback;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import com.deal.exap.R;
+import com.deal.exap.login.BaseActivity;
 
-public class PostFeedbackActivity extends Activity implements View.OnClickListener{
+public class PostFeedbackActivity extends BaseActivity implements View.OnClickListener{
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
 
-        ((Button) findViewById(R.id.btn_post_comments)).setOnClickListener(callFeedBack);
-        ((Button) findViewById(R.id.btn_cancel)).setOnClickListener(this);
+        init();
     }
 
-    View.OnClickListener callFeedBack = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+    private void init(){
 
-        }
-    };
+        setTouchNClick(R.id.btn_cancel);
+        setTouchNClick(R.id.btn_post_comments);
 
+        setHeader(getString(R.string.post_your_feedback_header));
+        setRightClick();
+    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_cancel:
+                finish();
+                break;
+            case R.id.iv_close:
                 finish();
                 break;
         }

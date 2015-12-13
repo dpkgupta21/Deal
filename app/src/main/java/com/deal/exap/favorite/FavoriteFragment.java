@@ -1,7 +1,7 @@
 package com.deal.exap.favorite;
 
+import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.deal.exap.R;
+import com.deal.exap.category.CouponListActivity;
 import com.deal.exap.favorite.adapter.FavoriteListAdapter;
 import com.deal.exap.favorite.bean.DataObject;
 
@@ -68,6 +69,15 @@ public class FavoriteFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
 
 
+        ((FavoriteListAdapter) mAdapter).setOnItemClickListener(new FavoriteListAdapter.MyClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+
+                Intent i = new Intent(getActivity(), CouponListActivity.class);
+                startActivity(i);
+
+            }
+        });
     }
 
 

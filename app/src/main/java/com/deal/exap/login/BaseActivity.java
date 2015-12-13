@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.deal.exap.R;
 import com.deal.exap.utility.TouchEffect;
 
 public class BaseActivity extends AppCompatActivity implements OnClickListener, CompoundButton.OnCheckedChangeListener{
@@ -198,5 +199,34 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener, 
 	@Override
 	public void onClick(View view) {
 
+	}
+
+	public void setHeader(String header){
+		Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+		TextView tvHeader = (TextView) toolbar.findViewById(R.id.tv_header);
+		tvHeader.setText(header);
+	}
+	public void setRightClick(){
+		Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+		ImageView ivRight = (ImageView) toolbar.findViewById(R.id.iv_close);
+		ivRight.setVisibility(View.VISIBLE);
+		ivRight.setOnClickListener(this);
+	}
+
+	public void setLeftClick(){
+		Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+		ImageView ivLeft = (ImageView) toolbar.findViewById(R.id.iv_back);
+		ivLeft.setVisibility(View.VISIBLE);
+		ivLeft.setOnClickListener(this);
+	}
+
+	public void setHeaderNormal(){
+		Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+		toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_color));
+	}
+
+	public void setHeaderTransparent(){
+		Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+		toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_transparent_color));
 	}
 }

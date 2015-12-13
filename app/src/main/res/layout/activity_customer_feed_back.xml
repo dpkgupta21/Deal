@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent"
+    android:orientation="vertical"
     tools:context="com.deal.exap.customerfeedback.CustomerFeedBackActivity">
 
-    <include
-        android:id="@+id/tool_bar"
-        layout="@xml/merge_toolbar" />
+    <include layout="@layout/header" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tool_bar"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
 
 
         <ListView
             android:id="@+id/list_view_feedback"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:divider="@color/transparent"
             android:dividerHeight="20dp" />
 
+        <Button
+            android:layout_margin="10dp"
+            android:layout_width="fill_parent"
+            android:id="@+id/btn_post_comments"
+            android:text="@string/btn_rate"
+            style="@style/btn_style"/>
     </LinearLayout>
 
 
-</RelativeLayout>
+</LinearLayout>
