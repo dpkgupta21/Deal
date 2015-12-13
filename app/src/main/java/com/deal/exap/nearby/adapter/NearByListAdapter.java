@@ -1,10 +1,12 @@
 package com.deal.exap.nearby.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.deal.exap.R;
@@ -18,17 +20,19 @@ public class NearByListAdapter extends RecyclerView
     private static String LOG_TAG = "NearByListAdapter";
     private ArrayList<DataObject> mDataset;
     private static MyClickListener myClickListener;
-
+    private Context context;
     public static class DataObjectHolder extends RecyclerView.ViewHolder
             implements View
             .OnClickListener {
         TextView label;
         TextView dateTime;
+        LinearLayout llCouponItem;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
 //            label = (TextView) itemView.findViewById(R.id.txt_category_name);
 //            dateTime = (TextView) itemView.findViewById(R.id.txt_like_number);
+            llCouponItem = (LinearLayout) itemView.findViewById(R.id.ll_filter_item);
             Log.i(LOG_TAG, "Adding Listener");
             itemView.setOnClickListener(this);
         }
@@ -43,8 +47,9 @@ public class NearByListAdapter extends RecyclerView
         this.myClickListener = myClickListener;
     }
 
-    public NearByListAdapter(ArrayList<DataObject> myDataset) {
+    public NearByListAdapter(ArrayList<DataObject> myDataset, Context context) {
         mDataset = myDataset;
+        this.context = context;
     }
 
 
@@ -60,6 +65,10 @@ public class NearByListAdapter extends RecyclerView
 
     @Override
     public void onBindViewHolder(DataObjectHolder holder, int position) {
+        if(position%2==0)
+        holder.llCouponItem.setBackgroundResource(R.drawable.coupon_item_bg_black);
+        else
+            holder.llCouponItem.setBackgroundResource(R.drawable.coupon_item_bg_red);
 //        holder.label.setText(mDataset.get(position).getmText1());
 //        holder.dateTime.setText(mDataset.get(position).getmText2());
     }

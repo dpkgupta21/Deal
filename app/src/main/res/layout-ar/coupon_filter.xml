@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_filter"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:visibility="gone">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <com.deal.exap.customviews.MyEditTextViewLight
+            android:id="@+id/et_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:background="@drawable/white_bg_border"
+            android:drawableLeft="@drawable/notification_btn"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:padding="5dp"
+            android:text="Food and Dinning"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="4"
+            android:weightSum="2">
+
+            <com.deal.exap.customviews.MyButtonViewSemi
+                android:id="@+id/btn_km"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_bg_filter"
+                android:focusable="false"
+                android:focusableInTouchMode="true"
+                android:minHeight="40dp"
+                android:padding="5dp"
+
+                android:text="Km"
+                android:textAllCaps="false"
+                android:textSize="16sp" />
+
+            <com.deal.exap.customviews.MyButtonViewSemi
+                android:id="@+id/btn_miles"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_bg_filter"
+                android:focusable="false"
+                android:focusableInTouchMode="true"
+                android:minHeight="40dp"
+                android:padding="5dp"
+                android:text="Miles"
+                android:textAllCaps="false"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_weight="4"
+        android:orientation="horizontal">
+
+        <com.deal.exap.customviews.MyTextViewLight14
+            style="@style/tv_small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Distance"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <Switch
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_weight="3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_weight="4"
+        android:orientation="horizontal">
+
+        <com.deal.exap.customviews.MyTextViewLight14
+            style="@style/tv_small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Discount"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <Switch
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_weight="3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_weight="4"
+        android:orientation="horizontal">
+
+        <com.deal.exap.customviews.MyTextViewLight14
+            style="@style/tv_small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="End Date"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <Switch
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_weight="3" />
+    </LinearLayout>
+</LinearLayout>

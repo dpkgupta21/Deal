@@ -18,6 +18,7 @@
             android:src="@drawable/slide_img" />
 
         <LinearLayout
+            android:id="@+id/ll_filter_item"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_alignParentBottom="true"
@@ -142,12 +143,16 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
                     android:background="@drawable/txt_outer_border_grey"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp">
 
                     <com.deal.exap.customviews.MyTextViewRegCustom
                         android:layout_width="wrap_content"
@@ -171,8 +176,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="fill_horizontal"
                     android:layout_marginLeft="5dp"
+                    android:gravity="fill_horizontal"
                     android:orientation="horizontal">
 
 

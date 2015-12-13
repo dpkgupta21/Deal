@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -17,7 +16,7 @@
             android:layout_gravity="center_vertical">
 
             <ImageView
-                android:id="@+id/img_close_pop_up"
+                android:id="@+id/iv_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -95,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:background="@color/btn_color"
             android:text="@string/btn_save"
             android:textColor="@color/white" />
@@ -103,7 +102,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:src="@drawable/payment_type_icon" />
 
     </LinearLayout>
@@ -112,7 +111,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:padding="10dp"
+        android:padding="15dp"
         android:src="@drawable/payment_icons" />
 
 </LinearLayout>

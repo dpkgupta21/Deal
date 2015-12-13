@@ -3,7 +3,6 @@ package com.deal.exap.nearby;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,21 +13,26 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.favorite.bean.DataObject;
+import com.deal.exap.login.BaseFragment;
 import com.deal.exap.nearby.adapter.NearByListAdapter;
 
 import java.util.ArrayList;
 
 
-public class NearByFragment extends Fragment {
+public class NearByFragment extends BaseFragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private View view;
+    private LinearLayout llFilter;
+    private Button btnKm, btnMiles;
 //    public static NearByFragment newInstance() {
 //        NearByFragment fragment = new NearByFragment();
 //
@@ -53,9 +57,19 @@ public class NearByFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_near_by, container, false);
 
+        init();
+
         return view;
     }
 
+    private void init(){
+        llFilter = (LinearLayout) view.findViewById(R.id.ll_filter);
+        setTouchNClick(R.id.btn_km, view);
+        setTouchNClick(R.id.btn_miles, view);
+        btnMiles = (Button) view.findViewById(R.id.btn_miles);
+        btnKm = (Button) view.findViewById(R.id.btn_km);
+
+    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -64,7 +78,7 @@ public class NearByFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new NearByListAdapter(getDataSet());
+        mAdapter = new NearByListAdapter(getDataSet(), getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
 
@@ -102,12 +116,15 @@ public class NearByFragment extends Fragment {
 
         switch (item.getItemId()) {
             case R.id.menu_filter:
+                if(llFilter.getVisibility()==View.GONE)
+                    llFilter.setVisibility(View.VISIBLE);
+                else
+                     llFilter.setVisibility(View.GONE);
+                break;
 
 
-            default:
-                return super.onOptionsItemSelected(item);
         }
-
+        return super.onOptionsItemSelected(item);
     }
 
     protected void setTitleFragment(String strTitle) {
@@ -116,4 +133,21 @@ public class NearByFragment extends Fragment {
         txtTitle.setText(strTitle);
     }
 
+    @Override
+    public void onClick(View arg0) {
+        switch (arg0.getId()){
+            case R.id.btn_miles:
+                btnMiles.setSelected(true);
+                btnMiles.setTextColor(getResources().getColor(R.color.white));
+                btnKm.setSelected(false);
+                btnKm.setTextColor(getResources().getColor(R.color.tv_color));
+                break;
+            case R.id.btn_km:
+                btnMiles.setSelected(false);
+                btnMiles.setTextColor(getResources().getColor(R.color.tv_color));
+                btnKm.setSelected(true);
+                btnKm.setTextColor(getResources().getColor(R.color.white));
+                break;
+        }
+    }
 }
