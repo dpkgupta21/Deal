@@ -203,7 +203,4 @@
 
     <!--Wallet Screen-->
     <string name="wallet_screen_title">Wallet</string>
-
-    <string name="alert_screen_title">Alert</string>
-    <string name="customer_feedback_title">Customer Feedbacks</string>
 </resources>

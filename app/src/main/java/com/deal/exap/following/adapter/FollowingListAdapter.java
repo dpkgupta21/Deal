@@ -31,7 +31,7 @@ public class FollowingListAdapter extends RecyclerView
             label = (TextView) itemView.findViewById(R.id.txt_title);
             dateTime = (TextView) itemView.findViewById(R.id.txt_place_tag);
             Log.i(LOG_TAG, "Adding Listener");
-            //itemView.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
         @Override

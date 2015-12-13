@@ -1,9 +1,7 @@
 package com.deal.exap.following;
 
-import android.app.Activity;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,13 +12,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.deal.exap.R;
-import com.deal.exap.favorite.adapter.FavoriteListAdapter;
 import com.deal.exap.favorite.bean.DataObject;
 import com.deal.exap.following.adapter.FollowingListAdapter;
+import com.deal.exap.partner.ChatActivity;
 
 import java.util.ArrayList;
 
@@ -71,7 +68,15 @@ public class FollowingFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
 
 
+        ((FollowingListAdapter) mAdapter).setOnItemClickListener(new FollowingListAdapter.MyClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
 
+                Intent i = new Intent(getActivity(), ChatActivity.class);
+                startActivity(i);
+
+            }
+        });
     }
 
 
