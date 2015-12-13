@@ -1,4 +1,5 @@
-package com.deal.exap.customerfeedback.adapter;
+package com.deal.exap.alert.adapter;
+
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,19 +13,19 @@ import android.widget.TextView;
 import com.deal.exap.R;
 import com.deal.exap.favorite.bean.DataObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerFeedBackListAdapter extends BaseAdapter {
+public class AlertListAdapter extends BaseAdapter {
 
     private Object object;
     public List<DataObject> list;
 
-    public CustomerFeedBackListAdapter(Object object, ArrayList<DataObject> list) {
+
+    public AlertListAdapter(Object object, List<DataObject> list) {
+
         this.object = object;
         this.list = list;
     }
-
 
     @Override
     public int getCount() {
@@ -49,7 +50,7 @@ public class CustomerFeedBackListAdapter extends BaseAdapter {
             if (view == null) {
                 LayoutInflater li = (LayoutInflater) ((Activity) object)
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                view = (View) li.inflate(R.layout.customer_feed_back_row_layout,
+                view = (View) li.inflate(R.layout.alert_row_layout,
                         parent, false);
                 holder = new ViewHolder();
                 view.setTag(holder);
@@ -69,6 +70,5 @@ public class CustomerFeedBackListAdapter extends BaseAdapter {
         TextView txt_date_time;
         ImageView img;
     }
-
 
 }

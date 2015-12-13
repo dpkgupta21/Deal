@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="horizontal"
     android:weightSum="2">
@@ -28,7 +28,7 @@
             android:id="@+id/txt_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
             android:singleLine="false"
             android:text="It's Great! to save money" />
@@ -37,22 +37,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
+
+            <com.deal.exap.customviews.MyTextViewReg12
+                android:id="@+id/txt_by"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BY "
+                android:textColor="@color/btn_color" />
+
 
             <com.deal.exap.customviews.MyTextViewReg12
                 android:id="@+id/txt_customer_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="BY Asvin Mizak"
+                android:text="Asvin Mizak"
                 android:textColor="@color/btn_color" />
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="3dp"
-                android:background="@color/gray_light"></View>
 
 
             <com.deal.exap.customviews.MyTextViewReg12
@@ -60,22 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
-                android:text="23 Sep" />
-
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="3dp"
-                android:background="@color/gray_light"></View>
-
-
-            <com.deal.exap.customviews.MyTextViewReg12
-                android:id="@+id/txt_post_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:text="11:00 PM" />
+                android:text=" | 23 Sep | 11:00 PM" />
 
 
         </LinearLayout>
@@ -88,14 +76,14 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_weight=".5"
-        android:gravity="center">
+        android:layout_weight=".5">
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/img_user_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/slide_img"
             app:civ_border_color="@color/white"
             app:civ_border_width="1dp" />

@@ -1,12 +1,12 @@
 package com.deal.exap.customerfeedback;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.deal.exap.R;
-import com.deal.exap.category.adapter.CategoriesListAdapter;
 import com.deal.exap.customerfeedback.adapter.CustomerFeedBackListAdapter;
 import com.deal.exap.favorite.bean.DataObject;
 
@@ -14,21 +14,24 @@ import java.util.ArrayList;
 
 public class CustomerFeedBackActivity extends AppCompatActivity {
 
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private ListView listView;
+    private Toolbar mToolbar;
+    private TextView mToolBarTitle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_feed_back);
+        mToolbar = (Toolbar) findViewById(R.id.tool_bar);
+        mToolBarTitle = (TextView) mToolbar.findViewById(R.id.txt_title);
+        setSupportActionBar(mToolbar);
 
-        mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view_feedback);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new CustomerFeedBackListAdapter(getDataSet());
-        mRecyclerView.setAdapter(mAdapter);
+        mToolBarTitle.setText(getString(R.string.customer_feedback_title));
+
+
+        listView =(ListView)findViewById(R.id.list_view_feedback);
+        listView.setAdapter(new CustomerFeedBackListAdapter(CustomerFeedBackActivity.this,getDataSet()));
 
 
     }

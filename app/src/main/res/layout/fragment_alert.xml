@@ -1,9 +1,33 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.deal.exap.fragment.AlertFragment">
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:switch="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/app_name" />
+    <Switch
+        android:id="@+id/swtch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:minWidth="100dp"
+        android:switchPadding="10dp"
+        android:textOff="Stop"
+        android:textOn="Start"
+        android:textStyle="bold|italic"
+        android:thumb="@drawable/customswitchselector"
+        android:thumbTextPadding="15dp"
+        android:track="@drawable/customtrack"
+        android:typeface="sans" />
 
-</FrameLayout>
+    <ListView
+        android:id="@+id/alert_list_view"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="match_parent"></ListView>
+
+
+</LinearLayout>

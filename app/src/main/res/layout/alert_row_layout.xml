@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".2">
+
+        <ImageView
+            android:id="@+id/img_title"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/slide_img" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".8"
+        android:orientation="vertical">
+
+        <com.deal.exap.customviews.MyTextViewReg16
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Brger King"
+            android:textColor="@color/btn_color" />
+
+        <com.deal.exap.customviews.MyTextViewReg14
+            android:id="@+id/txt_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weekend offer get 50% off on in store purchase." />
+
+        <com.deal.exap.customviews.MyTextViewRegCustom
+            android:id="@+id/date_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="23 Sep | 11:00 PM"
+            android:textColor="@color/btn_color"
+            android:textSize="10dp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -16,7 +17,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -26,17 +26,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.deal.exap.R;
+import com.deal.exap.alert.AlertFragment;
 import com.deal.exap.camera.CameraChooseDialogFragment;
 import com.deal.exap.camera.CameraSelectInterface;
 import com.deal.exap.camera.GallerySelectInterface;
-import com.deal.exap.fragment.AlertFragment;
 import com.deal.exap.category.CategoriesFragment;
 import com.deal.exap.favorite.FavoriteFragment;
 import com.deal.exap.following.FollowingFragment;
-import com.deal.exap.nearby.NearByFragment;
-import com.deal.exap.wallet.WalletFragment;
 import com.deal.exap.interest.InterestFragment;
+import com.deal.exap.nearby.NearByFragment;
 import com.deal.exap.settings.SettingFragment;
+import com.deal.exap.wallet.WalletFragment;
 import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -171,7 +171,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
             case 0:
                 fragment = new AlertFragment();
-                title = "";
+                title = getString(R.string.alert_screen_title);
                 break;
 
             case 1:

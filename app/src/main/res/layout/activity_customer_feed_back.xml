@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/transparent"
     tools:context="com.deal.exap.customerfeedback.CustomerFeedBackActivity">
 
     <include
@@ -13,18 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tool_bar"
-        android:background="@color/transparent">
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view_feedback"
+        <ListView
+            android:id="@+id/list_view_feedback"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/white"
-
-            android:scrollbars="vertical" />
+            android:divider="@color/transparent"
+            android:dividerHeight="20dp" />
 
     </LinearLayout>
 
