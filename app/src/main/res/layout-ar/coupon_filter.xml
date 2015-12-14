@@ -75,58 +75,40 @@
             style="@style/tv_small"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="Distance"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
-        <Switch
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:showText="true"
-            android:switchPadding="10dp"
-            android:switchTextAppearance="@style/SwitchTextAppearance"
-            android:textAllCaps="false"
-            android:textOff="Low to High"
-            android:textOn="Hight to Low"
-            android:thumb="@drawable/customswitchselector"
-            android:thumbTextPadding="15dp"
-            android:track="@drawable/customtrack" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_weight="4"
-        android:orientation="horizontal"
-        >
-
-        <com.deal.exap.customviews.MyTextViewLight14
-            style="@style/tv_small"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="Discount"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:orientation="horizontal">
 
-        <Switch
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:showText="true"
-            android:switchPadding="10dp"
-            android:switchTextAppearance="@style/SwitchTextAppearance"
-            android:textAllCaps="false"
-            android:textOff="Low to High"
-            android:textOn="Hight to Low"
-            android:thumb="@drawable/customswitchselector"
-            android:thumbTextPadding="15dp"
-            android:track="@drawable/customtrack" />
+            <Button
+                android:id="@+id/btn_distance_lth"
+                style="@style/btn_style_small"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/toggle_left_selector"
+                android:minHeight="0dp"
+                android:text="Low To High"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_distance_htl"
+                style="@style/btn_style_small"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/toggle_right_selector"
+                android:minHeight="0dp"
+                android:text="High to Low"
+                android:textAllCaps="false" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -140,24 +122,86 @@
             style="@style/tv_small"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Discount"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_discount_lth"
+                style="@style/btn_style_small"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/toggle_left_selector"
+                android:minHeight="0dp"
+                android:text="Low To High"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_discount_htl"
+                style="@style/btn_style_small"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/toggle_right_selector"
+                android:minHeight="0dp"
+                android:text="High to Low"
+                android:textAllCaps="false" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_weight="4"
+        android:orientation="horizontal">
+
+        <com.deal.exap.customviews.MyTextViewLight14
+            style="@style/tv_small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="End Date"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
-        <Switch
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:showText="true"
-            android:switchPadding="10dp"
-            android:switchTextAppearance="@style/SwitchTextAppearance"
-            android:textAllCaps="false"
-            android:textOff="Sooner to Later"
-            android:textOn="Later to Sooner"
-            android:thumb="@drawable/customswitchselector"
-            android:thumbTextPadding="15dp"
-            android:track="@drawable/customtrack" />
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_date_lts"
+                style="@style/btn_style_small"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/toggle_left_selector"
+                android:minHeight="0dp"
+                android:text="Sooner to Later"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_date_stl"
+                style="@style/btn_style_small"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/toggle_right_selector"
+                android:minHeight="0dp"
+                android:text="Later to Sooner"
+                android:textAllCaps="false" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

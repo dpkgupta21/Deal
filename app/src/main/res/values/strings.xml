@@ -208,4 +208,5 @@
     <!-- Alert Screen -->
     <string name="alert_screen_title">Alerts</string>
     <string name="title_activity_coupon_list">CouponListActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 </resources>

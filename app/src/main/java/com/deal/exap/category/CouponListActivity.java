@@ -9,7 +9,7 @@ import android.view.View;
 import com.deal.exap.R;
 import com.deal.exap.favorite.bean.DataObject;
 import com.deal.exap.login.BaseActivity;
-import com.deal.exap.nearby.RedeemCouponActivity;
+import com.deal.exap.nearby.BuyCouponActivity;
 import com.deal.exap.nearby.adapter.NearByListAdapter;
 
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class CouponListActivity extends BaseActivity {
             @Override
             public void onItemClick(int position, View v) {
 
-                Intent i = new Intent(CouponListActivity.this, RedeemCouponActivity.class);
+                Intent i = new Intent(CouponListActivity.this, BuyCouponActivity.class);
                 startActivity(i);
 
             }

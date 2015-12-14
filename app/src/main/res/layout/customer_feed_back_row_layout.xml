@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="horizontal"
-    android:weightSum="2">
+    android:weightSum="2"
+    android:paddingBottom="10dp">
 
     <LinearLayout
         android:layout_width="0dp"

@@ -34,6 +34,7 @@ import com.deal.exap.category.CategoriesFragment;
 import com.deal.exap.favorite.FavoriteFragment;
 import com.deal.exap.following.FollowingFragment;
 import com.deal.exap.interest.InterestFragment;
+import com.deal.exap.login.ProfileActivity;
 import com.deal.exap.nearby.NearByFragment;
 import com.deal.exap.settings.SettingFragment;
 import com.deal.exap.wallet.WalletFragment;
@@ -224,7 +225,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
     View.OnClickListener addImageClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            showAlertCamera();
+            startActivity(new Intent(NavigationDrawerActivity.this, ProfileActivity.class));
         }
     };
 

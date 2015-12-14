@@ -32,7 +32,8 @@ public class NearByFragment extends BaseFragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private View view;
     private LinearLayout llFilter;
-    private Button btnKm, btnMiles;
+    private Button btnKm, btnMiles, btnDistantLth, btnDistantHtl, btnDiscountLth, btnDiscountHtl
+            ,btnDateStl, btnDateLts;
 //    public static NearByFragment newInstance() {
 //        NearByFragment fragment = new NearByFragment();
 //
@@ -68,6 +69,23 @@ public class NearByFragment extends BaseFragment {
         setTouchNClick(R.id.btn_miles, view);
         btnMiles = (Button) view.findViewById(R.id.btn_miles);
         btnKm = (Button) view.findViewById(R.id.btn_km);
+        btnDistantLth = (Button) view.findViewById(R.id.btn_distance_lth);
+        btnDistantLth.setSelected(true);
+        btnDistantHtl = (Button) view.findViewById(R.id.btn_distance_htl);
+
+        btnDiscountLth = (Button) view.findViewById(R.id.btn_discount_lth);
+        btnDiscountLth.setSelected(true);
+        btnDiscountHtl = (Button) view.findViewById(R.id.btn_discount_htl);
+        btnDateStl = (Button) view.findViewById(R.id.btn_date_stl);
+        btnDateStl.setSelected(true);
+        btnDateLts = (Button) view.findViewById(R.id.btn_date_lts);
+
+        setTouchNClick(R.id.btn_discount_htl, view);
+        setTouchNClick(R.id.btn_discount_lth, view);
+        setTouchNClick(R.id.btn_distance_lth, view);
+        setTouchNClick(R.id.btn_distance_htl, view);
+        setTouchNClick(R.id.btn_date_lts, view);
+        setTouchNClick(R.id.btn_date_stl, view);
 
     }
     @Override
@@ -86,7 +104,7 @@ public class NearByFragment extends BaseFragment {
             @Override
             public void onItemClick(int position, View v) {
 
-                Intent i = new Intent(getActivity(),RedeemCouponActivity.class);
+                Intent i = new Intent(getActivity(),BuyCouponActivity.class);
                 startActivity(i);
 
             }
@@ -147,6 +165,30 @@ public class NearByFragment extends BaseFragment {
                 btnMiles.setTextColor(getResources().getColor(R.color.tv_color));
                 btnKm.setSelected(true);
                 btnKm.setTextColor(getResources().getColor(R.color.white));
+                break;
+            case R.id.btn_discount_htl:
+                btnDiscountHtl.setSelected(true);
+                btnDiscountLth.setSelected(false);
+                break;
+            case R.id.btn_discount_lth:
+                btnDiscountHtl.setSelected(false);
+                btnDiscountLth.setSelected(true);
+                break;
+            case R.id.btn_distance_htl:
+                btnDistantHtl.setSelected(true);
+                btnDistantLth.setSelected(false);
+                break;
+            case R.id.btn_distance_lth:
+                btnDistantHtl.setSelected(false);
+                btnDistantLth.setSelected(true);
+                break;
+            case R.id.btn_date_lts:
+                btnDateLts.setSelected(true);
+                btnDateStl.setSelected(false);
+                break;
+            case R.id.btn_date_stl:
+                btnDateLts.setSelected(false);
+                btnDateStl.setSelected(true);
                 break;
         }
     }

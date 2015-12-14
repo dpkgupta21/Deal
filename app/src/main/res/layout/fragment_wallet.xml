@@ -1,69 +1,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="3">
+    android:orientation="vertical">
 
-
-    <RelativeLayout
-        android:id="@+id/relative_image"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.2">
-
-        <ImageView
-            android:id="@+id/img_profile_picture"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/slide_img" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
-
-            <com.deal.exap.customviews.MyTextViewReg16
-                android:id="@+id/txt_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/img_user_image"
-                android:layout_centerHorizontal="true"
-                android:text="@string/name"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <com.deal.exap.customviews.MyTextViewReg14
-                android:id="@+id/txt_age_city"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txt_name"
-                android:layout_centerHorizontal="true"
-                android:text="@string/age_city"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-
-        <ImageView
-            android:id="@+id/img_add_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="10dp"
-            android:background="@drawable/add_icon" />
-
-    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_wallet"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.8"
+        android:layout_height="match_parent"
         android:scrollbars="vertical" />
 
 

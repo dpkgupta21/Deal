@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.favorite.bean.DataObject;
-import com.deal.exap.nearby.RedeemCouponActivity;
+import com.deal.exap.nearby.BuyCouponActivity;
 import com.deal.exap.nearby.adapter.NearByListAdapter;
 
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ public class WalletFragment extends Fragment {
             @Override
             public void onItemClick(int position, View v) {
 
-                Intent i = new Intent(getActivity(), RedeemCouponActivity.class);
+                Intent i = new Intent(getActivity(), BuyCouponActivity.class);
                 startActivity(i);
 
             }

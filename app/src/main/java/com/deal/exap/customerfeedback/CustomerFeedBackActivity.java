@@ -1,5 +1,6 @@
 package com.deal.exap.customerfeedback;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -7,6 +8,7 @@ import android.widget.ListView;
 import com.deal.exap.R;
 import com.deal.exap.customerfeedback.adapter.CustomerFeedBackListAdapter;
 import com.deal.exap.favorite.bean.DataObject;
+import com.deal.exap.feedback.PostFeedbackActivity;
 import com.deal.exap.login.BaseActivity;
 
 import java.util.ArrayList;
@@ -29,6 +31,7 @@ public class CustomerFeedBackActivity extends BaseActivity {
     private void init(){
         setRightClick();
         setHeader(getString(R.string.title_custom_feedback));
+        setTouchNClick(R.id.btn_post_comments);
     }
 
     @Override
@@ -36,6 +39,9 @@ public class CustomerFeedBackActivity extends BaseActivity {
         switch (view.getId()){
             case R.id.iv_close:
                 finish();
+                break;
+            case R.id.btn_post_comments:
+                startActivity(new Intent(this, PostFeedbackActivity.class));
                 break;
         }
     }

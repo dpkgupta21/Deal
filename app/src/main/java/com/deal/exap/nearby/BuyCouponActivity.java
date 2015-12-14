@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.deal.exap.R;
-import com.deal.exap.feedback.PostFeedbackActivity;
+import com.deal.exap.customerfeedback.CustomerFeedBackActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -102,7 +102,7 @@ public class BuyCouponActivity extends FragmentActivity implements OnMapReadyCal
     private View.OnClickListener customerReviewClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent postFeedbackIntent = new Intent(BuyCouponActivity.this, PostFeedbackActivity.class);
+            Intent postFeedbackIntent = new Intent(BuyCouponActivity.this, CustomerFeedBackActivity.class);
             startActivity(postFeedbackIntent);
 
         }

@@ -10,8 +10,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.deal.exap.R;
@@ -26,8 +26,8 @@ public class AlertFragment extends BaseFragment {
 
 
     private View view;
-    private Switch switchbtn;
     private ListView listView;
+    private Button btnMessage, btnNotification;
 //    public static AlertFragment newInstance() {
 //        AlertFragment fragment = new AlertFragment();
 //        return fragment;
@@ -49,17 +49,26 @@ public class AlertFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_alert, container, false);
+
+        init();
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        switchbtn = (Switch) view.findViewById(R.id.swtch);
         listView = (ListView) view.findViewById(R.id.alert_list_view);
         //applyStyle(switchbtn.getTextOn(), switchbtn.getTextOff());
         listView.setAdapter(new AlertListAdapter(getActivity(), getDataSet()));
         setTitleFragment(getString(R.string.alert_screen_title));
+    }
+
+    private void init(){
+        setTouchNClick(R.id.btn_notification, view);
+        setTouchNClick(R.id.btn_message, view);
+        btnNotification = (Button) view.findViewById(R.id.btn_notification);
+        btnNotification.setSelected(true);
+        btnMessage = (Button) view.findViewById(R.id.btn_message);
     }
 
     @Override
@@ -67,6 +76,19 @@ public class AlertFragment extends BaseFragment {
         inflater.inflate(R.menu.menu_settings, menu);
     }
 
+    @Override
+    public void onClick(View arg0) {
+        switch (arg0.getId()){
+            case R.id.btn_message:
+                btnMessage.setSelected(true);
+                btnNotification.setSelected(false);
+                break;
+            case R.id.btn_notification:
+                btnMessage.setSelected(false);
+                btnNotification.setSelected(true);
+                break;
+        }
+    }
 
     private ArrayList<DataObject> getDataSet() {
         ArrayList results = new ArrayList<DataObject>();

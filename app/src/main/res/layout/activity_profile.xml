@@ -1,0 +1,126 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/screen_bg_color"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="300dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/avtar" />
+
+                <com.deal.exap.customviews.MyTextViewLightCustom
+                    style="@style/tv_heading"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="bottom"
+                    android:background="#30000000"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Change Photo"
+                    android:textColor="@color/black" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp">
+
+                <com.deal.exap.customviews.MyTextViewRegCustom
+                    style="@style/tv_normal"
+                    android:text="Full Name"
+                    android:textColor="@color/black" />
+
+                <com.deal.exap.customviews.MyEditTextViewLight
+                    style="@style/et_style_line"
+                    android:layout_marginTop="5dp"
+                    android:hint="Enter here..." />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.deal.exap.customviews.MyTextViewRegCustom
+                            style="@style/tv_normal"
+                            android:text="Age"
+                            android:textColor="@color/black" />
+
+                        <com.deal.exap.customviews.MyEditTextViewLight
+                            style="@style/et_style_line"
+                            android:layout_marginTop="5dp"
+                            android:focusable="false"
+                            android:drawableRight="@drawable/selec_icon"
+                            android:hint="Select" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.deal.exap.customviews.MyTextViewRegCustom
+                            style="@style/tv_normal"
+                            android:text="Sex"
+                            android:textColor="@color/black" />
+
+                        <com.deal.exap.customviews.MyEditTextViewLight
+                            android:focusable="false"
+                            style="@style/et_style_line"
+                            android:layout_marginTop="5dp"
+                            android:drawableRight="@drawable/selec_icon"
+                            android:hint="Select" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <com.deal.exap.customviews.MyTextViewRegCustom
+                    style="@style/tv_normal"
+                    android:layout_marginTop="10dp"
+                    android:text="Location"
+                    android:textColor="@color/black" />
+
+                <com.deal.exap.customviews.MyEditTextViewLight
+                    android:focusable="false"
+                    style="@style/et_style_line"
+                    android:layout_marginTop="5dp"
+                    android:drawableRight="@drawable/selec_icon"
+                    android:hint="Select" />
+
+                <Button
+                    android:layout_width="fill_parent"
+                    style="@style/btn_style"
+                    android:layout_marginTop="10dp"
+                    android:text="Save Changes" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/header" />
+
+</FrameLayout>
