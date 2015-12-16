@@ -32,7 +32,6 @@ public class SplashScreen extends AppCompatActivity {
     private SplashScreenPagerAdapter mAdapter;
     private Map<Integer, String> mPictures;
     private List<Integer> mPictureIdsList;
-
     private RadioGroup mSwipeIndicator;
     // List of Ids of radio buttons for displaying the dot of currently displayed picture
     private List<Integer> mRadioButtonIds;

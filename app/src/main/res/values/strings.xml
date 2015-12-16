@@ -154,6 +154,11 @@
     <string name="txt_off">35% off</string>
     <string name="txt_on_off">on Fanta Pride</string>
     <string name="txt_distance_val">1.5 Km</string>
+    <string name="txt_filter_distance_unit_km">Km</string>
+    <string name="txt_filter_distance_unit_miles">Miles</string>
+    <string name="txt_filter_food and dining_meun">Food and Dinning</string>
+
+
 
 
 

@@ -23,7 +23,8 @@
             android:focusable="false"
             android:focusableInTouchMode="true"
             android:padding="5dp"
-            android:text="Food and Dinning"
+            android:singleLine="true"
+            android:text="@string/txt_filter_food and dining_meun"
             android:textSize="16sp" />
 
         <LinearLayout
@@ -43,8 +44,8 @@
                 android:focusableInTouchMode="true"
                 android:minHeight="40dp"
                 android:padding="5dp"
-
-                android:text="Km"
+                android:singleLine="true"
+                android:text="@string/txt_filter_distance_unit_km"
                 android:textAllCaps="false"
                 android:textSize="16sp" />
 
@@ -58,6 +59,7 @@
                 android:focusableInTouchMode="true"
                 android:minHeight="40dp"
                 android:padding="5dp"
+                android:singleLine="true"
                 android:text="Miles"
                 android:textAllCaps="false"
                 android:textSize="16sp" />

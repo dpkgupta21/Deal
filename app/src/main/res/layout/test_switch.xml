@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <Switch
+        android:id="@+id/swtch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minWidth="25dp"
+        android:onClick="togglestatehandler"
+        android:switchPadding="10dp"
+        android:textOff="Notification"
+        android:textOn="Message"
+        android:textStyle="bold|italic"
+        android:thumb="@drawable/custom_thumb"
+        android:thumbTextPadding="15dp"
+        android:track="@drawable/custom_switch_track"
+        android:typeface="sans" />
+
+</LinearLayout>

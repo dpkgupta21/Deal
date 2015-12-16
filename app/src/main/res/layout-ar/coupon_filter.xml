@@ -18,18 +18,22 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="6"
+            android:gravity="right"
             android:background="@drawable/white_bg_border"
-            android:drawableLeft="@drawable/notification_btn"
+            android:drawableRight="@drawable/notification_btn"
             android:focusable="false"
             android:focusableInTouchMode="true"
+            android:singleLine="true"
             android:padding="5dp"
-            android:text="Food and Dinning"
+            android:text="@string/app_name"
             android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:baselineAligned="true"
+            android:layout_marginRight="5dp"
             android:layout_weight="4"
             android:weightSum="2">
 
@@ -43,7 +47,7 @@
                 android:focusableInTouchMode="true"
                 android:minHeight="40dp"
                 android:padding="5dp"
-
+                android:singleLine="true"
                 android:text="Km"
                 android:textAllCaps="false"
                 android:textSize="16sp" />
@@ -53,6 +57,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:singleLine="true"
                 android:background="@drawable/btn_bg_filter"
                 android:focusable="false"
                 android:focusableInTouchMode="true"
@@ -89,15 +94,6 @@
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btn_distance_lth"
-                style="@style/btn_style_small"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
-                android:background="@drawable/toggle_left_selector"
-                android:minHeight="0dp"
-                android:text="Low To High"
-                android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/btn_distance_htl"
@@ -108,6 +104,17 @@
                 android:minHeight="0dp"
                 android:text="High to Low"
                 android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_distance_lth"
+                style="@style/btn_style_small"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/toggle_left_selector"
+                android:minHeight="0dp"
+                android:text="Low To High"
+                android:textAllCaps="false" />
+
         </LinearLayout>
     </LinearLayout>
 
@@ -136,15 +143,6 @@
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btn_discount_lth"
-                style="@style/btn_style_small"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
-                android:background="@drawable/toggle_left_selector"
-                android:minHeight="0dp"
-                android:text="Low To High"
-                android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/btn_discount_htl"
@@ -154,6 +152,16 @@
                 android:background="@drawable/toggle_right_selector"
                 android:minHeight="0dp"
                 android:text="High to Low"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_discount_lth"
+                style="@style/btn_style_small"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/toggle_left_selector"
+                android:minHeight="0dp"
+                android:text="Low To High"
                 android:textAllCaps="false" />
         </LinearLayout>
     </LinearLayout>
@@ -183,15 +191,6 @@
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btn_date_lts"
-                style="@style/btn_style_small"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
-                android:background="@drawable/toggle_left_selector"
-                android:minHeight="0dp"
-                android:text="Sooner to Later"
-                android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/btn_date_stl"
@@ -201,6 +200,16 @@
                 android:background="@drawable/toggle_right_selector"
                 android:minHeight="0dp"
                 android:text="Later to Sooner"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_date_lts"
+                style="@style/btn_style_small"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/toggle_left_selector"
+                android:minHeight="0dp"
+                android:text="Sooner to Later"
                 android:textAllCaps="false" />
         </LinearLayout>
     </LinearLayout>
