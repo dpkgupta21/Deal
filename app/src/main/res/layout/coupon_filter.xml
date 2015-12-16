@@ -24,7 +24,7 @@
             android:focusableInTouchMode="true"
             android:padding="5dp"
             android:singleLine="true"
-            android:text="@string/txt_filter_food and dining_meun"
+            android:text="@string/txt_filter_food_and_dining_menu"
             android:textSize="16sp" />
 
         <LinearLayout
