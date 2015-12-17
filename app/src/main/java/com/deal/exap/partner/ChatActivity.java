@@ -13,7 +13,8 @@ import java.util.ArrayList;
 
 public class ChatActivity extends BaseActivity {
 
-    ListView lvChat;
+    private ListView lvChat;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +23,7 @@ public class ChatActivity extends BaseActivity {
         init();
     }
 
-    private void init(){
+    private void init() {
 
         lvChat = (ListView) findViewById(R.id.lv_chat);
         lvChat.setAdapter(new ChatListAdapter(this, getDataSet()));
@@ -33,7 +34,7 @@ public class ChatActivity extends BaseActivity {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
