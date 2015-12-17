@@ -117,7 +117,7 @@
     </LinearLayout>
 
     <include
-        layout="@layout/header"
+        layout="@layout/header_transparent"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 </FrameLayout>

@@ -60,7 +60,7 @@ public class CategoriesFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setTitleFragment(getString(R.string.categories_title));
+        //setTitleFragment(getString(R.string.categories_title));
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_category);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());

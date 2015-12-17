@@ -91,7 +91,7 @@ public class NearByFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setTitleFragment(getString(R.string.nearby_screen_title));
+        //setTitleFragment(getString(R.string.nearby_screen_title));
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_nearby);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());

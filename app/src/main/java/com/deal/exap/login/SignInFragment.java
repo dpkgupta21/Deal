@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg12;
-import com.deal.exap.navigationdrawer.NavigationDrawerActivity;
+import com.deal.exap.navigationdrawer.HomeActivity;
 
 /**
  * A login screen that offers login via email/password.
@@ -94,7 +94,7 @@ public class SignInFragment extends Fragment {
     View.OnClickListener goToHomePage = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(getContext(), NavigationDrawerActivity.class);
+            Intent i = new Intent(getContext(), HomeActivity.class);
             startActivity(i);
 
         }

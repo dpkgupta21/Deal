@@ -61,7 +61,7 @@ public class WalletFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        setTitleFragment(getString(R.string.wallet_screen_title));
+        //setTitleFragment(getString(R.string.wallet_screen_title));
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_wallet);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());

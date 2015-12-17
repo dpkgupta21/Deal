@@ -58,7 +58,7 @@ public class FollowingFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setTitleFragment(getString(R.string.following_screen_title));
+        //setTitleFragment(getString(R.string.following_screen_title));
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.following_recycler_view);
         mRecyclerView.setHasFixedSize(true);

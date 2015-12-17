@@ -60,7 +60,7 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setTitleFragment(getString(R.string.favorite_screen_title));
+        //setTitleFragment(getString(R.string.favorite_screen_title));
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());

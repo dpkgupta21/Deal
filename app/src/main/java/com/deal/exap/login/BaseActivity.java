@@ -203,6 +203,7 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener, 
 
 	public void setHeader(String header){
 		Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+		setSupportActionBar(toolbar);
 		TextView tvHeader = (TextView) toolbar.findViewById(R.id.tv_header);
 		tvHeader.setText(header);
 	}
@@ -218,6 +219,14 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener, 
 		ImageView ivLeft = (ImageView) toolbar.findViewById(R.id.iv_back);
 		ivLeft.setVisibility(View.VISIBLE);
 		ivLeft.setOnClickListener(this);
+	}
+
+	public void setLeftClick(int drawbleId){
+		Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+		ImageView ivLeft = (ImageView) toolbar.findViewById(R.id.iv_back);
+		ivLeft.setVisibility(View.VISIBLE);
+		ivLeft.setOnClickListener(this);
+		ivLeft.setImageResource(drawbleId);
 	}
 
 	public void setHeaderNormal(){

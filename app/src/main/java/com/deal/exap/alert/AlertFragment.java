@@ -60,7 +60,7 @@ public class AlertFragment extends BaseFragment {
         listView = (ListView) view.findViewById(R.id.alert_list_view);
         //applyStyle(switchbtn.getTextOn(), switchbtn.getTextOff());
         listView.setAdapter(new AlertListAdapter(getActivity(), getDataSet()));
-        setTitleFragment(getString(R.string.alert_screen_title));
+        //setTitleFragment(getString(R.string.alert_screen_title));
     }
 
     private void init(){

@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/header" />
+    <include layout="@layout/header_transparent" />
 
     <WebView
         android:id="@+id/webview_terms_condition"

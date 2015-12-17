@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -20,13 +19,15 @@ import android.widget.TextView;
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg16;
+import com.deal.exap.login.BaseFragment;
+import com.deal.exap.login.ProfileActivity;
 import com.deal.exap.navigationdrawer.NavigationDrawerActivity;
 import com.deal.exap.utility.TJPreferences;
 
 import java.util.Locale;
 
 
-public class SettingFragment extends Fragment {
+public class SettingFragment extends BaseFragment {
 
     private View view;
     private MyButtonViewSemi btn_select_english;
@@ -50,13 +51,20 @@ public class SettingFragment extends Fragment {
         // Inflate the layout for this fragment
 
         view = inflater.inflate(R.layout.fragment_setting, container, false);
+
+        init();
+
         return view;
+    }
+
+    private void init(){
+        setClick(R.id.tv_editprofile, view);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setTitleFragment(getString(R.string.setting_screen_title));
+        //setTitleFragment(getString(R.string.setting_screen_title));
         ((MyTextViewReg16) view.findViewById(R.id.txt_payment_details)).setOnClickListener(paymentClick);
         btn_select_english=(MyButtonViewSemi) view.findViewById(R.id.btn_select_english);
         btn_select_arabic=(MyButtonViewSemi) view.findViewById(R.id.btn_select_arabic);
@@ -66,6 +74,14 @@ public class SettingFragment extends Fragment {
 
     }
 
+    @Override
+    public void onClick(View arg0) {
+        switch (arg0.getId()){
+            case R.id.tv_editprofile:
+                getActivity().startActivity(new Intent(getActivity(), ProfileActivity.class));
+                break;
+        }
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

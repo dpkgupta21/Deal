@@ -222,6 +222,7 @@
                 android:background="@color/white">
 
                 <com.deal.exap.customviews.MyTextViewReg16
+                    android:id="@+id/tv_editprofile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
