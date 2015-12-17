@@ -87,6 +87,7 @@
                     android:layout_weight="1"
                     android:drawableRight="@drawable/lock_icon_dark"
                     android:hint="@string/hint_ccv"
+                    android:gravity="right|center_vertical"
                     android:inputType="number" />
                 <EditText
                     style="@style/et_style"
@@ -94,6 +95,7 @@
                     android:layout_weight="2"
                     android:drawableRight="@drawable/expiry_date"
                     android:hint="@string/hint_mm_yy"
+                    android:gravity="right|center_vertical"
                     android:inputType="number" />
             </LinearLayout>
 
