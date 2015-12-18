@@ -18,29 +18,24 @@
         android:background="@drawable/shadow"
         android:scaleType="fitXY" />
 
-    <LinearLayout
+
+    <ScrollView
+        android:id="@+id/sv_menu"
         android:layout_width="200dp"
-        android:layout_marginTop="20dp"
         android:layout_height="fill_parent"
-        android:orientation="horizontal">
-
-        <ScrollView
-            android:id="@+id/sv_menu"
-            android:layout_width="200dp"
-            android:layout_height="fill_parent"
-            android:paddingLeft="30dp"
-            android:scrollbars="none">
+        android:paddingLeft="30dp"
+        android:scrollbars="none">
 
 
-            <LinearLayout
-                android:id="@+id/layout_menu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/layout_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
 
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>
