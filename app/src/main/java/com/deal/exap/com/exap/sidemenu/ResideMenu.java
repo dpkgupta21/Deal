@@ -198,6 +198,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
      */
     public void closeMenu(){
         if(isOpened){
+            removeMenuLayout();
             isOpened = false;
             scaleUp_activity.start();
         }
