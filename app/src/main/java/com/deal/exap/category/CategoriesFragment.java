@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.deal.exap.R;
 import com.deal.exap.category.adapter.CategoriesListAdapter;
 import com.deal.exap.favorite.bean.DataObject;
+import com.deal.exap.login.BaseActivity;
 
 import java.util.ArrayList;
 
@@ -60,7 +61,7 @@ public class CategoriesFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //setTitleFragment(getString(R.string.categories_title));
+        ((BaseActivity)getActivity()).setHeader(getString(R.string.categories_title));
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_category);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());

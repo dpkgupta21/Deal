@@ -42,7 +42,6 @@ public class HomeActivity extends BaseActivity {
 
     private void init(){
         setHeader(getString(R.string.interest_screen_title));
-
         setLeftClick(R.drawable.menu_btn);
     }
     private void setUpMenu() {
@@ -118,7 +117,7 @@ public class HomeActivity extends BaseActivity {
 
         if (view == itemAlert){
             changeFragment(new AlertFragment());
-            setHeader(getString(R.string.nearby_screen_title));
+            setHeader(getString(R.string.alert_screen_title));
         }else if (view == itemNearby){
             changeFragment(new NearByFragment());
             setHeader(getString(R.string.nearby_screen_title));

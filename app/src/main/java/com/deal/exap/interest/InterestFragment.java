@@ -72,7 +72,9 @@ public class InterestFragment extends Fragment {
 
         for (int i = 0; i < interestValues.size(); i++) {
             final MyTextViewReg16 textView = new MyTextViewReg16(getActivity());
-            FlowLayout.LayoutParams param = new FlowLayout.LayoutParams(FlowLayout.LayoutParams.WRAP_CONTENT, FlowLayout.LayoutParams.WRAP_CONTENT);
+            FlowLayout.LayoutParams param = new FlowLayout.LayoutParams(
+                    FlowLayout.LayoutParams.WRAP_CONTENT,
+                    FlowLayout.LayoutParams.WRAP_CONTENT);
             param.setMargins(10, 10, 10, 10);
             textView.setLayoutParams(param);
             textView.setTextSize(16);

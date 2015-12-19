@@ -84,6 +84,7 @@
 
     <!--Alert Screen-->
     <string name="btn_text">Ok</string>
+    <string name="alert_screen_title">Alerts</string>
     <string name="uname_pwd_not_match">The username and password do not match.</string>
     <string name="sms_verification_error">The SMS verification code you entered is not correct</string>
 
@@ -210,8 +211,7 @@
     <!--Wallet Screen-->
     <string name="wallet_screen_title">Wallet</string>
 
-    <!-- Alert Screen -->
-    <string name="alert_screen_title">Alerts</string>
+
     <string name="title_activity_coupon_list">CouponListActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_home">HomeActivity</string>

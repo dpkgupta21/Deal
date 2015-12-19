@@ -63,6 +63,7 @@
 
     <!--Alert Screen arabic-->
     <string name="btn_text">حسنا</string>
+    <string name="alert_screen_title">التنبيهات</string>
     <string name="uname_pwd_not_match">اسم المستخدم وكلمة المرور غير متطابقة.</string>
     <string name="sms_verification_error">رمز التحقق SMS الذي أدخلته غير صحيح</string>
 
@@ -89,9 +90,9 @@
     <string name="hint_mm_yy">MM / YY</string>
     <string name="hint_ccv">CCV</string>
     <string name="btn_pay_usd">Pay USD 20</string>
-    <string name="btn_save">Save</string>
+    <string name="btn_save">حفظ</string>
     <string name="chk_remember_me">تذكرنى</string>
-    <string name="title_payment_pop_up">Payment Details</string>
+    <string name="title_payment_pop_up">تفاصيل الدفع</string>
 
     <!--Favorite Screen-->
     <string name="favorite_screen_title">المفضل</string>
@@ -118,9 +119,9 @@
     <string name="following_screen_title">التالي</string>
 
     <!-- Near By Screen-->
-    <string name="txt_selcted_category">Food &amp; Dining</string>
-    <string name="txt_high_to_low">High To Low</string>
-    <string name="txt_low_to_high">Low To High</string>
+    <string name="txt_selcted_category">اغذية و مأكولات</string>
+    <string name="txt_high_to_low">الأعلى إلى الأقل</string>
+    <string name="txt_low_to_high">على ارتفاع منخفض</string>
     <string name="txt_distance">المسافات</string>
     <string name="txt_discount">تخفيض السعر</string>
     <string name="txt_end_date">تاريخ الانتهاء</string>
@@ -131,14 +132,14 @@
     <string name="txt_distance_val">1.5 كم</string>
 
     <!--Store details Screen-->
-    <string name="btn_reedme">Redeem</string>
+    <string name="btn_reedme">خلص</string>
     <string name="title_activity_store_details">رسم خريطة</string>
     <string name="txt_store_online">في مخزن وONLINE</string>
     <string name="txt_store_dis">libero eu sed rhoncus varius, metus nulla ruturm magna, sed rhoncus  augue lectus porttitor nisi.</string>
     <string name="txt_discount_per">تخفيض السعر</string>
     <string name="txt_store_price">مخزن الأسعار</string>
     <string name="txt_cutomer_review">استعراض الزبون</string>
-    <string name="txt_term_condition"><![CDATA[Term &Conditions]]></string>
+    <string name="txt_term_condition">شروط وأحكام</string>
 
 
     <!-- coupon Details Screen-->
@@ -148,7 +149,7 @@
     <string name="txt_coupon_code">رمز القسيمة</string>
     <string name="title_activity_rate_coupon">رسم خريطة</string>
     <string name="title_activity_buy_coupon">رسم خريطة</string>
-    <string name="txt_buy">Buy</string>
+    <string name="txt_buy">شراء</string>
 
     <!--Post your feedback screen-->
     <string name="post_your_feedback_header">إضافة ملاحظاتك</string>
@@ -158,11 +159,11 @@
     <string name="title_activity_org_splash">OrgSplashActivity</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">إعدادات</string>
     <string name="title_activity_intro">IntroActivity</string>
 
     <!-- Welcome screen -->
-    <string name="skip_right">Skip</string>
+    <string name="skip_right">تخطى</string>
     <string name="skip_left">تخطى</string>
 
 

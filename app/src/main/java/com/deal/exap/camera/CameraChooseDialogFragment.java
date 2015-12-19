@@ -8,9 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
-
 import com.deal.exap.R;
-
 
 public class CameraChooseDialogFragment extends DialogFragment {
 
@@ -61,7 +59,6 @@ public class CameraChooseDialogFragment extends DialogFragment {
         @Override
         public void onClick(View v) {
             gallerySelectInterface.startGallery();
-
         }
     };
 
@@ -69,7 +66,6 @@ public class CameraChooseDialogFragment extends DialogFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-
     }
 
     @Override
