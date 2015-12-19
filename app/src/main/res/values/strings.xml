@@ -38,7 +38,7 @@
     <string name="connect_with_facebook_btn">Facebook</string>
     <string name="connect_with_twitter_btn">Twitter</string>
     <string name="or">or</string>
-    <string name="connect_with">Connect With</string>
+    <string name="connect_with">Connect with</string>
     <string name="username_hint">Username</string>
     <string name="password_sign_in_hint">Password</string>
     <string name="login_btn">Login</string>
@@ -219,4 +219,5 @@
     <string name="title_activity_coupon_list">CouponListActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_image">ImageActivity</string>
 </resources>

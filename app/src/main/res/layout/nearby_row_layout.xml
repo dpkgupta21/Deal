@@ -45,7 +45,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight=".2"
-                    android:src="@drawable/payment_type_icon"
+                    android:src="@drawable/burger_king"
                     app:civ_border_color="@color/white"
                     app:civ_border_width="1dp" />
 

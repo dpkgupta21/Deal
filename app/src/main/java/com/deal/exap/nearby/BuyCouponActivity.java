@@ -3,7 +3,6 @@ package com.deal.exap.nearby;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -13,6 +12,9 @@ import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.customerfeedback.CustomerFeedBackActivity;
+import com.deal.exap.login.BaseActivity;
+import com.deal.exap.misc.ImageActivity;
+import com.deal.exap.partner.ChatActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -20,12 +22,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class BuyCouponActivity extends FragmentActivity implements OnMapReadyCallback {
+public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_coupon);
 
@@ -60,6 +62,9 @@ public class BuyCouponActivity extends FragmentActivity implements OnMapReadyCal
                 openPaymentDialog();
             }
         });
+
+        setClick(R.id.thumbnail);
+        setClick(R.id.iv_chat);
     }
 
     private void openPaymentDialog() {
@@ -107,4 +112,16 @@ public class BuyCouponActivity extends FragmentActivity implements OnMapReadyCal
 
         }
     };
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.thumbnail:
+                startActivity(new Intent(this, ImageActivity.class));
+                break;
+            case R.id.iv_chat:
+                startActivity(new Intent(this, ChatActivity.class));
+                break;
+        }
+    }
 }

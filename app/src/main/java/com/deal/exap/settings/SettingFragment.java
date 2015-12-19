@@ -21,7 +21,7 @@ import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg16;
 import com.deal.exap.login.BaseFragment;
 import com.deal.exap.login.ProfileActivity;
-import com.deal.exap.navigationdrawer.NavigationDrawerActivity;
+import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.TJPreferences;
 
 import java.util.Locale;
@@ -127,7 +127,7 @@ public class SettingFragment extends BaseFragment {
 
             btn_select_arabic.setTextColor(getResources().getColor(R.color.white));
             btn_select_english.setTextColor(getResources().getColor(R.color.black));
-            Intent i = new Intent(getActivity().getApplicationContext(), NavigationDrawerActivity.class);
+            Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
             startActivity(i);
             getActivity().finish();
         }

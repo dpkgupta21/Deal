@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.deal.exap.R;
+import com.deal.exap.utility.TJPreferences;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
@@ -466,6 +467,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
         if(Math.abs(distanceX) > screenWidth * 0.3){
             if(distanceX > 0 && !isOpened ){
                 // from left to right;
+                //if(TJPreferences.getAPP_LANG(activity).equals("en"))
                 openMenu();
             }else if(distanceX < 0 && isOpened){
                 // from right th left;

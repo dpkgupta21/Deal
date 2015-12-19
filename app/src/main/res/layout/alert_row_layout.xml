@@ -14,7 +14,7 @@
             android:id="@+id/img_title"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="@drawable/slide_img" />
+            android:background="@drawable/burger_king" />
 
     </LinearLayout>
 
