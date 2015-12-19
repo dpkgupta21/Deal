@@ -35,12 +35,15 @@
     <string name="add_photo">Add Photo</string>
 
     <!-- Sign in screen-->
-    <string name="connect_with_facebook_btn">Connect with Facebook</string>
+    <string name="connect_with_facebook_btn">Facebook</string>
+    <string name="connect_with_twitter_btn">Twitter</string>
     <string name="or">or</string>
+    <string name="connect_with">Connect With</string>
     <string name="username_hint">Username</string>
     <string name="password_sign_in_hint">Password</string>
     <string name="login_btn">Login</string>
-    <string name="not_yet_registered">Not yet Registered? Register Now!</string>
+    <string name="not_yet_registered">Not yet Registered?</string>
+    <string name="register_now">Register Now!</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="terms_and_conditions">Terms &amp; conditions | Privacy Policy</string>
 
@@ -104,6 +107,7 @@
     <string name="txt_edit_payment_details">Edit Payment Details</string>
     <string name="txt_edit_profile">Edit Profile</string>
     <string name="txt_change_currency">Change Currency -USD</string>
+    <string name="txt_redefine_exp">REDEFINING YOUR SHOPPING EXPERIENCE</string>
 
 
     <!--Payment Details Screen-->
@@ -174,7 +178,7 @@
     <string name="txt_store_price">Store Price</string>
     <string name="txt_cutomer_review">Customer Review</string>
     <string name="txt_term_condition"><![CDATA[Term &Conditions]]></string>
-
+    <string name="txt_time_left">10D 22H 38M</string>
 
     <!-- coupon Details Screen-->
     <string name="title_activity_cuopon_details">Coupon</string>

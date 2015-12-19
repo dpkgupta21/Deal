@@ -6,16 +6,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.deal.exap.R;
+import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.SessionManager;
 import com.deal.exap.utility.TJPreferences;
 
@@ -25,7 +21,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreen extends BaseActivity {
     private static final String TAG = "<SplashScreen>";
     private SessionManager session;
     private ViewPager mViewPager;
@@ -38,17 +34,19 @@ public class SplashScreen extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
 
         String language = TJPreferences.getAPP_LANG(SplashScreen.this);
-        setUpToolbar();
+       // setUpToolbar();
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         FrameLayout frame_lay = (FrameLayout) findViewById(R.id.frame_lay);
         populateRadioButtonIds();
         populateEnglishSplashBackgrounds();
 
+        setClick(R.id.tv_skip_arb);
+        setClick(R.id.tv_skip_eng);
 
         mAdapter = new SplashScreenPagerAdapter(this, mPictures, mPictureIdsList);
         mViewPager.setAdapter(mAdapter);
@@ -93,6 +91,19 @@ public class SplashScreen extends AppCompatActivity {
         mRadioButtonIds.add(R.id.pic4_indicator);
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.tv_skip_arb:
+                startActivity(new Intent(this, HomeActivity.class));
+                break;
+            case R.id.tv_skip_eng:
+                startActivity(new Intent(this, HomeActivity.class));
+                break;
+
+        }
+    }
+
     private void populateEnglishSplashBackgrounds() {
         mPictures = new HashMap<>();
 
@@ -115,7 +126,7 @@ public class SplashScreen extends AppCompatActivity {
         }
     }
 
-    private void setUpToolbar() {
+    /*private void setUpToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         LinearLayout ll = (LinearLayout) toolbar.findViewById(R.id.ll_title_twice);
         ll.setVisibility(View.VISIBLE);
@@ -127,7 +138,7 @@ public class SplashScreen extends AppCompatActivity {
         titleArb.setText(getString(R.string.title_right));
         titleArb.setOnClickListener(arbLanguage);
 
-    }
+    }*/
 
 
     View.OnClickListener engLanguage = new View.OnClickListener() {

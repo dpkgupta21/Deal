@@ -245,7 +245,51 @@
                     android:text="@string/txt_edit_payment_details" />
             </LinearLayout>
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/bottom_logo" />
 
+            <com.deal.exap.customviews.MyTextViewRegCustom
+                style="@style/tv_small"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/txt_redefine_exp"
+                android:textColor="@color/tv_color" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:src="@drawable/_facebook_icon" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:src="@drawable/twiiter" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:src="@drawable/_linked_in" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:src="@drawable/_pinterest" />
+            </LinearLayout>
         </LinearLayout>
 
     </ScrollView>

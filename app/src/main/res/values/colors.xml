@@ -11,6 +11,7 @@
     <color name="toolbar_transparent_color">#99E54444</color>
     <color name="gray_light">#DADADA</color>
     <color name="facebook_btn_color">#4966B6</color>
+    <color name="twitter_btn_color">#3FC4FF</color>
     <color name="nav_drw_bg">#5b1717</color>
     <color name="screen_bg_color">#e6e6e6</color>
     <color name="strip_bg_color">#f8f8f8</color>

@@ -17,7 +17,7 @@ import com.deal.exap.R;
 import com.deal.exap.camera.CameraChooseDialogFragment;
 import com.deal.exap.camera.CameraSelectInterface;
 import com.deal.exap.camera.GallerySelectInterface;
-import com.deal.exap.navigationdrawer.NavigationDrawerActivity;
+import com.deal.exap.navigationdrawer.HomeActivity;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -66,7 +66,7 @@ public class SignUp extends BaseActivity {
     View.OnClickListener signUpClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(SignUp.this, NavigationDrawerActivity.class);
+            Intent i = new Intent(SignUp.this, HomeActivity.class);
             startActivity(i);
 
             // CustomAlertDialog.getCustomAlert(SignUp.this).singleButtonAlertDialog(getString(R.string.uname_pwd_not_match), "", "");

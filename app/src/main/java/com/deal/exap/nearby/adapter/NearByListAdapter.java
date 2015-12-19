@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,12 +28,16 @@ public class NearByListAdapter extends RecyclerView
         TextView label;
         TextView dateTime;
         LinearLayout llCouponItem;
+        Button btnBuy;
+        LinearLayout llBuy;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
 //            label = (TextView) itemView.findViewById(R.id.txt_category_name);
 //            dateTime = (TextView) itemView.findViewById(R.id.txt_like_number);
             llCouponItem = (LinearLayout) itemView.findViewById(R.id.ll_filter_item);
+            llBuy = (LinearLayout) itemView.findViewById(R.id.ll_buy);
+            btnBuy = (Button) itemView.findViewById(R.id.btn_buy);
             Log.i(LOG_TAG, "Adding Listener");
             itemView.setOnClickListener(this);
         }
@@ -65,10 +70,14 @@ public class NearByListAdapter extends RecyclerView
 
     @Override
     public void onBindViewHolder(DataObjectHolder holder, int position) {
-        if(position%2==0)
-        holder.llCouponItem.setBackgroundResource(R.drawable.coupon_item_bg_black);
-        else
-            holder.llCouponItem.setBackgroundResource(R.drawable.coupon_item_bg_red);
+        if(position%2==0) {
+            holder.btnBuy.setVisibility(View.VISIBLE);
+            holder.llBuy.setVisibility(View.GONE);
+        }
+        else{
+            holder.btnBuy.setVisibility(View.GONE);
+            holder.llBuy.setVisibility(View.VISIBLE);
+        }
 //        holder.label.setText(mDataset.get(position).getmText1());
 //        holder.dateTime.setText(mDataset.get(position).getmText2());
     }

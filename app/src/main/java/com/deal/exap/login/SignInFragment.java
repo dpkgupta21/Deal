@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyButtonViewSemi;
@@ -53,8 +52,6 @@ public class SignInFragment extends Fragment {
                 setOnClickListener(goToNumberVerificationClick);
         ((MyButtonViewSemi) view.findViewById(R.id.btn_login)).
                 setOnClickListener(goToHomePage);
-        ((TextView) view.findViewById(R.id.txt_forget_password_click)).
-                setOnClickListener(goToForgetPasswordPage);
 
         super.onActivityCreated(savedInstanceState);
 

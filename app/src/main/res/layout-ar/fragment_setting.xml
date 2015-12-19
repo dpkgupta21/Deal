@@ -77,8 +77,8 @@
                 <SeekBar
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/txt_dis_max_val"
                     android:layout_toLeftOf="@+id/txt_dis_min_val"
+                    android:layout_toRightOf="@+id/txt_dis_max_val"
                     android:padding="10dp" />
 
                 <com.deal.exap.customviews.MyTextViewReg16
@@ -175,6 +175,7 @@
                 android:weightSum="1">
 
                 <com.deal.exap.customviews.MyButtonViewSemi
+                    android:id="@+id/btn_select_english"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight=".5"
@@ -189,6 +190,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
+                    android:id="@+id/btn_select_arabic"
                     android:background="@color/white"
                     android:gravity="center"
                     android:padding="10dp"
@@ -239,6 +241,52 @@
                     android:gravity="center_horizontal"
                     android:padding="10dp"
                     android:text="@string/txt_edit_payment_details" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/bottom_logo" />
+
+            <com.deal.exap.customviews.MyTextViewRegCustom
+                style="@style/tv_small"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:text="@string/txt_redefine_exp"
+                android:textColor="@color/tv_color" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:src="@drawable/_facebook_icon" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:src="@drawable/twiiter" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:src="@drawable/_linked_in" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:src="@drawable/_pinterest" />
             </LinearLayout>
 
 
