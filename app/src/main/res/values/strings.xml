@@ -150,6 +150,8 @@
     <string name="txt_active_coupons_val">10</string>
     <string name="txt_downloads_val">154</string>
     <string name="txt_followers_val">95</string>
+    <string name="btn_follow_this_partner">Follow this Partner</string>
+
 
 
     <!-- Near By Screen-->
@@ -170,12 +172,6 @@
     <string name="txt_filter_distance_unit_km">Km</string>
     <string name="txt_filter_distance_unit_miles">Miles</string>
     <string name="txt_filter_food_and_dining_menu">Food and Dinning</string>
-
-
-
-
-
-
 
     <!--Store details Screen-->
     <string name="btn_reedme">Redeem</string>

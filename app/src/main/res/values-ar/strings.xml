@@ -123,6 +123,8 @@
     <string name="txt_active_coupons_val">10</string>
     <string name="txt_downloads_val">154</string>
     <string name="txt_followers_val">95</string>
+    <string name="btn_follow_this_partner">اتبع هذا الشريك</string>
+
 
     <!-- Near By Screen-->
     <string name="txt_selcted_category">اغذية و مأكولات</string>

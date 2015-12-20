@@ -106,6 +106,10 @@ public class SettingFragment extends BaseFragment {
 
             TJPreferences.setAPP_LANG(getActivity().getApplicationContext(), "en");
 
+            Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
+            startActivity(i);
+            getActivity().finish();
+
         }
     };
 
@@ -127,6 +131,7 @@ public class SettingFragment extends BaseFragment {
 
             btn_select_arabic.setTextColor(getResources().getColor(R.color.white));
             btn_select_english.setTextColor(getResources().getColor(R.color.black));
+
             Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
             startActivity(i);
             getActivity().finish();
@@ -154,6 +159,7 @@ public class SettingFragment extends BaseFragment {
                 }
             });
             dialog.show();
+
         }
     };
 
