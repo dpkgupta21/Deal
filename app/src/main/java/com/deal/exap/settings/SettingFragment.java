@@ -20,7 +20,7 @@ import com.deal.exap.R;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg16;
 import com.deal.exap.login.BaseFragment;
-import com.deal.exap.login.ProfileActivity;
+import com.deal.exap.login.EditProfileActivity;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.TJPreferences;
 
@@ -78,7 +78,7 @@ public class SettingFragment extends BaseFragment {
     public void onClick(View arg0) {
         switch (arg0.getId()){
             case R.id.tv_editprofile:
-                getActivity().startActivity(new Intent(getActivity(), ProfileActivity.class));
+                getActivity().startActivity(new Intent(getActivity(), EditProfileActivity.class));
                 break;
         }
     }

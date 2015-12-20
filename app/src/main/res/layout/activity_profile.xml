@@ -71,10 +71,11 @@
                             android:textColor="@color/black" />
 
                         <com.deal.exap.customviews.MyEditTextViewLight
+                            android:id="@+id/et_age"
                             style="@style/et_style_line"
                             android:layout_marginTop="5dp"
-                            android:focusable="false"
                             android:drawableRight="@drawable/selec_icon"
+                            android:focusable="false"
                             android:hint="Select" />
                     </LinearLayout>
 
@@ -87,14 +88,15 @@
 
                         <com.deal.exap.customviews.MyTextViewRegCustom
                             style="@style/tv_normal"
-                            android:text="Sex"
+                            android:text="Gender"
                             android:textColor="@color/black" />
 
                         <com.deal.exap.customviews.MyEditTextViewLight
-                            android:focusable="false"
+                            android:id="@+id/et_sex"
                             style="@style/et_style_line"
                             android:layout_marginTop="5dp"
                             android:drawableRight="@drawable/selec_icon"
+                            android:focusable="false"
                             android:hint="Select" />
                     </LinearLayout>
                 </LinearLayout>
@@ -106,15 +108,15 @@
                     android:textColor="@color/black" />
 
                 <com.deal.exap.customviews.MyEditTextViewLight
-                    android:focusable="false"
                     style="@style/et_style_line"
                     android:layout_marginTop="5dp"
                     android:drawableRight="@drawable/selec_icon"
+                    android:focusable="false"
                     android:hint="Select" />
 
                 <Button
-                    android:layout_width="fill_parent"
                     style="@style/btn_style"
+                    android:layout_width="fill_parent"
                     android:layout_marginTop="10dp"
                     android:text="Save Changes" />
             </LinearLayout>

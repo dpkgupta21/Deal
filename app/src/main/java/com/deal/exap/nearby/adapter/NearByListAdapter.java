@@ -1,17 +1,21 @@
 package com.deal.exap.nearby.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.favorite.bean.DataObject;
+import com.deal.exap.following.FollowingPartnerDetails;
+import com.deal.exap.login.BaseActivity;
 
 import java.util.ArrayList;
 
@@ -21,7 +25,7 @@ public class NearByListAdapter extends RecyclerView
     private static String LOG_TAG = "NearByListAdapter";
     private ArrayList<DataObject> mDataset;
     private static MyClickListener myClickListener;
-    private Context context;
+    private static Context context;
     public static class DataObjectHolder extends RecyclerView.ViewHolder
             implements View
             .OnClickListener {
@@ -30,6 +34,7 @@ public class NearByListAdapter extends RecyclerView
         LinearLayout llCouponItem;
         Button btnBuy;
         LinearLayout llBuy;
+        ImageView ivLogo;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
@@ -38,6 +43,19 @@ public class NearByListAdapter extends RecyclerView
             llCouponItem = (LinearLayout) itemView.findViewById(R.id.ll_filter_item);
             llBuy = (LinearLayout) itemView.findViewById(R.id.ll_buy);
             btnBuy = (Button) itemView.findViewById(R.id.btn_buy);
+            ivLogo = (ImageView) itemView.findViewById(R.id.img_title);
+
+            ivLogo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(context instanceof BaseActivity){
+                        BaseActivity act = (BaseActivity) context;
+                        act.startActivity(new Intent(act, FollowingPartnerDetails.class));
+                    }
+                }
+            });
+
+
             Log.i(LOG_TAG, "Adding Listener");
             itemView.setOnClickListener(this);
         }
