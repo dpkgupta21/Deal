@@ -234,4 +234,14 @@
     <string name="discussion_title">Discussion</string>
 
 
+    <!-- Edit Profile screen -->
+    <string name="change_photo">Change Photo</string>
+    <string name="full_name">Full Name</string>
+    <string name="enter_here">Enter Here...</string>
+    <string name="age">Age</string>
+    <string name="gender">Gender</string>
+    <string name="select_hint">Select</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="location">Location</string>
+
 </resources>

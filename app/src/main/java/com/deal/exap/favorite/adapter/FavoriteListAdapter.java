@@ -29,7 +29,6 @@ public class FavoriteListAdapter extends RecyclerView
             super(itemView);
             label = (TextView) itemView.findViewById(R.id.txt_category_name);
             dateTime = (TextView) itemView.findViewById(R.id.txt_like_number);
-            Log.i(LOG_TAG, "Adding Listener");
             itemView.setOnClickListener(this);
         }
 

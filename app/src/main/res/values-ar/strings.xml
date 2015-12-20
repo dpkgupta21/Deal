@@ -197,4 +197,14 @@
     <!--Discussion or Chat Screen-->
     <string name="discussion_title">نقاش</string>
 
+
+    <!-- Edit Profile screen -->
+    <string name="change_photo">تغيير صور</string>
+    <string name="full_name">الاسم الكامل</string>
+    <string name="enter_here">أدخل هنا</string>
+    <string name="age">سن</string>
+    <string name="gender">جنس</string>
+    <string name="select_hint">اختار</string>
+    <string name="save_changes">حفظ التغيرات</string>
+    <string name="location">موقع</string>
 </resources>
