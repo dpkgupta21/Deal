@@ -29,11 +29,6 @@ public class FollowingFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private View view;
-//    public static FollowingFragment newInstance(String param1, String param2) {
-//        FollowingFragment fragment = new FollowingFragment();
-//
-//        return fragment;
-//    }
 
     public FollowingFragment() {
         // Required empty public constructor
@@ -71,7 +66,6 @@ public class FollowingFragment extends Fragment {
         ((FollowingListAdapter) mAdapter).setOnItemClickListener(new FollowingListAdapter.MyClickListener() {
             @Override
             public void onItemClick(int position, View v) {
-
                 Intent i = new Intent(getActivity(), ChatActivity.class);
                 startActivity(i);
 

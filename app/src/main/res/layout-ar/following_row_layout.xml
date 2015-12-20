@@ -65,7 +65,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
-                            android:text="hello"
+                            android:text="@string/burger_king"
                             android:textColor="@color/white"
                             android:textSize="18sp" />
 
@@ -76,7 +76,7 @@
                             android:layout_height="wrap_content"
                             android:drawableRight="@drawable/place_marker"
                             android:singleLine="true"
-                            android:text="@string/cancel_btn"
+                            android:text="@string/street_berlin"
                             android:textColor="@color/white"
                             android:textSize="14sp" />
 
