@@ -42,13 +42,13 @@
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
+
             <com.deal.exap.customviews.MyTextViewReg12
-                android:id="@+id/txt_by"
+                android:id="@+id/txt_post_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/by"
-                android:textColor="@color/btn_color" />
-
+                android:layout_marginLeft="3dp"
+                android:text=" | 23 Sep | 11:00 PM " />
 
             <com.deal.exap.customviews.MyTextViewReg12
                 android:id="@+id/txt_customer_name"
@@ -58,13 +58,13 @@
                 android:textColor="@color/btn_color" />
 
 
-
             <com.deal.exap.customviews.MyTextViewReg12
-                android:id="@+id/txt_post_date"
+                android:id="@+id/txt_by"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:text=" | 23 Sep | 11:00 PM " />
+                android:text="@string/by"
+                android:textColor="@color/btn_color" />
+
 
 
         </LinearLayout>

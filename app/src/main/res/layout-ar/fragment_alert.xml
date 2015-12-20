@@ -19,7 +19,7 @@
             android:layout_height="40dp"
             android:background="@drawable/toggle_right_selector"
             android:minHeight="0dp"
-            android:text="Message"
+            android:text="@string/btn_message"
             android:textAllCaps="false" />
 
         <Button
@@ -29,7 +29,7 @@
             android:layout_height="40dp"
             android:background="@drawable/toggle_left_selector"
             android:minHeight="0dp"
-            android:text="Notification"
+            android:text="@string/btn_notification"
             android:textAllCaps="false" />
     </LinearLayout>
 

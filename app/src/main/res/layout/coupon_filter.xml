@@ -23,9 +23,10 @@
             android:focusable="false"
             android:focusableInTouchMode="true"
             android:padding="5dp"
+            android:gravity="center_vertical"
             android:singleLine="true"
             android:text="@string/txt_filter_food_and_dining_menu"
-            android:textSize="16sp" />
+            android:textSize="10sp" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -47,7 +48,7 @@
                 android:singleLine="true"
                 android:text="@string/txt_filter_distance_unit_km"
                 android:textAllCaps="false"
-                android:textSize="16sp" />
+                android:textSize="10sp" />
 
             <com.deal.exap.customviews.MyButtonViewSemi
                 android:id="@+id/btn_miles"
@@ -60,9 +61,9 @@
                 android:minHeight="40dp"
                 android:padding="5dp"
                 android:singleLine="true"
-                android:text="Miles"
+                android:text="@string/txt_filter_distance_unit_miles"
                 android:textAllCaps="false"
-                android:textSize="16sp" />
+                android:textSize="10sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -80,9 +81,9 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="Distance"
+            android:text="@string/txt_distance"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+             />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -98,7 +99,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/toggle_left_selector"
                 android:minHeight="0dp"
-                android:text="Low To High"
+                android:text="@string/txt_low_to_high"
                 android:textAllCaps="false" />
 
             <Button
@@ -108,7 +109,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/toggle_right_selector"
                 android:minHeight="0dp"
-                android:text="High to Low"
+                android:text="@string/txt_high_to_low"
                 android:textAllCaps="false" />
         </LinearLayout>
     </LinearLayout>
@@ -127,9 +128,8 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="Discount"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:text="@string/txt_discount"
+            android:textColor="@color/black" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -145,7 +145,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/toggle_left_selector"
                 android:minHeight="0dp"
-                android:text="Low To High"
+                android:text="@string/txt_low_to_high"
                 android:textAllCaps="false" />
 
             <Button
@@ -155,7 +155,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/toggle_right_selector"
                 android:minHeight="0dp"
-                android:text="High to Low"
+                android:text="@string/txt_high_to_low"
                 android:textAllCaps="false" />
         </LinearLayout>
     </LinearLayout>
@@ -174,9 +174,8 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="End Date"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:text="@string/txt_end_date"
+            android:textColor="@color/black" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -192,7 +191,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/toggle_left_selector"
                 android:minHeight="0dp"
-                android:text="Sooner to Later"
+                android:text="@string/txt_later_to_sooner"
                 android:textAllCaps="false" />
 
             <Button
@@ -202,7 +201,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/toggle_right_selector"
                 android:minHeight="0dp"
-                android:text="Later to Sooner"
+                android:text="@string/txt_sooner_to_later"
                 android:textAllCaps="false" />
         </LinearLayout>
     </LinearLayout>

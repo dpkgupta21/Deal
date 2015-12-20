@@ -44,8 +44,8 @@
 
 
     <!--Navigation drawer screen-->
-    <string name="drawer_open">Open</string>
-    <string name="drawer_close">Close</string>
+    <string name="drawer_open">فتح</string>
+    <string name="drawer_close">إغلاق</string>
     <string name="name">MD الرزاق</string>
     <string name="age_city">29F | دبي</string>
     <string name="menu_alert">إنذار</string>
@@ -59,10 +59,15 @@
 
     <!--Interest screen-->
     <string name="interest_screen_title">اهتمام</string>
-    <string name="menu_check">Check</string>
+    <string name="menu_check">الاختيار</string>
 
     <!--Alert Screen arabic-->
     <string name="btn_text">حسنا</string>
+    <string name="btn_notification">إعلام</string>
+    <string name="btn_message">الرسالة</string>
+    <string name="burger_king">برغر كينغ</string>
+    <string name="alert_detail">عرض نهاية الأسبوع الحصول على خصم 50٪ في شراء متجر</string>
+    <string name="alert_date_time">23 سبتمبر | 11:00 PM</string>
     <string name="alert_screen_title">التنبيهات</string>
     <string name="uname_pwd_not_match">اسم المستخدم وكلمة المرور غير متطابقة.</string>
     <string name="sms_verification_error">رمز التحقق SMS الذي أدخلته غير صحيح</string>
@@ -125,11 +130,17 @@
     <string name="txt_distance">المسافات</string>
     <string name="txt_discount">تخفيض السعر</string>
     <string name="txt_end_date">تاريخ الانتهاء</string>
+    <string name="txt_sooner_to_later">عاجلا لوقت لاحق</string>
+    <string name="txt_later_to_sooner">في وقت لاحق لعاجلا</string>
     <string name="nearby_screen_title">قريب</string>
     <string name="menu_filter">فلتر</string>
     <string name="txt_off">35٪ أقل</string>
     <string name="txt_on_off">على فانتا الكبرياء</string>
     <string name="txt_distance_val">1.5 كم</string>
+    <string name="txt_filter_distance_unit_km">كم</string>
+    <string name="txt_filter_distance_unit_miles">مايلز</string>
+    <string name="txt_filter_food_and_dining_menu">الغذاء والطعام</string>
+
 
     <!--Store details Screen-->
     <string name="btn_reedme">خلص</string>
@@ -143,13 +154,17 @@
 
 
     <!-- coupon Details Screen-->
-    <string name="title_activity_cuopon_details">كوبون</string>
+    <string name="title_activity_coupon_details">كوبون</string>
     <string name="btn_rate">قيم هذا القسيمة</string>
     <string name="btn_buy">اشتري عبر الانترنت</string>
     <string name="txt_coupon_code">رمز القسيمة</string>
     <string name="title_activity_rate_coupon">رسم خريطة</string>
     <string name="title_activity_buy_coupon">رسم خريطة</string>
     <string name="txt_buy">شراء</string>
+    <string name="redeemed">افتدى</string>
+    <string name="on_fanta_pride">على فانتا الكبرياء</string>
+    <string name="street_berlin">21 شارع Hansonberg، برلين</string>
+
 
     <!--Post your feedback screen-->
     <string name="post_your_feedback_header">إضافة ملاحظاتك</string>
@@ -157,14 +172,28 @@
     <string name="post_comments_btn">آخر تعليقات</string>
     <string name="cancel_btn">إلغاء</string>
     <string name="title_activity_org_splash">OrgSplashActivity</string>
+    <string name="title_custom_feedback">تقييم العملاء</string>
+    <string name="its_great_to_save_money">انه رائع! لادخار المال</string>
+    <string name="by"> بواسطة </string>
+    <string name="feedback_name"> Asvin Mizak </string>
 
-    <string name="hello_world">Hello world!</string>
+
+    <!-- Settings screen -->
     <string name="action_settings">إعدادات</string>
-    <string name="title_activity_intro">IntroActivity</string>
 
     <!-- Welcome screen -->
     <string name="skip_right">تخطى</string>
     <string name="skip_left">تخطى</string>
 
+    <string name="choose_camera">كاميرا</string>
+    <string name="choose_gallery">صالة عرض</string>
+    <string name="title_dialog_photo_choose">إضافة صورة</string>
+
+
+    <!--Wallet Screen-->
+    <string name="wallet_screen_title">محفظة</string>
+
+    <!--Discussion or Chat Screen-->
+    <string name="discussion_title">نقاش</string>
 
 </resources>

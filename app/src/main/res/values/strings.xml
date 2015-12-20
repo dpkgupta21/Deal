@@ -87,13 +87,18 @@
 
     <!--Alert Screen-->
     <string name="btn_text">Ok</string>
+    <string name="btn_notification">Notification</string>
+    <string name="btn_message">Message</string>
+    <string name="burger_king">Burger King</string>
+    <string name="alert_detail">Weekend offer get 50% off in store purchase</string>
+    <string name="alert_date_time">23 Sep | 11:00 PM</string>
     <string name="alert_screen_title">Alerts</string>
     <string name="uname_pwd_not_match">The username and password do not match.</string>
     <string name="sms_verification_error">The SMS verification code you entered is not correct</string>
 
 
     <!--Setting Screen-->
-    <string name="setting_screen_title">SETTINGS</string>
+    <string name="setting_screen_title">Setting</string>
     <string name="location_service">Location Service</string>
     <string name="notification_range">Notification Range</string>
     <string name="km_miles">KM / Miles</string>
@@ -154,10 +159,12 @@
     <string name="txt_distance">Distance</string>
     <string name="txt_discount">Discount</string>
     <string name="txt_end_date">End Date</string>
+    <string name="txt_sooner_to_later">Sooner To Later</string>
+    <string name="txt_later_to_sooner">Later To Sooner</string>
     <string name="nearby_screen_title">NearBy</string>
     <string name="menu_filter">Filter</string>
     <string name="txt_off">35% off</string>
-    <string name="txt_on_off">on Fanta Pride</string>
+    <string name="on_fanta">on Fanta Pride</string>
     <string name="txt_distance_val">1.5 Km</string>
     <string name="txt_filter_distance_unit_km">Km</string>
     <string name="txt_filter_distance_unit_miles">Miles</string>
@@ -181,13 +188,17 @@
     <string name="txt_time_left">10D 22H 38M</string>
 
     <!-- coupon Details Screen-->
-    <string name="title_activity_cuopon_details">Coupon</string>
+    <string name="title_activity_coupon_details">Coupon</string>
     <string name="btn_rate">Rate this Coupon</string>
     <string name="btn_buy">Buy Online</string>
     <string name="txt_coupon_code">Coupon Code</string>
     <string name="title_activity_rate_coupon">Map</string>
     <string name="title_activity_buy_coupon">Map</string>
     <string name="txt_buy">Buy</string>
+    <string name="redeemed">Redeemed</string>
+    <string name="on_fanta_pride">on Fanta Pride</string>
+    <string name="street_berlin">21 Street, Hansonberg, Berlin</string>
+
 
     <!--Post your feedback screen-->
     <string name="post_your_feedback_header">Post your feedback</string>
@@ -196,10 +207,13 @@
     <string name="cancel_btn">Cancel</string>
     <string name="title_activity_org_splash">OrgSplashActivity</string>
     <string name="title_custom_feedback">Customer Feedbacks</string>
+    <string name="its_great_to_save_money">It is Great! to save money</string>
+    <string name="by"> BY </string>
+    <string name="feedback_name"> Asvin Mizak </string>
 
-    <string name="hello_world">Hello world!</string>
+
+    <!-- Settings screen -->
     <string name="action_settings">Settings</string>
-    <string name="title_activity_intro">IntroActivity</string>
 
     <!-- Welcome screen -->
     <string name="skip_right">Skip</string>
@@ -215,9 +229,8 @@
     <!--Wallet Screen-->
     <string name="wallet_screen_title">Wallet</string>
 
+    <!--Discussion or Chat Screen-->
+    <string name="discussion_title">Discussion</string>
 
-    <string name="title_activity_coupon_list">CouponListActivity</string>
-    <string name="title_activity_profile">ProfileActivity</string>
-    <string name="title_activity_home">HomeActivity</string>
-    <string name="title_activity_image">ImageActivity</string>
+
 </resources>

@@ -18,23 +18,23 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:gravity="right"
             android:background="@drawable/white_bg_border"
             android:drawableRight="@drawable/notification_btn"
             android:focusable="false"
             android:focusableInTouchMode="true"
-            android:singleLine="true"
+            android:gravity="right|center_vertical"
             android:padding="5dp"
-            android:text="@string/app_name"
-            android:textSize="16sp" />
+            android:singleLine="true"
+            android:textSize="10sp"
+            android:text="@string/txt_filter_food_and_dining_menu" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:baselineAligned="true"
             android:layout_marginRight="5dp"
             android:layout_weight="4"
+            android:baselineAligned="true"
             android:weightSum="2">
 
             <com.deal.exap.customviews.MyButtonViewSemi
@@ -48,24 +48,23 @@
                 android:minHeight="40dp"
                 android:padding="5dp"
                 android:singleLine="true"
-                android:text="Km"
-                android:textAllCaps="false"
-                android:textSize="16sp" />
+                android:textSize="10sp"
+                android:text="@string/txt_filter_distance_unit_km"
+                android:textAllCaps="false" />
 
             <com.deal.exap.customviews.MyButtonViewSemi
                 android:id="@+id/btn_miles"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:singleLine="true"
                 android:background="@drawable/btn_bg_filter"
                 android:focusable="false"
                 android:focusableInTouchMode="true"
                 android:minHeight="40dp"
                 android:padding="5dp"
-                android:text="Miles"
-                android:textAllCaps="false"
-                android:textSize="16sp" />
+                android:singleLine="true"
+                android:text="@string/txt_filter_distance_unit_miles"
+                android:textAllCaps="false" />
         </LinearLayout>
     </LinearLayout>
 
@@ -83,9 +82,8 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="Distance"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:text="@string/txt_distance"
+            android:textColor="@color/black" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -102,7 +100,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/toggle_right_selector"
                 android:minHeight="0dp"
-                android:text="High to Low"
+                android:text="@string/txt_high_to_low"
                 android:textAllCaps="false" />
 
             <Button
@@ -112,7 +110,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/toggle_left_selector"
                 android:minHeight="0dp"
-                android:text="Low To High"
+                android:text="@string/txt_low_to_high"
                 android:textAllCaps="false" />
 
         </LinearLayout>
@@ -132,9 +130,8 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="Discount"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:text="@string/txt_discount"
+            android:textColor="@color/black" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -151,7 +148,8 @@
                 android:layout_height="40dp"
                 android:background="@drawable/toggle_right_selector"
                 android:minHeight="0dp"
-                android:text="High to Low"
+
+                android:text="@string/txt_high_to_low"
                 android:textAllCaps="false" />
 
             <Button
@@ -161,7 +159,8 @@
                 android:layout_height="40dp"
                 android:background="@drawable/toggle_left_selector"
                 android:minHeight="0dp"
-                android:text="Low To High"
+
+                android:text="@string/txt_low_to_high"
                 android:textAllCaps="false" />
         </LinearLayout>
     </LinearLayout>
@@ -180,9 +179,8 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="End Date"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:text="@string/txt_end_date"
+            android:textColor="@color/black" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -199,7 +197,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/toggle_right_selector"
                 android:minHeight="0dp"
-                android:text="Later to Sooner"
+                android:text="@string/txt_sooner_to_later"
                 android:textAllCaps="false" />
 
             <Button
@@ -209,7 +207,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/toggle_left_selector"
                 android:minHeight="0dp"
-                android:text="Sooner to Later"
+                android:text="@string/txt_later_to_sooner"
                 android:textAllCaps="false" />
         </LinearLayout>
     </LinearLayout>
