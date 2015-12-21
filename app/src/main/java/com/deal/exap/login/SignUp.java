@@ -1,6 +1,8 @@
 package com.deal.exap.login;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -8,9 +10,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 
 import com.deal.exap.R;
@@ -26,6 +30,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Calendar;
 
 
 public class SignUp extends BaseActivity {
@@ -62,7 +67,8 @@ public class SignUp extends BaseActivity {
 
         setHeader(getString(R.string.profile_header));
         ivProfile = (ImageView) findViewById(R.id.iv_profile);
-
+        setClick(R.id.edt_gender);
+        setClick(R.id.edt_dob);
     }
 
     View.OnClickListener signUpClick = new View.OnClickListener() {
@@ -84,6 +90,32 @@ public class SignUp extends BaseActivity {
         }
     };
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.edt_gender:
+                showSexDialog();
+                break;
+            case R.id.edt_dob:
+                showCalendarDialog();
+                break;
+        }
+    }
+
+    public void showSexDialog(){
+        final CharSequence[] items = {"Male", "Female"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose Gender");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                // Do something with the selection
+                setViewText(R.id.edt_gender, items[item].toString());
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
     private void showAlertCamera() {
         try {
@@ -100,6 +132,28 @@ public class SignUp extends BaseActivity {
         }
     }
 
+    public void showCalendarDialog(){
+
+        final Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        // Launch Date Picker Dialog
+        DatePickerDialog dpd = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        // Display Selected date in textbox
+                        setViewText(R.id.edt_dob, dayOfMonth + "-"
+                                + (monthOfYear + 1) + "-" + year);
+
+                    }
+                }, mYear, mMonth, mDay);
+        dpd.show();
+    }
 
     CameraSelectInterface cameraSelectInterface = new CameraSelectInterface() {
         @Override
@@ -168,7 +222,7 @@ public class SignUp extends BaseActivity {
 //                        .getBitmap();
 
                 try {
-                  Bitmap  bitmap = MediaStore.Images.Media.getBitmap(SignUp.this.getContentResolver(), selectedImage);
+                  Bitmap bitmap = MediaStore.Images.Media.getBitmap(SignUp.this.getContentResolver(), selectedImage);
                     ivProfile.setImageBitmap(bitmap);
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block

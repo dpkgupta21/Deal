@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/_facebook_icon" />
+                    android:src="@drawable/_facebook_white_icon" />
 
                 <com.deal.exap.customviews.MyTextViewRegCustom
                     android:id="@+id/btn_facebook_login"
@@ -67,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/twiiter" />
+                    android:src="@drawable/_twitter_white_icon" />
 
                 <com.deal.exap.customviews.MyTextViewRegCustom
                     android:id="@+id/btn_twitter_login"

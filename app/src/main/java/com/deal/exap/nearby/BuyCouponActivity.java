@@ -2,6 +2,7 @@ package com.deal.exap.nearby;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 
         setClick(R.id.thumbnail);
         setClick(R.id.iv_chat);
+        setClick(R.id.txt_terms_conditions);
     }
 
     private void openPaymentDialog() {
@@ -121,6 +123,9 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 break;
             case R.id.iv_chat:
                 startActivity(new Intent(this, ChatActivity.class));
+                break;
+            case R.id.txt_terms_conditions:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com")));
                 break;
         }
     }

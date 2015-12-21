@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/menu_filter"
-        android:icon="@drawable/notification_btn"
+        android:icon="@drawable/filter"
         app:showAsAction="always"
         android:title="@string/menu_filter"></item>
 

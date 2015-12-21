@@ -73,6 +73,7 @@
 
                 <com.deal.exap.customviews.MyEditTextViewLight
                     android:id="@+id/edt_dob"
+                    android:focusable="false"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="6dp"
@@ -112,6 +113,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="6dp"
                 android:layout_weight="1"
+                android:inputType="textPassword"
                 android:background="@drawable/edt_txt_white_bcg_shape"
                 android:drawableRight="@drawable/lock_icon_light"
                 android:hint="@string/password_hint"
@@ -119,6 +121,7 @@
 
             <com.deal.exap.customviews.MyEditTextViewLight
                 android:id="@+id/edt_confirm_password"
+                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="6dp"

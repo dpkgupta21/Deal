@@ -35,10 +35,17 @@
 
 
     <ListView
-        android:id="@+id/alert_list_view"
+        android:id="@+id/lv_notification"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"></ListView>
+
+    <ListView
+        android:id="@+id/lv_messsage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"></ListView>
 
 
 </LinearLayout>

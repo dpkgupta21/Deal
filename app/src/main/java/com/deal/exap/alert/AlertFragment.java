@@ -26,7 +26,7 @@ public class AlertFragment extends BaseFragment {
 
 
     private View view;
-    private ListView listView;
+    private ListView lvMessage, lvNotification;
     private Button btnMessage, btnNotification;
 //    public static AlertFragment newInstance() {
 //        AlertFragment fragment = new AlertFragment();
@@ -57,10 +57,15 @@ public class AlertFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        listView = (ListView) view.findViewById(R.id.alert_list_view);
+        lvMessage = (ListView) view.findViewById(R.id.lv_messsage);
+        lvNotification = (ListView) view.findViewById(R.id.lv_notification);
         //applyStyle(switchbtn.getTextOn(), switchbtn.getTextOff());
-        listView.setAdapter(new AlertListAdapter(getActivity(), getDataSet()));
+        lvMessage.setAdapter(new AlertListAdapter(getActivity(), getDataSet(),1,getActivity()));
+        lvNotification.setAdapter(new AlertListAdapter(getActivity(), getDataSet(),0,getActivity()));
         //setTitleFragment(getString(R.string.alert_screen_title));
+
+        lvNotification.setVisibility(View.VISIBLE);
+        lvMessage.setVisibility(View.GONE);
     }
 
     private void init(){
@@ -82,10 +87,14 @@ public class AlertFragment extends BaseFragment {
             case R.id.btn_message:
                 btnMessage.setSelected(true);
                 btnNotification.setSelected(false);
+                lvMessage.setVisibility(View.VISIBLE);
+                lvNotification.setVisibility(View.GONE);
                 break;
             case R.id.btn_notification:
                 btnMessage.setSelected(false);
                 btnNotification.setSelected(true);
+                lvMessage.setVisibility(View.GONE);
+                lvNotification.setVisibility(View.VISIBLE);
                 break;
         }
     }
