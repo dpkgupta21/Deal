@@ -9,23 +9,26 @@ import android.view.View;
 import com.deal.exap.R;
 import com.deal.exap.alert.AlertFragment;
 import com.deal.exap.category.CategoriesFragment;
-import com.deal.exap.com.exap.sidemenu.ResideMenu;
 import com.deal.exap.com.exap.sidemenu.ResideMenuItem;
+import com.deal.exap.com.exap.sidemenu.ResideMenuSecond;
 import com.deal.exap.favorite.FavoriteFragment;
 import com.deal.exap.following.FollowingFragment;
 import com.deal.exap.interest.InterestFragment;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.nearby.NearByFragment;
 import com.deal.exap.settings.SettingFragment;
+import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.TJPreferences;
 import com.deal.exap.wallet.WalletFragment;
 
 public class HomeActivity extends BaseActivity {
 
-    private ResideMenu resideMenu;
+    private ResideMenuSecond resideMenu;
     private HomeActivity mContext;
-    private ResideMenuItem itemAlert,itemNearby,itemWallet, itemInterest, itemFavorite, itemFollowing, itemCategory, itemSetting;
-    Boolean isopend=false;
+    private ResideMenuItem itemAlert, itemNearby, itemWallet, itemInterest, itemFavorite, itemFollowing, itemCategory, itemSetting;
+    Boolean isopend = false;
     View topView;
+
     /**
      * Called when the activity is first created.
      */
@@ -39,27 +42,28 @@ public class HomeActivity extends BaseActivity {
 
     }
 
-    private void init(){
+    private void init() {
         setHeader(getString(R.string.interest_screen_title));
         setLeftClick(R.drawable.menu_btn);
     }
+
     private void setUpMenu() {
 
         // attach to current activity;
-        resideMenu = new ResideMenu(this);
+        resideMenu = new ResideMenuSecond(this);
         resideMenu.setBackgroundColor(getResources().getColor(R.color.nav_drw_bg));
         resideMenu.attachToActivity(this);
         resideMenu.setMenuListener(menuListener);
 
         // create menu items;
-        itemAlert     = new ResideMenuItem(this, R.drawable.nav_bell_icon, getString(R.string.menu_alert));
-        itemNearby     = new ResideMenuItem(this, R.drawable.nav_nearby_icon, getString(R.string.menu_near_by));
-        itemWallet     = new ResideMenuItem(this, R.drawable.nav_wallet_icon, getString(R.string.menu_wallet));
-        itemInterest     = new ResideMenuItem(this, R.drawable.nav_interest_icon, getString(R.string.menu_interest));
-        itemFavorite     = new ResideMenuItem(this, R.drawable.nav_fav_icon, getString(R.string.menu_favorite));
-        itemFollowing     = new ResideMenuItem(this, R.drawable.nav_following_icon, getString(R.string.menu_following));
-        itemCategory     = new ResideMenuItem(this, R.drawable.nav_categories_icon, getString(R.string.menu_categories));
-        itemSetting     = new ResideMenuItem(this, R.drawable.nav_settings_icon, getString(R.string.menu_setting));
+        itemAlert = new ResideMenuItem(this, R.drawable.nav_bell_icon, getString(R.string.menu_alert));
+        itemNearby = new ResideMenuItem(this, R.drawable.nav_nearby_icon, getString(R.string.menu_near_by));
+        itemWallet = new ResideMenuItem(this, R.drawable.nav_wallet_icon, getString(R.string.menu_wallet));
+        itemInterest = new ResideMenuItem(this, R.drawable.nav_interest_icon, getString(R.string.menu_interest));
+        itemFavorite = new ResideMenuItem(this, R.drawable.nav_fav_icon, getString(R.string.menu_favorite));
+        itemFollowing = new ResideMenuItem(this, R.drawable.nav_following_icon, getString(R.string.menu_following));
+        itemCategory = new ResideMenuItem(this, R.drawable.nav_categories_icon, getString(R.string.menu_categories));
+        itemSetting = new ResideMenuItem(this, R.drawable.nav_settings_icon, getString(R.string.menu_setting));
 
         itemAlert.setOnClickListener(this);
         itemNearby.setOnClickListener(this);
@@ -70,15 +74,31 @@ public class HomeActivity extends BaseActivity {
         itemCategory.setOnClickListener(this);
         itemSetting.setOnClickListener(this);
 
-        resideMenu.addMenuItem(itemAlert);
-        resideMenu.addMenuItem(itemNearby);
-        resideMenu.addMenuItem(itemWallet);
-        resideMenu.addMenuItem(itemInterest);
-        resideMenu.addMenuItem(itemFavorite);
-        resideMenu.addMenuItem(itemFollowing);
-        resideMenu.addMenuItem(itemCategory);
-        resideMenu.addMenuItem(itemSetting);
+        if (TJPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ENGLISH_CODE)) {
+            resideMenu.addMenuItem(itemAlert, ResideMenuSecond.DIRECTION_LEFT);
+            resideMenu.addMenuItem(itemNearby, ResideMenuSecond.DIRECTION_LEFT);
+            resideMenu.addMenuItem(itemWallet, ResideMenuSecond.DIRECTION_LEFT);
+            resideMenu.addMenuItem(itemInterest, ResideMenuSecond.DIRECTION_LEFT);
+            resideMenu.addMenuItem(itemFavorite, ResideMenuSecond.DIRECTION_LEFT);
+            resideMenu.addMenuItem(itemFollowing, ResideMenuSecond.DIRECTION_LEFT);
+            resideMenu.addMenuItem(itemCategory, ResideMenuSecond.DIRECTION_LEFT);
+            resideMenu.addMenuItem(itemSetting, ResideMenuSecond.DIRECTION_LEFT);
 
+            // resideMenu.setSwipeDirectionDisable(ResideMenuSecond.DIRECTION_LEFT);
+
+        } else if (TJPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ARABIC_CODE)) {
+            resideMenu.addMenuItem(itemAlert, ResideMenuSecond.DIRECTION_RIGHT);
+            resideMenu.addMenuItem(itemNearby, ResideMenuSecond.DIRECTION_RIGHT);
+            resideMenu.addMenuItem(itemWallet, ResideMenuSecond.DIRECTION_RIGHT);
+            resideMenu.addMenuItem(itemInterest, ResideMenuSecond.DIRECTION_RIGHT);
+            resideMenu.addMenuItem(itemFavorite, ResideMenuSecond.DIRECTION_RIGHT);
+            resideMenu.addMenuItem(itemFollowing, ResideMenuSecond.DIRECTION_RIGHT);
+            resideMenu.addMenuItem(itemCategory, ResideMenuSecond.DIRECTION_RIGHT);
+            resideMenu.addMenuItem(itemSetting, ResideMenuSecond.DIRECTION_RIGHT);
+
+            // resideMenu.setSwipeDirectionDisable(ResideMenuSecond.DIRECTION_RIGHT);
+
+        }
         changeFragment(new InterestFragment());
 /*
         findViewById(R.id.title_bar_menu).setOnClickListener(new View.OnClickListener() {
@@ -101,10 +121,8 @@ public class HomeActivity extends BaseActivity {
     }
 
 
-
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev)
-    {
+    public boolean dispatchTouchEvent(MotionEvent ev) {
         //Toast.makeText(getApplicationContext(), "i m in Touch"+ev.getAction(),Toast.LENGTH_LONG).show();
         return resideMenu.onInterceptTouchEvent(ev) || super.dispatchTouchEvent(ev);
     }
@@ -114,43 +132,44 @@ public class HomeActivity extends BaseActivity {
 
         resideMenu.closeMenu();
 
-        if (view == itemAlert){
+        if (view == itemAlert) {
             changeFragment(new AlertFragment());
             setHeader(getString(R.string.alert_screen_title));
-        }else if (view == itemNearby){
+        } else if (view == itemNearby) {
             changeFragment(new NearByFragment());
             setHeader(getString(R.string.nearby_screen_title));
-        }else if (view == itemWallet){
+        } else if (view == itemWallet) {
             changeFragment(new WalletFragment());
             setHeader(getString(R.string.wallet_screen_title));
-        }else if (view == itemInterest){
+        } else if (view == itemInterest) {
             changeFragment(new InterestFragment());
             setHeader(getString(R.string.interest_screen_title));
-        }else if (view == itemFavorite){
+        } else if (view == itemFavorite) {
             changeFragment(new FavoriteFragment());
             setHeader(getString(R.string.favorite_screen_title));
-        }else if (view == itemFollowing){
+        } else if (view == itemFollowing) {
             changeFragment(new FollowingFragment());
             setHeader(getString(R.string.following_screen_title));
-        }else if (view == itemCategory){
+        } else if (view == itemCategory) {
             changeFragment(new CategoriesFragment());
             setHeader(getString(R.string.categories_title));
-        }else if (view == itemSetting){
+        } else if (view == itemSetting) {
             changeFragment(new SettingFragment());
             setHeader(getString(R.string.setting_screen_title));
         }
 
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.iv_back:
-                if(isopend==false)
-                {
-                    resideMenu.openMenu();
-                    isopend=true;
-                }
-                else
-                {
+                if (isopend == false) {
+                    if (TJPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ENGLISH_CODE)) {
+                        resideMenu.openMenu(ResideMenuSecond.DIRECTION_LEFT);
+                    } else if (TJPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ARABIC_CODE)) {
+                        resideMenu.openMenu(ResideMenuSecond.DIRECTION_RIGHT);
+                    }
+                    isopend = true;
+                } else {
                     resideMenu.closeMenu();
-                    isopend=false;
+                    isopend = false;
                 }
                 break;
         }
@@ -158,7 +177,7 @@ public class HomeActivity extends BaseActivity {
 
     }
 
-    private ResideMenu.OnMenuListener menuListener = new ResideMenu.OnMenuListener() {
+    private ResideMenuSecond.OnMenuListener menuListener = new ResideMenuSecond.OnMenuListener() {
         @Override
         public void openMenu() {
         }
@@ -168,7 +187,7 @@ public class HomeActivity extends BaseActivity {
         }
     };
 
-    private void changeFragment(Fragment targetFragment){
+    private void changeFragment(Fragment targetFragment) {
         resideMenu.clearIgnoredViewList();
         getSupportFragmentManager()
                 .beginTransaction()
@@ -178,7 +197,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     // What good method is to access resideMenu？
-    public ResideMenu getResideMenu(){
+    public ResideMenuSecond getResideMenu() {
         return resideMenu;
     }
 }

@@ -271,7 +271,7 @@ public class TJPreferences {
     // use ENG for english by default language
     public static String getAPP_LANG(Context context) {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(
-                APP_LANG, "ENG");
+                APP_LANG, Constant.LANG_ENGLISH_CODE);
     }
 
 

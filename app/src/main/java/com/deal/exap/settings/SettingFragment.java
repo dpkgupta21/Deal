@@ -2,7 +2,6 @@ package com.deal.exap.settings;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -22,9 +21,9 @@ import com.deal.exap.customviews.MyTextViewReg16;
 import com.deal.exap.login.BaseFragment;
 import com.deal.exap.login.EditProfileActivity;
 import com.deal.exap.navigationdrawer.HomeActivity;
+import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.TJPreferences;
-
-import java.util.Locale;
 
 
 public class SettingFragment extends BaseFragment {
@@ -57,7 +56,7 @@ public class SettingFragment extends BaseFragment {
         return view;
     }
 
-    private void init(){
+    private void init() {
         setClick(R.id.tv_editprofile, view);
     }
 
@@ -66,17 +65,19 @@ public class SettingFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         //setTitleFragment(getString(R.string.setting_screen_title));
         ((MyTextViewReg16) view.findViewById(R.id.txt_payment_details)).setOnClickListener(paymentClick);
-        btn_select_english=(MyButtonViewSemi) view.findViewById(R.id.btn_select_english);
-        btn_select_arabic=(MyButtonViewSemi) view.findViewById(R.id.btn_select_arabic);
+        btn_select_english = (MyButtonViewSemi) view.findViewById(R.id.btn_select_english);
+        btn_select_arabic = (MyButtonViewSemi) view.findViewById(R.id.btn_select_arabic);
 
-        btn_select_english .setOnClickListener(englishLanguageClick);
+        selectedButton(TJPreferences.getAPP_LANG(getActivity().getApplicationContext()));
+
+        btn_select_english.setOnClickListener(englishLanguageClick);
         btn_select_arabic.setOnClickListener(arabicLanguageClick);
 
     }
 
     @Override
     public void onClick(View arg0) {
-        switch (arg0.getId()){
+        switch (arg0.getId()) {
             case R.id.tv_editprofile:
                 getActivity().startActivity(new Intent(getActivity(), EditProfileActivity.class));
                 break;
@@ -91,24 +92,15 @@ public class SettingFragment extends BaseFragment {
     View.OnClickListener englishLanguageClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Locale locale = new Locale("en");
-            Locale.setDefault(locale);
-            Configuration config = new Configuration();
-            config.locale = locale;
-            getResources().updateConfiguration(config,
-                    getResources().getDisplayMetrics());
+            if (TJPreferences.getAPP_LANG(getActivity().getApplicationContext()).contains(Constant.LANG_ARABIC_CODE)) {
+                HelpMe.setLocale(Constant.LANG_ENGLISH_CODE, getActivity().getApplicationContext());
+                selectedButton(Constant.LANG_ENGLISH_CODE);
+                TJPreferences.setAPP_LANG(getActivity().getApplicationContext(), Constant.LANG_ENGLISH_CODE);
 
-            btn_select_english.setBackgroundColor(getResources().getColor(R.color.btn_color));
-            btn_select_arabic.setBackgroundColor(getResources().getColor(R.color.white));
-
-            btn_select_english.setTextColor(getResources().getColor(R.color.white));
-            btn_select_arabic.setTextColor(getResources().getColor(R.color.black));
-
-            TJPreferences.setAPP_LANG(getActivity().getApplicationContext(), "en");
-
-            Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
-            startActivity(i);
-            getActivity().finish();
+                Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
+                startActivity(i);
+                getActivity().finish();
+            }
 
         }
     };
@@ -116,25 +108,17 @@ public class SettingFragment extends BaseFragment {
     View.OnClickListener arabicLanguageClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Locale locale = new Locale("ar");
-            Locale.setDefault(locale);
-            Configuration config = new Configuration();
-            config.locale = locale;
-            getResources().updateConfiguration(config,
-                    getResources().getDisplayMetrics());
+            if (TJPreferences.getAPP_LANG(getActivity().getApplicationContext()).contains(Constant.LANG_ENGLISH_CODE)) {
+                HelpMe.setLocale(Constant.LANG_ARABIC_CODE, getActivity().getApplicationContext());
+                selectedButton(Constant.LANG_ARABIC_CODE);
+                TJPreferences.setAPP_LANG(getActivity().getApplicationContext(), Constant.LANG_ARABIC_CODE);
 
 
-            TJPreferences.setAPP_LANG(getActivity().getApplicationContext(), "ar");
 
-            btn_select_arabic.setBackgroundColor(getResources().getColor(R.color.btn_color));
-            btn_select_english.setBackgroundColor(getResources().getColor(R.color.white));
-
-            btn_select_arabic.setTextColor(getResources().getColor(R.color.white));
-            btn_select_english.setTextColor(getResources().getColor(R.color.black));
-
-            Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
-            startActivity(i);
-            getActivity().finish();
+                Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
+                startActivity(i);
+                getActivity().finish();
+            }
         }
     };
 
@@ -168,6 +152,25 @@ public class SettingFragment extends BaseFragment {
         Toolbar mToolbar = (Toolbar) ((AppCompatActivity) getActivity()).findViewById(R.id.tool_bar);
         TextView txtTitle = ((TextView) mToolbar.findViewById(R.id.toolbar_title));
         txtTitle.setText(strTitle);
+    }
+
+    private void selectedButton(String STATUS_CODE){
+        if (STATUS_CODE.contains(Constant.LANG_ENGLISH_CODE)) {
+
+            btn_select_english.setBackgroundColor(getResources().getColor(R.color.btn_color));
+            btn_select_arabic.setBackgroundColor(getResources().getColor(R.color.white));
+
+            btn_select_english.setTextColor(getResources().getColor(R.color.white));
+            btn_select_arabic.setTextColor(getResources().getColor(R.color.black));
+
+        }else {
+
+            btn_select_arabic.setBackgroundColor(getResources().getColor(R.color.btn_color));
+            btn_select_english.setBackgroundColor(getResources().getColor(R.color.white));
+
+            btn_select_arabic.setTextColor(getResources().getColor(R.color.white));
+            btn_select_english.setTextColor(getResources().getColor(R.color.black));
+        }
     }
 
 }

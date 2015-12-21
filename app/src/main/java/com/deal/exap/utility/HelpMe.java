@@ -3,6 +3,7 @@ package com.deal.exap.utility;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Environment;
@@ -12,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -72,6 +74,17 @@ public class HelpMe {
             // should never happen
             throw new RuntimeException("Could not get package name: " + e);
         }
+    }
+
+    // Check for valid mobile number of 10 digits
+    public static void setLocale(String languageCode, Context mContext) {
+
+        Locale locale = new Locale(languageCode);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        mContext.getResources().updateConfiguration(config,
+                mContext.getResources().getDisplayMetrics());
     }
 
     public static void pullDb(Context context) {
