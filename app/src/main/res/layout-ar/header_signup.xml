@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/app_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/toolbar_transparent_color"
+    android:minHeight="?attr/actionBarSize"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+
+            <com.deal.exap.customviews.MyTextViewRegCustom
+                style="@style/tv_header"
+                android:layout_marginLeft="10dp"
+                android:text="@string/title_right" />
+
+            <com.deal.exap.customviews.MyTextViewRegCustom
+                android:id="@+id/toolbar_title_separator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_horizontal"
+                android:text="|"
+                android:textColor="@color/white" />
+
+            <com.deal.exap.customviews.MyTextViewRegCustom
+                style="@style/tv_header"
+                android:text="@string/title_left" />
+        </LinearLayout>
+
+        <com.deal.exap.customviews.MyTextViewRegCustom
+            style="@style/tv_header"
+            android:id="@+id/tv_skip_arb"
+            android:text="@string/skip_left" />
+
+        <com.deal.exap.customviews.MyTextViewRegCustom
+            style="@style/tv_normal"
+            android:textColor="@color/white"
+            android:id="@+id/tv_skip_eng"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:text="@string/skip_right" />
+    </RelativeLayout>
+</android.support.v7.widget.Toolbar>

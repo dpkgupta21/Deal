@@ -23,7 +23,8 @@ public class HomeActivitySecond extends BaseActivity {
 
     private ResideMenu resideMenu;
     private HomeActivitySecond mContext;
-    private ResideMenuItem itemAlert,itemNearby,itemWallet, itemInterest, itemFavorite, itemFollowing, itemCategory, itemSetting;
+    private ResideMenuItem itemAlert,itemNearby,itemWallet, itemInterest, itemFavorite,
+            itemFollowing, itemCategory, itemSetting;
     Boolean isopend=false;
     View topView;
     /**

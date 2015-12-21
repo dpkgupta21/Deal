@@ -18,11 +18,14 @@
     <!--Sign in screen arabic-->
 
     <string name="connect_with_facebook_btn">تواصل مع الفيسبوك</string>
+    <string name="connect_with_twitter_btn">تغريد</string>
     <string name="or">أو</string>
+    <string name="connect_with">اتصل مع</string>
     <string name="username_hint">اسم المستخدم</string>
     <string name="password_sign_in_hint">كلمة المرور</string>
     <string name="login_btn">تسجيل الدخول</string>
-    <string name="not_yet_registered">غير مسجل حتى الآن؟ سجل الان!</string>
+    <string name="not_yet_registered">غغير مسجل حتى الآن؟</string>
+    <string name="register_now">سجل الان!</string>
     <string name="forgot_password">هل نسيت كلمة المرور؟</string>
     <string name="terms_and_conditions">البنود و الشروط | سياسة الخصوصية</string>
 
@@ -185,7 +188,7 @@
     <string name="action_settings">إعدادات</string>
 
     <!-- Welcome screen -->
-    <string name="skip_right">تخطى</string>
+    <string name="skip_right">Skip</string>
     <string name="skip_left">تخطى</string>
 
     <string name="choose_camera">كاميرا</string>

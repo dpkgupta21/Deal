@@ -64,6 +64,9 @@ public class ResideMenuSecond extends FrameLayout {
     private List<ResideMenuItem> rightMenuItems;
     private DisplayMetrics displayMetrics = new DisplayMetrics();
     private OnMenuListener menuListener;
+    private View viewHeader;
+
+
     private float lastRawX;
     private boolean isInIgnoredView = false;
     private int scaleDirection = DIRECTION_LEFT;
@@ -87,6 +90,9 @@ public class ResideMenuSecond extends FrameLayout {
         layoutLeftMenu = (LinearLayout) findViewById(R.id.layout_left_menu);
         layoutRightMenu = (LinearLayout) findViewById(R.id.layout_right_menu);
         imageViewBackground = (ImageView) findViewById(R.id.iv_background);
+
+        viewHeader = (View) inflater.inflate(R.layout.drawer_header,
+                null, false);
     }
 
     /**

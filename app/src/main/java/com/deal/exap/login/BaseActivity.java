@@ -16,7 +16,8 @@ import android.widget.TextView;
 import com.deal.exap.R;
 import com.deal.exap.utility.TouchEffect;
 
-public class BaseActivity extends AppCompatActivity implements OnClickListener, CompoundButton.OnCheckedChangeListener{
+public class BaseActivity extends AppCompatActivity implements OnClickListener,
+		CompoundButton.OnCheckedChangeListener{
 
 	public static final TouchEffect TOUCH = new TouchEffect();
 	public Toolbar toolbar;
