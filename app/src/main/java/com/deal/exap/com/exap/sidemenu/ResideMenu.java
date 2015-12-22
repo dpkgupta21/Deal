@@ -42,7 +42,6 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     private AnimatorSet scaleUp_activity;
     private AnimatorSet scaleDown_activity;
     private AnimatorSet scaleDown_shadow;
-    private View topMenu;
     /** the activity that view attach to */
     private Activity activity;
     /** the decorview of the activity    */
@@ -136,9 +135,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
         this.menuItems.add(menuItem);
     }
 
-    public void addTopMenu(View view){
-        topMenu = view;
-    }
+
 
     /**
      * set the menu items by array list;

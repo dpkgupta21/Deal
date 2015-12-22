@@ -164,9 +164,15 @@ public class ResideMenuSecond extends FrameLayout {
      */
     @Deprecated
     public void addMenuItem(ResideMenuItem menuItem){
+        if(leftMenuItems.size()==0){
+            layoutLeftMenu.addView(viewHeader);
+
+        }
         this.leftMenuItems.add(menuItem);
         layoutLeftMenu.addView(menuItem);
     }
+
+
 
     /**
      * add a single items;
@@ -176,9 +182,16 @@ public class ResideMenuSecond extends FrameLayout {
      */
     public void addMenuItem(ResideMenuItem menuItem, int direction){
         if (direction == DIRECTION_LEFT){
+            if(leftMenuItems.size()==0){
+                layoutLeftMenu.addView(viewHeader);
+            }
             this.leftMenuItems.add(menuItem);
             layoutLeftMenu.addView(menuItem);
         }else{
+            if(rightMenuItems.size()==0){
+                layoutRightMenu.addView(viewHeader);
+
+            }
             this.rightMenuItems.add(menuItem);
             layoutRightMenu.addView(menuItem);
         }
