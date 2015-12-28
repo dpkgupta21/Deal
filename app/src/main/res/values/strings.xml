@@ -128,6 +128,7 @@
 
     <!--Favorite Screen-->
     <string name="favorite_screen_title">Favorite</string>
+    <string name="auto">Auto</string>
 
 
 
@@ -228,6 +229,7 @@
 
     <!--Discussion or Chat Screen-->
     <string name="discussion_title">Discussion</string>
+    <string name="how_are_you">How are you?</string>
 
 
     <!-- Edit Profile screen -->

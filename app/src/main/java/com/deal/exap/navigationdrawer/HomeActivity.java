@@ -23,10 +23,10 @@ import com.deal.exap.wallet.WalletFragment;
 
 public class HomeActivity extends BaseActivity {
 
-    private ResideMenuSecond resideMenu;
+    public ResideMenuSecond resideMenu;
     private HomeActivity mContext;
     private ResideMenuItem itemAlert, itemNearby, itemWallet, itemInterest, itemFavorite, itemFollowing, itemCategory, itemSetting;
-    Boolean isopend = false;
+    //Boolean isopend = false;
     View topView;
 
     /**
@@ -160,16 +160,20 @@ public class HomeActivity extends BaseActivity {
 
         switch (view.getId()) {
             case R.id.iv_back:
-                if (isopend == false) {
+                //if (isopend == false) {
+                  ///  isopend = true;
+                if(resideMenu.isOpened()==false){
+                    resideMenu.setOpened(true);
                     if (TJPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ENGLISH_CODE)) {
                         resideMenu.openMenu(ResideMenuSecond.DIRECTION_LEFT);
                     } else if (TJPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ARABIC_CODE)) {
                         resideMenu.openMenu(ResideMenuSecond.DIRECTION_RIGHT);
                     }
-                    isopend = true;
+
                 } else {
+                    //isopend = false;
+                    resideMenu.setOpened(false);
                     resideMenu.closeMenu();
-                    isopend = false;
                 }
                 break;
         }
@@ -195,6 +199,8 @@ public class HomeActivity extends BaseActivity {
                 .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();
     }
+
+
 
     // What good method is to access resideMenu？
     public ResideMenuSecond getResideMenu() {

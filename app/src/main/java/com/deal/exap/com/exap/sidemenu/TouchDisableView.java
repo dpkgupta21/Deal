@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 /**
  * Created by thonguyen on 15/4/14.
  */
-class TouchDisableView extends ViewGroup {
+public class TouchDisableView extends ViewGroup {
 
     private View mContent;
 
@@ -62,7 +62,7 @@ class TouchDisableView extends ViewGroup {
         return mTouchDisabled;
     }
 
-    void setTouchDisable(boolean disableTouch) {
+    public void setTouchDisable(boolean disableTouch) {
         mTouchDisabled = disableTouch;
     }
 

@@ -6,16 +6,21 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.deal.exap.R;
+import com.deal.exap.com.exap.sidemenu.ResideMenuSecond;
+import com.deal.exap.com.exap.sidemenu.TouchDisableView;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg16;
 import com.deal.exap.login.BaseFragment;
@@ -26,7 +31,8 @@ import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.TJPreferences;
 
 
-public class SettingFragment extends BaseFragment {
+public class SettingFragment extends BaseFragment implements GestureDetector.OnGestureListener,
+        SeekBar.OnSeekBarChangeListener, View.OnTouchListener{
 
     private View view;
     private MyButtonViewSemi btn_select_english;
@@ -50,7 +56,6 @@ public class SettingFragment extends BaseFragment {
         // Inflate the layout for this fragment
 
         view = inflater.inflate(R.layout.fragment_setting, container, false);
-
         init();
 
         return view;
@@ -67,7 +72,9 @@ public class SettingFragment extends BaseFragment {
         ((MyTextViewReg16) view.findViewById(R.id.txt_payment_details)).setOnClickListener(paymentClick);
         btn_select_english = (MyButtonViewSemi) view.findViewById(R.id.btn_select_english);
         btn_select_arabic = (MyButtonViewSemi) view.findViewById(R.id.btn_select_arabic);
-
+        SeekBar seek_bar=(SeekBar)view.findViewById(R.id.seek_bar);
+        seek_bar.setOnSeekBarChangeListener(this);
+        seek_bar.setOnTouchListener(this);
         selectedButton(TJPreferences.getAPP_LANG(getActivity().getApplicationContext()));
 
         btn_select_english.setOnClickListener(englishLanguageClick);
@@ -112,8 +119,6 @@ public class SettingFragment extends BaseFragment {
                 HelpMe.setLocale(Constant.LANG_ARABIC_CODE, getActivity().getApplicationContext());
                 selectedButton(Constant.LANG_ARABIC_CODE);
                 TJPreferences.setAPP_LANG(getActivity().getApplicationContext(), Constant.LANG_ARABIC_CODE);
-
-
 
                 Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
                 startActivity(i);
@@ -173,4 +178,56 @@ public class SettingFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public boolean onDown(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        return false;
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if(event.getAction() == MotionEvent.ACTION_MOVE){
+
+        }
+        return true;
+    }
 }

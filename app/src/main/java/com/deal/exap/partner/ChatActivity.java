@@ -28,7 +28,7 @@ public class ChatActivity extends BaseActivity {
         lvChat = (ListView) findViewById(R.id.lv_chat);
         lvChat.setAdapter(new ChatListAdapter(this, getDataSet()));
 
-        setHeader("Discussion");
+        setHeader(getString(R.string.discussion_title));
         setLeftClick();
     }
 
@@ -44,7 +44,7 @@ public class ChatActivity extends BaseActivity {
     private ArrayList<DataObject> getDataSet() {
         ArrayList results = new ArrayList<DataObject>();
         for (int index = 0; index < 10; index++) {
-            DataObject obj = new DataObject("Auto",
+            DataObject obj = new DataObject(getString(R.string.auto),
                     "" + index);
             results.add(index, obj);
         }

@@ -27,7 +27,7 @@
             style="@style/tv_normal"
             android:background="@drawable/white_bg_border"
             android:padding="10dp"
-            android:text="How are you?"
+            android:text="@string/how_are_you"
             android:textColor="@color/black" />
 
         <com.deal.exap.customviews.MyTextViewLightCustom
