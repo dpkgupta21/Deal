@@ -104,6 +104,7 @@
 
     <!--Favorite Screen-->
     <string name="favorite_screen_title">المفضل</string>
+    <string name="auto">السيارات</string>
 
 
 
@@ -201,6 +202,7 @@
 
     <!--Discussion or Chat Screen-->
     <string name="discussion_title">نقاش</string>
+    <string name="how_are_you">كيف حالك؟</string>
 
 
     <!-- Edit Profile screen -->

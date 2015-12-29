@@ -89,7 +89,7 @@ public class FavoriteFragment extends Fragment {
     private ArrayList<DataObject> getDataSet() {
         ArrayList results = new ArrayList<DataObject>();
         for (int index = 0; index < 10; index++) {
-            DataObject obj = new DataObject("Auto",
+            DataObject obj = new DataObject(getString(R.string.auto),
                     "" + index);
             results.add(index, obj);
         }

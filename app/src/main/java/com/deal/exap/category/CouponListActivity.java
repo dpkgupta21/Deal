@@ -29,7 +29,7 @@ public class CouponListActivity extends BaseActivity {
     }
 
     private void init(){
-        setHeader("Auto");
+        setHeader(getString(R.string.auto));
         setLeftClick();
         setHeaderNormal();
     }

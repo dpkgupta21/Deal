@@ -47,7 +47,7 @@
                     android:layout_alignTop="@+id/img_company"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/img_company"
+                    android:layout_toLeftOf="@id/img_company"
                     android:orientation="vertical">
 
                     <com.deal.exap.customviews.MyTextViewSemiCustom
@@ -77,8 +77,8 @@
                     android:id="@+id/img_featured"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="right"
+                    android:layout_alignParentLeft="true"
+                    android:layout_gravity="left"
                     android:src="@drawable/featured_tag" />
             </RelativeLayout>
         </FrameLayout>

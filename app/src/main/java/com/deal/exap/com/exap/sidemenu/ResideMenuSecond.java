@@ -355,6 +355,10 @@ public class ResideMenuSecond extends FrameLayout {
         return isOpened;
     }
 
+    public void setOpened(boolean flag) {
+        this.isOpened=isOpened;
+    }
+
     private OnClickListener viewActivityOnClickListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
