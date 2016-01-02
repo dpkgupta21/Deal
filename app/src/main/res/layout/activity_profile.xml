@@ -67,13 +67,13 @@
 
                         <com.deal.exap.customviews.MyTextViewRegCustom
                             style="@style/tv_normal"
-                            android:text="@string/age"
+                            android:text="@string/dob"
                             android:textColor="@color/black" />
 
                         <com.deal.exap.customviews.MyEditTextViewLight
                             android:id="@+id/et_age"
                             style="@style/et_style_line"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="3dp"
                             android:drawableRight="@drawable/selec_icon"
                             android:focusable="false"
                             android:hint="@string/select_hint" />
@@ -94,7 +94,7 @@
                         <com.deal.exap.customviews.MyEditTextViewLight
                             android:id="@+id/et_sex"
                             style="@style/et_style_line"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="3dp"
                             android:drawableRight="@drawable/selec_icon"
                             android:focusable="false"
                             android:hint="@string/select_hint" />

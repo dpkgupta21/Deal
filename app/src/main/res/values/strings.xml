@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Exap</string>
+    <string name="facebook_app_id">1510500769251274</string>
+
+
 
     <!-- Splash screen-->
     <string name="title">Lorem ipsum</string>
@@ -51,7 +54,7 @@
 
     <!-- Number verification screen step1 -->
     <string name="verify_your_phone">Verify your Phone Number</string>
-    <string name="country_code_hint">United State +1</string>
+    <string name="country_code_hint">Select</string>
     <string name="enter_your_phone_number_hint">Enter your Phone Number</string>
     <string name="send_confirmation_code">Send Confirmation Code</string>
     <string name="verification_msg">By tapping next above, Exap will send you a SMS message to
@@ -236,7 +239,7 @@
     <string name="change_photo">Change Photo</string>
     <string name="full_name">Full Name</string>
     <string name="enter_here">Enter Here...</string>
-    <string name="age">Age</string>
+    <string name="dob">DOB</string>
     <string name="gender">Gender</string>
     <string name="select_hint">Select</string>
     <string name="save_changes">Save Changes</string>

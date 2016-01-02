@@ -20,8 +20,11 @@
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
 
     <application
+        android:name=".volley.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -112,8 +115,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".login.IntroActivity" />
+        <activity android:name=".login.IntroActivity" />
         <activity
             android:name=".customerfeedback.CustomerFeedBackActivity"
             android:screenOrientation="portrait"
@@ -137,6 +139,13 @@
         <activity
             android:name=".following.FollowingPartnerDetails"
             android:screenOrientation="portrait"></activity>
+
+
+        <activity android:name="com.facebook.FacebookActivity"/>
+
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
 
     </application>
 

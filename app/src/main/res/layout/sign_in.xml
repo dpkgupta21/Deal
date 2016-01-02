@@ -98,7 +98,6 @@
             android:hint="@string/username_hint"
             android:imeOptions="actionDone"
             android:inputType="text"
-            android:maxLength="10"
             android:minEms="10"
             android:singleLine="true" />
 

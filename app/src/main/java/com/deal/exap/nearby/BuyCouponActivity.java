@@ -7,8 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.deal.exap.R;
@@ -23,9 +27,16 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
 public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private TextView txtMonth;
+    private TextView txtYear;
+    private ArrayList<String> months;
+    private ArrayList<String> years;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +57,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
     }
 
 
-    private void init(){
+    private void init() {
 
         ImageView ivBack = (ImageView) findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +75,22 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
             }
         });
 
+        months = new ArrayList<String>();
+        months.add("MM");
+        months.add("01");
+        months.add("02");
+        months.add("03");
+        months.add("04");
+        months.add("05");
+        months.add("06");
+        months.add("07");
+        months.add("08");
+        months.add("09");
+        months.add("10");
+        months.add("11");
+        months.add("12");
+
+
         setClick(R.id.thumbnail);
         setClick(R.id.iv_chat);
         setClick(R.id.txt_terms_conditions);
@@ -77,6 +104,24 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
         ImageView ivClose = (ImageView) dialog.findViewById(R.id.iv_close);
+        txtMonth = (TextView) dialog.findViewById(R.id.txt_month);
+        txtYear = (TextView) dialog.findViewById(R.id.txt_year);
+
+
+        txtMonth.setText(months.get(0));
+
+        years = new ArrayList<String>();
+        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
+        years.add("YYYY");
+        for (int i = thisYear; i <= 2050; i++) {
+            years.add(Integer.toString(i));
+        }
+
+        txtYear.setText(years.get(0));
+
+        txtMonth.setOnClickListener(monthDialog);
+
+        txtYear.setOnClickListener(yearDialog);
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,7 +162,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.thumbnail:
                 startActivity(new Intent(this, ImageActivity.class));
                 break;
@@ -129,4 +174,64 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 break;
         }
     }
+
+    private View.OnClickListener monthDialog = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            openMonthDialog();
+
+        }
+    };
+
+    private View.OnClickListener yearDialog = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            openYearDialog();
+        }
+    };
+
+
+    public void openMonthDialog() {
+        final Dialog dialog = new Dialog(BuyCouponActivity.this);
+        // Include dialog.xml file
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_country_code);
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        ListView listView = (ListView) dialog.findViewById(R.id.list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_single_choice, months);
+        listView.setAdapter(adapter);
+        dialog.show();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                txtMonth.setText(months.get(position));
+                dialog.dismiss();
+            }
+        });
+
+
+    }
+
+    public void openYearDialog() {
+        final Dialog dialog = new Dialog(BuyCouponActivity.this);
+        // Include dialog.xml file
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_country_code);
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        ListView listView = (ListView) dialog.findViewById(R.id.list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_single_choice, years);
+        listView.setAdapter(adapter);
+        dialog.show();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                txtYear.setText(years.get(position));
+                dialog.dismiss();
+            }
+        });
+
+
+    }
+
 }
