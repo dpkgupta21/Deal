@@ -36,6 +36,7 @@ import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.DataInputStream;
@@ -71,7 +72,7 @@ public class Utils {
 	public static String phNum = "";
 
 	public static String imgType[]={"smallthumb.jpg","small.jpg","medium.jpg","large.jpg"};
-	
+
 	public static AlertDialog showDialog(Context ctx, String title, String msg,
 			String btn1, String btn2,
 			OnClickListener listener1,
@@ -136,12 +137,12 @@ public class Utils {
 				"Some Error occured. Please try later.")
 				.show();
 	}
-	
+
 	public static void showFailDialog(final Activity ctx) {
 
 		showDialog(ctx, "Error",
 				"Failed to check the subscription.", new OnClickListener() {
-					
+
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// TODO Auto-generated method stub
@@ -180,7 +181,7 @@ public class Utils {
 	    // The directory is now empty so delete it
 	    return dir.delete();
 	}
-	
+
 	public static boolean isValidEmail(String email) {
 
 		String emailExp = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,10}$";
@@ -196,7 +197,7 @@ public class Utils {
 		Matcher matcher = pattern.matcher(number);
 		return matcher.matches();
 	}
-	
+
 	public static double getDoubleFromString(String number) {
 
 		if(number==null)
@@ -290,7 +291,7 @@ public class Utils {
 
 		act.startActivity(Intent.createChooser(intent, "Send Email"));
 	}
-	
+
 	public static final void sendEmail(final Activity act, String email,
 			String subject, String body) {
 
@@ -362,7 +363,7 @@ public class Utils {
 		  cursor.moveToFirst();
 		  return cursor.getString(column_index);
 		 }
-	
+
 	public static final Bitmap getCompressedBm(byte b[], int w,
 			int h)
 	{
@@ -485,7 +486,7 @@ public class Utils {
 		return bmp;
 	}
 
-	 
+
 	 public static void CopyStream(InputStream is, OutputStream os)
 	    {
 	        final int buffer_size=1024;
@@ -502,14 +503,14 @@ public class Utils {
 	        }
 	        catch(Exception ex){}
 	    }
-	 
+
 	 public static int resolveBitmapOrientation(File bitmapFile) throws IOException {
 	        ExifInterface exif = null;
 	        exif = new ExifInterface(bitmapFile.getAbsolutePath());
 
 	        return exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
 	    }
-	 
+
 	 public static Bitmap applyOrientation(Bitmap bitmap, int orientation) {
 	        int rotate = 0;
 	        switch (orientation) {
@@ -532,7 +533,7 @@ public class Utils {
 	        mtx.postRotate(rotate);
 	        return Bitmap.createBitmap(bitmap, 0, 0, w, h, mtx, true);
 	    }
-	 
+
 	 public static void writeBitmapToFile(String tempphoto, Bitmap bmp){
 		  FileOutputStream fOut;
 		    try {
@@ -549,7 +550,7 @@ public class Utils {
 		        e.printStackTrace();
 		    }
 	 }
-	 
+
 	 public static String convertStringToFormat(String inputDate){
 		 Date date;
 			SimpleDateFormat format = new SimpleDateFormat("MMM dd yyyy hh:mmaa");
@@ -563,7 +564,7 @@ public class Utils {
 				return "";
 			}
 	 }
-	
+
 	public static boolean validateEditText(EditText et, int requestCode, String msg){
 		if(et.getText().toString().trim().equals("")){
 			et.setError("Required Field");
@@ -609,11 +610,11 @@ public class Utils {
 		}
 		return flag;
 	}
-	
+
 
 	/**
 	 * This method converts device specific pixels to density independent pixels.
-	 * 
+	 *
 	 * @param px A value in px (pixels) unit. Which we need to convert into db
 	 * @param context Context to get resources and device specific display metrics
 	 * @return A float value to represent dp equivalent to px value
@@ -631,7 +632,7 @@ public class Utils {
 		Date date = new Date();
 		return dateFormat.format(date);
 	}
-	
+
 	public static String getCurrentDate(){
 		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		Date date = new Date();
@@ -651,7 +652,7 @@ public class Utils {
 		}
 		return c;
 	}
-	
+
 	public static boolean isFromDateGreater(String fromDate, String toDate){
 		try{
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -675,29 +676,29 @@ public class Utils {
 	public static String checkDigit(int number) {
 		return number <= 9 ? "0" + number : String.valueOf(number);
 	}
-	
+
 	public static void vibrateMe(Context context){
 		Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 		// Vibrate for 500 milliseconds
 		v.vibrate(100);
 	}
-	
+
 	public static double roundTo2Decimal(double number){
 		return Math.round(number * 100.0) / 100.0;
 	}
-	
+
 	public static String roundTo2Decimal2(String number){
 		try{
 			double val = Double.parseDouble(number);
 			DecimalFormat df=new DecimalFormat("0.0");
-			
-			return df.format(val); 
+
+			return df.format(val);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return "0.0";
 	}
-	
+
 	public static String getDateFFromString(String strDate){
 		DateFormat fromFormat = new SimpleDateFormat("MM-dd-yyyy");
 		DateFormat toFormat = new SimpleDateFormat("dd-MMM-yyyy");
@@ -710,13 +711,13 @@ public class Utils {
 			return "";
 		}
 	}
-	
+
 	public static String addDayInDate(String strDate, int day){
 		DateFormat fromFormat = new SimpleDateFormat("MM-dd-yyyy");
 		DateFormat toFormat = new SimpleDateFormat("dd-MMM-yyyy");
 		try {
-			Calendar cal = Calendar.getInstance();    
-			cal.setTime( fromFormat.parse(strDate)); 
+			Calendar cal = Calendar.getInstance();
+			cal.setTime( fromFormat.parse(strDate));
 			cal.add(Calendar.DAY_OF_MONTH, day);
 			return toFormat.format(cal.getTime());
 		} catch (ParseException e) {
@@ -725,12 +726,12 @@ public class Utils {
 			return "";
 		}
 	}
-	
+
 	public static String addDayInDate(Date date, int day){
 		DateFormat toFormat = new SimpleDateFormat("MM/dd/yyyy");
 		try {
-			Calendar cal = Calendar.getInstance();    
-			cal.setTime(date); 
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(date);
 			cal.add(Calendar.DAY_OF_MONTH, day);
 			return toFormat.format(cal.getTime());
 		} catch (Exception e) {
@@ -739,39 +740,39 @@ public class Utils {
 			return "";
 		}
 	}
-	
+
 	public static String getStringFromPref(Context context, String key){
 		return context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).getString(key, null);
 	}
-	
+
 	public static void putStringIntoPref(Context context, String key, String value){
 		context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).edit().putString(key, value).commit();
 	}
-	
+
 	public static void putIntIntoPref(Context context, String key, int value){
 		context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).edit().putInt(key, value).commit();
 	}
-	
+
 	public static void putBooleanIntoPref(Context context, String key, boolean value){
 		context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).edit().putBoolean(key, value).commit();
 	}
-	
+
 	public static void putLongIntoPref(Context context, String key, long value){
 		context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).edit().putLong(key, value).commit();
 	}
-	
+
 	public static int getIntFromPref(Context context, String key){
 		return context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).getInt(key, 0);
 	}
-	
+
 	public static boolean getBooleanFromPref(Context context, String key, boolean defValue){
 		return context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).getBoolean(key, defValue);
 	}
-	
+
 	public static long getLongFromPref(Context context, String key){
 		return context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).getLong(key, 0);
 	}
-	
+
 	public static boolean isRequiredEditText(EditText et){
 		if(et.getText().toString().trim().equals("")){
 			return false;
@@ -784,7 +785,7 @@ public class Utils {
 		}
 		return true;
 	}
-	
+
 	public static long getDateTimeStamp(String date){
 		DateFormat fromFormat = new SimpleDateFormat("MM/dd/yyyy");
 		try {
@@ -796,7 +797,7 @@ public class Utils {
 		}
 		return 0;
 	}
-	
+
 	public static String getDateStringFromTimestamp(long timestamp){
 		 Timestamp stamp = new Timestamp(timestamp);
 		  Date d = new Date(stamp.getTime());
@@ -824,10 +825,10 @@ public class Utils {
 
 	    paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
 	    canvas.drawBitmap(bitmap, rect, rect, paint);
-	   
+
 	    return output;
 	  }
-	
+
 	/*public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int density) {
 		int cw=bitmap.getWidth();
 		int ch=bitmap.getHeight();
@@ -862,41 +863,41 @@ public class Utils {
 	     }
 	  }
 	 */
-	
-	
-	 
+
+
+
 	 public static String getGMT(int hours,int mins){
 		 Log.d("time", " "+hours+" : "+mins);
 		 String gmtTime="";
-		
-		
+
+
 			 Calendar cal = Calendar.getInstance();
 				 cal.set(Calendar.HOUR_OF_DAY, hours);
 				 cal.set(Calendar.MINUTE,mins);
-			
-			
+
+
 			 Log.d("time value ", " "+ cal.get(Calendar.AM_PM)+"  cal day "+cal.get(Calendar.HOUR_OF_DAY)+" date "+cal.get(Calendar.MINUTE));
-			 
-			
+
+
 			TimeZone timezone = TimeZone.getTimeZone("GMT");
 			SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
-			
+
 			Log.d("time current ", " "+gmtTime+" Date "+cal.get(Calendar.DATE) +"Cal time "+cal.get(Calendar.HOUR_OF_DAY));
 			df.setTimeZone(timezone);
 			gmtTime = df.format(new Date(cal.getTimeInMillis()));
-				 
+
 		 Log.d("time", " "+gmtTime);
 		 return gmtTime;
 	 }
-	 
+
 	 public static long getGMTFromTimeStamp(long timestamp){
-		
+
 		Calendar gmtCal = Calendar.getInstance();
 		gmtCal.setTimeInMillis(timestamp);
 		gmtCal.setTimeZone(TimeZone.getTimeZone("GMT"));
 		return gmtCal.getTimeInMillis();
 	 }
-	 
+
 	 public static String convertGMTToDefault(String time){
 		 String gmtTime="";
 		 String t[] = time.split(":");
@@ -905,7 +906,7 @@ public class Utils {
 			 cal.setTimeZone(TimeZone.getTimeZone("GMT"));
 			 cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(t[0]));
 			 cal.set(Calendar.MINUTE, Integer.parseInt(t[1]));
-		
+
 			TimeZone timezone = TimeZone.getDefault();
 			SimpleDateFormat df = new SimpleDateFormat("hh:mm a");
 			df.setTimeZone(timezone);
@@ -915,7 +916,7 @@ public class Utils {
 		 }
 		 return gmtTime;
 	 }
-	 
+
 	 public static String convertGMTToDefault24(String time){
 		 String gmtTime="";
 		 String t[] = time.split(":");
@@ -929,7 +930,7 @@ public class Utils {
 			 }else{
 				 cal.set(Calendar.AM_PM, Calendar.PM);
 			 }*/
-			 
+
 			TimeZone timezone = TimeZone.getDefault();
 			SimpleDateFormat df = new SimpleDateFormat("HH:mm");
 			df.setTimeZone(timezone);
@@ -939,12 +940,12 @@ public class Utils {
 		 }
 		 return gmtTime;
 	 }
-	 
+
 	 public static long convertDateToGMT(String datestr){
 			try{
 				DateFormat fromFormat = new SimpleDateFormat("MM/dd/yyyy");
 				Date d = fromFormat.parse(datestr);
-				
+
 				TimeZone gmtTime = TimeZone.getTimeZone("GMT");
 				fromFormat.setTimeZone(gmtTime);
 				System.out.println("DateTime in GMT : " + fromFormat.format(d));
@@ -954,7 +955,7 @@ public class Utils {
 			}
 			return 0;
 		}
-		
+
 		public static String convertGMTToDate(long timestamp){
 			try{
 				Date d = new Date(timestamp);
@@ -965,7 +966,7 @@ public class Utils {
 				/*final Date timezone = formatter.parse(datestr);
 				formatter.setTimeZone(TimeZone.getDefault());
 				System.out.println(formatter.format(timezone));*/
-				
+
 				return datestr;
 			}catch(Exception e){
 				e.printStackTrace();
@@ -992,40 +993,40 @@ public class Utils {
 
 
 	public static Bitmap getRoundedCornerBitmap(Bitmap bitmap) {
-		int w = bitmap.getWidth();                                          
-		int h = bitmap.getHeight();                                         
+		int w = bitmap.getWidth();
+		int h = bitmap.getHeight();
 
-		int radius = Math.min(h / 2, w / 2);                                
+		int radius = Math.min(h / 2, w / 2);
 		Bitmap output = Bitmap.createBitmap(w + 8, h + 8, Config.ARGB_8888);
 
-		Paint p = new Paint();                                              
-		p.setAntiAlias(true);                                               
+		Paint p = new Paint();
+		p.setAntiAlias(true);
 
-		Canvas c = new Canvas(output);                                      
-		c.drawARGB(0, 0, 0, 0);                                             
-		p.setStyle(Style.FILL);                                             
+		Canvas c = new Canvas(output);
+		c.drawARGB(0, 0, 0, 0);
+		p.setStyle(Style.FILL);
 
-		c.drawCircle((w / 2) + 4, (h / 2) + 4, radius, p);                  
+		c.drawCircle((w / 2) + 4, (h / 2) + 4, radius, p);
 
-		p.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));                 
+		p.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
 
-		c.drawBitmap(bitmap, 4, 4, p);                                      
+		c.drawBitmap(bitmap, 4, 4, p);
 		/*p.setXfermode(null);                                                
 		p.setStyle(Style.STROKE);                                           
 		p.setColor(Color.WHITE);                                            
 		p.setStrokeWidth(3);                                                
-		c.drawCircle((w / 2) + 4, (h / 2) + 4, radius, p);                */  
+		c.drawCircle((w / 2) + 4, (h / 2) + 4, radius, p);                */
 
-		return output;   
+		return output;
 	}
-	
-	
+
+
 	public static void gotoURL(String url, Context context){
 		Intent i = new Intent(Intent.ACTION_VIEW);
 		i.setData(Uri.parse(url));
 		context.startActivity(i);
 	}
-	
+
 	/**
 	 * Returns a pseudo-random number between min and max, inclusive.
 	 * The difference between min and max can be at most
@@ -1048,27 +1049,27 @@ public class Utils {
 
 	    return randomNum;
 	}
-	
+
 	public static void openWebUrl(Context context, String url){
 		Intent i = new Intent(Intent.ACTION_VIEW);
     	i.setData(Uri.parse(url));
     	context.startActivity(i);
 	}
-	
+
 	/**
 	 * Method use to get String date in user readable format
 	 * @param c context of activity.
 	 * @return string date in dd-MMM-yyyy format.
 	 */
 	public static String getUserDateFormat(Calendar c){
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy"); 
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		String formattedDate = sdf.format(c.getTime());
 		return formattedDate;
 	}
-	
+
 	public static Calendar getCalendarForUserDate(String date){//2009-09-22
 		try{
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date d = sdf.parse(date);
 			Calendar c = Calendar.getInstance();
 			c.setTime(d);
@@ -1078,12 +1079,12 @@ public class Utils {
 			return Calendar.getInstance();
 		}
 	}
-	
+
 	public static String convertDBtoUserDateFormat(String date){//2009-09-22
 		try{
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date d = sdf.parse(date);
-			
+
 			SimpleDateFormat to = new SimpleDateFormat("MM/dd/yyyy");
 			return to.format(d);
 		}catch(Exception e){
@@ -1091,12 +1092,12 @@ public class Utils {
 			return "";
 		}
 	}
-	
-	
+
+
 	/**
 	 * Method use to get orientation fixed bitmap.
 	 * @param f file object of any image.
-	 * @return 
+	 * @return
 	 */
 	public static Bitmap getOrientationFixedImage(File f) {
 
@@ -1134,7 +1135,7 @@ public class Utils {
 	/**
 	 * Method use to get commpressed bitmap of any image.
 	 * @param file image file which you want to commpress.
-	 * @return 
+	 * @return
 	 */
 	public static final Bitmap getCompressedBm(File file) {
 
@@ -1165,8 +1166,8 @@ public class Utils {
 		return null;
 	}
 
- 	
- 	
+
+
  	/**
  	 * Method use to get file extention of any file name.
  	 * @param fileName
@@ -1175,7 +1176,7 @@ public class Utils {
  	public static String getFileExtention(String fileName){
  		return fileName.substring(fileName.lastIndexOf("."));
  	}
- 	
+
 
  	public static boolean getWebServiceStatus(String json, String key){
  		try{
@@ -1190,7 +1191,7 @@ public class Utils {
  			return false;
  		}
  	}
- 	
+
  	public static String getWebServiceMessage(String json, String key){
  		try{
  			JSONObject jsonObj = new JSONObject(json);
@@ -1200,7 +1201,7 @@ public class Utils {
  			return "error";
  		}
  	}
- 	
+
  	public static String getResponseInString(String json, String key){
  		try{
  			JSONObject jsonObj = new JSONObject(json);
@@ -1210,7 +1211,7 @@ public class Utils {
  			return "error";
  		}
  	}
- 	
+
  	public static String getResponseInArray(String json, String key){
  		try{
 			JSONObject jsonObj = new JSONObject(json);
@@ -1220,7 +1221,7 @@ public class Utils {
  			return "error";
  		}
  	}
- 	
+
  	public static String getResponseInObject(String json, String key){
  		try{
  			JSONObject jsonObj = new JSONObject(json);
@@ -1249,10 +1250,10 @@ public class Utils {
     public static void playVideo(String url, FragmentActivity activity){
     	Uri myUri = Uri.parse(url);
     	Intent intent = new Intent(Intent.ACTION_VIEW);
-    	intent.setDataAndType(myUri, "video/mp4"); 
+    	intent.setDataAndType(myUri, "video/mp4");
     	activity.startActivity(intent);
     }
-    
+
 	/**
 	 * This genric method use to put object into preference<br>
 	 * How to use<br>
@@ -1301,7 +1302,7 @@ public class Utils {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Method use to get byte array from file.
 	 * @param file
@@ -1332,23 +1333,23 @@ public class Utils {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-*/		
+*/
 
 	}
-	
+
 	public int getRandomNo(int Low, int High){
 		Random r = new Random();
 		int R = r.nextInt(High-Low) + Low;
 		return R;
 	}
-	
+
 	public static String getTwoDfigiString(double number){
 
 	    DecimalFormat df = new DecimalFormat("#.00");
 	    String angleFormated = df.format(number);
 	    System.out.println(angleFormated); //output 20.30
 	    return angleFormated;
-		
+
 	}
 	
 	/*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
@@ -1384,7 +1385,7 @@ public class Utils {
 	  dist = Math.acos(dist);
 	  dist = rad2deg(dist);
 	  dist = dist * 60 * 1.1515;
-	  
+
 	  return (dist);
 	}
 
@@ -1408,4 +1409,12 @@ public class Utils {
 			return "0.00";
 		}
 	}
+
+	public static void ShowLog(String tag,String response)
+	{
+		Log.i(tag,response);
+	}
+
+
+
 }

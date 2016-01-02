@@ -78,13 +78,37 @@
                 android:orientation="horizontal"
                 android:weightSum="3">
 
-                <EditText
-                    style="@style/et_style"
+                <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:drawableLeft="@drawable/expiry_date"
-                    android:hint="@string/hint_mm_yy"
-                    android:inputType="number" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+
+                    <TextView
+                        android:id="@+id/txt_month"
+                        style="@style/et_style1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".3"></TextView>
+
+
+                    <TextView
+                        android:id="@+id/txt_year"
+                        style="@style/et_style1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="3dp"
+                        android:layout_weight=".7"></TextView>
+                    <!--<EditText-->
+                    <!--style="@style/et_style"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="2"-->
+                    <!--android:drawableLeft="@drawable/expiry_date"-->
+                    <!--android:hint="@string/hint_mm_yy"-->
+                    <!--android:inputType="number" />-->
+
+                </LinearLayout>
+
 
                 <EditText
                     style="@style/et_style"
