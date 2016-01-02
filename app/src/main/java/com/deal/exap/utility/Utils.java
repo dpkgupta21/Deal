@@ -2,6 +2,7 @@ package com.deal.exap.utility;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -36,7 +37,7 @@ import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.EditText;
 
-import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.DataInputStream;
@@ -1178,28 +1179,23 @@ public class Utils {
  	}
 
 
- 	public static boolean getWebServiceStatus(String json, String key){
- 		try{
- 			JSONObject jsonObj = new JSONObject(json);
- 			String str = jsonObj.getJSONObject(key).getString("replyCode");
-			if(str!=null && str.equals("success"))
-				return true;
-			else
-				return false;
- 		}catch(Exception e){
- 			e.printStackTrace();
- 			return false;
- 		}
- 	}
+ 	public static boolean getWebServiceStatus(JSONObject json){
+		try {
+			return json.getBoolean("status");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
- 	public static String getWebServiceMessage(String json, String key){
- 		try{
- 			JSONObject jsonObj = new JSONObject(json);
-			return jsonObj.getJSONObject(key).getString("replyMessage");
- 		}catch(Exception e){
- 			e.printStackTrace();
- 			return "error";
- 		}
+ 	public static String getWebServiceMessage(JSONObject json){
+
+		try {
+			return json.getString("message");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return "Error";
  	}
 
  	public static String getResponseInString(String json, String key){
@@ -1416,5 +1412,32 @@ public class Utils {
 	}
 
 
+	public static String getSelectedLanguage(Context context){
 
+		if (TJPreferences.getAPP_LANG(context).contains(Constant.LANG_ARABIC_CODE)){
+			return "era";
+		}
+		else{
+			return "eng";
+		}
+	}
+
+	public static String getUserId(Context context){
+
+		if(getStringFromPref(context, Constant.USER_ID)!= null)
+			return getStringFromPref(context, Constant.USER_ID);
+		else
+			return "5";
+	}
+
+	public static ProgressDialog createProgeessDialog(Context context, String message, boolean isCancelable){
+		ProgressDialog pdialog = new ProgressDialog(context);
+		if (message == null)
+			pdialog.setMessage("Loading....");
+		else
+			pdialog.setMessage(message);
+		pdialog.setIndeterminate(true);
+		pdialog.setCancelable(isCancelable);
+		return pdialog;
+	}
 }

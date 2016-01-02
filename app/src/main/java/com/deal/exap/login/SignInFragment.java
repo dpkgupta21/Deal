@@ -1,8 +1,8 @@
 package com.deal.exap.login;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -11,18 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyButtonViewSemi;
-import com.deal.exap.customviews.MyEditTextViewReg;
 import com.deal.exap.customviews.MyTextViewReg12;
 import com.deal.exap.customviews.MyTextViewRegCustom;
+import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
-import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -35,6 +33,7 @@ import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,7 +46,7 @@ import java.util.Map;
  * A login screen that offers login via email/password.
  */
 
-public class SignInFragment extends Fragment {
+public class SignInFragment extends BaseFragment {
     private static final String TAG = "SignInFragment";
     private View view;
     private CallbackManager callbackmanager;
@@ -125,7 +124,7 @@ public class SignInFragment extends Fragment {
         public void onClick(View v) {
 //            Intent i = new Intent(getContext(), HomeActivity.class);
 //            startActivity(i);
-            makeRequestToServer();
+            doLogin();
 
         }
     };
@@ -222,67 +221,64 @@ public class SignInFragment extends Fragment {
     }
 
 
-    public void makeRequestToServer() {
-        // Get username, password from EditText
-        final String emailAddress = ((MyEditTextViewReg) view.findViewById(R.id.edt_username)).
-                getText().toString().trim();
-        String password = ((MyEditTextViewReg) view.findViewById(R.id.edt_username)).
-                getText().toString().trim();
-        Map<String, String> params = new HashMap<>();
-        params.put("action", "login");
-        params.put("email", "user01@gmail.com");
-        params.put("password", "123456");
-        params.put("device", "android");
-        params.put("device_id", "asdfasdfsdfsdfsdfgdfgdfg");
+    public void doLogin() {
+        Utils.hideKeyboard(getActivity());
+        if(validateForm() ) {
+            if (Utils.isOnline(getActivity())) {
+                Map<String, String> params = new HashMap<>();
+                params.put("action", Constant.DO_LOGIN);
+                params.put("email", getViewText(R.id.edt_username, view));
+                params.put("password", getViewText(R.id.edt_password, view));
+                params.put("device", "android");
+                params.put("device_id", "ABC");
+                final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Utils.ShowLog(TAG, "Resonse -> " + response.toString());
+                                pdialog.dismiss();
+                                try {
+                                    if (Utils.getWebServiceStatus(response)) {
+                                        UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
+                                        Utils.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
+                                        startActivity(new Intent(getActivity(), HomeActivity.class));
+                                    } else {
+                                        Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
 
-        // Check if username, password is filled
-        if (emailAddress.length() > 0 && password.length() > 0) {
-            // Instantiate the RequestQueue.
-            String url = Constant.SERVICE_BASE_URL;
-
-            CustomJsonRequest jsonObjReq = new CustomJsonRequest(Request.Method.POST, url, params,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                Utils.ShowLog(TAG, "got some response = " + response.toString());
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
                             }
+                        }, new Response.ErrorListener() {
 
-
-                        }
-                    }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    //       CustomProgressDialog.hideProgressDialog();
-                    Toast.makeText(getActivity().getApplicationContext(),
-                            "Username & password donot match!", Toast.LENGTH_LONG)
-                            .show();
-                }
-            });
-
-
-            jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 4,
-                    2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-            if (HelpMe.isNetworkAvailable(getActivity().getApplicationContext())) {
-                AppController.getInstance().getRequestQueue().add(jsonObjReq);
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pdialog.dismiss();
+                        Utils.showExceptionDialog(getActivity());
+                    }
+                });
+                pdialog.show();
+                AppController.getInstance().getRequestQueue().add(postReq);
             } else {
-                Toast.makeText(getActivity().getApplicationContext(), "Network unavailable please turn on your data",
-                        Toast.LENGTH_SHORT).show();
+                Utils.showNoNetworkDialog(getActivity());
             }
-
-
-        } else {
-            // username / password doesn't match
-            // CustomProgressDialog.hideProgressDialog();
-            Toast.makeText(getActivity().getApplicationContext(), "Please enter correct username/password",
-                    Toast.LENGTH_LONG).show();
         }
     }
 
+    public boolean validateForm(){
+
+        if(getViewText(R.id.edt_username, view).equals("")){
+            Utils.showDialog(getActivity(), "Message", "Please enter username");
+            return false;
+        }
+
+        else if(getViewText(R.id.edt_password, view).equals("")){
+            Utils.showDialog(getActivity(), "Message", "Please enter password");
+            return false;
+        }
+        return true;
+    }
 }
 

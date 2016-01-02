@@ -100,7 +100,7 @@
             android:drawablePadding="10dp"
             android:drawableRight="@drawable/user_icon_dark"
             android:hint="@string/username_hint"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionNext"
             android:inputType="text"
             android:minEms="10"
             android:singleLine="true" />
@@ -115,7 +115,7 @@
             android:drawableRight="@drawable/lock_icon_dark"
             android:hint="@string/password_sign_in_hint"
             android:imeOptions="actionDone"
-            android:inputType="text"
+            android:inputType="textPassword"
             android:maxLength="10"
             android:minEms="10"
             android:singleLine="true" />
