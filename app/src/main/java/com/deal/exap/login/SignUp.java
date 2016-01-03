@@ -2,6 +2,7 @@ package com.deal.exap.login;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -17,20 +18,33 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.camera.CameraChooseDialogFragment;
 import com.deal.exap.camera.CameraSelectInterface;
 import com.deal.exap.camera.GallerySelectInterface;
+import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
+import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.Utils;
+import com.deal.exap.volley.AppController;
+import com.deal.exap.volley.CustomJsonRequest;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class SignUp extends BaseActivity {
@@ -74,11 +88,13 @@ public class SignUp extends BaseActivity {
     View.OnClickListener signUpClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(SignUp.this, HomeActivity.class);
-            startActivity(i);
+//            Intent i = new Intent(SignUp.this, HomeActivity.class);
+//            startActivity(i);
 
             // CustomAlertDialog.getCustomAlert(SignUp.this).singleButtonAlertDialog(getString(R.string.uname_pwd_not_match), "", "");
 
+
+            doSignUp();
         }
     };
 
@@ -92,7 +108,7 @@ public class SignUp extends BaseActivity {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.edt_gender:
                 showSexDialog();
                 break;
@@ -102,7 +118,7 @@ public class SignUp extends BaseActivity {
         }
     }
 
-    public void showSexDialog(){
+    public void showSexDialog() {
         final CharSequence[] items = {"Male", "Female"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -132,7 +148,7 @@ public class SignUp extends BaseActivity {
         }
     }
 
-    public void showCalendarDialog(){
+    public void showCalendarDialog() {
 
         final Calendar c = Calendar.getInstance();
         int mYear = c.get(Calendar.YEAR);
@@ -147,8 +163,7 @@ public class SignUp extends BaseActivity {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
                         // Display Selected date in textbox
-                        setViewText(R.id.edt_dob, dayOfMonth + "-"
-                                + (monthOfYear + 1) + "-" + year);
+                        setViewText(R.id.edt_dob, (monthOfYear + 1) + "-" + dayOfMonth + "-" + year);
 
                     }
                 }, mYear, mMonth, mDay);
@@ -222,7 +237,7 @@ public class SignUp extends BaseActivity {
 //                        .getBitmap();
 
                 try {
-                  Bitmap bitmap = MediaStore.Images.Media.getBitmap(SignUp.this.getContentResolver(), selectedImage);
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(SignUp.this.getContentResolver(), selectedImage);
                     ivProfile.setImageBitmap(bitmap);
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
@@ -306,4 +321,90 @@ public class SignUp extends BaseActivity {
         //AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     }
+
+
+    public void doSignUp() {
+        Utils.hideKeyboard(SignUp.this);
+        if (validateForm()) {
+            if (Utils.isOnline(SignUp.this)) {
+                Map<String, String> params = new HashMap<>();
+                params.put("action", Constant.DO_SIGNUP);
+                params.put("email", getViewText(R.id.edt_email_id));
+                params.put("password", getViewText(R.id.edt_password));
+                params.put("device", "android");
+                params.put("device_id", "ABC");
+                params.put("name", getViewText(R.id.edt_name));
+                params.put("gender", getViewText(R.id.edt_gender).equals("Male")?"M":"F");
+                params.put("dob", getViewText(R.id.edt_dob));
+                params.put("confirm_password", getViewText(R.id.edt_confirm_password));
+                params.put("mobile","9530299738");
+                final ProgressDialog pdialog = Utils.createProgeessDialog(SignUp.this, null, false);
+                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Utils.ShowLog(TAG, "Resonse -> " + response.toString());
+                                pdialog.dismiss();
+                                try {
+                                    if (Utils.getWebServiceStatus(response)) {
+                                        Log.i("info", "" + response);
+                                    } else {
+                                        Utils.showDialog(SignUp.this, "Error", Utils.getWebServiceMessage(response));
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pdialog.dismiss();
+                        Utils.showExceptionDialog(SignUp.this);
+                    }
+                });
+                pdialog.show();
+                AppController.getInstance().getRequestQueue().add(postReq);
+            } else {
+                Utils.showNoNetworkDialog(SignUp.this);
+            }
+        }
+    }
+
+    public boolean validateForm() {
+
+        if (getViewText(R.id.edt_name).equals("")) {
+            Utils.showDialog(SignUp.this, "Message", "Please enter name");
+            return false;
+        } else if (getViewText(R.id.edt_dob).equals("")) {
+            Utils.showDialog(SignUp.this, "Message", "Please enter DOB");
+            return false;
+        } else if (getViewText(R.id.edt_gender).equals("")) {
+            Utils.showDialog(SignUp.this, "Message", "Please enter gender");
+            return false;
+        } else if (getViewText(R.id.edt_email_id).equals("")) {
+            Utils.showDialog(SignUp.this, "Message", "Please enter email id");
+            return false;
+        }
+        else if(!Utils.isValidEmail(getViewText(R.id.edt_email_id)))
+        {
+            Utils.showDialog(SignUp.this, "Message", "Please enter valid email id");
+            return false;
+        }
+
+        else if (getViewText(R.id.edt_password).equals("")) {
+            Utils.showDialog(SignUp.this, "Message", "Please enter password");
+            return false;
+        } else if (getViewText(R.id.edt_confirm_password).equals("")) {
+            Utils.showDialog(SignUp.this, "Message", "Please enter confirm password");
+            return false;
+        } else if (!getViewText(R.id.edt_password).equals(getViewText(R.id.edt_confirm_password))) {
+            Utils.showDialog(SignUp.this, "Message", "password not match");
+            return false;
+        }
+        return true;
+    }
+
+
 }

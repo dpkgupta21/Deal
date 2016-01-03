@@ -56,5 +56,6 @@ public class Constant {
     public static String USER_ID="user_id";
     public static String TAG="Exam";
     public static String DO_LOGIN="login";
+    public static String DO_SIGNUP="register";
 
 }
