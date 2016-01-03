@@ -3,6 +3,7 @@ package com.deal.exap.login;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -78,9 +79,18 @@ public class SplashScreen extends BaseActivity {
         fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         FragmentTransaction ft = fm
                 .beginTransaction();
-        ft.replace(R.id.frame_lay, signInFragment, "My_Fragment");
+        ft.replace(R.id.frame_lay, signInFragment, "signFragment");
         ft.setTransition(FragmentTransaction.TRANSIT_NONE);
         ft.commit();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Fragment f = getSupportFragmentManager().findFragmentByTag("signFragment");
+        if(f != null) {
+            f.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     private void populateRadioButtonIds() {

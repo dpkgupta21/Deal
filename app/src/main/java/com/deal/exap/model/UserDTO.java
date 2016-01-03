@@ -1,9 +1,11 @@
 package com.deal.exap.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Mayur on 02-01-2016.
  */
-public class UserDTO {
+public class UserDTO implements Serializable{
 
     public String id;
     public String language_id;

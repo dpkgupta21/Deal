@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.deal.exap.R;
@@ -20,20 +19,14 @@ import com.deal.exap.customerfeedback.CustomerFeedBackActivity;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.misc.ImageActivity;
 import com.deal.exap.partner.ChatActivity;
-import com.deal.exap.utility.Utils;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+//import com.google.android.gms.maps.GoogleMap;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallback {
+public class BuyCouponActivity extends BaseActivity {
 
-    private GoogleMap mMap;
+    //private GoogleMap mMap;
     private TextView txtMonth;
     private TextView txtYear;
     private ArrayList<String> months;
@@ -46,9 +39,9 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        /*SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        mapFragment.getMapAsync(this);*/
 
         TextView txt_customer_reviews = (TextView) findViewById(R.id.txt_customer_reviews);
         txt_customer_reviews.setOnClickListener(customerReviewClickListener);
@@ -76,8 +69,21 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
             }
         });
 
-        months = Utils.getMonths();
-        years = Utils.getYears();
+        months = new ArrayList<String>();
+        months.add("MM");
+        months.add("01");
+        months.add("02");
+        months.add("03");
+        months.add("04");
+        months.add("05");
+        months.add("06");
+        months.add("07");
+        months.add("08");
+        months.add("09");
+        months.add("10");
+        months.add("11");
+        months.add("12");
+
 
         setClick(R.id.thumbnail);
         setClick(R.id.iv_chat);
@@ -95,7 +101,16 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         txtMonth = (TextView) dialog.findViewById(R.id.txt_month);
         txtYear = (TextView) dialog.findViewById(R.id.txt_year);
 
+
         txtMonth.setText(months.get(0));
+
+        years = new ArrayList<String>();
+        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
+        years.add("YYYY");
+        for (int i = thisYear; i <= 2050; i++) {
+            years.add(Integer.toString(i));
+        }
+
         txtYear.setText(years.get(0));
 
         txtMonth.setOnClickListener(monthDialog);
@@ -119,7 +134,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
-    @Override
+    /*@Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
@@ -127,7 +142,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-    }
+    }*/
 
 
     private View.OnClickListener customerReviewClickListener = new View.OnClickListener() {

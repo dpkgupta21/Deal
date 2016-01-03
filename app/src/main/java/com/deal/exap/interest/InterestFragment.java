@@ -20,14 +20,18 @@ import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.category.CategoriesFragment;
 import com.deal.exap.customviews.MyTextViewReg16;
+import com.deal.exap.model.InterestDTO;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.apmem.tools.layouts.FlowLayout;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +41,7 @@ import java.util.Map;
 public class InterestFragment extends Fragment {
 
     private View view;
-    private List<String> interestValues;
+    private List<InterestDTO> interestValues;
     private List<String> interestValuesSelected;
 
 //    public static InterestFragment newInstance() {
@@ -80,15 +84,15 @@ public class InterestFragment extends Fragment {
         public void onClick(View v) {
             MyTextViewReg16 textViewReg16 = (MyTextViewReg16) v;
             int position = Integer.parseInt(textViewReg16.getTag().toString());
-            if (interestValuesSelected.contains(interestValues.get(position))) {
+            if (isInterestSelected(interestValues.get(position).getId())) {
                 textViewReg16.setBackgroundResource(R.drawable.txt_interest_border_unselect);
                 textViewReg16.setTextColor(getResources().getColor(R.color.black));
-                interestValuesSelected.remove(interestValues.get(position));
+                interestValuesSelected.remove(interestValues.get(position).getId());
 
             } else {
                 textViewReg16.setBackgroundResource(R.drawable.txt_interest_border_select);
                 textViewReg16.setTextColor(getResources().getColor(R.color.white));
-                interestValuesSelected.add(interestValues.get(position));
+                interestValuesSelected.add(interestValues.get(position).getId());
 
             }
 
@@ -107,13 +111,8 @@ public class InterestFragment extends Fragment {
 
         switch (item.getItemId()) {
             case R.id.menu_check:
+                addInterest();
 
-                CategoriesFragment categoriesFragment = new CategoriesFragment();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm
-                        .beginTransaction();
-                ft.replace(R.id.body_layout, categoriesFragment);
-                ft.commit();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -134,11 +133,17 @@ public class InterestFragment extends Fragment {
                         public void onResponse(JSONObject response) {
                             try {
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                pdialog.dismiss();
+                                Type type = new TypeToken<ArrayList<InterestDTO>>(){}.getType();
+                                interestValues = new Gson().fromJson(response.getJSONArray("interests").toString(), type);
+                                if(response.has("user_interests")) {
+                                    type = new TypeToken<ArrayList<String>>(){}.getType();
+                                    interestValuesSelected = new Gson().fromJson(response.getJSONArray("user_interests").toString(), type);
+                                }
                                 setInterestList();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
+                            pdialog.dismiss();
                         }
                     }, new Response.ErrorListener() {
 
@@ -158,14 +163,53 @@ public class InterestFragment extends Fragment {
 
     }
 
-    public void setInterestList(){
-        interestValues = new ArrayList<>();
-        interestValuesSelected = new ArrayList<>();
-        String[] interest = getActivity().getResources().getStringArray(R.array.interset_values);
-        for (int i = 0; i < interest.length; i++) {
-            interestValues.add(interest[i]);
+    public void addInterest() {
+        if(Utils.isOnline(getActivity())){
+            StringBuffer interestIds = new StringBuffer();
+            for(String dto : interestValuesSelected){
+                interestIds.append(dto+",");
+            }
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.ADD_INTEREST);
+            params.put("user_id", Utils.getUserId(getActivity()));
+            params.put("interest", interestIds.toString());
+
+            final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(Constant.TAG, "Response -> " + response.toString());
+                                pdialog.dismiss();
+                                CategoriesFragment categoriesFragment = new CategoriesFragment();
+                                FragmentManager fm = getFragmentManager();
+                                FragmentTransaction ft = fm
+                                        .beginTransaction();
+                                ft.replace(R.id.body_layout, categoriesFragment);
+                                ft.commit();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(getActivity());
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            pdialog.show();
+        }
+        else{
+            Utils.showNoNetworkDialog(getActivity());
         }
 
+    }
+
+    public void setInterestList(){
         final FlowLayout layout = (FlowLayout) view.findViewById(R.id.flowLayout);
 
 
@@ -177,14 +221,31 @@ public class InterestFragment extends Fragment {
             param.setMargins(10, 10, 10, 10);
             textView.setLayoutParams(param);
             textView.setTextSize(16);
-            textView.setBackgroundResource(R.drawable.txt_interest_border_unselect);
+
             textView.setGravity(Gravity.CENTER);
-            textView.setTextColor(getResources().getColor(R.color.black));
-            textView.setText(interestValues.get(i));
+
+            textView.setText(interestValues.get(i).getName());
             textView.setTag(i);
             textView.setClickable(true);
+            if(isInterestSelected(interestValues.get(i).getId())){
+                textView.setBackgroundResource(R.drawable.txt_interest_border_select);
+                textView.setTextColor(getResources().getColor(R.color.white));
+            }else{
+                textView.setBackgroundResource(R.drawable.txt_interest_border_unselect);
+                textView.setTextColor(getResources().getColor(R.color.black));
+            }
             textView.setOnClickListener(interestSelectListener);
             layout.addView(textView, 0);
         }
+    }
+
+    public boolean isInterestSelected(String interest){
+        if(interestValuesSelected==null)
+            return false;
+        for(String dto : interestValuesSelected){
+            if (dto.equals(interest))
+                return true;
+        }
+        return false;
     }
 }

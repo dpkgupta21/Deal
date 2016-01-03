@@ -34,6 +34,12 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.gson.Gson;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterAuthClient;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,6 +56,11 @@ public class SignInFragment extends BaseFragment {
     private static final String TAG = "SignInFragment";
     private View view;
     private CallbackManager callbackmanager;
+    private static final String TWITTER_KEY = "0WzgEZ838raQlA7BPASXLgsub";
+    private static final String TWITTER_SECRET = "szOdlqn9obH0MEMaGnz2dTMMQXIdcbSQvtDcT7YkOjyALQKuEF";
+
+    TwitterLoginButton btnTwitterLogin;
+    TwitterSession session;
 
     public static SignInFragment newInstance() {
         SignInFragment fragment = new SignInFragment();
@@ -73,6 +84,7 @@ public class SignInFragment extends BaseFragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.sign_in, container, false);
 
+        init();
         return view;
     }
 
@@ -84,11 +96,85 @@ public class SignInFragment extends BaseFragment {
                 setOnClickListener(goToHomePage);
         ((MyTextViewRegCustom) view.findViewById(R.id.btn_facebook_login)).setOnClickListener(goToFacebookLogin);
 
+
         super.onActivityCreated(savedInstanceState);
 
 
     }
 
+    private void init(){
+        btnTwitterLogin = (TwitterLoginButton) view.findViewById(R.id.twitter_login_button);
+        setClick(R.id.btn_twitter_login, view);
+        btnTwitterLogin.setCallback(new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+
+                session = result.data;
+
+                String username = session.getUserName();
+                Long userid = session.getUserId();
+                getEmailidFromTwitter();
+
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+                Log.d("TwitterKit", "Login with Twitter failure", exception);
+            }
+        });
+    }
+
+    void getEmailidFromTwitter() {
+
+        TwitterAuthClient authClient = new TwitterAuthClient();
+        authClient.requestEmail(session, new Callback<String>() {
+            @Override
+            public void success(Result<String> result) {
+                Log.d("",""+result.data);
+                doSocialLogin("twitter", result.data, session.getId()+"");
+            }
+
+            @Override
+            public void failure(TwitterException e) {
+                e.printStackTrace();
+                doSocialLogin("twitter", "coolmack999@gmail.com", session.getId()+"");
+            }
+        });
+
+/*
+        Twitter.getApiClient(session).getAccountService()
+                .verifyCredentials(true, false, new Callback<User>() {
+
+                    @Override
+                    public void failure(TwitterException e) {
+
+                    }
+
+                    @Override
+                    public void success(Result<User> userResult) {
+
+                        User user = userResult.data;
+                        String twitterImage = user.profileImageUrl;
+
+                        try {
+                            Log.d("imageurl", user.profileImageUrl);
+                            Log.d("name", user.name);
+                            //Log.d("email",user.email);
+                            Log.d("des", user.description);
+                            Log.d("followers ", String.valueOf(user.followersCount));
+                            Log.d("createdAt", user.createdAt);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+
+                });
+*/
+
+
+    }
 
     View.OnClickListener goToNumberVerificationClick = new View.OnClickListener() {
         @Override
@@ -202,9 +288,15 @@ public class SignInFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Intent i = new Intent(getContext(), HomeActivity.class);
-        startActivity(i);
-        // callbackmanager.onActivityResult(requestCode, resultCode, data);
+        //Intent i = new Intent(getContext(), HomeActivity.class);
+       // startActivity(i);
+        if(requestCode == 64206){
+            callbackmanager.onActivityResult(requestCode, resultCode, data);
+        }
+        else {
+            //
+            btnTwitterLogin.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
 
@@ -267,6 +359,53 @@ public class SignInFragment extends BaseFragment {
         }
     }
 
+    public void doSocialLogin(String socialType, String email, String socialId) {
+        Utils.hideKeyboard(getActivity());
+
+            if (Utils.isOnline(getActivity())) {
+                Map<String, String> params = new HashMap<>();
+                params.put("action", Constant.DO_SOCIAL_LOGIN);
+                params.put("email", email);
+                params.put("social_id", socialId);
+                params.put("device", "android");
+                params.put("device_id", "ABC");
+                params.put("social_type", socialType);
+                final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Utils.ShowLog(TAG, "Resonse -> " + response.toString());
+                                pdialog.dismiss();
+                                try {
+                                    if (Utils.getWebServiceStatus(response)) {
+                                        UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
+                                        Utils.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
+                                        startActivity(new Intent(getActivity(), HomeActivity.class));
+                                    } else {
+                                        Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pdialog.dismiss();
+                        Utils.showExceptionDialog(getActivity());
+                    }
+                });
+                pdialog.show();
+                AppController.getInstance().getRequestQueue().add(postReq);
+            } else {
+                Utils.showNoNetworkDialog(getActivity());
+            }
+
+    }
+
     public boolean validateForm(){
 
         if(getViewText(R.id.edt_username, view).equals("")){
@@ -279,6 +418,15 @@ public class SignInFragment extends BaseFragment {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onClick(View arg0) {
+        switch (arg0.getId()){
+            case R.id.btn_twitter_login:
+                btnTwitterLogin.performClick();
+                break;
+        }
     }
 }
 

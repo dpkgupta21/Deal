@@ -1,5 +1,6 @@
 package com.deal.exap.navigationdrawer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -206,4 +207,6 @@ public class HomeActivity extends BaseActivity {
     public ResideMenuSecond getResideMenu() {
         return resideMenu;
     }
+
+
 }

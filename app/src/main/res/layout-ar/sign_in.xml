@@ -44,10 +44,10 @@
                 <com.deal.exap.customviews.MyTextViewRegCustom
                     android:id="@+id/btn_facebook_login"
                     style="@style/tv_normal"
-                    android:textSize="12sp"
                     android:layout_marginLeft="10dp"
                     android:text="@string/connect_with_facebook_btn"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -79,6 +79,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/_twitter_white_icon" />
+
+                <com.twitter.sdk.android.core.identity.TwitterLoginButton
+                    android:id="@+id/twitter_login_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
 

@@ -8,25 +8,25 @@ import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.feedback.PostFeedbackActivity;
-import com.google.android.gms.maps.CameraUpdateFactory;
+/*import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.MarkerOptions*/;
 
-public class RateCouponActivity extends FragmentActivity implements OnMapReadyCallback {
+public class RateCouponActivity extends FragmentActivity  {
 
-    private GoogleMap mMap;
+    //private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate_coupon);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        /*SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        mapFragment.getMapAsync(this);*/
 
         TextView txt_customer_reviews = (TextView) findViewById(R.id.txt_customer_reviews);
         txt_customer_reviews.setOnClickListener(customerReviewClickListener);
@@ -42,7 +42,7 @@ public class RateCouponActivity extends FragmentActivity implements OnMapReadyCa
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
-    @Override
+    /*@Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
@@ -50,7 +50,7 @@ public class RateCouponActivity extends FragmentActivity implements OnMapReadyCa
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-    }
+    }*/
 
     private View.OnClickListener customerReviewClickListener = new View.OnClickListener() {
         @Override

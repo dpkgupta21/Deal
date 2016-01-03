@@ -5,10 +5,10 @@ import java.io.Serializable;
 /**
  * Created by Mayur on 02-01-2016.
  */
-public class LanguageDTO implements Serializable {
+public class InterestDTO implements Serializable{
+
     public String id;
     public String name;
-    public String code;
 
     public String getId() {
         return id;
@@ -24,13 +24,5 @@ public class LanguageDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 }
