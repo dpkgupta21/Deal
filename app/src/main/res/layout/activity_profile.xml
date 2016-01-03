@@ -70,11 +70,10 @@
                             android:text="@string/dob"
                             android:textColor="@color/black" />
 
-                        <com.deal.exap.customviews.MyEditTextViewLight
+                        <com.deal.exap.customviews.MyTextViewLight14
                             android:id="@+id/et_age"
                             style="@style/et_style_line"
                             android:layout_marginTop="3dp"
-                            android:drawableRight="@drawable/selec_icon"
                             android:focusable="false"
                             android:hint="@string/select_hint" />
                     </LinearLayout>
@@ -110,10 +109,7 @@
                 <com.deal.exap.customviews.MyEditTextViewLight
                     style="@style/et_style_line"
                     android:layout_marginTop="5dp"
-                    android:drawableRight="@drawable/selec_icon"
-                    android:focusable="false"
-                    android:hint="@string/select_hint" />
-
+                    android:hint="@string/enter_here" />
                 <Button
                     style="@style/btn_style"
                     android:layout_width="fill_parent"

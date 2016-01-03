@@ -24,7 +24,7 @@
     android:layout_marginTop="14dp"
     android:layout_height="wrap_content">
 
-    <com.deal.exap.customviews.MyTextViewLight14
+    <com.deal.exap.customviews.MyTextViewReg14
         android:id="@+id/edt_contry_code"
         android:layout_width="0dp"
         android:layout_weight=".3"
@@ -32,6 +32,7 @@
         android:background="@drawable/edt_txt_gray_bcg_shape"
         android:gravity="center_vertical"
         android:hint="@string/country_code_hint"
+        android:textColor="@color/black"
         android:drawableRight="@drawable/selec_icon"
         android:padding="10dp"
         android:singleLine="true" />

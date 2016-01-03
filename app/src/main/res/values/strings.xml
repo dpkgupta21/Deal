@@ -149,7 +149,7 @@
     <!--following scrren-->
     <string name="following_screen_title">Following</string>
     <string name="txt_active_coupons"># Active Coupons</string>
-    <string name="txt_downloads"># Downloads</string>
+    <string name="txt_downloads"># Redeemed</string>
     <string name="txt_followers"># Followers</string>
     <string name="txt_active_coupons_val">10</string>
     <string name="txt_downloads_val">154</string>

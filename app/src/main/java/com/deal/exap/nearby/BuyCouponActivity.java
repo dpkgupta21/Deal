@@ -20,6 +20,7 @@ import com.deal.exap.customerfeedback.CustomerFeedBackActivity;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.misc.ImageActivity;
 import com.deal.exap.partner.ChatActivity;
+import com.deal.exap.utility.Utils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -75,21 +76,8 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
             }
         });
 
-        months = new ArrayList<String>();
-        months.add("MM");
-        months.add("01");
-        months.add("02");
-        months.add("03");
-        months.add("04");
-        months.add("05");
-        months.add("06");
-        months.add("07");
-        months.add("08");
-        months.add("09");
-        months.add("10");
-        months.add("11");
-        months.add("12");
-
+        months = Utils.getMonths();
+        years = Utils.getYears();
 
         setClick(R.id.thumbnail);
         setClick(R.id.iv_chat);
@@ -107,16 +95,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         txtMonth = (TextView) dialog.findViewById(R.id.txt_month);
         txtYear = (TextView) dialog.findViewById(R.id.txt_year);
 
-
         txtMonth.setText(months.get(0));
-
-        years = new ArrayList<String>();
-        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
-        years.add("YYYY");
-        for (int i = thisYear; i <= 2050; i++) {
-            years.add(Integer.toString(i));
-        }
-
         txtYear.setText(years.get(0));
 
         txtMonth.setOnClickListener(monthDialog);

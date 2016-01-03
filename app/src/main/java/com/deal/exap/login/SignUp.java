@@ -163,7 +163,7 @@ public class SignUp extends BaseActivity {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
                         // Display Selected date in textbox
-                        setViewText(R.id.edt_dob, (monthOfYear + 1) + "-" + dayOfMonth + "-" + year);
+                        setViewText(R.id.edt_dob, dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
 
                     }
                 }, mYear, mMonth, mDay);
@@ -334,10 +334,10 @@ public class SignUp extends BaseActivity {
                 params.put("device", "android");
                 params.put("device_id", "ABC");
                 params.put("name", getViewText(R.id.edt_name));
-                params.put("gender", getViewText(R.id.edt_gender).equals("Male")?"M":"F");
+                params.put("gender", getViewText(R.id.edt_gender).equals("Male") ? "M" : "F");
                 params.put("dob", getViewText(R.id.edt_dob));
                 params.put("confirm_password", getViewText(R.id.edt_confirm_password));
-                params.put("mobile","9530299738");
+                params.put("mobile", "9530299738");
                 final ProgressDialog pdialog = Utils.createProgeessDialog(SignUp.this, null, false);
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                         new Response.Listener<JSONObject>() {
@@ -386,14 +386,10 @@ public class SignUp extends BaseActivity {
         } else if (getViewText(R.id.edt_email_id).equals("")) {
             Utils.showDialog(SignUp.this, "Message", "Please enter email id");
             return false;
-        }
-        else if(!Utils.isValidEmail(getViewText(R.id.edt_email_id)))
-        {
+        } else if (!Utils.isValidEmail(getViewText(R.id.edt_email_id))) {
             Utils.showDialog(SignUp.this, "Message", "Please enter valid email id");
             return false;
-        }
-
-        else if (getViewText(R.id.edt_password).equals("")) {
+        } else if (getViewText(R.id.edt_password).equals("")) {
             Utils.showDialog(SignUp.this, "Message", "Please enter password");
             return false;
         } else if (getViewText(R.id.edt_confirm_password).equals("")) {

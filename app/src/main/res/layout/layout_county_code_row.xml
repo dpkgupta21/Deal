@@ -9,25 +9,27 @@
         android:orientation="horizontal"
         android:weightSum="1">
 
-        <com.deal.exap.customviews.MyTextViewLight14
+        <com.deal.exap.customviews.MyTextViewReg14
             android:id="@+id/txt_contry_code"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".3"
             android:gravity="left"
             android:padding="10dp"
+            android:textColor="@color/black"
             android:singleLine="true"
-            android:text="hello" />
+            />
 
-        <com.deal.exap.customviews.MyTextViewLight14
+        <com.deal.exap.customviews.MyTextViewReg14
             android:id="@+id/txt_county_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".7"
+            android:textColor="@color/black"
             android:gravity="left"
             android:padding="10dp"
             android:singleLine="true"
-            android:text="hello" />
+            />
 
     </LinearLayout>
 

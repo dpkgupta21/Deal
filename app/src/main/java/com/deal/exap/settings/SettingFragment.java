@@ -14,7 +14,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -29,6 +32,9 @@ import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.TJPreferences;
+import com.deal.exap.utility.Utils;
+
+import java.util.ArrayList;
 
 
 public class SettingFragment extends BaseFragment implements GestureDetector.OnGestureListener,
@@ -37,6 +43,10 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
     private View view;
     private MyButtonViewSemi btn_select_english;
     private MyButtonViewSemi btn_select_arabic;
+    private ArrayList<String> months;
+    private ArrayList<String> years;
+    private TextView txtMonth;
+    private TextView txtYear;
 
 
     public SettingFragment() {
@@ -62,6 +72,8 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
     }
 
     private void init() {
+        months = Utils.getMonths();
+        years = Utils.getYears();
         setClick(R.id.tv_editprofile, view);
     }
 
@@ -139,6 +151,17 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.activity_payment_details);
             getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+            txtMonth = (TextView) dialog.findViewById(R.id.txt_month);
+            txtYear = (TextView) dialog.findViewById(R.id.txt_year);
+
+            txtMonth.setText(months.get(0));
+            txtYear.setText(years.get(0));
+
+            txtMonth.setOnClickListener(monthDialog);
+
+            txtYear.setOnClickListener(yearDialog);
+
 
             ImageView ivClose = (ImageView) dialog.findViewById(R.id.iv_close);
             ivClose.setOnClickListener(new View.OnClickListener() {
@@ -230,4 +253,66 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
         }
         return true;
     }
+
+
+    private View.OnClickListener monthDialog = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            openMonthDialog();
+
+        }
+    };
+
+    private View.OnClickListener yearDialog = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            openYearDialog();
+        }
+    };
+
+
+    public void openMonthDialog() {
+        final Dialog dialog = new Dialog(getActivity());
+        // Include dialog.xml file
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_country_code);
+        getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        ListView listView = (ListView) dialog.findViewById(R.id.list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_single_choice, months);
+        listView.setAdapter(adapter);
+        dialog.show();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                txtMonth.setText(months.get(position));
+                dialog.dismiss();
+            }
+        });
+
+
+    }
+
+    public void openYearDialog() {
+        final Dialog dialog = new Dialog(getActivity());
+        // Include dialog.xml file
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_country_code);
+       getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        ListView listView = (ListView) dialog.findViewById(R.id.list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_single_choice, years);
+        listView.setAdapter(adapter);
+        dialog.show();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                txtYear.setText(years.get(position));
+                dialog.dismiss();
+            }
+        });
+
+
+    }
+
+
 }

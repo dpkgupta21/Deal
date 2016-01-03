@@ -17,10 +17,12 @@ import com.deal.exap.R;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyEditTextViewReg;
 import com.deal.exap.customviews.MyTextViewLight14;
+import com.deal.exap.customviews.MyTextViewReg14;
 import com.deal.exap.login.Adapter.CountryCodeAdapter;
 import com.deal.exap.misc.CustomAlertDialog;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.TJPreferences;
+import com.deal.exap.utility.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -38,7 +40,7 @@ public class NumberVerificationFragment extends Fragment {
 
 
     private View view;
-    private MyTextViewLight14 edtCountryCode;
+    private MyTextViewReg14 edtCountryCode;
     private Dialog dialogCountryCode;
     private List<Map<String, String>> countryCodeList;
 
@@ -70,14 +72,17 @@ public class NumberVerificationFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ((MyButtonViewSemi) view.findViewById(R.id.btn_send_code)).setOnClickListener(goToNumberVerificationStage2);
-
-        edtCountryCode = (MyTextViewLight14) view.findViewById(R.id.edt_contry_code);
-        edtCountryCode.setOnClickListener(openDialogForCountry);
-
-
+        init();
     }
 
+    private void init()
+    {
+        countryCodeList = getCountryCode();
+        ((MyButtonViewSemi) view.findViewById(R.id.btn_send_code)).setOnClickListener(goToNumberVerificationStage2);
+        edtCountryCode = (MyTextViewReg14) view.findViewById(R.id.edt_contry_code);
+      edtCountryCode.setText(getCountryCodeByCountryName("Saudi Arabia"));
+        edtCountryCode.setOnClickListener(openDialogForCountry);
+    }
     View.OnClickListener goToNumberVerificationStage2 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -103,8 +108,6 @@ public class NumberVerificationFragment extends Fragment {
            getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
             ListView listView = (ListView) dialogCountryCode.findViewById(R.id.list);
-
-            countryCodeList = getCountryCode();
             CountryCodeAdapter adapter = new CountryCodeAdapter(getActivity(), countryCodeList);
             listView.setAdapter(adapter);
             dialogCountryCode.show();
@@ -117,7 +120,7 @@ public class NumberVerificationFragment extends Fragment {
     private List<Map<String, String>> getCountryCode() {
         List<Map<String, String>> list = new ArrayList<>();
         try {
-            JSONArray jsonArray = new JSONArray(Constant.countryCode);
+            JSONArray jsonArray = new JSONArray(Utils.loadJSONFromAsset(getActivity()));
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
@@ -140,6 +143,24 @@ public class NumberVerificationFragment extends Fragment {
             dialogCountryCode.dismiss();
         }
     };
+
+
+  private String  getCountryCodeByCountryName(String countryName)
+    {
+        for(int i=0;i<countryCodeList.size();i++)
+        {
+           if(countryName.equalsIgnoreCase(countryCodeList.get(i).get("name")))
+           {
+               return countryCodeList.get(i).get("dial_code");
+           }
+
+        }
+
+
+
+        return "";
+    }
+
 
 
 }

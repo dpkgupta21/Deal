@@ -124,7 +124,7 @@
     <!--following scrren-->
     <string name="following_screen_title">التالي</string>
     <string name="txt_active_coupons"># كوبونات النشطة</string>
-    <string name="txt_downloads"># التحميلات</string>
+    <string name="txt_downloads"># مطفأة</string>
     <string name="txt_followers"># أتباع</string>
     <string name="txt_active_coupons_val">10</string>
     <string name="txt_downloads_val">154</string>

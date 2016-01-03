@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyTextViewLight14;
+import com.deal.exap.customviews.MyTextViewReg14;
 
 import java.util.List;
 import java.util.Map;
@@ -50,9 +51,8 @@ public class CountryCodeAdapter extends BaseAdapter {
             mView = (View) mInflater.inflate(R.layout.layout_county_code_row,
                     parent, false);
             holder = new ViewHolder();
-            holder.txtCountryCode = (MyTextViewLight14) mView.findViewById(R.id.txt_contry_code);
-
-            holder.txtCountryName = (MyTextViewLight14) mView.findViewById(R.id.txt_county_name);
+            holder.txtCountryCode = (MyTextViewReg14) mView.findViewById(R.id.txt_contry_code);
+            holder.txtCountryName = (MyTextViewReg14) mView.findViewById(R.id.txt_county_name);
 
             mView.setTag(holder);
         } else {
@@ -65,8 +65,8 @@ public class CountryCodeAdapter extends BaseAdapter {
     }
 
     private static class ViewHolder {
-        private MyTextViewLight14 txtCountryCode;
-        private MyTextViewLight14 txtCountryName;
+        private MyTextViewReg14 txtCountryCode;
+        private MyTextViewReg14 txtCountryName;
     }
 
 }
