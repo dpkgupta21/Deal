@@ -54,6 +54,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/_facebook_white_icon" />
+
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/btnFb"
+                    style="@style/btn_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <LinearLayout
