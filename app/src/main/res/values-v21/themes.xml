@@ -1,0 +1,12 @@
+<resources>
+
+    <style name="CustomDigitsTheme" parent="android:Theme.Material.Light">
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:textColorSecondary">@android:color/darker_gray</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:textColorLink">@color/app_color</item>
+        <item name="android:colorAccent">@color/app_color</item>
+        <item name="dgts__logoDrawable">@mipmap/ic_launcher</item>
+    </style>
+
+</resources>

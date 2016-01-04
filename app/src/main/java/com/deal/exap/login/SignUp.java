@@ -301,7 +301,7 @@ public class SignUp extends BaseActivity {
                 params.put("gender", getViewText(R.id.edt_gender).equals("Male") ? "M" : "F");
                 params.put("dob", getViewText(R.id.edt_dob));
                 params.put("confirm_password", getViewText(R.id.edt_confirm_password));
-                params.put("mobile", "9530299738");
+                params.put("mobile", getIntent().getStringExtra("MOB_NUMBER"));
                 final ProgressDialog pdialog = Utils.createProgeessDialog(SignUp.this, null, false);
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                         new Response.Listener<JSONObject>() {
@@ -312,6 +312,9 @@ public class SignUp extends BaseActivity {
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
                                         Log.i("info", "" + response);
+                                        finish();
+                                        Intent intent=new Intent(SignUp.this, SplashScreen.class);
+                                        startActivity(intent);
                                     } else {
                                         Utils.showDialog(SignUp.this, "Error", Utils.getWebServiceMessage(response));
                                     }

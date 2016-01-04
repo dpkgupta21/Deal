@@ -60,5 +60,7 @@ public class Constant {
     public static String DO_SOCIAL_LOGIN="social_connect";
     public static String ADD_INTEREST="addinterest";
     public static String DO_SIGNUP="register";
+    public static String CHECK_MOBILE="checkmobile";
+
 
 }

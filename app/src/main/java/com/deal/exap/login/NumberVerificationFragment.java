@@ -1,28 +1,36 @@
 package com.deal.exap.login;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyEditTextViewReg;
-import com.deal.exap.customviews.MyTextViewLight14;
 import com.deal.exap.customviews.MyTextViewReg14;
 import com.deal.exap.login.Adapter.CountryCodeAdapter;
-import com.deal.exap.misc.CustomAlertDialog;
 import com.deal.exap.utility.Constant;
-import com.deal.exap.utility.TJPreferences;
 import com.deal.exap.utility.Utils;
+import com.deal.exap.volley.AppController;
+import com.deal.exap.volley.CustomJsonRequest;
+import com.digits.sdk.android.AuthCallback;
+import com.digits.sdk.android.Digits;
+import com.digits.sdk.android.DigitsAuthConfig;
+import com.digits.sdk.android.DigitsException;
+import com.digits.sdk.android.DigitsSession;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -39,8 +47,10 @@ import java.util.Map;
 public class NumberVerificationFragment extends Fragment {
 
 
+    private static  final String TAG="NumberVerificationFragment";
     private View view;
     private MyTextViewReg14 edtCountryCode;
+    //private String mobNumber;
     private Dialog dialogCountryCode;
     private List<Map<String, String>> countryCodeList;
 
@@ -80,23 +90,31 @@ public class NumberVerificationFragment extends Fragment {
         countryCodeList = getCountryCode();
         ((MyButtonViewSemi) view.findViewById(R.id.btn_send_code)).setOnClickListener(goToNumberVerificationStage2);
         edtCountryCode = (MyTextViewReg14) view.findViewById(R.id.edt_contry_code);
-      edtCountryCode.setText(getCountryCodeByCountryName("Saudi Arabia"));
+        edtCountryCode.setText(getCountryCodeByCountryName("Saudi Arabia"));
         edtCountryCode.setOnClickListener(openDialogForCountry);
     }
     View.OnClickListener goToNumberVerificationStage2 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            NumberVerificationFragment2 numberVerificationFragment2 = NumberVerificationFragment2.newInstance();
-            FragmentManager fm = getFragmentManager();
-            FragmentTransaction ft = fm
-                    .beginTransaction();
-            ft.replace(R.id.frame_lay, numberVerificationFragment2);
-            ft.addToBackStack(null);
-            ft.commit();
+            String mobNumber=edtCountryCode.getText().toString().trim()+
+                    ((MyEditTextViewReg) view.findViewById(R.id.edt_phone_number)).getText().toString().trim();
+
+            doCheckMobile(mobNumber);
+
+
+//            NumberVerificationFragment2 numberVerificationFragment2 = NumberVerificationFragment2.newInstance();
+//            FragmentManager fm = getFragmentManager();
+//            FragmentTransaction ft = fm
+//                    .beginTransaction();
+//            ft.replace(R.id.frame_lay, numberVerificationFragment2);
+//            ft.addToBackStack(null);
+//            ft.commit();
 
 
         }
     };
+
+
 
 
     View.OnClickListener openDialogForCountry = new View.OnClickListener() {
@@ -105,15 +123,13 @@ public class NumberVerificationFragment extends Fragment {
             dialogCountryCode = new Dialog(getActivity());
             dialogCountryCode.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialogCountryCode.setContentView(R.layout.layout_country_code);
-           getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
             ListView listView = (ListView) dialogCountryCode.findViewById(R.id.list);
             CountryCodeAdapter adapter = new CountryCodeAdapter(getActivity(), countryCodeList);
             listView.setAdapter(adapter);
             dialogCountryCode.show();
             listView.setOnItemClickListener(dialogItemClickListener);
-
-
         }
     };
 
@@ -147,21 +163,94 @@ public class NumberVerificationFragment extends Fragment {
 
   private String  getCountryCodeByCountryName(String countryName)
     {
-        for(int i=0;i<countryCodeList.size();i++)
-        {
-           if(countryName.equalsIgnoreCase(countryCodeList.get(i).get("name")))
-           {
-               return countryCodeList.get(i).get("dial_code");
-           }
+        for(int i=0;i<countryCodeList.size();i++) {
+            if (countryName.equalsIgnoreCase(countryCodeList.get(i).get("name"))) {
+                return countryCodeList.get(i).get("dial_code");
+            }
 
         }
-
-
-
         return "";
     }
 
 
+    private void doCheckMobile(final String phoneNumber)
+    {
+        Utils.hideKeyboard(getActivity());
+        if (validateForm()) {
+            if (Utils.isOnline(getActivity())) {
+                Map<String, String> params = new HashMap<>();
+                params.put("action", Constant.CHECK_MOBILE);
+                params.put("mobile", phoneNumber);
+                final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Utils.ShowLog(TAG, "Response -> " + response.toString());
+                                pdialog.dismiss();
+                                try {
+                                    if (Utils.getWebServiceStatus(response)) {
+                                        verifyMobNumberDigit(phoneNumber);
 
+                                    } else {
+                                        Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pdialog.dismiss();
+                        Utils.showExceptionDialog(getActivity());
+                    }
+                });
+                pdialog.show();
+                AppController.getInstance().getRequestQueue().add(postReq);
+            } else {
+                Utils.showNoNetworkDialog(getActivity());
+            }
+        }
+    }
+
+    public boolean validateForm() {
+        if(edtCountryCode.getText().equals(""))
+        {
+            Utils.showDialog(getActivity(), "Message", "Please enter mobile number");
+            return false;
+        }
+        return true;
+    }
+
+    private void verifyMobNumberDigit(String phoneNumber){
+        Digits.getSessionManager().clearActiveSession();
+        DigitsAuthConfig.Builder digitsAuthConfigBuilder = new DigitsAuthConfig.Builder()
+                .withAuthCallBack(callback)
+                .withPhoneNumber(phoneNumber)
+                .withThemeResId(R.style.CustomDigitsTheme);
+
+        Digits.authenticate(digitsAuthConfigBuilder.build());
+    }
+
+
+    AuthCallback callback = new AuthCallback() {
+        @Override
+        public void success(DigitsSession session, String phoneNumber) {
+            Toast.makeText(getActivity().getApplicationContext(),
+                    "Authentication Successful for " + phoneNumber, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getContext(), SignUp.class);
+            intent.putExtra("MOB_NUMBER", phoneNumber);
+            startActivity(intent);
+        }
+
+        @Override
+        public void failure(DigitsException error) {
+            Toast.makeText(getActivity().getApplicationContext(), error.getMessage(),
+                    Toast.LENGTH_SHORT).show();
+        }
+    };
 }
 
