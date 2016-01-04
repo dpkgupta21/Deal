@@ -211,7 +211,8 @@ public class InterestFragment extends Fragment {
 
     public void setInterestList(){
         final FlowLayout layout = (FlowLayout) view.findViewById(R.id.flowLayout);
-
+        if(interestValuesSelected==null)
+            interestValuesSelected = new ArrayList<String>();
 
         for (int i = 0; i < interestValues.size(); i++) {
             final MyTextViewReg16 textView = new MyTextViewReg16(getActivity());

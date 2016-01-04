@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -17,7 +16,6 @@ import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg12;
-import com.deal.exap.customviews.MyTextViewRegCustom;
 import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
@@ -31,8 +29,8 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
@@ -41,10 +39,8 @@ import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterAuthClient;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,6 +58,7 @@ public class SignInFragment extends BaseFragment {
     TwitterLoginButton btnTwitterLogin;
     TwitterSession session;
 
+    LoginButton btnFbLogin;
     public static SignInFragment newInstance() {
         SignInFragment fragment = new SignInFragment();
         return fragment;
@@ -94,7 +91,7 @@ public class SignInFragment extends BaseFragment {
                 setOnClickListener(goToNumberVerificationClick);
         ((MyButtonViewSemi) view.findViewById(R.id.btn_login)).
                 setOnClickListener(goToHomePage);
-        ((MyTextViewRegCustom) view.findViewById(R.id.btn_facebook_login)).setOnClickListener(goToFacebookLogin);
+        //((MyTextViewRegCustom) view.findViewById(R.id.btn_facebook_login)).setOnClickListener(goToFacebookLogin);
 
 
         super.onActivityCreated(savedInstanceState);
@@ -105,6 +102,7 @@ public class SignInFragment extends BaseFragment {
     private void init(){
         btnTwitterLogin = (TwitterLoginButton) view.findViewById(R.id.twitter_login_button);
         setClick(R.id.btn_twitter_login, view);
+        setClick(R.id.btn_facebook_login, view);
         btnTwitterLogin.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
@@ -122,6 +120,9 @@ public class SignInFragment extends BaseFragment {
                 Log.d("TwitterKit", "Login with Twitter failure", exception);
             }
         });
+
+        btnFbLogin = (LoginButton) view.findViewById(R.id.btnFb);
+        setFbClick();
     }
 
     void getEmailidFromTwitter() {
@@ -215,75 +216,55 @@ public class SignInFragment extends BaseFragment {
         }
     };
 
-    View.OnClickListener goToFacebookLogin = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            onFblogin();
 
-        }
-    };
-
-    // Private method to handle Facebook login and callback
-    private void onFblogin() {
+    private void setFbClick(){
         callbackmanager = CallbackManager.Factory.create();
 
-        // Set permissions
-        LoginManager.getInstance().logInWithReadPermissions(this,
-                Arrays.asList("email", "user_photos", "public_profile"));
-
-        LoginManager.getInstance().registerCallback(callbackmanager,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-
-                        System.out.println("Success");
-                        GraphRequest.newMeRequest(
-                                loginResult.getAccessToken(),
-                                new GraphRequest.GraphJSONObjectCallback() {
-                                    @Override
-                                    public void onCompleted(JSONObject json,
-                                                            GraphResponse response) {
-                                        if (response.getError() != null) {
-                                            // handle error
-                                            Log.i("info", "onCompleted Error.");
-                                        } else {
-                                            System.out.println("Success");
-                                            try {
-
-                                                String jsonresult = String.valueOf(json);
-                                                System.out.println("JSON Result" + jsonresult);
-
-                                                String str_email = json.getString("email");
-                                                String str_id = json.getString("id");
-                                                String str_firstname = json.getString("first_name");
-                                                String str_lastname = json.getString("last_name");
-                                                Toast.makeText(getActivity(),
-                                                        "Frist Name : " + str_firstname,
-                                                        Toast.LENGTH_SHORT).show();
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
+        //fbLogin.setReadPermissions(Arrays.asList("public_profile", "email", "user_birthday"));
+        btnFbLogin.registerCallback(callbackmanager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(final LoginResult loginResult) {
+                System.out.println("Success");
+                GraphRequest req = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject json,
+                                                    GraphResponse response) {
+                                if (response.getError() != null) {
+                                    // handle error
+                                    Log.i("info", "onCompleted Error.");
+                                } else {
+                                    System.out.println("Success");
+                                    String jsonresult = String.valueOf(json);
+                                    try{
+                                        doSocialLogin("facebook", json.getString("email") , json.getString("id"));
+                                    }catch (Exception e){
+                                        Utils.sendEmail(getActivity(), "Error", e.getMessage());
                                     }
-
                                 }
-                        ).executeAsync();
+                            }
+                        }
 
-                    }
+                );
+                Bundle param = new Bundle();
+                param.putString("fields", "id,name,email,gender,birthday,first_name,last_name,link");
+                req.setParameters(param);
+                req.executeAsync();
+            }
 
-                    @Override
-                    public void onCancel() {
-                        Log.d("Info", "On cancel");
-                    }
+            @Override
+            public void onCancel() {
+                Log.d("", "");
+            }
 
-                    @Override
-                    public void onError(FacebookException error) {
-                        Log.d("Info", error.toString());
-                        Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
+            @Override
+            public void onError(FacebookException e) {
+                Log.d("", "");
+            }
+        });
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -425,6 +406,9 @@ public class SignInFragment extends BaseFragment {
         switch (arg0.getId()){
             case R.id.btn_twitter_login:
                 btnTwitterLogin.performClick();
+                break;
+            case R.id.btn_facebook_login:
+                btnFbLogin.performClick();
                 break;
         }
     }
