@@ -1,8 +1,9 @@
 package com.deal.exap.wallet;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,12 +17,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.favorite.bean.DataObject;
-import com.deal.exap.nearby.BuyCouponActivity;
-import com.deal.exap.nearby.adapter.NearByListAdapter;
 
+import com.deal.exap.misc.MyOnClickListener;
+import com.deal.exap.misc.RecyclerTouchListener;
+import com.deal.exap.model.WalletDTO;
+import com.deal.exap.nearby.BuyCouponActivity;
+import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.Utils;
+import com.deal.exap.volley.AppController;
+import com.deal.exap.volley.CustomJsonRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class WalletFragment extends Fragment {
@@ -30,12 +49,8 @@ public class WalletFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private View view;
+    private ArrayList<WalletDTO> walletValues;
 
-//    public static WalletFragment newInstance() {
-//        WalletFragment fragment = new WalletFragment();
-//
-//        return fragment;
-//    }
 
     public WalletFragment() {
         // Required empty public constructor
@@ -58,38 +73,13 @@ public class WalletFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         //setTitleFragment(getString(R.string.wallet_screen_title));
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_wallet);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new NearByListAdapter(getDataSet(), getActivity());
-        mRecyclerView.setAdapter(mAdapter);
 
-        ((NearByListAdapter) mAdapter).setOnItemClickListener(new NearByListAdapter.MyClickListener() {
-            @Override
-            public void onItemClick(int position, View v) {
+        getWalletList();
 
-                Intent i = new Intent(getActivity(), BuyCouponActivity.class);
-                startActivity(i);
-
-            }
-        });
-    }
-
-
-
-    private ArrayList<DataObject> getDataSet() {
-        ArrayList results = new ArrayList<DataObject>();
-        for (int index = 0; index < 10; index++) {
-            DataObject obj = new DataObject("Auto",
-                    "" + index);
-            results.add(index, obj);
-        }
-        return results;
     }
 
 
@@ -98,7 +88,6 @@ public class WalletFragment extends Fragment {
         TextView txtTitle = ((TextView) mToolbar.findViewById(R.id.toolbar_title));
         txtTitle.setText(strTitle);
     }
-
 
 
     @Override
@@ -119,4 +108,73 @@ public class WalletFragment extends Fragment {
         }
 
     }
+
+
+    public void getWalletList() {
+        if(Utils.isOnline(getActivity())){
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.GET_WALLET);
+            params.put("lang", Utils.getSelectedLanguage(getActivity()));
+            params.put("user_id", Utils.getUserId(getActivity()));
+            params.put("lat","");
+            params.put("lng","");
+            final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                Type type = new TypeToken<ArrayList<WalletDTO>>(){}.getType();
+                                walletValues = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
+                                setWalletValues();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            pdialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(getActivity());
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            pdialog.show();
+        }
+        else{
+            Utils.showNoNetworkDialog(getActivity());
+        }
+
+    }
+
+
+    private void setWalletValues() {
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_wallet);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new WalletAdapter(walletValues, getActivity());
+        mRecyclerView.setAdapter(mAdapter);
+
+        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), mRecyclerView, new MyOnClickListener() {
+            @Override
+            public void onRecyclerClick(View view, int position) {
+
+                Intent i = new Intent(getActivity(), BuyCouponActivity.class);
+                startActivity(i);
+            }
+
+            @Override
+            public void onRecyclerLongClick(View view, int position) {
+
+            }
+        }));
+
+
+    }
+
 }

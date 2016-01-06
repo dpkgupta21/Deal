@@ -54,6 +54,7 @@ public class Constant {
 
 
     public static String GET_INTEREST="interests";
+    public static String GET_WALLET ="wallet";
     public static String USER_ID="user_id";
     public static String TAG="Exam";
     public static String DO_LOGIN="login";
@@ -61,6 +62,7 @@ public class Constant {
     public static String ADD_INTEREST="addinterest";
     public static String DO_SIGNUP="register";
     public static String CHECK_MOBILE="checkmobile";
+    public static String FORGOT_PASSWORD ="forgot";
 
 
 }
