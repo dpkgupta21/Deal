@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.deal.exap.R;
-import com.deal.exap.favorite.bean.DataObject;
 import com.deal.exap.login.BaseActivity;
+import com.deal.exap.model.DealDTO;
 import com.deal.exap.nearby.BuyCouponActivity;
 import com.deal.exap.nearby.adapter.NearByListAdapter;
 
@@ -56,13 +56,8 @@ public class FollowingPartnerDetails extends BaseActivity {
         });
 
     }
-    private ArrayList<DataObject> getDataSet() {
-        ArrayList results = new ArrayList<DataObject>();
-        for (int index = 0; index < 10; index++) {
-            DataObject obj = new DataObject(getString(R.string.auto),
-                    "" + index);
-            results.add(index, obj);
-        }
+    private ArrayList<DealDTO> getDataSet() {
+        ArrayList results = new ArrayList<DealDTO>();
         return results;
     }
 }

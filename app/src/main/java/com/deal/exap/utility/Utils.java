@@ -1489,4 +1489,11 @@ public class Utils {
 		return months;
 	}
 
+	public static boolean isArebic(Context context){
+		if (TJPreferences.getAPP_LANG(context).contains(Constant.LANG_ARABIC_CODE)){
+			return true;
+		}
+		else
+			return false;
+	}
 }

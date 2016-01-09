@@ -2,6 +2,7 @@ package com.deal.exap.nearby.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,12 +11,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.deal.exap.R;
-import com.deal.exap.favorite.bean.DataObject;
 import com.deal.exap.following.FollowingPartnerDetails;
 import com.deal.exap.login.BaseActivity;
+import com.deal.exap.model.DealDTO;
+import com.deal.exap.utility.Utils;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import java.util.ArrayList;
 
@@ -23,27 +30,40 @@ public class NearByListAdapter extends RecyclerView
         .Adapter<NearByListAdapter
         .DataObjectHolder> {
     private static String LOG_TAG = "NearByListAdapter";
-    private ArrayList<DataObject> mDataset;
+    private ArrayList<DealDTO> mDataset;
     private static MyClickListener myClickListener;
     private static Context context;
+    private DisplayImageOptions options;
+    private DisplayImageOptions options1;
     public static class DataObjectHolder extends RecyclerView.ViewHolder
             implements View
             .OnClickListener {
-        TextView label;
-        TextView dateTime;
+        TextView tvDiscount;
+        TextView tvEnddate;
+        TextView tvDistance;
+        TextView tvReview;
+        TextView tvDetail;
+        RatingBar ratingBar;
         LinearLayout llCouponItem;
         Button btnBuy;
         LinearLayout llBuy;
         ImageView ivLogo;
+        ImageView ivThumnail;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
-//            label = (TextView) itemView.findViewById(R.id.txt_category_name);
-//            dateTime = (TextView) itemView.findViewById(R.id.txt_like_number);
+            tvDiscount = (TextView) itemView.findViewById(R.id.txt_discount_rate);
+            tvEnddate = (TextView) itemView.findViewById(R.id.txt_end_date_val);
+            tvDistance = (TextView) itemView.findViewById(R.id.txt_distance_val);
+            tvReview = (TextView) itemView.findViewById(R.id.txt_no_of_person);
+            tvDetail = (TextView) itemView.findViewById(R.id.txt_on_which);
+            ratingBar = (RatingBar) itemView.findViewById(R.id.rating_bar);
+
             llCouponItem = (LinearLayout) itemView.findViewById(R.id.ll_filter_item);
             llBuy = (LinearLayout) itemView.findViewById(R.id.ll_buy);
             btnBuy = (Button) itemView.findViewById(R.id.btn_buy);
             ivLogo = (ImageView) itemView.findViewById(R.id.img_title);
+            ivThumnail = (ImageView) itemView.findViewById(R.id.thumbnail);
 
             ivLogo.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -70,9 +90,31 @@ public class NearByListAdapter extends RecyclerView
         this.myClickListener = myClickListener;
     }
 
-    public NearByListAdapter(ArrayList<DataObject> myDataset, Context context) {
+    public NearByListAdapter(ArrayList<DealDTO> myDataset, Context context) {
         mDataset = myDataset;
         this.context = context;
+        options = new DisplayImageOptions.Builder()
+                .resetViewBeforeLoading(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .considerExifParams(true)
+                .displayer(new SimpleBitmapDisplayer())
+                .showImageOnLoading(R.drawable.slide_img)
+                .showImageOnFail(R.drawable.slide_img)
+                .showImageForEmptyUri(R.drawable.slide_img)
+                .build();
+        options1 = new DisplayImageOptions.Builder()
+                .resetViewBeforeLoading(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .considerExifParams(true)
+                .displayer(new SimpleBitmapDisplayer())
+                .showImageOnLoading(R.drawable.burger_king)
+                .showImageOnFail(R.drawable.burger_king)
+                .showImageForEmptyUri(R.drawable.burger_king)
+                .build();
     }
 
 
@@ -96,11 +138,22 @@ public class NearByListAdapter extends RecyclerView
             holder.btnBuy.setVisibility(View.GONE);
             holder.llBuy.setVisibility(View.VISIBLE);
         }
-//        holder.label.setText(mDataset.get(position).getmText1());
-//        holder.dateTime.setText(mDataset.get(position).getmText2());
+        ImageLoader.getInstance().displayImage(mDataset.get(position).getDeal_image(), holder.ivThumnail,
+                options);
+        ImageLoader.getInstance().displayImage(mDataset.get(position).getPartner_logo(), holder.ivLogo,
+                options1);
+        holder.tvDiscount.setText(mDataset.get(position).getDiscount() + " % Off");
+        holder.tvEnddate.setText(mDataset.get(position).getEnd_date());
+        holder.tvDistance.setText(mDataset.get(position).getDistance());
+        if(Utils.isArebic(context))
+            holder.tvDetail.setText(mDataset.get(position).getName_ara());
+        else
+            holder.tvDetail.setText(mDataset.get(position).getName_eng());
+        holder.tvReview.setText("("+mDataset.get(position).getReview() + ")");
+        holder.ratingBar.setNumStars(mDataset.get(position).getRating());
     }
 
-    public void addItem(DataObject dataObj, int index) {
+    public void addItem(DealDTO dataObj, int index) {
         mDataset.add(index, dataObj);
         notifyItemInserted(index);
     }

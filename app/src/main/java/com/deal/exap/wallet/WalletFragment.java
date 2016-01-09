@@ -3,7 +3,6 @@ package com.deal.exap.wallet;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,12 +20,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
-import com.deal.exap.favorite.bean.DataObject;
-
 import com.deal.exap.misc.MyOnClickListener;
 import com.deal.exap.misc.RecyclerTouchListener;
-import com.deal.exap.model.WalletDTO;
+import com.deal.exap.model.DealDTO;
 import com.deal.exap.nearby.BuyCouponActivity;
+import com.deal.exap.nearby.adapter.NearByListAdapter;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
@@ -39,7 +37,6 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -49,7 +46,7 @@ public class WalletFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private View view;
-    private ArrayList<WalletDTO> walletValues;
+    private ArrayList<DealDTO> walletValues;
 
 
     public WalletFragment() {
@@ -76,6 +73,10 @@ public class WalletFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_wallet);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
         //setTitleFragment(getString(R.string.wallet_screen_title));
 
         getWalletList();
@@ -115,9 +116,9 @@ public class WalletFragment extends Fragment {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.GET_WALLET);
             params.put("lang", Utils.getSelectedLanguage(getActivity()));
-            params.put("user_id", Utils.getUserId(getActivity()));
-            params.put("lat","");
-            params.put("lng","");
+            params.put("lng", "0");
+            params.put("lat", "0");
+            params.put("user_id", "5");
             final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
@@ -125,7 +126,7 @@ public class WalletFragment extends Fragment {
                         public void onResponse(JSONObject response) {
                             try {
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<WalletDTO>>(){}.getType();
+                                Type type = new TypeToken<ArrayList<DealDTO>>(){}.getType();
                                 walletValues = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
                                 setWalletValues();
                             } catch (Exception e) {
@@ -148,16 +149,11 @@ public class WalletFragment extends Fragment {
         else{
             Utils.showNoNetworkDialog(getActivity());
         }
-
     }
 
-
     private void setWalletValues() {
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_wallet);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new WalletAdapter(walletValues, getActivity());
+
+        mAdapter = new NearByListAdapter(walletValues, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), mRecyclerView, new MyOnClickListener() {

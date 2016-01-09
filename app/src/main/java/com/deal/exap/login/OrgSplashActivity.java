@@ -6,8 +6,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import com.deal.exap.R;
+import com.deal.exap.model.UserDTO;
+import com.deal.exap.navigationdrawer.HomeActivity;
+import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.TJPreferences;
+import com.deal.exap.utility.Utils;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,8 +32,13 @@ public class OrgSplashActivity extends FragmentActivity {
             public void run() {
                 HelpMe.setLocale(TJPreferences.getAPP_LANG(mContext), mContext);
 
+                UserDTO userDTO = Utils.getObjectFromPref(OrgSplashActivity.this, Constant.USER_INFO);
+
                 Intent i = null;
-                i = new Intent(OrgSplashActivity.this, SplashScreen.class);
+                if(userDTO==null)
+                    i = new Intent(OrgSplashActivity.this, SplashScreen.class);
+                else
+                    i = new Intent(OrgSplashActivity.this, HomeActivity.class);
                 finish();
                 startActivity(i);
             }

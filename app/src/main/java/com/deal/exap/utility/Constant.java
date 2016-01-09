@@ -63,6 +63,8 @@ public class Constant {
     public static String DO_SIGNUP="register";
     public static String CHECK_MOBILE="checkmobile";
     public static String FORGOT_PASSWORD ="forgot";
+    public static String GET_CATEOGRY_LIST ="categorylist";
+    public static String GET_NEAR_DEAL ="nearbydeal";
 
 
 }

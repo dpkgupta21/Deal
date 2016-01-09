@@ -1,5 +1,6 @@
 package com.deal.exap.category;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,12 +16,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.category.adapter.CategoriesListAdapter;
-import com.deal.exap.favorite.bean.DataObject;
 import com.deal.exap.login.BaseActivity;
+import com.deal.exap.model.CategoryDTO;
+import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.Utils;
+import com.deal.exap.volley.AppController;
+import com.deal.exap.volley.CustomJsonRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class CategoriesFragment extends Fragment {
@@ -29,6 +44,7 @@ public class CategoriesFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private ArrayList<CategoryDTO> categoryList;
     private View view;
 //    public static CategoriesFragment newInstance() {
 //        CategoriesFragment fragment = new CategoriesFragment();
@@ -66,30 +82,10 @@ public class CategoriesFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new CategoriesListAdapter(getDataSet());
-        mRecyclerView.setAdapter(mAdapter);
 
-
-        ((CategoriesListAdapter) mAdapter).setOnItemClickListener(new CategoriesListAdapter.MyClickListener() {
-            @Override
-            public void onItemClick(int position, View v) {
-                Intent i = new Intent(getActivity(), CouponListActivity.class);
-                startActivity(i);
-            }
-        });
+        getCategoryList();
 
     }
-
-    private ArrayList<DataObject> getDataSet() {
-        ArrayList results = new ArrayList<DataObject>();
-        for (int index = 0; index < 10; index++) {
-            DataObject obj = new DataObject(getString(R.string.txt_category_name),
-                    "" + index);
-            results.add(index, obj);
-        }
-        return results;
-    }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -117,4 +113,54 @@ public class CategoriesFragment extends Fragment {
     }
 
 
+    public void getCategoryList() {
+        if(Utils.isOnline(getActivity())){
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.GET_CATEOGRY_LIST);
+            params.put("lang", Utils.getSelectedLanguage(getActivity()));
+            params.put("user_id", Utils.getUserId(getActivity()));
+            final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                Type type = new TypeToken<ArrayList<CategoryDTO>>(){}.getType();
+                                categoryList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
+                                setCategoryList();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            pdialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(getActivity());
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            pdialog.show();
+        }
+        else{
+            Utils.showNoNetworkDialog(getActivity());
+        }
+    }
+
+    public void setCategoryList(){
+        mAdapter = new CategoriesListAdapter(categoryList);
+        mRecyclerView.setAdapter(mAdapter);
+
+        ((CategoriesListAdapter) mAdapter).setOnItemClickListener(new CategoriesListAdapter.MyClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                Intent i = new Intent(getActivity(), CouponListActivity.class);
+                startActivity(i);
+            }
+        });
+    }
 }

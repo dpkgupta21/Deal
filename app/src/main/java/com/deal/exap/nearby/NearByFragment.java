@@ -1,5 +1,6 @@
 package com.deal.exap.nearby;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,12 +18,27 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.favorite.bean.DataObject;
 import com.deal.exap.login.BaseFragment;
+import com.deal.exap.model.DealDTO;
 import com.deal.exap.nearby.adapter.NearByListAdapter;
+import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.Utils;
+import com.deal.exap.volley.AppController;
+import com.deal.exap.volley.CustomJsonRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class NearByFragment extends BaseFragment {
@@ -34,6 +50,7 @@ public class NearByFragment extends BaseFragment {
     private LinearLayout llFilter;
     private Button btnKm, btnMiles, btnDistantLth, btnDistantHtl, btnDiscountLth, btnDiscountHtl
             ,btnDateStl, btnDateLts;
+    private ArrayList<DealDTO> dealList;
 //    public static NearByFragment newInstance() {
 //        NearByFragment fragment = new NearByFragment();
 //
@@ -96,19 +113,8 @@ public class NearByFragment extends BaseFragment {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new NearByListAdapter(getDataSet(), getActivity());
-        mRecyclerView.setAdapter(mAdapter);
 
-
-        ((NearByListAdapter) mAdapter).setOnItemClickListener(new NearByListAdapter.MyClickListener() {
-            @Override
-            public void onItemClick(int position, View v) {
-
-                Intent i = new Intent(getActivity(),BuyCouponActivity.class);
-                startActivity(i);
-
-            }
-        });
+        getDealList();
 
     }
 
@@ -191,5 +197,60 @@ public class NearByFragment extends BaseFragment {
                 btnDateStl.setSelected(true);
                 break;
         }
+    }
+
+    public void getDealList() {
+        if(Utils.isOnline(getActivity())){
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.GET_NEAR_DEAL);
+            params.put("lang", Utils.getSelectedLanguage(getActivity()));
+            params.put("lng", "0");
+            params.put("lat", "0");
+            final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                Type type = new TypeToken<ArrayList<DealDTO>>(){}.getType();
+                                dealList = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
+                                setDealList();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            pdialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(getActivity());
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            pdialog.show();
+        }
+        else{
+            Utils.showNoNetworkDialog(getActivity());
+        }
+    }
+
+    public void setDealList(){
+        mAdapter = new NearByListAdapter(dealList, getActivity());
+        mRecyclerView.setAdapter(mAdapter);
+
+
+        ((NearByListAdapter) mAdapter).setOnItemClickListener(new NearByListAdapter.MyClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+
+                Intent i = new Intent(getActivity(),BuyCouponActivity.class);
+                startActivity(i);
+
+            }
+        });
     }
 }

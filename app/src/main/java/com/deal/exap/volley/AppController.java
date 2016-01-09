@@ -7,6 +7,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
@@ -45,6 +52,24 @@ public class AppController extends Application {
       //  lapsList = new ArrayList<>();
 
 //        LeakCanary.install(this);
+
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheOnDisc(true)
+                .cacheInMemory(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new SimpleBitmapDisplayer()).build();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                getApplicationContext())
+                .defaultDisplayImageOptions(defaultOptions)
+                .memoryCache(new WeakMemoryCache())
+                .threadPriority(Thread.NORM_PRIORITY - 2)
+                .denyCacheImageMultipleSizesInMemory()
+                .discCacheFileNameGenerator(new Md5FileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                .discCacheSize(500 * 1024 * 1024).build();
+
+        com.nostra13.universalimageloader.core.ImageLoader.getInstance().init(config);
     }
 
     public RequestQueue getRequestQueue() {
@@ -54,6 +79,7 @@ public class AppController extends Application {
         return mRequestQueue;
     }
 
+/*
     public ImageLoader getImageLoader() {
         getRequestQueue();
         if (mImageLoader == null) {
@@ -61,6 +87,7 @@ public class AppController extends Application {
         }
         return this.mImageLoader;
     }
+*/
 
     public <T> void addToRequestQueue(Request<T> req, String tag) {
         // set the default tag if tag is empty
