@@ -21,6 +21,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.category.adapter.CategoriesListAdapter;
+import com.deal.exap.databasemanager.DatabaseHelper;
+import com.deal.exap.databasemanager.DatabaseManager;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.CategoryDTO;
 import com.deal.exap.utility.Constant;
@@ -29,12 +31,14 @@ import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.j256.ormlite.dao.Dao;
 
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -44,8 +48,9 @@ public class CategoriesFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<CategoryDTO> categoryList;
+    private List<CategoryDTO> categoryList;
     private View view;
+    private Dao<CategoryDTO, String> categoryDao;
 //    public static CategoriesFragment newInstance() {
 //        CategoriesFragment fragment = new CategoriesFragment();
 //
@@ -83,6 +88,7 @@ public class CategoriesFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        init();
         getCategoryList();
 
     }
@@ -128,7 +134,7 @@ public class CategoriesFragment extends Fragment {
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                 Type type = new TypeToken<ArrayList<CategoryDTO>>(){}.getType();
                                 categoryList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
-                                setCategoryList();
+
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -147,8 +153,14 @@ public class CategoriesFragment extends Fragment {
             pdialog.show();
         }
         else{
-            Utils.showNoNetworkDialog(getActivity());
+            try{
+                categoryList = categoryDao.queryForAll();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            ///Utils.showNoNetworkDialog(getActivity());
         }
+        setCategoryList();
     }
 
     public void setCategoryList(){
@@ -162,5 +174,16 @@ public class CategoriesFragment extends Fragment {
                 startActivity(i);
             }
         });
+    }
+
+    private void init(){
+        DatabaseManager<DatabaseHelper> manager = new DatabaseManager<DatabaseHelper>();
+        DatabaseHelper db = manager.getHelper(getActivity());
+        try {
+            categoryDao = db.getCategoryDao();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

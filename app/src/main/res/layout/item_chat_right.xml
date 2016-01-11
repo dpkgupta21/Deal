@@ -19,21 +19,23 @@
             style="@style/tv_normal"
             android:background="@color/gray_light"
             android:padding="10dp"
+            android:id="@+id/tv_msg"
             android:text="@string/how_are_you"
             android:textColor="@color/black" />
 
         <com.deal.exap.customviews.MyTextViewLightCustom
             style="@style/tv_small"
-
+            android:id="@+id/tv_date"
             android:layout_marginTop="5dp"
             android:text="23 Sep 11 PM"
             android:textColor="@color/black" />
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/iv_profile"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/slide_image" />
+        android:src="@drawable/slide_img" />
 </LinearLayout>

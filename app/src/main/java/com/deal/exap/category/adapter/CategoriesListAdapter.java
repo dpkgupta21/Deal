@@ -16,13 +16,13 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class CategoriesListAdapter extends RecyclerView
         .Adapter<CategoriesListAdapter
         .DataObjectHolder> {
     private static String LOG_TAG = "WalletListAdapter";
-    private ArrayList<CategoryDTO> mDataset;
+    private List<CategoryDTO> mDataset;
     private static MyClickListener myClickListener;
     private DisplayImageOptions options;
     public static class DataObjectHolder extends RecyclerView.ViewHolder
@@ -53,7 +53,7 @@ public class CategoriesListAdapter extends RecyclerView
         this.myClickListener = myClickListener;
     }
 
-    public CategoriesListAdapter(ArrayList<CategoryDTO> myDataset) {
+    public CategoriesListAdapter(List<CategoryDTO> myDataset) {
         mDataset = myDataset;
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)

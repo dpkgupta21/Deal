@@ -20,6 +20,8 @@ import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.category.CategoriesFragment;
 import com.deal.exap.customviews.MyTextViewReg16;
+import com.deal.exap.databasemanager.DatabaseHelper;
+import com.deal.exap.databasemanager.DatabaseManager;
 import com.deal.exap.model.InterestDTO;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
@@ -27,6 +29,7 @@ import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.j256.ormlite.dao.Dao;
 
 import org.apmem.tools.layouts.FlowLayout;
 import org.json.JSONObject;
@@ -43,7 +46,7 @@ public class InterestFragment extends Fragment {
     private View view;
     private List<InterestDTO> interestValues;
     private List<String> interestValuesSelected;
-
+    private Dao<InterestDTO, String> interestDao;
 //    public static InterestFragment newInstance() {
 //        InterestFragment fragment = new InterestFragment();
 //        return fragment;
@@ -74,6 +77,7 @@ public class InterestFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        init();
         getInterestList();
 
     }
@@ -99,6 +103,17 @@ public class InterestFragment extends Fragment {
         }
     };
 
+    private void init(){
+        DatabaseManager<DatabaseHelper> manager = new DatabaseManager<DatabaseHelper>();
+        DatabaseHelper db = manager.getHelper(getActivity());
+        try {
+            interestDao = db.getInterestDao();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -135,11 +150,14 @@ public class InterestFragment extends Fragment {
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                 Type type = new TypeToken<ArrayList<InterestDTO>>(){}.getType();
                                 interestValues = new Gson().fromJson(response.getJSONArray("interests").toString(), type);
+                                for(InterestDTO dto : interestValues){
+                                    interestDao.create(dto);
+                                }
                                 if(response.has("user_interests")) {
                                     type = new TypeToken<ArrayList<String>>(){}.getType();
                                     interestValuesSelected = new Gson().fromJson(response.getJSONArray("user_interests").toString(), type);
                                 }
-                                setInterestList();
+
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -158,9 +176,14 @@ public class InterestFragment extends Fragment {
             pdialog.show();
         }
         else{
-            Utils.showNoNetworkDialog(getActivity());
+            //Utils.showNoNetworkDialog(getActivity());
+            try{
+                interestValues = interestDao.queryForAll();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
-
+        setInterestList();
     }
 
     public void addInterest() {

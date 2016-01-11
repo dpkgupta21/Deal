@@ -1,5 +1,7 @@
 package com.deal.exap.model;
 
+import com.j256.ormlite.field.DatabaseField;
+
 import java.io.Serializable;
 
 /**
@@ -7,7 +9,10 @@ import java.io.Serializable;
  */
 public class InterestDTO implements Serializable{
 
+
+    @DatabaseField
     public String id;
+    @DatabaseField
     public String name;
 
     public String getId() {

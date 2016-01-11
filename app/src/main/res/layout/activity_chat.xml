@@ -108,6 +108,7 @@
                 android:hint="@string/btn_message" />
 
             <ImageView
+                android:id="@+id/iv_send"
                 android:padding="5dp"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"

@@ -150,7 +150,7 @@ public class NearByListAdapter extends RecyclerView
         else
             holder.tvDetail.setText(mDataset.get(position).getName_eng());
         holder.tvReview.setText("("+mDataset.get(position).getReview() + ")");
-        holder.ratingBar.setNumStars(mDataset.get(position).getRating());
+        holder.ratingBar.setRating(mDataset.get(position).getRating());
     }
 
     public void addItem(DealDTO dataObj, int index) {

@@ -4,7 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.deal.exap.model.CategoryDTO;
 import com.deal.exap.model.DealDTO;
+import com.deal.exap.model.InterestDTO;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.dao.Dao;
@@ -20,7 +22,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private static final int DATABASE_VERSION = 1;
 	
 	private Dao<DealDTO, String> dealDao = null;
-	
+	private Dao<InterestDTO, String> interestDao = null;
+	private Dao<CategoryDTO, String> categoryDao = null;
+
 	
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -42,7 +46,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			Log.i(DatabaseHelper.class.getName(), "onCreate");
 			
 			TableUtils.createTable(connectionSource, DealDTO.class);
-			
+			TableUtils.createTable(connectionSource, InterestDTO.class);
+			TableUtils.createTable(connectionSource, CategoryDTO.class);
+
 		} catch (SQLException e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
 			throw new RuntimeException(e);
@@ -78,12 +84,40 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		}
 		return null;
 	}
-	
-	
+
+	public Dao<InterestDTO, String> getInterestDao() throws SQLException {
+		try {
+			if (interestDao == null) {
+				interestDao = BaseDaoImpl.createDao(getConnectionSource(), InterestDTO.class);
+				Log.d("","");
+			}
+			return interestDao;
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Dao<CategoryDTO, String> getCategoryDao() throws SQLException {
+		try {
+			if (categoryDao == null) {
+				categoryDao = BaseDaoImpl.createDao(getConnectionSource(), CategoryDTO.class);
+				Log.d("","");
+			}
+			return categoryDao;
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	@Override
 	public void close() {
 		super.close();
 		dealDao = null;
+		interestDao = null;
+		categoryDao = null;
 	}
 }

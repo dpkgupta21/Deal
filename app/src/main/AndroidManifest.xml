@@ -123,6 +123,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".partner.ChatActivity"
             android:screenOrientation="portrait" />
         <activity

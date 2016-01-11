@@ -65,6 +65,9 @@ public class Constant {
     public static String FORGOT_PASSWORD ="forgot";
     public static String GET_CATEOGRY_LIST ="categorylist";
     public static String GET_NEAR_DEAL ="nearbydeal";
+    public static String POST_REVIEW ="addreview";
+    public static String GET_MESSAGE ="inbox";
+    public static String SEND_MESSAGE ="sendMessage";
 
 
 }

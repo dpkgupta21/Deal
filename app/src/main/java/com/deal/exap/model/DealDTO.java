@@ -19,18 +19,31 @@ public class DealDTO implements Serializable{
     private String detail_ara;
     @DatabaseField
     private String term_eng;
+    @DatabaseField
     private String term_ara;
+    @DatabaseField
     private String discount;
+    @DatabaseField
     private String visible_price;
+    @DatabaseField
     private String final_price;
+    @DatabaseField
     private String type;
+    @DatabaseField
     private String deal_image;
+    @DatabaseField
     private String end_date;
+    @DatabaseField
     private String partner_logo;
+    @DatabaseField
     private String redeem_option;
+    @DatabaseField
     private int redeemed;
+    @DatabaseField
     private String distance;
+    @DatabaseField
     private int rating;
+    @DatabaseField
     private int review;
 
     public String getName_eng() {

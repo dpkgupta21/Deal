@@ -1,5 +1,7 @@
 package com.deal.exap.model;
 
+import com.j256.ormlite.field.DatabaseField;
+
 import java.io.Serializable;
 
 /**
@@ -7,8 +9,11 @@ import java.io.Serializable;
  */
 public class CategoryDTO implements Serializable{
 
+    @DatabaseField
     private String name;
+    @DatabaseField
     private String image;
+    @DatabaseField
     private String deal_count;
 
     public String getName() {
