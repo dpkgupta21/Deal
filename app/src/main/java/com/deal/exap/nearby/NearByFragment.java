@@ -22,6 +22,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
+import com.deal.exap.databasemanager.DatabaseHelper;
+import com.deal.exap.databasemanager.DatabaseManager;
 import com.deal.exap.favorite.bean.DataObject;
 import com.deal.exap.login.BaseFragment;
 import com.deal.exap.model.DealDTO;
@@ -32,6 +34,7 @@ import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.j256.ormlite.dao.Dao;
 
 import org.json.JSONObject;
 
@@ -103,6 +106,8 @@ public class NearByFragment extends BaseFragment {
         setTouchNClick(R.id.btn_distance_htl, view);
         setTouchNClick(R.id.btn_date_lts, view);
         setTouchNClick(R.id.btn_date_stl, view);
+
+
 
     }
     @Override

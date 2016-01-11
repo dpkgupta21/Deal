@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import com.deal.exap.R;
+import com.deal.exap.databasemanager.DatabaseHelper;
+import com.deal.exap.databasemanager.DatabaseManager;
+import com.deal.exap.model.DealDTO;
 import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.TJPreferences;
 import com.deal.exap.utility.Utils;
+import com.j256.ormlite.dao.Dao;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,6 +29,16 @@ public class OrgSplashActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DatabaseManager<DatabaseHelper> manager = new DatabaseManager<DatabaseHelper>();
+        DatabaseHelper db = manager.getHelper(this);
+        Dao<DealDTO, String> dealDao = null;
+        try{
+             dealDao = db.getDealDao();
+            int i=0;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
         setContentView(R.layout.activity_org_splash);
         mContext = OrgSplashActivity.this;
         TimerTask task = new TimerTask() {

@@ -20,7 +20,7 @@ android {
     buildToolsVersion '23.0.1'
     defaultConfig {
         applicationId 'com.deal.exap'
-        minSdkVersion 19
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -50,4 +50,5 @@ dependencies {
     compile('com.twitter.sdk.android:twitter:1.11.0@aar') {
         transitive = true;
     }
+
 }

@@ -1,5 +1,7 @@
 package com.deal.exap.model;
 
+import com.j256.ormlite.field.DatabaseField;
+
 import java.io.Serializable;
 
 /**
@@ -7,10 +9,15 @@ import java.io.Serializable;
  */
 public class DealDTO implements Serializable{
 
+    @DatabaseField
     private String name_eng;
+    @DatabaseField
     private String name_ara;
+    @DatabaseField
     private String detail_eng;
+    @DatabaseField
     private String detail_ara;
+    @DatabaseField
     private String term_eng;
     private String term_ara;
     private String discount;

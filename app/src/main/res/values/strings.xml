@@ -245,4 +245,5 @@
     <string name="save_changes">Save Changes</string>
     <string name="location">Location</string>
 
+    <string name="open_helper_classname">com.deal.exap.databasemanager.DatabaseHelper</string>
 </resources>
