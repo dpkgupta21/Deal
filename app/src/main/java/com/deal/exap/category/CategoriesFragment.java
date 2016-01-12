@@ -134,7 +134,7 @@ public class CategoriesFragment extends Fragment {
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                 Type type = new TypeToken<ArrayList<CategoryDTO>>(){}.getType();
                                 categoryList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
-
+                                setCategoryList();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -155,12 +155,13 @@ public class CategoriesFragment extends Fragment {
         else{
             try{
                 categoryList = categoryDao.queryForAll();
+                setCategoryList();
             }catch (Exception e){
                 e.printStackTrace();
             }
             ///Utils.showNoNetworkDialog(getActivity());
         }
-        setCategoryList();
+
     }
 
     public void setCategoryList(){
@@ -170,7 +171,10 @@ public class CategoriesFragment extends Fragment {
         ((CategoriesListAdapter) mAdapter).setOnItemClickListener(new CategoriesListAdapter.MyClickListener() {
             @Override
             public void onItemClick(int position, View v) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("categoryDTO", categoryList.get(position));
                 Intent i = new Intent(getActivity(), CouponListActivity.class);
+                i.putExtras(bundle);
                 startActivity(i);
             }
         });

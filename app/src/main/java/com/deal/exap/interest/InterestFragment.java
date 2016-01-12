@@ -151,13 +151,13 @@ public class InterestFragment extends Fragment {
                                 Type type = new TypeToken<ArrayList<InterestDTO>>(){}.getType();
                                 interestValues = new Gson().fromJson(response.getJSONArray("interests").toString(), type);
                                 for(InterestDTO dto : interestValues){
-                                    interestDao.create(dto);
+                                    //interestDao.create(dto);
                                 }
                                 if(response.has("user_interests")) {
                                     type = new TypeToken<ArrayList<String>>(){}.getType();
                                     interestValuesSelected = new Gson().fromJson(response.getJSONArray("user_interests").toString(), type);
                                 }
-
+                                setInterestList();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -179,11 +179,12 @@ public class InterestFragment extends Fragment {
             //Utils.showNoNetworkDialog(getActivity());
             try{
                 interestValues = interestDao.queryForAll();
+                setInterestList();
             }catch (Exception e){
                 e.printStackTrace();
             }
         }
-        setInterestList();
+
     }
 
     public void addInterest() {

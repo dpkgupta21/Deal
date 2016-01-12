@@ -68,6 +68,7 @@ public class Constant {
     public static String POST_REVIEW ="addreview";
     public static String GET_MESSAGE ="inbox";
     public static String SEND_MESSAGE ="sendMessage";
+    public static String GET_CATEGORY_DEAL ="categorydeal";
 
 
 }
