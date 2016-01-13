@@ -44,7 +44,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
 		try {
 			Log.i(DatabaseHelper.class.getName(), "onCreate");
-			
+
 			TableUtils.createTable(connectionSource, DealDTO.class);
 			TableUtils.createTable(connectionSource, InterestDTO.class);
 			TableUtils.createTable(connectionSource, CategoryDTO.class);
@@ -62,7 +62,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			Log.i(DatabaseHelper.class.getName(), "onUpgrade");
 			
 			TableUtils.dropTable(connectionSource, DealDTO.class, true);
-			
+			TableUtils.dropTable(connectionSource, InterestDTO.class, true);
+			TableUtils.dropTable(connectionSource, InterestDTO.class, true);
 			onCreate(db);
 		} catch (SQLException e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't drop databases", e);

@@ -151,7 +151,7 @@ public class InterestFragment extends Fragment {
                                 Type type = new TypeToken<ArrayList<InterestDTO>>(){}.getType();
                                 interestValues = new Gson().fromJson(response.getJSONArray("interests").toString(), type);
                                 for(InterestDTO dto : interestValues){
-                                    //interestDao.create(dto);
+                                    interestDao.create(dto);
                                 }
                                 if(response.has("user_interests")) {
                                     type = new TypeToken<ArrayList<String>>(){}.getType();
