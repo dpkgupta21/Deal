@@ -1,51 +1,76 @@
 package com.deal.exap.following.adapter;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.favorite.bean.DataObject;
+import com.deal.exap.model.FollowingDTO;
+import com.deal.exap.utility.Utils;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class FollowingListAdapter extends RecyclerView
         .Adapter<FollowingListAdapter
         .DataObjectHolder> {
     private static String LOG_TAG = "FollowingListAdapter";
-    private ArrayList<DataObject> mDataset;
-    private static MyClickListener myClickListener;
+    private List<FollowingDTO> followingValues;
+    private static Context context;
+    private DisplayImageOptions options;
 
-    public static class DataObjectHolder extends RecyclerView.ViewHolder
-            implements View
-            .OnClickListener {
-        TextView label;
-        TextView dateTime;
+
+    public static class DataObjectHolder extends RecyclerView.ViewHolder {
+        TextView txt_active_coupons_val;
+        TextView txt_downloads_val;
+        TextView txt_followers_val;
+        TextView txt_place_tag;
+        TextView txt_title;
+        ImageView thumbnail;
+        ImageView img_company;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
-            label = (TextView) itemView.findViewById(R.id.txt_title);
-            dateTime = (TextView) itemView.findViewById(R.id.txt_place_tag);
-            Log.i(LOG_TAG, "Adding Listener");
-            itemView.setOnClickListener(this);
+            txt_active_coupons_val = (TextView) itemView.findViewById(R.id.txt_active_coupons_val);
+            txt_downloads_val = (TextView) itemView.findViewById(R.id.txt_downloads_val);
+            txt_followers_val = (TextView) itemView.findViewById(R.id.txt_followers_val);
+            txt_place_tag = (TextView) itemView.findViewById(R.id.txt_place_tag);
+            txt_title = (TextView) itemView.findViewById(R.id.txt_title);
+            thumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
+            img_company = (ImageView) itemView.findViewById(R.id.img_company);
+
+
         }
 
-        @Override
-        public void onClick(View v) {
-            myClickListener.onItemClick(getAdapterPosition(), v);
-        }
     }
 
-    public void setOnItemClickListener(MyClickListener myClickListener) {
-        this.myClickListener = myClickListener;
-    }
 
-    public FollowingListAdapter(ArrayList<DataObject> myDataset) {
-        mDataset = myDataset;
+    public FollowingListAdapter(List<FollowingDTO> followingValues, Context context) {
+        this.followingValues = followingValues;
+        this.context = context;
+        options = new DisplayImageOptions.Builder()
+                .resetViewBeforeLoading(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .considerExifParams(true)
+                .displayer(new SimpleBitmapDisplayer())
+                .showImageOnLoading(R.drawable.slide_img)
+                .showImageOnFail(R.drawable.slide_img)
+                .showImageForEmptyUri(R.drawable.slide_img)
+                .build();
     }
 
 
@@ -61,27 +86,29 @@ public class FollowingListAdapter extends RecyclerView
 
     @Override
     public void onBindViewHolder(DataObjectHolder holder, int position) {
-        holder.label.setText(mDataset.get(position).getmText1());
-        holder.dateTime.setText(mDataset.get(position).getmText2());
+        holder.txt_active_coupons_val.setText(followingValues.get(position).getActive_coupan());
+        holder.txt_downloads_val.setText(followingValues.get(position).getDownload());
+        holder.txt_followers_val.setText(followingValues.get(position).getFollower());
+
+        if (Utils.getSelectedLanguage(context).equalsIgnoreCase("eng")) {
+            holder.txt_place_tag.setText(followingValues.get(position).getAddress_eng() + " " + followingValues.get(position).getLocation());
+
+        } else {
+            holder.txt_place_tag.setText(followingValues.get(position).getAddress_ara() + " " + followingValues.get(position).getLocation());
+        }
+
+        holder.txt_title.setText(followingValues.get(position).getName());
+
+        ImageLoader.getInstance().displayImage(followingValues.get(position).getImage(), holder.thumbnail,
+                options);
+        ImageLoader.getInstance().displayImage(followingValues.get(position).getLogo(), holder.img_company,
+                options);
     }
 
-    public void addItem(DataObject dataObj, int index) {
-        mDataset.add(index, dataObj);
-        notifyItemInserted(index);
-    }
-
-    public void deleteItem(int index) {
-        mDataset.remove(index);
-        notifyItemRemoved(index);
-    }
 
     @Override
     public int getItemCount() {
-        return mDataset.size();
-    }
-
-    public interface MyClickListener {
-        public void onItemClick(int position, View v);
+        return followingValues.size();
     }
 
 

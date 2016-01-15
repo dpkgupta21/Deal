@@ -69,6 +69,8 @@ public class Constant {
     public static String GET_MESSAGE ="inbox";
     public static String SEND_MESSAGE ="sendMessage";
     public static String GET_CATEGORY_DEAL ="categorydeal";
+    public static String GET_FAVORITE_LIST ="favorite";
+    public static String GET_FOLLOWING_LIST="following";
 
 
 }
