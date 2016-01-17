@@ -1,5 +1,7 @@
 package com.deal.exap.category.adapter;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,52 +11,64 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.model.CategoryDTO;
+import com.deal.exap.model.DealDTO;
+import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.Utils;
+import com.deal.exap.volley.AppController;
+import com.deal.exap.volley.CustomJsonRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CategoriesListAdapter extends RecyclerView
         .Adapter<CategoriesListAdapter
         .DataObjectHolder> {
     private static String LOG_TAG = "WalletListAdapter";
-    private List<CategoryDTO> mDataset;
-    private static MyClickListener myClickListener;
+    private List<CategoryDTO> categoryValues;
     private DisplayImageOptions options;
-    public static class DataObjectHolder extends RecyclerView.ViewHolder
-            implements View
-            .OnClickListener {
+    private Context context;
+
+    public static class DataObjectHolder extends RecyclerView.ViewHolder {
         TextView txtCategoryName;
         TextView txtFavNumber;
         TextView txtFolloNumber;
         ImageView ivThumb;
+        ImageView imgLike;
+
         public DataObjectHolder(View itemView) {
             super(itemView);
             txtCategoryName = (TextView) itemView.findViewById(R.id.txt_category_name);
             txtFavNumber = (TextView) itemView.findViewById(R.id.txt_like_number);
             txtFolloNumber = (TextView) itemView.findViewById(R.id.txt_follower_number);
             ivThumb = (ImageView) itemView.findViewById(R.id.thumbnail);
+            imgLike = (ImageView) itemView.findViewById(R.id.img_like);
 
-            Log.i(LOG_TAG, "Adding Listener");
-            itemView.setOnClickListener(this);
+
         }
 
-        @Override
-        public void onClick(View v) {
-            myClickListener.onItemClick(getAdapterPosition(), v);
-        }
+
     }
 
-    public void setOnItemClickListener(MyClickListener myClickListener) {
-        this.myClickListener = myClickListener;
-    }
 
-    public CategoriesListAdapter(List<CategoryDTO> myDataset) {
-        mDataset = myDataset;
+    public CategoriesListAdapter(List<CategoryDTO> categoryValues, Context context) {
+        this.categoryValues = categoryValues;
+        this.context = context;
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
                 .cacheOnDisk(true)
@@ -80,31 +94,79 @@ public class CategoriesListAdapter extends RecyclerView
     }
 
     @Override
-    public void onBindViewHolder(DataObjectHolder holder, int position) {
-        holder.txtCategoryName.setText(mDataset.get(position).getName());
-        holder.txtFavNumber.setText("");
-        holder.txtFolloNumber.setText(mDataset.get(position).getDeal_count());
-        ImageLoader.getInstance().displayImage(mDataset.get(position).getImage(), holder.ivThumb,
+    public void onBindViewHolder(DataObjectHolder holder, final int position) {
+        holder.txtCategoryName.setText(categoryValues.get(position).getName());
+        holder.txtFavNumber.setText(categoryValues.get(position).getCategory_favourite_count());
+        holder.txtFolloNumber.setText(categoryValues.get(position).getDeal_count());
+
+        holder.imgLike.setTag(position);
+        if (categoryValues.get(position).getFavourite().equalsIgnoreCase("1")) {
+            holder.imgLike.setImageResource(R.drawable.heart_fill_icon);
+        } else {
+            holder.imgLike.setImageResource(R.drawable.heart_icon);
+
+        }
+
+        holder.imgLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addRemove(position);
+
+            }
+        });
+
+        ImageLoader.getInstance().displayImage(categoryValues.get(position).getImage(), holder.ivThumb,
                 options);
     }
 
-    public void addItem(CategoryDTO dataObj, int index) {
-        mDataset.add(index, dataObj);
-        notifyItemInserted(index);
-    }
-
-    public void deleteItem(int index) {
-        mDataset.remove(index);
-        notifyItemRemoved(index);
-    }
 
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return categoryValues.size();
     }
 
-    public interface MyClickListener {
-        public void onItemClick(int position, View v);
+
+    public void addRemove(int position) {
+        if (Utils.isOnline(context)) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.ADD_REMOVE_CATEGORY_FAVORITE);
+            params.put("lang", Utils.getSelectedLanguage(context));
+            params.put("category_id", categoryValues.get(position).getId());
+            params.put("status", "0");
+            params.put("user_id", Utils.getUserId(context));
+            final ProgressDialog pdialog = Utils.createProgeessDialog(context, null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                if (Utils.getWebServiceStatus(response)) {
+
+
+                                } else {
+                                    Utils.showDialog(context, "Error", Utils.getWebServiceMessage(response));
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            pdialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(context);
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            pdialog.show();
+        } else {
+            Utils.showNoNetworkDialog(context);
+        }
     }
 
 

@@ -118,7 +118,7 @@ public class WalletFragment extends Fragment {
             params.put("lang", Utils.getSelectedLanguage(getActivity()));
             params.put("lng", "0");
             params.put("lat", "0");
-            params.put("user_id", "5");
+            params.put("user_id",Utils.getUserId(getActivity()));
             final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {

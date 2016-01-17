@@ -24,7 +24,10 @@ import com.deal.exap.category.adapter.CategoriesListAdapter;
 import com.deal.exap.databasemanager.DatabaseHelper;
 import com.deal.exap.databasemanager.DatabaseManager;
 import com.deal.exap.login.BaseActivity;
+import com.deal.exap.misc.MyOnClickListener;
+import com.deal.exap.misc.RecyclerTouchListener;
 import com.deal.exap.model.CategoryDTO;
+import com.deal.exap.nearby.BuyCouponActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
@@ -165,19 +168,29 @@ public class CategoriesFragment extends Fragment {
     }
 
     public void setCategoryList(){
-        mAdapter = new CategoriesListAdapter(categoryList);
+        mAdapter = new CategoriesListAdapter(categoryList,getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
-        ((CategoriesListAdapter) mAdapter).setOnItemClickListener(new CategoriesListAdapter.MyClickListener() {
+
+
+        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), mRecyclerView, new MyOnClickListener() {
             @Override
-            public void onItemClick(int position, View v) {
+            public void onRecyclerClick(View view, int position) {
+
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("categoryDTO", categoryList.get(position));
                 Intent i = new Intent(getActivity(), CouponListActivity.class);
                 i.putExtras(bundle);
                 startActivity(i);
             }
-        });
+
+            @Override
+            public void onRecyclerLongClick(View view, int position) {
+
+            }
+        }));
+
+
     }
 
     private void init(){

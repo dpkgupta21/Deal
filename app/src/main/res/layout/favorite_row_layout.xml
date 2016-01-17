@@ -68,11 +68,12 @@
                     android:textSize="16sp" />
 
                 <ImageView
+                    android:id="@+id/img_like"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/heart_fill_icon" />
+                    android:src="@drawable/heart_icon" />
 
                 <com.deal.exap.customviews.MyTextViewReg16
                     android:id="@+id/txt_like_number"

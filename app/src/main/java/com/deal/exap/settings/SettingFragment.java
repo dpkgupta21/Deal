@@ -1,6 +1,7 @@
 package com.deal.exap.settings;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +22,9 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.com.exap.sidemenu.ResideMenuSecond;
 import com.deal.exap.com.exap.sidemenu.TouchDisableView;
@@ -28,17 +32,27 @@ import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg16;
 import com.deal.exap.login.BaseFragment;
 import com.deal.exap.login.EditProfileActivity;
+import com.deal.exap.model.DealDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.TJPreferences;
 import com.deal.exap.utility.Utils;
+import com.deal.exap.volley.AppController;
+import com.deal.exap.volley.CustomJsonRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class SettingFragment extends BaseFragment implements GestureDetector.OnGestureListener,
-        SeekBar.OnSeekBarChangeListener, View.OnTouchListener{
+        SeekBar.OnSeekBarChangeListener, View.OnTouchListener {
 
     private View view;
     private MyButtonViewSemi btn_select_english;
@@ -84,7 +98,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
         ((MyTextViewReg16) view.findViewById(R.id.txt_payment_details)).setOnClickListener(paymentClick);
         btn_select_english = (MyButtonViewSemi) view.findViewById(R.id.btn_select_english);
         btn_select_arabic = (MyButtonViewSemi) view.findViewById(R.id.btn_select_arabic);
-        SeekBar seek_bar=(SeekBar)view.findViewById(R.id.seek_bar);
+        SeekBar seek_bar = (SeekBar) view.findViewById(R.id.seek_bar);
         seek_bar.setOnSeekBarChangeListener(this);
         seek_bar.setOnTouchListener(this);
         selectedButton(TJPreferences.getAPP_LANG(getActivity().getApplicationContext()));
@@ -182,7 +196,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
         txtTitle.setText(strTitle);
     }
 
-    private void selectedButton(String STATUS_CODE){
+    private void selectedButton(String STATUS_CODE) {
         if (STATUS_CODE.contains(Constant.LANG_ENGLISH_CODE)) {
 
             btn_select_english.setBackgroundColor(getResources().getColor(R.color.btn_color));
@@ -191,7 +205,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
             btn_select_english.setTextColor(getResources().getColor(R.color.white));
             btn_select_arabic.setTextColor(getResources().getColor(R.color.black));
 
-        }else {
+        } else {
 
             btn_select_arabic.setBackgroundColor(getResources().getColor(R.color.btn_color));
             btn_select_english.setBackgroundColor(getResources().getColor(R.color.white));
@@ -248,7 +262,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_MOVE){
+        if (event.getAction() == MotionEvent.ACTION_MOVE) {
 
         }
         return true;
@@ -298,7 +312,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
         // Include dialog.xml file
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_country_code);
-       getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         ListView listView = (ListView) dialog.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_single_choice, years);
         listView.setAdapter(adapter);
@@ -313,6 +327,48 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
 
 
     }
+
+
+    private void syncSetting(String key, String value) {
+
+        if (Utils.isOnline(getActivity())) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.SETTING);
+            params.put("key", key);
+            params.put("value", value);
+            params.put("user_id", Utils.getUserId(getActivity()));
+            final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            pdialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(getActivity());
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            pdialog.show();
+        } else {
+            Utils.showNoNetworkDialog(getActivity());
+        }
+
+
+    }
+
+
 
 
 }
