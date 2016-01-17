@@ -33,6 +33,7 @@
                     android:text="@string/location_service" />
 
                 <Switch
+                    android:id="@+id/switch_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -113,7 +114,8 @@
                     android:padding="10dp"
                     android:text="@string/push_alert" />
 
-                <Switch
+                <Switch android:id="@+id/switch_push"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -135,6 +137,7 @@
                     android:text="@string/message_alert" />
 
                 <Switch
+                    android:id="@+id/switch_message"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -156,6 +159,7 @@
                     android:text="@string/deal_expiry_alert" />
 
                 <Switch
+                    android:id="@+id/switch_expiry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

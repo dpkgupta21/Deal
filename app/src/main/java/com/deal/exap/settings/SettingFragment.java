@@ -17,10 +17,13 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -52,7 +55,7 @@ import java.util.Map;
 
 
 public class SettingFragment extends BaseFragment implements GestureDetector.OnGestureListener,
-        SeekBar.OnSeekBarChangeListener, View.OnTouchListener {
+        SeekBar.OnSeekBarChangeListener, View.OnTouchListener, CompoundButton.OnCheckedChangeListener {
 
     private View view;
     private MyButtonViewSemi btn_select_english;
@@ -61,6 +64,10 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
     private ArrayList<String> years;
     private TextView txtMonth;
     private TextView txtYear;
+    private Switch switch_location;
+    private Switch switch_push;
+    private Switch switch_message;
+    private Switch switch_expiry;
 
 
     public SettingFragment() {
@@ -99,6 +106,17 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
         btn_select_english = (MyButtonViewSemi) view.findViewById(R.id.btn_select_english);
         btn_select_arabic = (MyButtonViewSemi) view.findViewById(R.id.btn_select_arabic);
         SeekBar seek_bar = (SeekBar) view.findViewById(R.id.seek_bar);
+        switch_expiry = (Switch) view.findViewById(R.id.switch_expiry);
+        switch_push = (Switch) view.findViewById(R.id.switch_push);
+        switch_location = (Switch) view.findViewById(R.id.switch_location);
+        switch_message = (Switch) view.findViewById(R.id.switch_message);
+
+
+        switch_expiry.setOnCheckedChangeListener(this);
+        switch_push.setOnCheckedChangeListener(this);
+        switch_location.setOnCheckedChangeListener(this);
+        switch_message.setOnCheckedChangeListener(this);
+
         seek_bar.setOnSeekBarChangeListener(this);
         seek_bar.setOnTouchListener(this);
         selectedButton(TJPreferences.getAPP_LANG(getActivity().getApplicationContext()));
@@ -129,6 +147,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
                 HelpMe.setLocale(Constant.LANG_ENGLISH_CODE, getActivity().getApplicationContext());
                 selectedButton(Constant.LANG_ENGLISH_CODE);
                 TJPreferences.setAPP_LANG(getActivity().getApplicationContext(), Constant.LANG_ENGLISH_CODE);
+                syncSetting("language_id", "eng");
 
                 Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
                 startActivity(i);
@@ -145,7 +164,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
                 HelpMe.setLocale(Constant.LANG_ARABIC_CODE, getActivity().getApplicationContext());
                 selectedButton(Constant.LANG_ARABIC_CODE);
                 TJPreferences.setAPP_LANG(getActivity().getApplicationContext(), Constant.LANG_ARABIC_CODE);
-
+                syncSetting("language_id", "ar");
                 Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
                 startActivity(i);
                 getActivity().finish();
@@ -258,6 +277,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
+
     }
 
     @Override
@@ -345,6 +365,8 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
                             try {
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
 
+                                Toast.makeText(getActivity(), "Update Successfully", Toast.LENGTH_LONG).show();
+
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -368,7 +390,51 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
 
     }
 
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView,
+                                 boolean isChecked) {
 
+        switch (buttonView.getId()) {
+            case R.id.switch_expiry:
+                if (isChecked) {
+                    syncSetting("is_deal_expiry_alert", "1");
+                } else {
+                    syncSetting("is_deal_expiry_alert", "0");
+
+                }
+
+                break;
+
+            case R.id.switch_location:
+                if (isChecked) {
+                    syncSetting("is_location_service", "1");
+                } else {
+                    syncSetting("is_location_service", "0");
+
+                }
+
+                break;
+            case R.id.switch_message:
+
+                if (isChecked) {
+                    syncSetting("is_message_alert", "1");
+                } else {
+                    syncSetting("is_message_alert", "0");
+
+                }
+                break;
+            case R.id.switch_push:
+                if (isChecked) {
+                    syncSetting("is_push_alert", "1");
+                } else {
+                    syncSetting("is_push_alert", "0");
+
+                }
+                break;
+        }
+
+
+    }
 
 
 }
