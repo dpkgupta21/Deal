@@ -9,6 +9,9 @@ import java.io.Serializable;
  */
 public class DealDTO implements Serializable{
 
+
+    @DatabaseField
+    private String id;
     @DatabaseField
     private String name_eng;
     @DatabaseField
@@ -189,5 +192,14 @@ public class DealDTO implements Serializable{
 
     public void setReview(int review) {
         this.review = review;
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

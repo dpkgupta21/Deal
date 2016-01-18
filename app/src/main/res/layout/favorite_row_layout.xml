@@ -30,7 +30,7 @@
 
                 <ImageView
                     android:id="@+id/img_category"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/auto_icon" />
@@ -69,6 +69,7 @@
 
                 <ImageView
                     android:id="@+id/img_like"
+                    android:focusable="false"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"

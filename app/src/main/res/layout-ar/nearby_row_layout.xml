@@ -166,7 +166,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="USD 10"
+                        android:id="@+id/txt_final_price"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
@@ -174,8 +175,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
+                        android:id="@+id/txt_visible_price"
                         android:gravity="center_horizontal"
-                        android:text="USD 15"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="8sp" />
 

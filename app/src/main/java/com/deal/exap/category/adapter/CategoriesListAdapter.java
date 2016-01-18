@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -43,8 +44,10 @@ public class CategoriesListAdapter extends RecyclerView
     private List<CategoryDTO> categoryValues;
     private DisplayImageOptions options;
     private Context context;
+    private static MyClickListener myClickListener;
 
-    public static class DataObjectHolder extends RecyclerView.ViewHolder {
+    public static class DataObjectHolder extends RecyclerView.ViewHolder  implements View
+            .OnClickListener {
         TextView txtCategoryName;
         TextView txtFavNumber;
         TextView txtFolloNumber;
@@ -58,11 +61,20 @@ public class CategoriesListAdapter extends RecyclerView
             txtFolloNumber = (TextView) itemView.findViewById(R.id.txt_follower_number);
             ivThumb = (ImageView) itemView.findViewById(R.id.thumbnail);
             imgLike = (ImageView) itemView.findViewById(R.id.img_like);
+            ivThumb.setOnClickListener(this);
+            imgLike.setOnClickListener(this);
+        }
 
-
+        @Override
+        public void onClick(View v) {
+            myClickListener.onItemClick(getAdapterPosition(), v);
         }
 
 
+    }
+
+    public void setOnItemClickListener(MyClickListener myClickListener) {
+        this.myClickListener = myClickListener;
     }
 
 
@@ -107,13 +119,6 @@ public class CategoriesListAdapter extends RecyclerView
 
         }
 
-        holder.imgLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addRemove(position);
-
-            }
-        });
 
         ImageLoader.getInstance().displayImage(categoryValues.get(position).getImage(), holder.ivThumb,
                 options);
@@ -126,48 +131,9 @@ public class CategoriesListAdapter extends RecyclerView
     }
 
 
-    public void addRemove(int position) {
-        if (Utils.isOnline(context)) {
-            Map<String, String> params = new HashMap<>();
-            params.put("action", Constant.ADD_REMOVE_CATEGORY_FAVORITE);
-            params.put("lang", Utils.getSelectedLanguage(context));
-            params.put("category_id", categoryValues.get(position).getId());
-            params.put("status", "0");
-            params.put("user_id", Utils.getUserId(context));
-            final ProgressDialog pdialog = Utils.createProgeessDialog(context, null, false);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                if (Utils.getWebServiceStatus(response)) {
 
 
-                                } else {
-                                    Utils.showDialog(context, "Error", Utils.getWebServiceMessage(response));
-                                }
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            pdialog.dismiss();
-                        }
-                    }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    pdialog.dismiss();
-                    Utils.showExceptionDialog(context);
-                    //       CustomProgressDialog.hideProgressDialog();
-                }
-            });
-            AppController.getInstance().getRequestQueue().add(postReq);
-            pdialog.show();
-        } else {
-            Utils.showNoNetworkDialog(context);
-        }
+    public interface MyClickListener {
+        public void onItemClick(int position, View v);
     }
-
-
 }

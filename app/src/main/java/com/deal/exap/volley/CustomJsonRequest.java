@@ -11,8 +11,10 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
+
 
 public class CustomJsonRequest extends Request<JSONObject> {
 
@@ -33,12 +35,12 @@ public class CustomJsonRequest extends Request<JSONObject> {
         this.params = params;
     }
 
+
     @Override
     protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
         return params;
     }
 
-    ;
 
     @Override
     protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {

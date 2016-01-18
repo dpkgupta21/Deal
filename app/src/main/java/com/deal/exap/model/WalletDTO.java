@@ -2,9 +2,6 @@ package com.deal.exap.model;
 
 import java.io.Serializable;
 
-/**
- * Created by YusataInfotech on 1/6/2016.
- */
 public class WalletDTO implements Serializable {
     public String name_eng;
     public String name_ara;

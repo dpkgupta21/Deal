@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -24,10 +25,7 @@ import com.deal.exap.category.adapter.CategoriesListAdapter;
 import com.deal.exap.databasemanager.DatabaseHelper;
 import com.deal.exap.databasemanager.DatabaseManager;
 import com.deal.exap.login.BaseActivity;
-import com.deal.exap.misc.MyOnClickListener;
-import com.deal.exap.misc.RecyclerTouchListener;
 import com.deal.exap.model.CategoryDTO;
-import com.deal.exap.nearby.BuyCouponActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
@@ -85,7 +83,7 @@ public class CategoriesFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ((BaseActivity)getActivity()).setHeader(getString(R.string.categories_title));
+        ((BaseActivity) getActivity()).setHeader(getString(R.string.categories_title));
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_category);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -123,7 +121,7 @@ public class CategoriesFragment extends Fragment {
 
 
     public void getCategoryList() {
-        if(Utils.isOnline(getActivity())){
+        if (Utils.isOnline(getActivity())) {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.GET_CATEOGRY_LIST);
             params.put("lang", Utils.getSelectedLanguage(getActivity()));
@@ -135,7 +133,8 @@ public class CategoriesFragment extends Fragment {
                         public void onResponse(JSONObject response) {
                             try {
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<CategoryDTO>>(){}.getType();
+                                Type type = new TypeToken<ArrayList<CategoryDTO>>() {
+                                }.getType();
                                 categoryList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
                                 setCategoryList();
                             } catch (Exception e) {
@@ -154,12 +153,11 @@ public class CategoriesFragment extends Fragment {
             });
             AppController.getInstance().getRequestQueue().add(postReq);
             pdialog.show();
-        }
-        else{
-            try{
+        } else {
+            try {
                 categoryList = categoryDao.queryForAll();
                 setCategoryList();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             ///Utils.showNoNetworkDialog(getActivity());
@@ -167,40 +165,85 @@ public class CategoriesFragment extends Fragment {
 
     }
 
-    public void setCategoryList(){
-        mAdapter = new CategoriesListAdapter(categoryList,getActivity());
+    public void setCategoryList() {
+        mAdapter = new CategoriesListAdapter(categoryList, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
 
-
-        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), mRecyclerView, new MyOnClickListener() {
+        ((CategoriesListAdapter) mAdapter).setOnItemClickListener(new CategoriesListAdapter.MyClickListener() {
             @Override
-            public void onRecyclerClick(View view, int position) {
+            public void onItemClick(int position, View v) {
 
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("categoryDTO", categoryList.get(position));
-                Intent i = new Intent(getActivity(), CouponListActivity.class);
-                i.putExtras(bundle);
-                startActivity(i);
+                switch (v.getId()) {
+                    case R.id.thumbnail:
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("categoryDTO", categoryList.get(position));
+                        Intent i = new Intent(getActivity(), CouponListActivity.class);
+                        i.putExtras(bundle);
+                        startActivity(i);
+                        break;
+                    case R.id.img_like:
+                        addRemove(categoryList.get(position).getId(), categoryList.get(position).getFavourite());
+                        break;
+
+                }
+
+
             }
-
-            @Override
-            public void onRecyclerLongClick(View view, int position) {
-
-            }
-        }));
+        });
 
 
     }
 
-    private void init(){
+    private void init() {
         DatabaseManager<DatabaseHelper> manager = new DatabaseManager<DatabaseHelper>();
         DatabaseHelper db = manager.getHelper(getActivity());
         try {
             categoryDao = db.getCategoryDao();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
+    public void addRemove(String id, String status) {
+        if (Utils.isOnline(getActivity())) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.ADD_REMOVE_CATEGORY_FAVORITE);
+            params.put("lang", Utils.getSelectedLanguage(getActivity()));
+            params.put("category_id", id);
+            params.put("status", status.equalsIgnoreCase("1") ? "0" : "1");
+            params.put("user_id", Utils.getUserId(getActivity()));
+            final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                //Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                Toast.makeText(getActivity(), Utils.getWebServiceMessage(response), Toast.LENGTH_SHORT).show();
+
+                                getCategoryList();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            pdialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(getActivity());
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            pdialog.show();
+        } else {
+            Utils.showNoNetworkDialog(getActivity());
+        }
+    }
+
+
 }

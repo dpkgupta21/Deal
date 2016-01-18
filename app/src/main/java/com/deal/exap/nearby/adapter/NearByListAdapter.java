@@ -35,6 +35,7 @@ public class NearByListAdapter extends RecyclerView
     private static Context context;
     private DisplayImageOptions options;
     private DisplayImageOptions options1;
+
     public static class DataObjectHolder extends RecyclerView.ViewHolder
             implements View
             .OnClickListener {
@@ -49,6 +50,8 @@ public class NearByListAdapter extends RecyclerView
         LinearLayout llBuy;
         ImageView ivLogo;
         ImageView ivThumnail;
+        TextView txt_final_price;
+        TextView txt_visible_price;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
@@ -59,6 +62,9 @@ public class NearByListAdapter extends RecyclerView
             tvDetail = (TextView) itemView.findViewById(R.id.txt_on_which);
             ratingBar = (RatingBar) itemView.findViewById(R.id.rating_bar);
 
+            txt_final_price = (TextView) itemView.findViewById(R.id.txt_final_price);
+            txt_visible_price = (TextView) itemView.findViewById(R.id.txt_visible_price);
+
             llCouponItem = (LinearLayout) itemView.findViewById(R.id.ll_filter_item);
             llBuy = (LinearLayout) itemView.findViewById(R.id.ll_buy);
             btnBuy = (Button) itemView.findViewById(R.id.btn_buy);
@@ -68,7 +74,7 @@ public class NearByListAdapter extends RecyclerView
             ivLogo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(context instanceof BaseActivity){
+                    if (context instanceof BaseActivity) {
                         BaseActivity act = (BaseActivity) context;
                         act.startActivity(new Intent(act, FollowingPartnerDetails.class));
                     }
@@ -130,11 +136,10 @@ public class NearByListAdapter extends RecyclerView
 
     @Override
     public void onBindViewHolder(DataObjectHolder holder, int position) {
-        if(position%2==0) {
+        if (position % 2 == 0) {
             holder.btnBuy.setVisibility(View.VISIBLE);
             holder.llBuy.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             holder.btnBuy.setVisibility(View.GONE);
             holder.llBuy.setVisibility(View.VISIBLE);
         }
@@ -145,12 +150,15 @@ public class NearByListAdapter extends RecyclerView
         holder.tvDiscount.setText(mDataset.get(position).getDiscount() + " % Off");
         holder.tvEnddate.setText(mDataset.get(position).getEnd_date());
         holder.tvDistance.setText(mDataset.get(position).getDistance());
-        if(Utils.isArebic(context))
+        if (Utils.isArebic(context))
             holder.tvDetail.setText(mDataset.get(position).getName_ara());
         else
             holder.tvDetail.setText(mDataset.get(position).getName_eng());
-        holder.tvReview.setText("("+mDataset.get(position).getReview() + ")");
+        holder.tvReview.setText("(" + mDataset.get(position).getReview() + ")");
         holder.ratingBar.setRating(mDataset.get(position).getRating());
+
+        holder.txt_final_price.setText(mDataset.get(position).getFinal_price());
+        holder.txt_visible_price.setText(mDataset.get(position).getVisible_price());
     }
 
     public void addItem(DealDTO dataObj, int index) {

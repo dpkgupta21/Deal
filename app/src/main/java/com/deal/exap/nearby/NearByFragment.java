@@ -47,8 +47,7 @@ public class NearByFragment extends BaseFragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private View view;
     private LinearLayout llFilter;
-    private Button btnKm, btnMiles, btnDistantLth, btnDistantHtl, btnDiscountLth, btnDiscountHtl
-            ,btnDateStl, btnDateLts;
+    private Button btnKm, btnMiles, btnDistantLth, btnDistantHtl, btnDiscountLth, btnDiscountHtl, btnDateStl, btnDateLts;
     private ArrayList<DealDTO> dealList;
 //    public static NearByFragment newInstance() {
 //        NearByFragment fragment = new NearByFragment();
@@ -79,7 +78,7 @@ public class NearByFragment extends BaseFragment {
         return view;
     }
 
-    private void init(){
+    private void init() {
         llFilter = (LinearLayout) view.findViewById(R.id.ll_filter);
         setTouchNClick(R.id.btn_km, view);
         setTouchNClick(R.id.btn_miles, view);
@@ -104,8 +103,8 @@ public class NearByFragment extends BaseFragment {
         setTouchNClick(R.id.btn_date_stl, view);
 
 
-
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -130,10 +129,10 @@ public class NearByFragment extends BaseFragment {
 
         switch (item.getItemId()) {
             case R.id.menu_filter:
-                if(llFilter.getVisibility()==View.GONE)
+                if (llFilter.getVisibility() == View.GONE)
                     llFilter.setVisibility(View.VISIBLE);
                 else
-                     llFilter.setVisibility(View.GONE);
+                    llFilter.setVisibility(View.GONE);
                 break;
 
 
@@ -149,7 +148,7 @@ public class NearByFragment extends BaseFragment {
 
     @Override
     public void onClick(View arg0) {
-        switch (arg0.getId()){
+        switch (arg0.getId()) {
             case R.id.btn_miles:
                 btnMiles.setSelected(true);
                 btnMiles.setTextColor(getResources().getColor(R.color.white));
@@ -190,7 +189,7 @@ public class NearByFragment extends BaseFragment {
     }
 
     public void getDealList() {
-        if(Utils.isOnline(getActivity())){
+        if (Utils.isOnline(getActivity())) {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.GET_NEAR_DEAL);
             params.put("lang", Utils.getSelectedLanguage(getActivity()));
@@ -203,7 +202,8 @@ public class NearByFragment extends BaseFragment {
                         public void onResponse(JSONObject response) {
                             try {
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<DealDTO>>(){}.getType();
+                                Type type = new TypeToken<ArrayList<DealDTO>>() {
+                                }.getType();
                                 dealList = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
                                 setDealList();
                             } catch (Exception e) {
@@ -222,13 +222,12 @@ public class NearByFragment extends BaseFragment {
             });
             AppController.getInstance().getRequestQueue().add(postReq);
             pdialog.show();
-        }
-        else{
+        } else {
             Utils.showNoNetworkDialog(getActivity());
         }
     }
 
-    public void setDealList(){
+    public void setDealList() {
         mAdapter = new NearByListAdapter(dealList, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
@@ -237,7 +236,12 @@ public class NearByFragment extends BaseFragment {
             @Override
             public void onItemClick(int position, View v) {
 
-                Intent i = new Intent(getActivity(),BuyCouponActivity.class);
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("DealDTO", dealList.get(position));
+
+                Intent i = new Intent(getActivity(), BuyCouponActivity.class);
+                i.putExtras(bundle);
                 startActivity(i);
 
             }

@@ -88,7 +88,7 @@ public class SignInFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         ((MyTextViewReg12) view.findViewById(R.id.txt_sign_up_click)).
-                setOnClickListener(goToForgetPasswordPage);
+                setOnClickListener(goToNumberVerificationClick);
         ((MyButtonViewSemi) view.findViewById(R.id.btn_login)).
                 setOnClickListener(goToHomePage);
         //((MyTextViewRegCustom) view.findViewById(R.id.btn_facebook_login)).setOnClickListener(goToFacebookLogin);

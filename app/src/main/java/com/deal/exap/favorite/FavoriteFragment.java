@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -55,8 +56,8 @@ public class FavoriteFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private View view;
 
-    private List<FavoriteDTO> favoriteList;
-    private Dao<FavoriteDTO, String> favoriteDao;
+    private List<CategoryDTO> favoriteList;
+    private Dao<CategoryDTO, String> favoriteDao;
 
 //    public static FavoriteFragment newInstance() {
 //        FavoriteFragment fragment = new FavoriteFragment();
@@ -98,15 +99,6 @@ public class FavoriteFragment extends Fragment {
         getFavoriteList();
 
 
-//        ((FavoriteListAdapter) mAdapter).setOnItemClickListener(new FavoriteListAdapter.MyClickListener() {
-//            @Override
-//            public void onItemClick(int position, View v) {
-//
-//                Intent i = new Intent(getActivity(), CouponListActivity.class);
-//                startActivity(i);
-//
-//            }
-//        });
     }
 
 
@@ -136,7 +128,7 @@ public class FavoriteFragment extends Fragment {
                         public void onResponse(JSONObject response) {
                             try {
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<FavoriteDTO>>() {
+                                Type type = new TypeToken<ArrayList<CategoryDTO>>() {
                                 }.getType();
                                 favoriteList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
                                 setFavoriteList();
@@ -172,29 +164,80 @@ public class FavoriteFragment extends Fragment {
         mAdapter = new FavoriteListAdapter(favoriteList, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
-        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), mRecyclerView, new MyOnClickListener() {
+
+        ((FavoriteListAdapter) mAdapter).setOnItemClickListener(new FavoriteListAdapter.MyClickListener() {
             @Override
-            public void onRecyclerClick(View view, int position) {
-                Intent i = new Intent(getActivity(), CouponListActivity.class);
-                startActivity(i);
+            public void onItemClick(int position, View v) {
+
+                switch (v.getId()) {
+                    case R.id.thumbnail:
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("categoryDTO", favoriteList.get(position));
+                        Intent i = new Intent(getActivity(), CouponListActivity.class);
+                        i.putExtras(bundle);
+                        startActivity(i);
+                        break;
+                    case R.id.img_like:
+                        addRemove(favoriteList.get(position).getId());
+                        break;
+
+                }
             }
 
-            @Override
-            public void onRecyclerLongClick(View view, int position) {
+        });
 
-            }
-        }));
+
     }
 
     private void init() {
         DatabaseManager<DatabaseHelper> manager = new DatabaseManager<DatabaseHelper>();
         DatabaseHelper db = manager.getHelper(getActivity());
         try {
-            favoriteDao = db.getFavoriteDao();
+            favoriteDao = db.getCategoryDao();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    public void addRemove(String id) {
+        if (Utils.isOnline(getActivity())) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.ADD_REMOVE_CATEGORY_FAVORITE);
+            params.put("lang", Utils.getSelectedLanguage(getActivity()));
+            params.put("category_id", id);
+            params.put("status","0");
+            params.put("user_id", Utils.getUserId(getActivity()));
+            final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                //Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                Toast.makeText(getActivity(), Utils.getWebServiceMessage(response), Toast.LENGTH_SHORT).show();
 
+                                getFavoriteList();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            pdialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(getActivity());
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            pdialog.show();
+        } else {
+            Utils.showNoNetworkDialog(getActivity());
+        }
+    }
 }
+
+
+

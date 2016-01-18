@@ -99,6 +99,7 @@
 
 
                         <com.deal.exap.customviews.MyTextViewLightCustom
+                            android:id="@+id/txt_address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/nav_nearby_icon"
@@ -149,6 +150,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="(15)"
+                            android:id="@+id/txt_review"
                             android:textColor="@color/white"
                             android:textSize="6sp" />
                     </LinearLayout>
@@ -191,6 +193,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="30th Nov"
+                        android:id="@+id/txt_end_date_val"
                         android:textColor="@color/btn_color"
                         android:textSize="14sp" />
 
@@ -220,6 +223,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="456"
+                        android:id="@+id/txt_redeemed_val"
                         android:textColor="@color/btn_color"
                         android:textSize="14sp" />
 
@@ -249,6 +253,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="@string/txt_distance_val"
+                        android:id="@+id/txt_distance_val"
                         android:textColor="@color/btn_color"
                         android:textSize="14sp" />
 
@@ -261,6 +266,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:id="@+id/txt_redeem_option"
                 android:gravity="center_horizontal"
                 android:text="@string/txt_store_online"
                 android:textSize="14sp"
@@ -271,6 +277,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:padding="10dp"
+                android:id="@+id/txt_details"
                 android:text="@string/txt_store_dis"
                 android:textSize="12sp" />
 
@@ -290,6 +297,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
+                        android:id="@+id/txt_discount"
                         android:text="35%"
                         android:textSize="18sp" />
 
@@ -313,6 +321,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="$10"
+                        android:id="@+id/txt_store_price"
                         android:textSize="18sp" />
 
                     <com.deal.exap.customviews.MyTextViewRegCustom

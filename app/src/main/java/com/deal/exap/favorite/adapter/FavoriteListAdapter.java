@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyTextViewReg16;
 import com.deal.exap.favorite.bean.DataObject;
+import com.deal.exap.model.CategoryDTO;
 import com.deal.exap.model.FavoriteDTO;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -26,16 +27,20 @@ public class FavoriteListAdapter extends RecyclerView
         .Adapter<FavoriteListAdapter
         .DataObjectHolder> {
     private static String LOG_TAG = "FavoriteListAdapter";
-    private List<FavoriteDTO> favoriteValues;
+    private List<CategoryDTO> favoriteValues;
     private static Context context;
     private DisplayImageOptions options;
 
-    public static class DataObjectHolder extends RecyclerView.ViewHolder {
+    private static MyClickListener myClickListener;
+
+    public static class DataObjectHolder extends RecyclerView.ViewHolder implements View
+            .OnClickListener {
         MyTextViewReg16 txt_like_number;
         MyTextViewReg16 txt_follower_number;
         MyTextViewReg16 txt_category_name;
         ImageView thumbnail;
         ImageView img_category;
+        ImageView img_like;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
@@ -44,12 +49,25 @@ public class FavoriteListAdapter extends RecyclerView
             txt_category_name = (MyTextViewReg16) itemView.findViewById(R.id.txt_category_name);
             thumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
             img_category = (ImageView) itemView.findViewById(R.id.img_category);
+            img_like = (ImageView) itemView.findViewById(R.id.img_like);
+
+            thumbnail.setOnClickListener(this);
+            img_like.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            myClickListener.onItemClick(getAdapterPosition(), v);
         }
 
     }
 
+    public void setOnItemClickListener(MyClickListener myClickListener) {
+        this.myClickListener = myClickListener;
+    }
 
-    public FavoriteListAdapter(List<FavoriteDTO> favoriteValues, Context context) {
+
+    public FavoriteListAdapter(List<CategoryDTO> favoriteValues, Context context) {
         this.favoriteValues = favoriteValues;
         this.context = context;
         options = new DisplayImageOptions.Builder()
@@ -83,6 +101,14 @@ public class FavoriteListAdapter extends RecyclerView
         holder.txt_follower_number.setText(favoriteValues.get(position).getCategory_favourite_count());
         ImageLoader.getInstance().displayImage(favoriteValues.get(position).getImage(), holder.thumbnail,
                 options);
+
+        if (favoriteValues.get(position).getFavourite().equalsIgnoreCase("1")) {
+            holder.img_like.setImageResource(R.drawable.heart_fill_icon);
+        } else {
+            holder.img_like.setImageResource(R.drawable.heart_icon);
+
+        }
+
         ImageLoader.getInstance().displayImage(favoriteValues.get(position).getIcon_image(), holder.img_category,
                 options);
     }
@@ -91,6 +117,11 @@ public class FavoriteListAdapter extends RecyclerView
     @Override
     public int getItemCount() {
         return favoriteValues.size();
+    }
+
+
+    public interface MyClickListener {
+        public void onItemClick(int position, View v);
     }
 
 

@@ -75,5 +75,7 @@ public class Constant {
 
     public static String SETTING = "setting";
 
+    public static String GET_REVIEW = "reviewlist";
+
 
 }

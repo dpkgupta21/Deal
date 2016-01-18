@@ -121,7 +121,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/place_marker"
-                            android:text="@string/txt_distance_val"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="8sp" />
 
@@ -164,6 +164,7 @@
 
                     <com.deal.exap.customviews.MyTextViewRegCustom
                         android:layout_width="wrap_content"
+                        android:id="@+id/txt_final_price"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="USD 10"
@@ -171,6 +172,7 @@
                         android:textSize="12sp" />
 
                     <com.deal.exap.customviews.MyTextViewLightCustom
+                        android:id="@+id/txt_visible_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"

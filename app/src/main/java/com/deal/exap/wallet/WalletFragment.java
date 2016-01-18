@@ -168,6 +168,12 @@ public class WalletFragment extends Fragment {
             public void onRecyclerLongClick(View view, int position) {
 
             }
+
+
+            @Override
+            public void onItemClick(View view, int position) {
+
+            }
         }));
 
 

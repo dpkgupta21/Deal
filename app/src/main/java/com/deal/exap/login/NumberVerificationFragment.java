@@ -47,7 +47,7 @@ import java.util.Map;
 public class NumberVerificationFragment extends Fragment {
 
 
-    private static  final String TAG="NumberVerificationFragment";
+    private static final String TAG = "NumberVerificationFragment";
     private View view;
     private MyTextViewReg14 edtCountryCode;
     //private String mobNumber;
@@ -85,19 +85,22 @@ public class NumberVerificationFragment extends Fragment {
         init();
     }
 
-    private void init()
-    {
+    private void init() {
         countryCodeList = getCountryCode();
         ((MyButtonViewSemi) view.findViewById(R.id.btn_send_code)).setOnClickListener(goToNumberVerificationStage2);
         edtCountryCode = (MyTextViewReg14) view.findViewById(R.id.edt_contry_code);
         edtCountryCode.setText(getCountryCodeByCountryName("Saudi Arabia"));
         edtCountryCode.setOnClickListener(openDialogForCountry);
     }
+
     View.OnClickListener goToNumberVerificationStage2 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String mobNumber=edtCountryCode.getText().toString().trim()+
-                    ((MyEditTextViewReg) view.findViewById(R.id.edt_phone_number)).getText().toString().trim();
+//            String mobNumber=edtCountryCode.getText().toString().trim()+
+//                    ((MyEditTextViewReg) view.findViewById(R.id.edt_phone_number)).getText().toString().trim();
+
+            String mobNumber = ((MyEditTextViewReg) view.findViewById(R.id.edt_phone_number)).getText().toString().trim();
+
 
             doCheckMobile(mobNumber);
 
@@ -113,8 +116,6 @@ public class NumberVerificationFragment extends Fragment {
 
         }
     };
-
-
 
 
     View.OnClickListener openDialogForCountry = new View.OnClickListener() {
@@ -161,9 +162,8 @@ public class NumberVerificationFragment extends Fragment {
     };
 
 
-  private String  getCountryCodeByCountryName(String countryName)
-    {
-        for(int i=0;i<countryCodeList.size();i++) {
+    private String getCountryCodeByCountryName(String countryName) {
+        for (int i = 0; i < countryCodeList.size(); i++) {
             if (countryName.equalsIgnoreCase(countryCodeList.get(i).get("name"))) {
                 return countryCodeList.get(i).get("dial_code");
             }
@@ -173,8 +173,7 @@ public class NumberVerificationFragment extends Fragment {
     }
 
 
-    private void doCheckMobile(final String phoneNumber)
-    {
+    private void doCheckMobile(final String phoneNumber) {
         Utils.hideKeyboard(getActivity());
         if (validateForm()) {
             if (Utils.isOnline(getActivity())) {
@@ -217,15 +216,14 @@ public class NumberVerificationFragment extends Fragment {
     }
 
     public boolean validateForm() {
-        if(edtCountryCode.getText().equals(""))
-        {
+        if (edtCountryCode.getText().equals("")) {
             Utils.showDialog(getActivity(), "Message", "Please enter mobile number");
             return false;
         }
         return true;
     }
 
-    private void verifyMobNumberDigit(String phoneNumber){
+    private void verifyMobNumberDigit(String phoneNumber) {
         Digits.getSessionManager().clearActiveSession();
         DigitsAuthConfig.Builder digitsAuthConfigBuilder = new DigitsAuthConfig.Builder()
                 .withAuthCallBack(callback)

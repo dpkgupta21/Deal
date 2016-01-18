@@ -2,6 +2,7 @@ package com.deal.exap.nearby;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -12,13 +13,21 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.customerfeedback.CustomerFeedBackActivity;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.misc.ImageActivity;
+import com.deal.exap.model.CategoryDTO;
+import com.deal.exap.model.DealDTO;
 import com.deal.exap.partner.ChatActivity;
+import com.deal.exap.utility.Utils;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 //import com.google.android.gms.maps.GoogleMap;
 
 import java.util.ArrayList;
@@ -31,6 +40,8 @@ public class BuyCouponActivity extends BaseActivity {
     private TextView txtYear;
     private ArrayList<String> months;
     private ArrayList<String> years;
+    private DealDTO dealDTO;
+    private DisplayImageOptions options;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,51 +54,67 @@ public class BuyCouponActivity extends BaseActivity {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);*/
 
-        TextView txt_customer_reviews = (TextView) findViewById(R.id.txt_customer_reviews);
-        txt_customer_reviews.setOnClickListener(customerReviewClickListener);
-
-
         init();
     }
 
 
     private void init() {
 
-        ImageView ivBack = (ImageView) findViewById(R.id.iv_back);
-        ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        if (getIntent() != null && getIntent().getExtras() != null) {
+            dealDTO = (DealDTO) getIntent().getExtras().getSerializable("DealDTO");
+        }
+        options = new DisplayImageOptions.Builder()
+                .resetViewBeforeLoading(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .considerExifParams(true)
+                .displayer(new SimpleBitmapDisplayer())
+                .showImageOnLoading(R.drawable.slide_img)
+                .showImageOnFail(R.drawable.slide_img)
+                .showImageForEmptyUri(R.drawable.slide_img)
+                .build();
 
-        Button btnBuy = (Button) findViewById(R.id.btn_buy);
-        btnBuy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openPaymentDialog();
-            }
-        });
+        ImageView imgThumnail = (ImageView) findViewById(R.id.thumbnail);
+        ImageView partner = (ImageView) findViewById(R.id.img_title);
 
-        months = new ArrayList<String>();
-        months.add("MM");
-        months.add("01");
-        months.add("02");
-        months.add("03");
-        months.add("04");
-        months.add("05");
-        months.add("06");
-        months.add("07");
-        months.add("08");
-        months.add("09");
-        months.add("10");
-        months.add("11");
-        months.add("12");
+        ImageLoader.getInstance().displayImage(dealDTO.getDeal_image(), imgThumnail,
+                options);
+        ImageLoader.getInstance().displayImage(dealDTO.getPartner_logo(), partner,
+                options);
 
-
+        months = Utils.getMonths();
+        years = Utils.getYears();
+        setClick(R.id.btn_buy);
+        setClick(R.id.iv_back);
         setClick(R.id.thumbnail);
         setClick(R.id.iv_chat);
         setClick(R.id.txt_terms_conditions);
+        setClick(R.id.txt_customer_reviews);
+
+
+        setTextViewText(R.id.txt_discount_rate, dealDTO.getDiscount() + "% off");
+        if (Utils.isArebic(this)) {
+            setTextViewText(R.id.txt_on_which, dealDTO.getName_ara());
+            setTextViewText(R.id.txt_details, dealDTO.getDetail_ara());
+        } else {
+            setTextViewText(R.id.txt_on_which, dealDTO.getName_eng());
+            setTextViewText(R.id.txt_details, dealDTO.getDetail_eng());
+        }
+
+
+        setTextViewText(R.id.txt_address, "");
+        ((RatingBar) findViewById(R.id.rating_bar)).setRating(dealDTO.getRating());
+
+        setTextViewText(R.id.txt_review, dealDTO.getReview() + "");
+        setTextViewText(R.id.txt_end_date_val, dealDTO.getEnd_date());
+        setTextViewText(R.id.txt_redeemed_val, dealDTO.getRedeemed() + "");
+        setTextViewText(R.id.txt_distance_val, dealDTO.getDistance());
+        setTextViewText(R.id.txt_redeem_option, dealDTO.getRedeem_option());
+        setTextViewText(R.id.txt_discount, dealDTO.getDiscount() + "%");
+        setTextViewText(R.id.txt_store_price, dealDTO.getFinal_price());
+
+
     }
 
     private void openPaymentDialog() {
@@ -103,14 +130,6 @@ public class BuyCouponActivity extends BaseActivity {
 
 
         txtMonth.setText(months.get(0));
-
-        years = new ArrayList<String>();
-        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
-        years.add("YYYY");
-        for (int i = thisYear; i <= 2050; i++) {
-            years.add(Integer.toString(i));
-        }
-
         txtYear.setText(years.get(0));
 
         txtMonth.setOnClickListener(monthDialog);
@@ -143,17 +162,6 @@ public class BuyCouponActivity extends BaseActivity {
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }*/
-
-
-    private View.OnClickListener customerReviewClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent postFeedbackIntent = new Intent(BuyCouponActivity.this, CustomerFeedBackActivity.class);
-            startActivity(postFeedbackIntent);
-
-        }
-    };
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -165,6 +173,18 @@ public class BuyCouponActivity extends BaseActivity {
                 break;
             case R.id.txt_terms_conditions:
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com")));
+                break;
+            case R.id.txt_customer_reviews:
+                Intent i = new Intent(this, CustomerFeedBackActivity.class);
+                i.putExtra("dealId", dealDTO.getId());
+                startActivity(i);
+                break;
+
+            case R.id.iv_back:
+                finish();
+                break;
+            case R.id.btn_buy:
+                openPaymentDialog();
                 break;
         }
     }

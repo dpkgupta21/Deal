@@ -28,13 +28,16 @@ import com.deal.exap.camera.GallerySelectInterface;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
+import com.deal.exap.volley.CustomJsonImageRequest;
 import com.deal.exap.volley.CustomJsonRequest;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -49,6 +52,8 @@ public class SignUp extends BaseActivity {
     private ImageLoader image_loader;
     private CameraChooseDialogFragment dFragment;
     ImageView ivProfile;
+    private File f;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -155,7 +160,7 @@ public class SignUp extends BaseActivity {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
                         // Display Selected date in textbox
-                        setViewText(R.id.edt_dob, dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        setViewText(R.id.edt_dob, (monthOfYear + 1) + "/" + dayOfMonth + "/" + year);
 
                     }
                 }, mYear, mMonth, mDay);
@@ -227,10 +232,28 @@ public class SignUp extends BaseActivity {
 //
 //                Bitmap bitmap = ((BitmapDrawable) img_profile.getDrawable())
 //                        .getBitmap();
+                Bitmap bitmap = null;
 
                 try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(SignUp.this.getContentResolver(), selectedImage);
+                    bitmap = MediaStore.Images.Media.getBitmap(SignUp.this.getContentResolver(), selectedImage);
                     ivProfile.setImageBitmap(bitmap);
+
+                    f = new File(this.getCacheDir(), "profile");
+                    f.createNewFile();
+
+//Convert bitmap to byte array
+                    Bitmap bitmap1 = bitmap;
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    bitmap1.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+                    byte[] bitmapdata = bos.toByteArray();
+
+//write the bytes in file
+                    FileOutputStream fos = new FileOutputStream(f);
+                    fos.write(bitmapdata);
+                    fos.flush();
+                    fos.close();
+
+
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -239,10 +262,11 @@ public class SignUp extends BaseActivity {
                     e.printStackTrace();
                 }
 
+
                 // Converting image's bitmap to byte array.
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                // ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 //   bitmap.compress(Bitmap.CompressFormat.JPEG, 30, bos);
-                hash = bos.toByteArray();
+                //hash = bos.toByteArray();
 
                 // converting image's byte array to Base64encoded string
                 // imageStringBase64 = Base64.encodeToString(hash, Base64.NO_WRAP);
@@ -255,10 +279,27 @@ public class SignUp extends BaseActivity {
                 }
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
                 ivProfile.setImageBitmap(photo);
-                // Converting image's bitmap to byte array.
+
+                f = new File(this.getCacheDir(), "profile");
+                f.createNewFile();
+
+//Convert bitmap to byte array
+                Bitmap bitmap1 = photo;
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                photo.compress(Bitmap.CompressFormat.JPEG, 30, bos);
-                hash = bos.toByteArray();
+                bitmap1.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+                byte[] bitmapdata = bos.toByteArray();
+
+//write the bytes in file
+                FileOutputStream fos = new FileOutputStream(f);
+                fos.write(bitmapdata);
+                fos.flush();
+                fos.close();
+
+
+                // Converting image's bitmap to byte array.
+                //ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                //photo.compress(Bitmap.CompressFormat.JPEG, 30, bos);
+                //hash = bos.toByteArray();
 
                 // converting image's byte array to Base64encoded string
                 // imageStringBase64 = Base64.encodeToString(hash, Base64.NO_WRAP);
@@ -303,7 +344,7 @@ public class SignUp extends BaseActivity {
                 params.put("confirm_password", getViewText(R.id.edt_confirm_password));
                 params.put("mobile", getIntent().getStringExtra("MOB_NUMBER"));
                 final ProgressDialog pdialog = Utils.createProgeessDialog(SignUp.this, null, false);
-                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params, f,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -313,7 +354,7 @@ public class SignUp extends BaseActivity {
                                     if (Utils.getWebServiceStatus(response)) {
                                         Log.i("info", "" + response);
                                         finish();
-                                        Intent intent=new Intent(SignUp.this, SplashScreen.class);
+                                        Intent intent = new Intent(SignUp.this, SplashScreen.class);
                                         startActivity(intent);
                                     } else {
                                         Utils.showDialog(SignUp.this, "Error", Utils.getWebServiceMessage(response));
@@ -332,6 +373,7 @@ public class SignUp extends BaseActivity {
                     }
                 });
                 pdialog.show();
+                Log.i("info",postReq.toString());
                 AppController.getInstance().getRequestQueue().add(postReq);
             } else {
                 Utils.showNoNetworkDialog(SignUp.this);
