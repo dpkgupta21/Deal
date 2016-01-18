@@ -3,6 +3,7 @@ package com.deal.exap.login;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings.Secure;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg12;
+import com.deal.exap.gps.GPSTracker;
 import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
@@ -54,11 +56,14 @@ public class SignInFragment extends BaseFragment {
     private CallbackManager callbackmanager;
     private static final String TWITTER_KEY = "0WzgEZ838raQlA7BPASXLgsub";
     private static final String TWITTER_SECRET = "szOdlqn9obH0MEMaGnz2dTMMQXIdcbSQvtDcT7YkOjyALQKuEF";
-
+    private GPSTracker gpsTracker;
     TwitterLoginButton btnTwitterLogin;
     TwitterSession session;
 
     LoginButton btnFbLogin;
+
+
+
     public static SignInFragment newInstance() {
         SignInFragment fragment = new SignInFragment();
         return fragment;
@@ -87,6 +92,7 @@ public class SignInFragment extends BaseFragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        gpsTracker = new GPSTracker(getActivity());
         ((MyTextViewReg12) view.findViewById(R.id.txt_sign_up_click)).
                 setOnClickListener(goToNumberVerificationClick);
         ((MyButtonViewSemi) view.findViewById(R.id.btn_login)).
@@ -99,7 +105,7 @@ public class SignInFragment extends BaseFragment {
 
     }
 
-    private void init(){
+    private void init() {
         btnTwitterLogin = (TwitterLoginButton) view.findViewById(R.id.twitter_login_button);
         setClick(R.id.btn_twitter_login, view);
         setClick(R.id.btn_facebook_login, view);
@@ -131,14 +137,14 @@ public class SignInFragment extends BaseFragment {
         authClient.requestEmail(session, new Callback<String>() {
             @Override
             public void success(Result<String> result) {
-                Log.d("",""+result.data);
-                doSocialLogin("twitter", result.data, session.getId()+"");
+                Log.d("", "" + result.data);
+                doSocialLogin("twitter", result.data, session.getId() + "");
             }
 
             @Override
             public void failure(TwitterException e) {
                 e.printStackTrace();
-                doSocialLogin("twitter", "coolmack999@gmail.com", session.getId()+"");
+                doSocialLogin("twitter", "coolmack999@gmail.com", session.getId() + "");
             }
         });
 
@@ -211,13 +217,16 @@ public class SignInFragment extends BaseFragment {
         public void onClick(View v) {
 //            Intent i = new Intent(getContext(), HomeActivity.class);
 //            startActivity(i);
-            doLogin();
+            while (gpsTracker.canGetLocation()) {
+                doLogin();
+                break;
+            }
 
         }
     };
 
 
-    private void setFbClick(){
+    private void setFbClick() {
         callbackmanager = CallbackManager.Factory.create();
 
         //fbLogin.setReadPermissions(Arrays.asList("public_profile", "email", "user_birthday"));
@@ -237,9 +246,9 @@ public class SignInFragment extends BaseFragment {
                                 } else {
                                     System.out.println("Success");
                                     String jsonresult = String.valueOf(json);
-                                    try{
-                                        doSocialLogin("facebook", json.getString("email") , json.getString("id"));
-                                    }catch (Exception e){
+                                    try {
+                                        doSocialLogin("facebook", json.getString("email"), json.getString("id"));
+                                    } catch (Exception e) {
                                         Utils.sendEmail(getActivity(), "Error", e.getMessage());
                                     }
                                 }
@@ -270,11 +279,10 @@ public class SignInFragment extends BaseFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //Intent i = new Intent(getContext(), HomeActivity.class);
-       // startActivity(i);
-        if(requestCode == 64206){
+        // startActivity(i);
+        if (requestCode == 64206) {
             callbackmanager.onActivityResult(requestCode, resultCode, data);
-        }
-        else {
+        } else {
             //
             btnTwitterLogin.onActivityResult(requestCode, resultCode, data);
         }
@@ -296,20 +304,26 @@ public class SignInFragment extends BaseFragment {
 
     public void doLogin() {
         Utils.hideKeyboard(getActivity());
-        if(validateForm() ) {
+        if (validateForm()) {
             if (Utils.isOnline(getActivity())) {
+                String android_id = Secure.getString(getContext().getContentResolver(),
+                        Secure.ANDROID_ID);
                 Map<String, String> params = new HashMap<>();
                 params.put("action", Constant.DO_LOGIN);
                 params.put("email", getViewText(R.id.edt_username, view));
                 params.put("password", getViewText(R.id.edt_password, view));
                 params.put("device", "android");
-                params.put("device_id", "ABC");
+                params.put("device_id", android_id);
+                params.put("lat", "" + gpsTracker.getLatitude());
+                params.put("lng", "" + gpsTracker.getLongitude());
+                params.put("address", "");
+
                 final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                Utils.ShowLog(TAG, "Resonse -> " + response.toString());
+                                Utils.ShowLog(TAG, "Response -> " + response.toString());
                                 pdialog.dismiss();
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
@@ -343,58 +357,58 @@ public class SignInFragment extends BaseFragment {
     public void doSocialLogin(String socialType, String email, String socialId) {
         Utils.hideKeyboard(getActivity());
 
-            if (Utils.isOnline(getActivity())) {
-                Map<String, String> params = new HashMap<>();
-                params.put("action", Constant.DO_SOCIAL_LOGIN);
-                params.put("email", email);
-                params.put("social_id", socialId);
-                params.put("device", "android");
-                params.put("device_id", "ABC");
-                params.put("social_type", socialType);
-                final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
-                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Utils.ShowLog(TAG, "Resonse -> " + response.toString());
-                                pdialog.dismiss();
-                                try {
-                                    if (Utils.getWebServiceStatus(response)) {
-                                        UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
-                                        Utils.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
-                                        startActivity(new Intent(getActivity(), HomeActivity.class));
-                                    } else {
-                                        Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
+        if (Utils.isOnline(getActivity())) { String android_id = Secure.getString(getContext().getContentResolver(),
+                Secure.ANDROID_ID);
+
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.DO_SOCIAL_LOGIN);
+            params.put("email", email);
+            params.put("social_id", socialId);
+            params.put("device", "android");
+            params.put("device_id", android_id);
+            params.put("social_type", socialType);
+            final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Utils.ShowLog(TAG, "Response -> " + response.toString());
+                            pdialog.dismiss();
+                            try {
+                                if (Utils.getWebServiceStatus(response)) {
+                                    UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
+                                    Utils.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
+                                    startActivity(new Intent(getActivity(), HomeActivity.class));
+                                } else {
+                                    Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));
                                 }
-
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                        }, new Response.ErrorListener() {
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        pdialog.dismiss();
-                        Utils.showExceptionDialog(getActivity());
-                    }
-                });
-                pdialog.show();
-                AppController.getInstance().getRequestQueue().add(postReq);
-            } else {
-                Utils.showNoNetworkDialog(getActivity());
-            }
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(getActivity());
+                }
+            });
+            pdialog.show();
+            AppController.getInstance().getRequestQueue().add(postReq);
+        } else {
+            Utils.showNoNetworkDialog(getActivity());
+        }
 
     }
 
-    public boolean validateForm(){
+    public boolean validateForm() {
 
-        if(getViewText(R.id.edt_username, view).equals("")){
+        if (getViewText(R.id.edt_username, view).equals("")) {
             Utils.showDialog(getActivity(), "Message", "Please enter username");
             return false;
-        }
-
-        else if(getViewText(R.id.edt_password, view).equals("")){
+        } else if (getViewText(R.id.edt_password, view).equals("")) {
             Utils.showDialog(getActivity(), "Message", "Please enter password");
             return false;
         }
@@ -403,7 +417,7 @@ public class SignInFragment extends BaseFragment {
 
     @Override
     public void onClick(View arg0) {
-        switch (arg0.getId()){
+        switch (arg0.getId()) {
             case R.id.btn_twitter_login:
                 btnTwitterLogin.performClick();
                 break;

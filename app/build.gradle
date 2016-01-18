@@ -49,6 +49,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile "org.apache.httpcomponents:httpcore:4.4.1"
     compile "org.apache.httpcomponents:httpmime:4.3.6"
+    compile 'com.google.android.gms:play-services:6.1+'
     compile('com.twitter.sdk.android:twitter:1.11.0@aar') {
         transitive = true;
     }

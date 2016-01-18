@@ -26,6 +26,7 @@ import com.deal.exap.login.BaseFragment;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.nearby.adapter.NearByListAdapter;
 import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.TJPreferences;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -193,8 +194,11 @@ public class NearByFragment extends BaseFragment {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.GET_NEAR_DEAL);
             params.put("lang", Utils.getSelectedLanguage(getActivity()));
-            params.put("lng", "0");
-            params.put("lat", "0");
+            params.put("lat", String.valueOf(TJPreferences.getLatitude(getActivity().
+                    getApplicationContext())));
+            params.put("lng", String.valueOf(TJPreferences.getLongitude(getActivity().
+                    getApplicationContext())));
+
             final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {

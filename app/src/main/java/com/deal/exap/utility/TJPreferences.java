@@ -28,6 +28,37 @@ public class TJPreferences {
     public static final String TIME_CAPSULE_MEMORY_COUNT = "MEMORY_COUNT";
     public static final String USER_OTP = "OTP";
     public static final String APP_LANG = "LANG";
+    public static final String LATITUDE = "LATITUDE";
+    public static final String LONGITUDE = "LONGITUDE";
+
+
+    public static void setLatitude(Context context, double latitude) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(LATITUDE, String.valueOf(latitude));
+        editor.apply();
+    }
+
+    public static double getLatitude(Context context) {
+        String latitude= context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(
+                LATITUDE,"0.0");
+        return Double.parseDouble(latitude);
+    }
+
+    public static void setLongitude(Context context, double latitude) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(LONGITUDE, String.valueOf(latitude));
+        editor.apply();
+    }
+
+    public static double getLongitude(Context context) {
+        String longitude= context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(
+                LONGITUDE,"0.0");
+        return Double.parseDouble(longitude);
+    }
 
     public static void setLoggedIn(Context context, Boolean loggedIn) {
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
