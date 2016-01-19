@@ -11,6 +11,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
+import com.deal.exap.following.FollowingPartnerDetails;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.CategoryDTO;
 import com.deal.exap.model.DealDTO;
@@ -110,8 +111,21 @@ public class CouponListActivity extends BaseActivity {
             @Override
             public void onItemClick(int position, View v) {
 
-                Intent i = new Intent(CouponListActivity.this, BuyCouponActivity.class);
-                startActivity(i);
+                Intent i;
+                switch (v.getId()) {
+                    case R.id.thumbnail:
+                        i = new Intent(CouponListActivity.this, BuyCouponActivity.class);
+                        i.putExtra("id", dealList.get(position).getId());
+                        startActivity(i);
+                        break;
+
+                    case R.id.img_title:
+                        i = new Intent(CouponListActivity.this, FollowingPartnerDetails.class);
+                        i.putExtra("partnerId", dealList.get(position).getPartner_id());
+                        startActivity(i);
+
+                }
+
 
             }
         });

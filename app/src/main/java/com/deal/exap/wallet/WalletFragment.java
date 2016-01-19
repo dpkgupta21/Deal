@@ -20,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
+import com.deal.exap.following.FollowingPartnerDetails;
 import com.deal.exap.misc.MyOnClickListener;
 import com.deal.exap.misc.RecyclerTouchListener;
 import com.deal.exap.model.DealDTO;
@@ -160,27 +161,28 @@ public class WalletFragment extends Fragment {
         mAdapter = new NearByListAdapter(walletValues, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
-        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), mRecyclerView, new MyOnClickListener() {
+        ((NearByListAdapter) mAdapter).setOnItemClickListener(new NearByListAdapter.MyClickListener() {
             @Override
-            public void onRecyclerClick(View view, int position) {
+            public void onItemClick(int position, View v) {
 
-                Intent i = new Intent(getActivity(), BuyCouponActivity.class);
-                startActivity(i);
+                Intent i;
+                switch (v.getId()) {
+                    case R.id.thumbnail:
+                        i = new Intent(getActivity(), BuyCouponActivity.class);
+                        i.putExtra("id", walletValues.get(position).getId());
+                        startActivity(i);
+                        break;
+
+                    case R.id.img_title:
+                        i = new Intent(getActivity(), FollowingPartnerDetails.class);
+                        i.putExtra("partnerId", walletValues.get(position).getPartner_id());
+                        startActivity(i);
+
+                }
+
+
             }
-
-            @Override
-            public void onRecyclerLongClick(View view, int position) {
-
-            }
-
-
-            @Override
-            public void onItemClick(View view, int position) {
-
-            }
-        }));
-
-
+        });
     }
 
 }
