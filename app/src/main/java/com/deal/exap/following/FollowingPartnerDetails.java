@@ -1,19 +1,43 @@
 package com.deal.exap.following;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.DealDTO;
+import com.deal.exap.model.PartnerDTO;
+import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.nearby.BuyCouponActivity;
 import com.deal.exap.nearby.adapter.NearByListAdapter;
+import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.TJPreferences;
+import com.deal.exap.utility.Utils;
+import com.deal.exap.volley.AppController;
+import com.deal.exap.volley.CustomJsonRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class FollowingPartnerDetails extends BaseActivity {
 
@@ -22,42 +46,193 @@ public class FollowingPartnerDetails extends BaseActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private View view;
+    private int partnerID;
+    // private ArrayList<DealDTO> dealList;
+    private PartnerDTO partnerDTO;
+    private DisplayImageOptions options;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_following_partner_details);
 
+        init();
 
-        ImageView ivBack = (ImageView) findViewById(R.id.iv_back);
-        ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+    }
 
+
+    private void init() {
+        partnerID = getIntent().getIntExtra("partnerId", -1);
+        setClick(R.id.iv_back);
+        setClick(R.id.btn_follow_this_partner);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_nearby);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(FollowingPartnerDetails.this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new NearByListAdapter(getDataSet(), FollowingPartnerDetails.this);
+        options = new DisplayImageOptions.Builder()
+                .resetViewBeforeLoading(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .considerExifParams(true)
+                .displayer(new SimpleBitmapDisplayer())
+                .showImageOnLoading(R.drawable.slide_img)
+                .showImageOnFail(R.drawable.slide_img)
+                .showImageForEmptyUri(R.drawable.slide_img)
+                .build();
+
+        getPartnerDetails();
+
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_back:
+                finish();
+                break;
+
+            case R.id.btn_follow_this_partner:
+                followPartner();
+
+                break;
+        }
+
+    }
+
+    private void getPartnerDetails() {
+        if (Utils.isOnline(this)) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.GET_PARTNER);
+            params.put("partner_id", partnerID + "");
+            params.put("lang", Utils.getSelectedLanguage(this));
+
+
+            final ProgressDialog pdialog = Utils.createProgeessDialog(this, null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                Type type = new TypeToken<ArrayList<DealDTO>>() {
+                                }.getType();
+                                // dealList = new Gson().fromJson(response.getJSONArray("deals").toString(), type);
+                                partnerDTO = new Gson().fromJson(response.getJSONObject("partner").toString(), PartnerDTO.class);
+                                setPartnerDetails();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            pdialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(FollowingPartnerDetails.this);
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            pdialog.show();
+        } else {
+            Utils.showNoNetworkDialog(this);
+        }
+    }
+
+
+    private void setPartnerDetails() {
+
+
+        mAdapter = new NearByListAdapter(partnerDTO.getDeals(), FollowingPartnerDetails.this);
         mRecyclerView.setAdapter(mAdapter);
 
 
-        ((NearByListAdapter) mAdapter).setOnItemClickListener(new NearByListAdapter.MyClickListener() {
-            @Override
-            public void onItemClick(int position, View v) {
+        ImageView imgThumnail = (ImageView) findViewById(R.id.thumbnail);
+        ImageView partner = (ImageView) findViewById(R.id.img_company);
 
-                Intent i = new Intent(FollowingPartnerDetails.this, BuyCouponActivity.class);
-                startActivity(i);
+        ImageLoader.getInstance().displayImage(partnerDTO.getImage(), imgThumnail,
+                options);
+        ImageLoader.getInstance().displayImage(partnerDTO.getLogo(), partner,
+                options);
 
-            }
-        });
+
+        setTextViewText(R.id.txt_title, partnerDTO.getName());
+        if (Utils.isArebic(FollowingPartnerDetails.this))
+            setTextViewText(R.id.txt_place_tag, partnerDTO.getAddress_ara());
+        else
+            setTextViewText(R.id.txt_place_tag, partnerDTO.getAddress_eng());
+
+        setTextViewText(R.id.txt_active_coupons_val, partnerDTO.getActive_coupan());
+        setTextViewText(R.id.txt_downloads_val, partnerDTO.getDownload());
+        setTextViewText(R.id.txt_followers_val, partnerDTO.getFollower());
+//        ((NearByListAdapter) mAdapter).setOnItemClickListener(new NearByListAdapter.MyClickListener() {
+//            @Override
+//            public void onItemClick(int position, View v) {
+//
+//                Intent i = new Intent(FollowingPartnerDetails.this, BuyCouponActivity.class);
+//                startActivity(i);
+//
+//            }
+//        });
 
     }
-    private ArrayList<DealDTO> getDataSet() {
-        ArrayList results = new ArrayList<DealDTO>();
-        return results;
+
+    private void followPartner() {
+        if (Utils.isOnline(this)) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.ADD_FOLLOWER);
+            params.put("partner_id", partnerID + "");
+            params.put("lang", Utils.getSelectedLanguage(this));
+            params.put("user_id", Utils.getUserId(this));
+
+
+            final ProgressDialog pdialog = Utils.createProgeessDialog(this, null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                if (Utils.getWebServiceStatus(response)) {
+                                    finish();
+                                    callFollowingFragment();
+
+                                } else {
+                                    Utils.showDialog(FollowingPartnerDetails.this, "Error", Utils.getWebServiceMessage(response));
+                                }
+
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            pdialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(FollowingPartnerDetails.this);
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            pdialog.show();
+        } else {
+            Utils.showNoNetworkDialog(this);
+        }
+
+
     }
+
+
+    private void callFollowingFragment() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("fragmentName", getString(R.string.following_screen_title));
+        startActivity(intent);
+    }
+
 }

@@ -38,6 +38,12 @@ public class DealDTO implements Serializable{
     private String end_date;
     @DatabaseField
     private String partner_logo;
+
+    @DatabaseField
+    private int partner_id;
+    @DatabaseField
+    private int category_id;
+
     @DatabaseField
     private String redeem_option;
     @DatabaseField
@@ -202,4 +208,24 @@ public class DealDTO implements Serializable{
     public void setId(String id) {
         this.id = id;
     }
+
+
+    public int getPartner_id() {
+        return partner_id;
+    }
+
+    public void setPartner_id(int partner_id) {
+        this.partner_id = partner_id;
+    }
+
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
+    }
 }
+
+
+

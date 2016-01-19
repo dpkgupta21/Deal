@@ -1,6 +1,7 @@
 package com.deal.exap.nearby;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -16,22 +17,38 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.customerfeedback.CustomerFeedBackActivity;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.misc.ImageActivity;
 import com.deal.exap.model.CategoryDTO;
 import com.deal.exap.model.DealDTO;
+import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.partner.ChatActivity;
+import com.deal.exap.termscondition.TermsConditionActivity;
+import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.TJPreferences;
 import com.deal.exap.utility.Utils;
+import com.deal.exap.volley.AppController;
+import com.deal.exap.volley.CustomJsonRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 //import com.google.android.gms.maps.GoogleMap;
 
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BuyCouponActivity extends BaseActivity {
 
@@ -60,9 +77,10 @@ public class BuyCouponActivity extends BaseActivity {
 
     private void init() {
 
-        if (getIntent() != null && getIntent().getExtras() != null) {
-            dealDTO = (DealDTO) getIntent().getExtras().getSerializable("DealDTO");
-        }
+        String id = getIntent().getStringExtra("id");
+        getDealDetails(id);
+
+
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
                 .cacheOnDisk(true)
@@ -75,13 +93,6 @@ public class BuyCouponActivity extends BaseActivity {
                 .showImageForEmptyUri(R.drawable.slide_img)
                 .build();
 
-        ImageView imgThumnail = (ImageView) findViewById(R.id.thumbnail);
-        ImageView partner = (ImageView) findViewById(R.id.img_title);
-
-        ImageLoader.getInstance().displayImage(dealDTO.getDeal_image(), imgThumnail,
-                options);
-        ImageLoader.getInstance().displayImage(dealDTO.getPartner_logo(), partner,
-                options);
 
         months = Utils.getMonths();
         years = Utils.getYears();
@@ -91,29 +102,10 @@ public class BuyCouponActivity extends BaseActivity {
         setClick(R.id.iv_chat);
         setClick(R.id.txt_terms_conditions);
         setClick(R.id.txt_customer_reviews);
+        setClick(R.id.btn_redeem);
 
-
-        setTextViewText(R.id.txt_discount_rate, dealDTO.getDiscount() + "% off");
-        if (Utils.isArebic(this)) {
-            setTextViewText(R.id.txt_on_which, dealDTO.getName_ara());
-            setTextViewText(R.id.txt_details, dealDTO.getDetail_ara());
-        } else {
-            setTextViewText(R.id.txt_on_which, dealDTO.getName_eng());
-            setTextViewText(R.id.txt_details, dealDTO.getDetail_eng());
-        }
-
-
-        setTextViewText(R.id.txt_address, "");
-        ((RatingBar) findViewById(R.id.rating_bar)).setRating(dealDTO.getRating());
-
-        setTextViewText(R.id.txt_review, dealDTO.getReview() + "");
-        setTextViewText(R.id.txt_end_date_val, dealDTO.getEnd_date());
-        setTextViewText(R.id.txt_redeemed_val, dealDTO.getRedeemed() + "");
-        setTextViewText(R.id.txt_distance_val, dealDTO.getDistance());
-        setTextViewText(R.id.txt_redeem_option, dealDTO.getRedeem_option());
-        setTextViewText(R.id.txt_discount, dealDTO.getDiscount() + "%");
-        setTextViewText(R.id.txt_store_price, dealDTO.getFinal_price());
-
+        setClick(R.id.btn_buy_deal);
+        setClick(R.id.btn_redeem);
 
     }
 
@@ -164,18 +156,29 @@ public class BuyCouponActivity extends BaseActivity {
     }*/
     @Override
     public void onClick(View view) {
+        Intent i;
         switch (view.getId()) {
             case R.id.thumbnail:
-                startActivity(new Intent(this, ImageActivity.class));
+                i = new Intent(this, ImageActivity.class);
+                i.putExtra("image", dealDTO.getDeal_image());
+                startActivity(i);
                 break;
             case R.id.iv_chat:
                 startActivity(new Intent(this, ChatActivity.class));
                 break;
             case R.id.txt_terms_conditions:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com")));
+
+                i = new Intent(this,TermsConditionActivity.class);
+
+                if (Utils.isArebic(this))
+                    i.putExtra("dealTerm", dealDTO.getTerm_ara());
+                else
+                    i.putExtra("dealTerm", dealDTO.getTerm_eng());
+                startActivity(i);
+
                 break;
             case R.id.txt_customer_reviews:
-                Intent i = new Intent(this, CustomerFeedBackActivity.class);
+                i = new Intent(this, CustomerFeedBackActivity.class);
                 i.putExtra("dealId", dealDTO.getId());
                 startActivity(i);
                 break;
@@ -186,6 +189,15 @@ public class BuyCouponActivity extends BaseActivity {
             case R.id.btn_buy:
                 openPaymentDialog();
                 break;
+
+            case R.id.btn_buy_deal:
+                openPaymentDialog();
+                break;
+            case R.id.btn_redeem:
+
+                readRedeeme();
+                break;
+
         }
     }
 
@@ -248,4 +260,152 @@ public class BuyCouponActivity extends BaseActivity {
 
     }
 
+
+    private void getDealDetails(String id) {
+
+
+        if (Utils.isOnline(this)) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.GET_DEAL_DETAIL);
+            params.put("lang", Utils.getSelectedLanguage(BuyCouponActivity.this));
+            params.put("lat", String.valueOf(TJPreferences.getLatitude(BuyCouponActivity.this.
+                    getApplicationContext())));
+            params.put("lng", String.valueOf(TJPreferences.getLongitude(this.
+                    getApplicationContext())));
+
+            params.put("deal_id", id);
+
+            final ProgressDialog pdialog = Utils.createProgeessDialog(this, null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+
+                                dealDTO = new Gson().fromJson(response.getJSONObject("deal").toString(), DealDTO.class);
+
+                                setData();
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            pdialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(BuyCouponActivity.this);
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            pdialog.show();
+        } else {
+            Utils.showNoNetworkDialog(this);
+        }
+
+    }
+
+
+    private void setData() {
+
+        if (dealDTO.getType().equalsIgnoreCase("paid")) {
+            setViewVisibility(R.id.btn_buy_deal, View.VISIBLE);
+            setViewVisibility(R.id.btn_redeem, View.GONE);
+
+        } else {
+            setViewVisibility(R.id.btn_buy_deal, View.GONE);
+            setViewVisibility(R.id.btn_redeem, View.VISIBLE);
+        }
+        setTextViewText(R.id.txt_discount_rate, dealDTO.getDiscount() + "% off");
+        if (Utils.isArebic(this)) {
+            setTextViewText(R.id.txt_on_which, dealDTO.getName_ara());
+            setTextViewText(R.id.txt_details, dealDTO.getDetail_ara());
+        } else {
+            setTextViewText(R.id.txt_on_which, dealDTO.getName_eng());
+            setTextViewText(R.id.txt_details, dealDTO.getDetail_eng());
+        }
+
+
+        setTextViewText(R.id.txt_address, "");
+        ((RatingBar) findViewById(R.id.rating_bar)).setRating(dealDTO.getRating());
+
+        setTextViewText(R.id.txt_review, dealDTO.getReview() + "");
+        setTextViewText(R.id.txt_end_date_val, dealDTO.getEnd_date());
+        setTextViewText(R.id.txt_redeemed_val, dealDTO.getRedeemed() + "");
+        setTextViewText(R.id.txt_distance_val, dealDTO.getDistance());
+        setTextViewText(R.id.txt_redeem_option, dealDTO.getRedeem_option());
+        setTextViewText(R.id.txt_discount, dealDTO.getDiscount() + "%");
+        setTextViewText(R.id.txt_store_price, dealDTO.getFinal_price());
+
+
+        ImageView imgThumnail = (ImageView) findViewById(R.id.thumbnail);
+        ImageView partner = (ImageView) findViewById(R.id.img_title);
+
+        ImageLoader.getInstance().displayImage(dealDTO.getDeal_image(), imgThumnail,
+                options);
+        ImageLoader.getInstance().displayImage(dealDTO.getPartner_logo(), partner,
+                options);
+
+    }
+
+
+    private void readRedeeme() {
+
+        if (Utils.isOnline(this)) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.READ_REDEEM);
+            params.put("deal_id", dealDTO.getId());
+            params.put("partner_id", dealDTO.getPartner_id() + "");
+            params.put("user_id", Utils.getUserId(this));
+            params.put("category_id", dealDTO.getCategory_id() + "");
+
+            final ProgressDialog pdialog = Utils.createProgeessDialog(this, null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+
+                                if (Utils.getWebServiceStatus(response)) {
+                                    finish();
+                                    callWalletFragment();
+
+                                } else {
+                                    Utils.showDialog(BuyCouponActivity.this, "Error", Utils.getWebServiceMessage(response));
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            pdialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(BuyCouponActivity.this);
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            pdialog.show();
+        } else {
+            Utils.showNoNetworkDialog(this);
+        }
+
+
+    }
+
+
+    private void callWalletFragment() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("fragmentName", getString(R.string.wallet_screen_title));
+        startActivity(intent);
+    }
 }

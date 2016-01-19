@@ -16,12 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
+import com.deal.exap.following.FollowingPartnerDetails;
 import com.deal.exap.login.BaseFragment;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.nearby.adapter.NearByListAdapter;
@@ -240,13 +242,21 @@ public class NearByFragment extends BaseFragment {
             @Override
             public void onItemClick(int position, View v) {
 
+                Intent i;
+                switch (v.getId()) {
+                    case R.id.thumbnail:
+                        i = new Intent(getActivity(), BuyCouponActivity.class);
+                        i.putExtra("id", dealList.get(position).getId());
+                        startActivity(i);
+                        break;
 
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("DealDTO", dealList.get(position));
+                    case R.id.img_title:
+                        i = new Intent(getActivity(), FollowingPartnerDetails.class);
+                        i.putExtra("partnerId", dealList.get(position).getPartner_id());
+                        startActivity(i);
 
-                Intent i = new Intent(getActivity(), BuyCouponActivity.class);
-                i.putExtras(bundle);
-                startActivity(i);
+                }
+
 
             }
         });

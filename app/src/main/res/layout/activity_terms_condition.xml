@@ -5,9 +5,11 @@
 
     <include layout="@layout/header_transparent" />
 
-    <WebView
-        android:id="@+id/webview_terms_condition"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <!--<WebView-->
+        <!--android:id="@+id/webview_terms_condition"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
+
+
 
 </LinearLayout>

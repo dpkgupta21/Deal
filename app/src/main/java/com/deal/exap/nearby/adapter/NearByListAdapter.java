@@ -71,19 +71,22 @@ public class NearByListAdapter extends RecyclerView
             ivLogo = (ImageView) itemView.findViewById(R.id.img_title);
             ivThumnail = (ImageView) itemView.findViewById(R.id.thumbnail);
 
-            ivLogo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (context instanceof BaseActivity) {
-                        BaseActivity act = (BaseActivity) context;
-                        act.startActivity(new Intent(act, FollowingPartnerDetails.class));
-                    }
-                }
-            });
+//            ivLogo.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if (context instanceof BaseActivity) {
+//                        BaseActivity act = (BaseActivity) context;
+//
+//                        Intent intent = new Intent(act, FollowingPartnerDetails.class);
+//                        act.startActivity(intent);
+//                    }
+//                }
+//            });
 
 
             Log.i(LOG_TAG, "Adding Listener");
-            itemView.setOnClickListener(this);
+            ivThumnail.setOnClickListener(this);
+            ivLogo.setOnClickListener(this);
         }
 
         @Override

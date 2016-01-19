@@ -32,11 +32,10 @@ public class OrgSplashActivity extends FragmentActivity {
         DatabaseManager<DatabaseHelper> manager = new DatabaseManager<DatabaseHelper>();
         DatabaseHelper db = manager.getHelper(this);
         Dao<DealDTO, String> dealDao = null;
-        try{
-             dealDao = db.getDealDao();
-            int i=0;
-        }
-        catch (Exception e){
+        try {
+            dealDao = db.getDealDao();
+            int i = 0;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         setContentView(R.layout.activity_org_splash);
@@ -49,10 +48,12 @@ public class OrgSplashActivity extends FragmentActivity {
                 UserDTO userDTO = Utils.getObjectFromPref(OrgSplashActivity.this, Constant.USER_INFO);
 
                 Intent i = null;
-                if(userDTO==null)
+                if (userDTO == null) {
                     i = new Intent(OrgSplashActivity.this, SplashScreen.class);
-                else
+                } else {
                     i = new Intent(OrgSplashActivity.this, HomeActivity.class);
+                    i.putExtra("fragmentName", getString(R.string.interest_screen_title));
+                }
                 finish();
                 startActivity(i);
             }

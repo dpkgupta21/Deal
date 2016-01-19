@@ -329,7 +329,9 @@ public class SignInFragment extends BaseFragment {
                                     if (Utils.getWebServiceStatus(response)) {
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
                                         Utils.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
-                                        startActivity(new Intent(getActivity(), HomeActivity.class));
+                                        Intent intent = new Intent(getActivity(), HomeActivity.class);
+                                        intent.putExtra("fragmentName",getActivity().getString(R.string.interest_screen_title));
+                                        startActivity(intent);
                                     } else {
                                         Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));
                                     }

@@ -1,5 +1,6 @@
 package com.deal.exap.navigationdrawer;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.alert.AlertFragment;
 import com.deal.exap.category.CategoriesFragment;
@@ -16,11 +20,22 @@ import com.deal.exap.favorite.FavoriteFragment;
 import com.deal.exap.following.FollowingFragment;
 import com.deal.exap.interest.InterestFragment;
 import com.deal.exap.login.BaseActivity;
+import com.deal.exap.model.DealDTO;
+import com.deal.exap.model.MenuDTO;
 import com.deal.exap.nearby.NearByFragment;
 import com.deal.exap.settings.SettingFragment;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.TJPreferences;
+import com.deal.exap.utility.Utils;
+import com.deal.exap.volley.AppController;
+import com.deal.exap.volley.CustomJsonRequest;
 import com.deal.exap.wallet.WalletFragment;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class HomeActivity extends BaseActivity {
 
@@ -29,6 +44,8 @@ public class HomeActivity extends BaseActivity {
     private ResideMenuItem itemAlert, itemNearby, itemWallet, itemInterest, itemFavorite, itemFollowing, itemCategory, itemSetting;
     //Boolean isopend = false;
     View topView;
+    private String fragmentName;
+    private MenuDTO menuDTO;
 
     /**
      * Called when the activity is first created.
@@ -38,13 +55,16 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         mContext = this;
+        fragmentName = getIntent().getStringExtra("fragmentName");
         init();
-        setUpMenu();
+        getMenuCount();
+        // setUpMenu();
 
     }
 
     private void init() {
-        setHeader(getString(R.string.interest_screen_title));
+
+        setHeader(fragmentName);
         setLeftClick(R.drawable.menu_btn);
     }
 
@@ -57,12 +77,12 @@ public class HomeActivity extends BaseActivity {
         resideMenu.setMenuListener(menuListener);
 
         // create menu items;
-        itemAlert = new ResideMenuItem(this, R.drawable.nav_bell_icon, getString(R.string.menu_alert));
-        itemNearby = new ResideMenuItem(this, R.drawable.nav_nearby_icon, getString(R.string.menu_near_by));
-        itemWallet = new ResideMenuItem(this, R.drawable.nav_wallet_icon, getString(R.string.menu_wallet));
+        itemAlert = new ResideMenuItem(this, R.drawable.nav_bell_icon, getString(R.string.menu_alert) + " (" + menuDTO.getAlert() + ")");
+        itemNearby = new ResideMenuItem(this, R.drawable.nav_nearby_icon, getString(R.string.menu_near_by) + " (" + menuDTO.getNearby() + ")");
+        itemWallet = new ResideMenuItem(this, R.drawable.nav_wallet_icon, getString(R.string.menu_wallet) + " (" + menuDTO.getWallet() + ")");
         itemInterest = new ResideMenuItem(this, R.drawable.nav_interest_icon, getString(R.string.menu_interest));
-        itemFavorite = new ResideMenuItem(this, R.drawable.nav_fav_icon, getString(R.string.menu_favorite));
-        itemFollowing = new ResideMenuItem(this, R.drawable.nav_following_icon, getString(R.string.menu_following));
+        itemFavorite = new ResideMenuItem(this, R.drawable.nav_fav_icon, getString(R.string.menu_favorite) + " (" + menuDTO.getFavorite() + ")");
+        itemFollowing = new ResideMenuItem(this, R.drawable.nav_following_icon, getString(R.string.menu_following) + " (" + menuDTO.getFollowing() + ")");
         itemCategory = new ResideMenuItem(this, R.drawable.nav_categories_icon, getString(R.string.menu_categories));
         itemSetting = new ResideMenuItem(this, R.drawable.nav_settings_icon, getString(R.string.menu_setting));
 
@@ -100,8 +120,16 @@ public class HomeActivity extends BaseActivity {
             // resideMenu.setSwipeDirectionDisable(ResideMenuSecond.DIRECTION_RIGHT);
 
         }
-        changeFragment(new InterestFragment());
-/*
+
+
+        if (fragmentName.equalsIgnoreCase(getString(R.string.wallet_screen_title))) {
+            changeFragment(new WalletFragment());
+        } else if (fragmentName.equalsIgnoreCase(getString(R.string.following_screen_title))) {
+            changeFragment(new FollowingFragment());
+        } else {
+            changeFragment(new InterestFragment());
+        }
+/*}
         findViewById(R.id.title_bar_menu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -162,8 +190,8 @@ public class HomeActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.iv_back:
                 //if (isopend == false) {
-                  ///  isopend = true;
-                if(resideMenu.isOpened()==false){
+                ///  isopend = true;
+                if (resideMenu.isOpened() == false) {
                     resideMenu.setOpened(true);
                     if (TJPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ENGLISH_CODE)) {
                         resideMenu.openMenu(ResideMenuSecond.DIRECTION_LEFT);
@@ -202,11 +230,52 @@ public class HomeActivity extends BaseActivity {
     }
 
 
-
     // What good method is to access resideMenu？
     public ResideMenuSecond getResideMenu() {
         return resideMenu;
     }
 
+
+    private void getMenuCount() {
+
+        if (Utils.isOnline(this)) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.MENU_COUNT);
+            params.put("user_id", Utils.getUserId(this));
+
+            final ProgressDialog pdialog = Utils.createProgeessDialog(this, null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+
+                                menuDTO = new Gson().fromJson(response.getJSONObject("count").toString(), MenuDTO.class);
+
+                                setUpMenu();
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            pdialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(HomeActivity.this);
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            pdialog.show();
+        } else {
+            Utils.showNoNetworkDialog(this);
+        }
+
+
+    }
 
 }

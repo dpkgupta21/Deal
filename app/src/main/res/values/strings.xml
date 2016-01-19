@@ -73,12 +73,12 @@
     <string name="drawer_close">Close</string>
     <string name="name">MD Razak</string>
     <string name="age_city">29F | Dubai</string>
-    <string name="menu_alert">Alert (2)</string>
-    <string name="menu_near_by">Near BY (9)</string>
-    <string name="menu_wallet">Wallet (7)</string>
+    <string name="menu_alert">Alert</string>
+    <string name="menu_near_by">Near BY</string>
+    <string name="menu_wallet">Wallet</string>
     <string name="menu_interest">Interest</string>
-    <string name="menu_favorite">Favorite (4)</string>
-    <string name="menu_following">Following (12)</string>
+    <string name="menu_favorite">Favorite</string>
+    <string name="menu_following">Following</string>
     <string name="menu_categories">Categories</string>
     <string name="menu_setting">Settings</string>
 
