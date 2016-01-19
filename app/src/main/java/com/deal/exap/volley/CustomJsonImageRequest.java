@@ -11,7 +11,9 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.json.JSONException;
@@ -25,17 +27,18 @@ import java.util.Map;
 
 public class CustomJsonImageRequest extends Request<JSONObject> {
 
-
+    public static final String KEY_PICTURE = "image";
     private Listener<JSONObject> listener;
     private Map<String, String> params;
     private File file;
-    private MultipartEntity entity = new MultipartEntity();
-
+   // private MultipartEntity entity = new MultipartEntity();
+    private HttpEntity mHttpEntity;
     public CustomJsonImageRequest(String url, Map<String, String> params,
                                   Listener<JSONObject> reponseListener, ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
         this.listener = reponseListener;
         this.params = params;
+
     }
 
     public CustomJsonImageRequest(int method, String url, Map<String, String> params,
@@ -43,41 +46,61 @@ public class CustomJsonImageRequest extends Request<JSONObject> {
         super(method, url, errorListener);
         this.listener = reponseListener;
         this.params = params;
+
     }
 
 
-    public CustomJsonImageRequest(int method, String url, Map<String, String> params, File file, Listener<JSONObject> reponseListener, ErrorListener errorListener) {
+    public CustomJsonImageRequest(int method, String url,
+                                  Map<String, String> params,
+                                  File file,
+                                  Listener<JSONObject> reponseListener,
+                                  ErrorListener errorListener) {
         super(method, url, errorListener);
         this.listener = reponseListener;
         this.params = params;
         this.file = file;
-        buildMultipartEntity();
+        mHttpEntity = buildMultipartEntity(file);
+        //buildMultipartEntity();
     }
 
-
-    private void buildMultipartEntity() {
-        entity.addPart("image", new FileBody(file));
-
-        try {
+    private HttpEntity buildMultipartEntity(File file) {
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        String fileName = file.getName();
+        FileBody fileBody = new FileBody(file);
+        builder.addPart(KEY_PICTURE, fileBody);
+                try {
             for (String key : params.keySet())
-                entity.addPart(key, new StringBody(params.get(key)));
+                builder.addPart(key, new StringBody(params.get(key)));
 
         } catch (UnsupportedEncodingException e) {
             VolleyLog.e("UnsupportedEncodingException");
         }
+        return builder.build();
     }
+
+//    private void buildMultipartEntity() {
+//        entity.addPart("image", new FileBody(file));
+//
+//        try {
+//            for (String key : params.keySet())
+//                entity.addPart(key, new StringBody(params.get(key)));
+//
+//        } catch (UnsupportedEncodingException e) {
+//            VolleyLog.e("UnsupportedEncodingException");
+//        }
+//    }
 
 
     @Override
     public String getBodyContentType() {
-        return entity.getContentType().getValue();
+        return mHttpEntity.getContentType().getValue();
     }
 
     @Override
     public byte[] getBody() throws com.android.volley.AuthFailureError {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try {
-            entity.writeTo(bos);
+            mHttpEntity.writeTo(bos);
         } catch (IOException e) {
             VolleyLog.e("IOException writing to ByteArrayOutputStream");
         }

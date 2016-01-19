@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -51,8 +52,9 @@ public class SignUp extends BaseActivity {
     private int GALLERY_REQUEST = 1002;
     private ImageLoader image_loader;
     private CameraChooseDialogFragment dFragment;
-    ImageView ivProfile;
+    private ImageView ivProfile;
     private File f;
+    private byte[] bitmapdata;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -238,14 +240,14 @@ public class SignUp extends BaseActivity {
                     bitmap = MediaStore.Images.Media.getBitmap(SignUp.this.getContentResolver(), selectedImage);
                     ivProfile.setImageBitmap(bitmap);
 
-                    f = new File(this.getCacheDir(), "profile");
+                    f = new File(this.getCacheDir(), "profile.png");
                     f.createNewFile();
 
 //Convert bitmap to byte array
                     Bitmap bitmap1 = bitmap;
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    bitmap1.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
-                    byte[] bitmapdata = bos.toByteArray();
+                    bitmap1.compress(Bitmap.CompressFormat.PNG, 70 /*ignored for PNG*/, bos);
+                    bitmapdata = bos.toByteArray();
 
 //write the bytes in file
                     FileOutputStream fos = new FileOutputStream(f);
@@ -280,14 +282,14 @@ public class SignUp extends BaseActivity {
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
                 ivProfile.setImageBitmap(photo);
 
-                f = new File(this.getCacheDir(), "profile");
+                f = new File(this.getCacheDir(), "profile.png");
                 f.createNewFile();
 
 //Convert bitmap to byte array
                 Bitmap bitmap1 = photo;
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                bitmap1.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
-                byte[] bitmapdata = bos.toByteArray();
+                bitmap1.compress(Bitmap.CompressFormat.PNG, 70 /*ignored for PNG*/, bos);
+                bitmapdata = bos.toByteArray();
 
 //write the bytes in file
                 FileOutputStream fos = new FileOutputStream(f);
@@ -332,23 +334,27 @@ public class SignUp extends BaseActivity {
         Utils.hideKeyboard(SignUp.this);
         if (validateForm()) {
             if (Utils.isOnline(SignUp.this)) {
+                String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
+                        Settings.Secure.ANDROID_ID);
                 Map<String, String> params = new HashMap<>();
                 params.put("action", Constant.DO_SIGNUP);
                 params.put("email", getViewText(R.id.edt_email_id));
                 params.put("password", getViewText(R.id.edt_password));
                 params.put("device", "android");
-                params.put("device_id", "ABC");
+                params.put("device_id", android_id);
                 params.put("name", getViewText(R.id.edt_name));
                 params.put("gender", getViewText(R.id.edt_gender).equals("Male") ? "M" : "F");
                 params.put("dob", getViewText(R.id.edt_dob));
                 params.put("confirm_password", getViewText(R.id.edt_confirm_password));
                 params.put("mobile", getIntent().getStringExtra("MOB_NUMBER"));
+
                 final ProgressDialog pdialog = Utils.createProgeessDialog(SignUp.this, null, false);
-                CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params, f,
+                CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST,
+                        Constant.SERVICE_BASE_URL, params, f,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                Utils.ShowLog(TAG, "Resonse -> " + response.toString());
+                                Utils.ShowLog(TAG, "Response -> " + response.toString());
                                 pdialog.dismiss();
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
@@ -373,7 +379,7 @@ public class SignUp extends BaseActivity {
                     }
                 });
                 pdialog.show();
-                Log.i("info",postReq.toString());
+                Log.i("info", postReq.toString());
                 AppController.getInstance().getRequestQueue().add(postReq);
             } else {
                 Utils.showNoNetworkDialog(SignUp.this);

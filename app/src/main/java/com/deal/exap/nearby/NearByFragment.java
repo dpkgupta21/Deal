@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -137,8 +136,6 @@ public class NearByFragment extends BaseFragment {
                 else
                     llFilter.setVisibility(View.GONE);
                 break;
-
-
         }
         return super.onOptionsItemSelected(item);
     }
