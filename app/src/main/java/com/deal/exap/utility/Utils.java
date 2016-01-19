@@ -1433,6 +1433,23 @@ public class Utils {
 			return "0";
 	}
 
+	public static String getUserName(Context context){
+		UserDTO userDTO = Utils.getObjectFromPref(context, Constant.USER_INFO);
+		if(userDTO!=null)
+			return userDTO.getName();
+		else
+			return "";
+	}
+
+
+	public static String getUserImage(Context context){
+		UserDTO userDTO = Utils.getObjectFromPref(context, Constant.USER_INFO);
+		if(userDTO!=null)
+			return userDTO.getImage();
+		else
+			return "";
+	}
+
 	public static ProgressDialog createProgeessDialog(Context context, String message, boolean isCancelable){
 		ProgressDialog pdialog = new ProgressDialog(context);
 		if (message == null)

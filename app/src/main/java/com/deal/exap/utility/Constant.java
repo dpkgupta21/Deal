@@ -53,4 +53,6 @@ public class Constant {
 
     public static String ADD_FOLLOWER="addfollower";
 
+    public static String EDIT_PROFILE="editprofile";
+
 }

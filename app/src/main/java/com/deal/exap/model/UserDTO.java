@@ -15,6 +15,7 @@ public class UserDTO implements Serializable{
     public String image;
     public String currency;
     public String country_id;
+    public String dob;
     public boolean is_location_service;
     public boolean is_push_alert;
     public boolean is_message_alert;
@@ -141,5 +142,14 @@ public class UserDTO implements Serializable{
 
     public void setLanguage(LanguageDTO language) {
         Language = language;
+    }
+
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 }

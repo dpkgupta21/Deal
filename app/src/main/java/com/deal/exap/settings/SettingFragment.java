@@ -36,6 +36,7 @@ import com.deal.exap.customviews.MyTextViewReg16;
 import com.deal.exap.login.BaseFragment;
 import com.deal.exap.login.EditProfileActivity;
 import com.deal.exap.model.DealDTO;
+import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.HelpMe;
@@ -69,6 +70,8 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
     private Switch switch_message;
     private Switch switch_expiry;
 
+    private UserDTO userDTO;
+
 
     public SettingFragment() {
         // Required empty public constructor
@@ -96,6 +99,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
         months = Utils.getMonths();
         years = Utils.getYears();
         setClick(R.id.tv_editprofile, view);
+        userDTO = Utils.getObjectFromPref(getActivity(), Constant.USER_INFO);
     }
 
     @Override
@@ -110,6 +114,24 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
         switch_push = (Switch) view.findViewById(R.id.switch_push);
         switch_location = (Switch) view.findViewById(R.id.switch_location);
         switch_message = (Switch) view.findViewById(R.id.switch_message);
+
+        if (userDTO.is_location_service())
+            switch_location.setChecked(true);
+        else
+            switch_location.setChecked(false);
+        if (userDTO.is_push_alert())
+            switch_push.setChecked(true);
+        else
+            switch_push.setChecked(false);
+        if (userDTO.is_deal_expiry_alert())
+            switch_expiry.setChecked(true);
+        else
+            switch_expiry.setChecked(false);
+
+        if (userDTO.is_message_alert())
+            switch_message.setChecked(true);
+        else
+            switch_message.setChecked(false);
 
 
         switch_expiry.setOnCheckedChangeListener(this);

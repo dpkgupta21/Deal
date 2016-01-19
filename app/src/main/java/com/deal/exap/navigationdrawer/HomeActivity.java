@@ -126,6 +126,8 @@ public class HomeActivity extends BaseActivity {
             changeFragment(new WalletFragment());
         } else if (fragmentName.equalsIgnoreCase(getString(R.string.following_screen_title))) {
             changeFragment(new FollowingFragment());
+        } else if (fragmentName.equalsIgnoreCase(getString(R.string.setting_screen_title))) {
+            changeFragment(new SettingFragment());
         } else {
             changeFragment(new InterestFragment());
         }
