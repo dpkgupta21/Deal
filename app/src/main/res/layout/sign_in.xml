@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
@@ -83,12 +83,13 @@
                     android:layout_marginLeft="10dp"
                     android:text="@string/connect_with_twitter_btn"
                     android:textColor="@color/white" />
+
                 <com.twitter.sdk.android.core.identity.TwitterLoginButton
                     android:id="@+id/twitter_login_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:layout_centerInParent="true" />
+                    android:layout_centerInParent="true"
+                    android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
 
@@ -140,31 +141,55 @@
             android:text="@string/login_btn"
             android:textColor="@color/white" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:gravity="center"
             android:orientation="horizontal">
 
-            <com.deal.exap.customviews.MyTextViewReg12
 
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/not_yet_registered"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:layout_alignParentLeft="true">
 
-            <com.deal.exap.customviews.MyTextViewReg12
-                android:id="@+id/txt_sign_up_click"
+                <com.deal.exap.customviews.MyTextViewReg12
+                    android:id="@+id/txt_forgot_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="@string/forgot_password"
+                    android:textColor="@color/toolbar_color"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:text="@string/register_now"
-                android:textColor="@color/toolbar_color"
-                android:textSize="12sp" />
-        </LinearLayout>
+                android:layout_alignParentRight="true">
+
+                <com.deal.exap.customviews.MyTextViewReg12
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/not_yet_registered"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <com.deal.exap.customviews.MyTextViewReg12
+                    android:id="@+id/txt_sign_up_click"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="@string/register_now"
+                    android:textColor="@color/toolbar_color"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
 
     </LinearLayout>
 </ScrollView>

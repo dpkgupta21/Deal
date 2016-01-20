@@ -55,4 +55,7 @@ public class Constant {
 
     public static String EDIT_PROFILE="editprofile";
 
+    public static String GET_NOTIFICATION ="notifications";
+
+
 }

@@ -44,6 +44,8 @@ public class ChatActivity extends BaseActivity {
     private ArrayList<ChatDTO> chatList;
     ChatListAdapter chatAdatper;
     private EditText etMessage;
+
+    private String receiverId;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +57,7 @@ public class ChatActivity extends BaseActivity {
     }
 
     private void init() {
-
+        receiverId = getIntent().getStringExtra("receiverID");
         lvChat = (ListView) findViewById(R.id.lv_chat);
         setHeader(getString(R.string.discussion_title));
         setLeftClick();

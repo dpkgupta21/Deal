@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class FollowingDTO implements Serializable {
 
     @DatabaseField
-    private String id;
+    private int id;
     @DatabaseField
     private String name;
     @DatabaseField
@@ -30,11 +30,11 @@ public class FollowingDTO implements Serializable {
     private String follower;
 
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

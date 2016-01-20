@@ -63,7 +63,6 @@ public class SignInFragment extends BaseFragment {
     LoginButton btnFbLogin;
 
 
-
     public static SignInFragment newInstance() {
         SignInFragment fragment = new SignInFragment();
         return fragment;
@@ -109,6 +108,7 @@ public class SignInFragment extends BaseFragment {
         btnTwitterLogin = (TwitterLoginButton) view.findViewById(R.id.twitter_login_button);
         setClick(R.id.btn_twitter_login, view);
         setClick(R.id.btn_facebook_login, view);
+        setClick(R.id.txt_forgot_password, view);
         btnTwitterLogin.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
@@ -198,19 +198,17 @@ public class SignInFragment extends BaseFragment {
     };
 
 
-    View.OnClickListener goToForgetPasswordPage = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            ForgetPasswordFragment forgetPasswordFragment = ForgetPasswordFragment.newInstance();
-            FragmentManager fm = getFragmentManager();
-            FragmentTransaction ft = fm
-                    .beginTransaction();
-            ft.replace(R.id.frame_lay, forgetPasswordFragment);
-            ft.addToBackStack(null);
-            ft.commit();
+    private void forgotpassword() {
+        ForgetPasswordFragment forgetPasswordFragment = ForgetPasswordFragment.newInstance();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm
+                .beginTransaction();
+        ft.replace(R.id.frame_lay, forgetPasswordFragment);
+        ft.addToBackStack(null);
+        ft.commit();
 
-        }
-    };
+    }
+
 
     View.OnClickListener goToHomePage = new View.OnClickListener() {
         @Override
@@ -330,7 +328,7 @@ public class SignInFragment extends BaseFragment {
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
                                         Utils.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
                                         Intent intent = new Intent(getActivity(), HomeActivity.class);
-                                        intent.putExtra("fragmentName",getActivity().getString(R.string.interest_screen_title));
+                                        intent.putExtra("fragmentName", getActivity().getString(R.string.interest_screen_title));
                                         startActivity(intent);
                                     } else {
                                         Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));
@@ -359,8 +357,9 @@ public class SignInFragment extends BaseFragment {
     public void doSocialLogin(String socialType, String email, String socialId) {
         Utils.hideKeyboard(getActivity());
 
-        if (Utils.isOnline(getActivity())) { String android_id = Secure.getString(getContext().getContentResolver(),
-                Secure.ANDROID_ID);
+        if (Utils.isOnline(getActivity())) {
+            String android_id = Secure.getString(getContext().getContentResolver(),
+                    Secure.ANDROID_ID);
 
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.DO_SOCIAL_LOGIN);
@@ -425,6 +424,9 @@ public class SignInFragment extends BaseFragment {
                 break;
             case R.id.btn_facebook_login:
                 btnFbLogin.performClick();
+                break;
+            case R.id.txt_forgot_password:
+                forgotpassword();
                 break;
         }
     }

@@ -175,7 +175,7 @@ public class NumberVerificationFragment extends Fragment {
 
     private void doCheckMobile(final String phoneNumber) {
         Utils.hideKeyboard(getActivity());
-        if (validateForm()) {
+        if (validateForm(phoneNumber)) {
             if (Utils.isOnline(getActivity())) {
                 Map<String, String> params = new HashMap<>();
                 params.put("action", Constant.CHECK_MOBILE);
@@ -215,9 +215,15 @@ public class NumberVerificationFragment extends Fragment {
         }
     }
 
-    public boolean validateForm() {
-        if (edtCountryCode.getText().equals("")) {
+    public boolean validateForm(String number) {
+        if (number.equals("")) {
             Utils.showDialog(getActivity(), "Message", "Please enter mobile number");
+            return false;
+        }
+        else
+        if(number.length()!=10)
+        {
+            Utils.showDialog(getActivity(), "Message", "Please enter valid mobile number");
             return false;
         }
         return true;

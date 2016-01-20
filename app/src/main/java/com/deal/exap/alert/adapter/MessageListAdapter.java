@@ -13,9 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.deal.exap.R;
-import com.deal.exap.favorite.bean.DataObject;
 import com.deal.exap.following.FollowingPartnerDetails;
 import com.deal.exap.login.BaseActivity;
+import com.deal.exap.model.ConversionsDTO;
 import com.deal.exap.model.NotificationDTO;
 import com.deal.exap.nearby.BuyCouponActivity;
 import com.deal.exap.partner.ChatActivity;
@@ -25,21 +25,18 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class AlertListAdapter extends BaseAdapter {
+public class MessageListAdapter extends BaseAdapter {
 
     private Object object;
-    public ArrayList<NotificationDTO> list;
-    int type = 0; //0 FOR NOTIFICATION, 1 FOR MESSAGE.
+    public ArrayList<ConversionsDTO> list;
     private Context context;
     private DisplayImageOptions options;
 
-    public AlertListAdapter(Object object, ArrayList<NotificationDTO> list, int type, Context context) {
+    public MessageListAdapter(Object object, ArrayList<ConversionsDTO> list, int type, Context context) {
 
         this.object = object;
         this.list = list;
-        this.type = type;
         this.context = context;
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
@@ -102,17 +99,10 @@ public class AlertListAdapter extends BaseAdapter {
                     if (context instanceof BaseActivity) {
                         BaseActivity act = (BaseActivity) context;
                         Intent i;
-                        if (list.get(position).getType().equalsIgnoreCase("Partner")) {
-
-                            i = new Intent(act, FollowingPartnerDetails.class);
-                            i.putExtra("partnerId", list.get(position).getDataid());
+                            i = new Intent(act, ChatActivity.class);
+                            i.putExtra("receiverID", list.get(position).getUser_id());
                             act.startActivity(i);
-                        } else {
 
-                            i = new Intent(act, BuyCouponActivity.class);
-                            i.putExtra("id", list.get(position).getDataid() + "");
-                            act.startActivity(i);
-                        }
                     }
                 }
             });
@@ -131,3 +121,4 @@ public class AlertListAdapter extends BaseAdapter {
     }
 
 }
+

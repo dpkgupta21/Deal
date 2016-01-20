@@ -6,8 +6,7 @@ import android.view.View;
 import com.deal.exap.R;
 import com.deal.exap.login.BaseActivity;
 
-public class TermsConditionActivity extends BaseActivity  {
-
+public class TermsConditionActivity extends BaseActivity {
 
 
     @Override
@@ -17,15 +16,17 @@ public class TermsConditionActivity extends BaseActivity  {
         init();
     }
 
-    private void init(){
+    private void init() {
         setRightClick();
+        String term = getIntent().getStringExtra("dealTerm");
         setHeader("Terms and Condition");
+        setTextViewText(R.id.txt_terms, term);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.img_close:
+        switch (view.getId()) {
+            case R.id.iv_close:
                 finish();
                 break;
         }

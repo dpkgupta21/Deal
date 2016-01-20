@@ -5,11 +5,11 @@
 
     <include layout="@layout/header_transparent" />
 
-    <!--<WebView-->
-        <!--android:id="@+id/webview_terms_condition"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent" />-->
-
+    <com.deal.exap.customviews.MyTextViewReg14
+        android:id="@+id/txt_terms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp" />
 
 
 </LinearLayout>

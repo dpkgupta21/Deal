@@ -54,6 +54,7 @@
                 android:id="@+id/txt_customer_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
                 android:text="@string/feedback_name"
                 android:textColor="@color/btn_color" />
 
