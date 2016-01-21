@@ -162,17 +162,17 @@ public class WalletFragment extends Fragment {
 
     private void setWalletValues() {
 
-        mAdapter = new NearByListAdapter(walletValues, getActivity());
+        mAdapter = new WalletAdapter(walletValues, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
-        ((NearByListAdapter) mAdapter).setOnItemClickListener(new NearByListAdapter.MyClickListener() {
+        ((WalletAdapter) mAdapter).setOnItemClickListener(new WalletAdapter.MyClickListener() {
             @Override
             public void onItemClick(int position, View v) {
 
                 Intent i;
                 switch (v.getId()) {
                     case R.id.thumbnail:
-                        i = new Intent(getActivity(), BuyCouponActivity.class);
+                        i = new Intent(getActivity(), ShowWalletDetails.class);
                         i.putExtra("id", walletValues.get(position).getId());
                         startActivity(i);
                         break;

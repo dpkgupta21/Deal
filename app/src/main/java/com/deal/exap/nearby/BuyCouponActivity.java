@@ -23,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.customerfeedback.CustomerFeedBackActivity;
+import com.deal.exap.following.FollowingPartnerDetails;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.misc.ImageActivity;
 import com.deal.exap.model.CategoryDTO;
@@ -100,11 +101,12 @@ public class BuyCouponActivity extends BaseActivity {
         setClick(R.id.btn_buy);
         setClick(R.id.iv_back);
         setClick(R.id.thumbnail);
-        setClick(R.id.iv_chat);
+        //  setClick(R.id.iv_chat);
         setClick(R.id.txt_terms_conditions);
         setClick(R.id.txt_customer_reviews);
         setClick(R.id.btn_redeem);
 
+        setClick(R.id.img_title);
         setClick(R.id.btn_buy_deal);
         setClick(R.id.btn_redeem);
 
@@ -120,7 +122,7 @@ public class BuyCouponActivity extends BaseActivity {
         ImageView ivClose = (ImageView) dialog.findViewById(R.id.iv_close);
         txtMonth = (TextView) dialog.findViewById(R.id.txt_month);
         txtYear = (TextView) dialog.findViewById(R.id.txt_year);
-
+        Button btnBuy = (Button) dialog.findViewById(R.id.btn_pay);
 
         txtMonth.setText(months.get(0));
         txtYear.setText(years.get(0));
@@ -134,6 +136,8 @@ public class BuyCouponActivity extends BaseActivity {
                 dialog.dismiss();
             }
         });
+
+        btnBuy.setOnClickListener(buyDeal);
         dialog.show();
     }
 
@@ -164,13 +168,11 @@ public class BuyCouponActivity extends BaseActivity {
                 i.putExtra("image", dealDTO.getDeal_image());
                 startActivity(i);
                 break;
-            case R.id.iv_chat:
-                startActivity(new Intent(this, ChatActivity.class));
-                break;
+//            case R.id.iv_chat:
+//                startActivity(new Intent(this, ChatActivity.class));
+//                break;
             case R.id.txt_terms_conditions:
-
-                i = new Intent(this,TermsConditionActivity.class);
-
+                i = new Intent(this, TermsConditionActivity.class);
                 if (Utils.isArebic(this))
                     i.putExtra("dealTerm", dealDTO.getTerm_ara());
                 else
@@ -195,8 +197,12 @@ public class BuyCouponActivity extends BaseActivity {
                 openPaymentDialog();
                 break;
             case R.id.btn_redeem:
-
                 readRedeeme();
+                break;
+            case R.id.img_title:
+                i = new Intent(this, FollowingPartnerDetails.class);
+                i.putExtra("partnerId", dealDTO.getPartner_id());
+                startActivity(i);
                 break;
 
         }
@@ -214,6 +220,13 @@ public class BuyCouponActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
             openYearDialog();
+        }
+    };
+
+    private View.OnClickListener buyDeal = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            readRedeeme();
         }
     };
 
@@ -334,7 +347,7 @@ public class BuyCouponActivity extends BaseActivity {
         }
 
 
-        setTextViewText(R.id.txt_address, "");
+        setTextViewText(R.id.txt_address, dealDTO.getLocation());
         ((RatingBar) findViewById(R.id.rating_bar)).setRating(dealDTO.getRating());
 
         setTextViewText(R.id.txt_review, dealDTO.getReview() + "");
@@ -367,6 +380,10 @@ public class BuyCouponActivity extends BaseActivity {
             params.put("user_id", Utils.getUserId(this));
             params.put("category_id", dealDTO.getCategory_id() + "");
 
+            if (dealDTO.getType().equalsIgnoreCase("paid")) {
+                params.put("redeem_amount", "");
+                params.put("transaction_id", "");
+            }
             final ProgressDialog pdialog = Utils.createProgeessDialog(this, null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {

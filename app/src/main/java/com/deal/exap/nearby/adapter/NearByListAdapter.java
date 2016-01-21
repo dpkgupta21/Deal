@@ -149,7 +149,7 @@ public class NearByListAdapter extends RecyclerView
                 options1);
         holder.tvDiscount.setText(mDataset.get(position).getDiscount() + " % Off");
         holder.tvEnddate.setText(mDataset.get(position).getEnd_date());
-        holder.tvDistance.setText(mDataset.get(position).getDistance());
+        holder.tvDistance.setText("Distance "+mDataset.get(position).getDistance()+" Km");
         if (Utils.isArebic(context))
             holder.tvDetail.setText(mDataset.get(position).getName_ara());
         else

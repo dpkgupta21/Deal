@@ -172,6 +172,21 @@ public class FollowingPartnerDetails extends BaseActivity {
         setTextViewText(R.id.txt_active_coupons_val, partnerDTO.getActive_coupan());
         setTextViewText(R.id.txt_downloads_val, partnerDTO.getDownload());
         setTextViewText(R.id.txt_followers_val, partnerDTO.getFollower());
+
+
+        if (partnerDTO.getIs_featured().equalsIgnoreCase("0")) {
+            setViewVisibility(R.id.img_featured, View.GONE);
+        } else {
+            setViewVisibility(R.id.img_featured, View.VISIBLE);
+        }
+
+        if (partnerDTO.getIs_chat_on().equalsIgnoreCase("0")) {
+            setViewVisibility(R.id.iv_chat, View.GONE);
+        } else {
+            setViewVisibility(R.id.iv_chat, View.VISIBLE);
+        }
+
+
 //        ((NearByListAdapter) mAdapter).setOnItemClickListener(new NearByListAdapter.MyClickListener() {
 //            @Override
 //            public void onItemClick(int position, View v) {

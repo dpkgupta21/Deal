@@ -28,10 +28,20 @@
                 android:id="@+id/iv_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:layout_alignParentLeft="true"
+                android:padding="5dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/back_btn" />
+
+            <ImageView
+                android:id="@+id/iv_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="5dp"
+                android:visibility="gone"
+                android:scaleType="centerCrop"
+                android:src="@drawable/chat_btn" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -83,7 +93,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/place_marker"
-                            android:singleLine="true"
                             android:text="@string/cancel_btn"
                             android:textColor="@color/white"
                             android:textSize="14sp" />
@@ -96,9 +105,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_gravity="right"
+                        android:visibility="gone"
                         android:src="@drawable/featured_tag" />
                 </RelativeLayout>
-
 
 
             </RelativeLayout>
@@ -109,14 +118,12 @@
     </LinearLayout>
 
 
-
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_nearby"
         android:layout_width="match_parent"
-        android:layout_below="@id/linear"
         android:layout_height="match_parent"
         android:layout_above="@+id/relative_btn"
+        android:layout_below="@id/linear"
         android:scrollbars="vertical" />
 
     <LinearLayout
@@ -225,18 +232,18 @@
     <RelativeLayout
         android:id="@+id/relative_btn"
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:padding="5dp">
 
-    <com.deal.exap.customviews.MyButtonViewRegCustom
-        android:id="@+id/btn_follow_this_partner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn_red_bcg_shape"
-        android:text="@string/btn_follow_this_partner"
-        android:textColor="@color/white"
-        android:textSize="14sp" />
+        <com.deal.exap.customviews.MyButtonViewRegCustom
+            android:id="@+id/btn_follow_this_partner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_red_bcg_shape"
+            android:text="@string/btn_follow_this_partner"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
     </RelativeLayout>
 
 

@@ -120,7 +120,6 @@
                             android:id="@+id/txt_distance_val"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/place_marker"
                             android:text="@string/txt_distance_val"
                             android:textColor="@color/white"
                             android:textSize="8sp" />

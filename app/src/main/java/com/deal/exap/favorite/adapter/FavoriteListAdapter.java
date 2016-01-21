@@ -96,9 +96,9 @@ public class FavoriteListAdapter extends RecyclerView
 
     @Override
     public void onBindViewHolder(DataObjectHolder holder, int position) {
-        holder.txt_like_number.setText(favoriteValues.get(position).getFavourite());
+        holder.txt_like_number.setText(favoriteValues.get(position).getCategory_favourite_count());
         holder.txt_category_name.setText(favoriteValues.get(position).getName());
-        holder.txt_follower_number.setText(favoriteValues.get(position).getCategory_favourite_count());
+        holder.txt_follower_number.setText(favoriteValues.get(position).getDeal_count());
         ImageLoader.getInstance().displayImage(favoriteValues.get(position).getImage(), holder.thumbnail,
                 options);
 

@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Created by Mayur on 09-01-2016.
  */
-public class DealDTO implements Serializable{
+public class DealDTO implements Serializable {
 
 
     @DatabaseField
@@ -46,6 +46,10 @@ public class DealDTO implements Serializable{
 
     @DatabaseField
     private String redeem_option;
+
+    @DatabaseField
+    private String location;
+
     @DatabaseField
     private int redeemed;
     @DatabaseField
@@ -54,6 +58,7 @@ public class DealDTO implements Serializable{
     private int rating;
     @DatabaseField
     private int review;
+
 
     public String getName_eng() {
         return name_eng;
@@ -224,6 +229,14 @@ public class DealDTO implements Serializable{
 
     public void setCategory_id(int category_id) {
         this.category_id = category_id;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
 
