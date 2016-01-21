@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -348,6 +349,9 @@ public class SignInFragment extends BaseFragment {
                 });
                 pdialog.show();
                 AppController.getInstance().getRequestQueue().add(postReq);
+                postReq.setRetryPolicy(new DefaultRetryPolicy(
+                        30000, 0,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             } else {
                 Utils.showNoNetworkDialog(getActivity());
             }
@@ -398,6 +402,9 @@ public class SignInFragment extends BaseFragment {
             });
             pdialog.show();
             AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         } else {
             Utils.showNoNetworkDialog(getActivity());
         }

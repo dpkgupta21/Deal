@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -96,10 +97,9 @@ public class NumberVerificationFragment extends Fragment {
     View.OnClickListener goToNumberVerificationStage2 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-//            String mobNumber=edtCountryCode.getText().toString().trim()+
-//                    ((MyEditTextViewReg) view.findViewById(R.id.edt_phone_number)).getText().toString().trim();
+            String mobNumber=edtCountryCode.getText().toString().trim()+
+                    ((MyEditTextViewReg) view.findViewById(R.id.edt_phone_number)).getText().toString().trim();
 
-            String mobNumber = ((MyEditTextViewReg) view.findViewById(R.id.edt_phone_number)).getText().toString().trim();
 
 
             doCheckMobile(mobNumber);
@@ -209,6 +209,9 @@ public class NumberVerificationFragment extends Fragment {
                 });
                 pdialog.show();
                 AppController.getInstance().getRequestQueue().add(postReq);
+                postReq.setRetryPolicy(new DefaultRetryPolicy(
+                        30000, 0,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             } else {
                 Utils.showNoNetworkDialog(getActivity());
             }

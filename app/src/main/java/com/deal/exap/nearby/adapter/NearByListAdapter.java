@@ -1,7 +1,6 @@
 package com.deal.exap.nearby.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,8 +14,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.deal.exap.R;
-import com.deal.exap.following.FollowingPartnerDetails;
-import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.utility.Utils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;

@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -356,6 +357,9 @@ public class EditProfileActivity extends BaseActivity {
                 pdialog.show();
                 Log.i("info", postReq.toString());
                 AppController.getInstance().getRequestQueue().add(postReq);
+                postReq.setRetryPolicy(new DefaultRetryPolicy(
+                        30000, 0,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             } else {
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
                         Constant.SERVICE_BASE_URL, params,
@@ -393,6 +397,9 @@ public class EditProfileActivity extends BaseActivity {
                 pdialog.show();
                 Log.i("info", postReq.toString());
                 AppController.getInstance().getRequestQueue().add(postReq);
+                postReq.setRetryPolicy(new DefaultRetryPolicy(
+                        30000, 0,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
             }
 

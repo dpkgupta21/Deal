@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -224,6 +226,10 @@ public class NearByFragment extends BaseFragment {
                 }
             });
             AppController.getInstance().getRequestQueue().add(postReq);
+            // set request time-out
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                   30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             pdialog.show();
         } else {
             Utils.showNoNetworkDialog(getActivity());

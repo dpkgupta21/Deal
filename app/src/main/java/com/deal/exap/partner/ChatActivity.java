@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -125,6 +126,9 @@ public class ChatActivity extends BaseActivity {
                 });
                 pdialog.show();
                 AppController.getInstance().getRequestQueue().add(postReq);
+                postReq.setRetryPolicy(new DefaultRetryPolicy(
+                        30000, 0,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             } else {
                 Utils.showNoNetworkDialog(ChatActivity.this);
             }
@@ -161,6 +165,9 @@ public class ChatActivity extends BaseActivity {
                 }
             });
             AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             pdialog.show();
         }
         else{
