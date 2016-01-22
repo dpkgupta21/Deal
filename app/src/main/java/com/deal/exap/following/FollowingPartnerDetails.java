@@ -18,10 +18,8 @@ import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.model.PartnerDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
-import com.deal.exap.nearby.BuyCouponActivity;
 import com.deal.exap.nearby.adapter.NearByListAdapter;
 import com.deal.exap.utility.Constant;
-import com.deal.exap.utility.TJPreferences;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -37,7 +35,6 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class FollowingPartnerDetails extends BaseActivity {

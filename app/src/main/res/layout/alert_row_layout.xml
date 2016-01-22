@@ -27,20 +27,17 @@
         <com.deal.exap.customviews.MyTextViewRegCustom
             android:id="@+id/txt_title"
             style="@style/tv_medium"
-            android:text="@string/burger_king"
             android:textColor="@color/btn_color" />
 
         <com.deal.exap.customviews.MyTextViewRegCustom
             android:id="@+id/txt_description"
             style="@style/tv_small"
             android:layout_marginTop="5dp"
-            android:text="@string/alert_detail"
             android:textStyle="bold" />
 
         <com.deal.exap.customviews.MyTextViewRegCustom
             android:id="@+id/date_time"
-            style="@style/tv_small1"
-            android:text="@string/alert_date_time" />
+            style="@style/tv_small1" />
 
     </LinearLayout>
 

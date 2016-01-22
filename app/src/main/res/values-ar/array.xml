@@ -4,15 +4,14 @@
 
 
     <array name="interset_values">
-        <item>الفندق</item>
-        <item>الفندق</item>
-        <item>الفندق</item>
-        <item>الفندق</item>
-        <item>الفندق</item>
-        <item>الفندق</item>
-        <item>الفندق</item>
-        <item>الفندق</item>
-        <item>الفندق</item>
+        <item>تنبيهات</item>
+        <item>اعروض قريبة</item>
+        <item>المحفظة</item>
+        <item>اهتمامات</item>
+        <item>المفضلة</item>
+        <item>المتابَعون</item>
+        <item>التصنيفات</item>
+        <item>الإعدادات</item>
     </array>
 
 </resources>

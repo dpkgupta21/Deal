@@ -13,8 +13,8 @@ import android.widget.RadioGroup;
 
 import com.deal.exap.R;
 import com.deal.exap.navigationdrawer.HomeActivity;
+import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.SessionManager;
-import com.deal.exap.utility.TJPreferences;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,7 +39,7 @@ public class SplashScreen extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
 
-        String language = TJPreferences.getAPP_LANG(SplashScreen.this);
+        String language = DealPreferences.getAPP_LANG(SplashScreen.this);
        // setUpToolbar();
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         FrameLayout frame_lay = (FrameLayout) findViewById(R.id.frame_lay);
@@ -161,7 +161,7 @@ public class SplashScreen extends BaseActivity {
             getBaseContext().getResources().updateConfiguration(config,
                     getBaseContext().getResources().getDisplayMetrics());
 
-            TJPreferences.setAPP_LANG(SplashScreen.this, "en");
+            DealPreferences.setAPP_LANG(SplashScreen.this, "en");
             Intent i = new Intent(SplashScreen.this, SplashScreen.class);
             startActivity(i);
             finish();
@@ -181,7 +181,7 @@ public class SplashScreen extends BaseActivity {
                     getBaseContext().getResources().getDisplayMetrics());
 
 
-            TJPreferences.setAPP_LANG(SplashScreen.this, "ar");
+            DealPreferences.setAPP_LANG(SplashScreen.this, "ar");
             Intent i = new Intent(SplashScreen.this, SplashScreen.class);
             startActivity(i);
             finish();

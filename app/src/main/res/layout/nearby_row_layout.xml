@@ -63,7 +63,6 @@
                         android:id="@+id/txt_discount_rate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/txt_off"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
@@ -71,7 +70,6 @@
                         android:id="@+id/txt_on_which"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/txt_on_off"
                         android:textColor="@color/white"
                         android:textSize="10sp" />
 

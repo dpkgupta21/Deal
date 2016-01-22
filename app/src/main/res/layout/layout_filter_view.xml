@@ -16,8 +16,7 @@
             android:layout_weight=".6"
             android:background="@drawable/txt_outer_border_grey"
             android:drawableLeft="@drawable/nav_categories_icon"
-            android:padding="10dp"
-            android:text="@string/txt_selcted_category" />
+            android:padding="10dp" />
 
 
     </LinearLayout>

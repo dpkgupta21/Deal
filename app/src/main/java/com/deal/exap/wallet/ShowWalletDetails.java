@@ -1,7 +1,6 @@
 package com.deal.exap.wallet;
 
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
-import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -23,7 +21,7 @@ import com.deal.exap.misc.ImageActivity;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.termscondition.TermsConditionActivity;
 import com.deal.exap.utility.Constant;
-import com.deal.exap.utility.TJPreferences;
+import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -35,7 +33,6 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -157,9 +154,9 @@ public class ShowWalletDetails extends BaseActivity {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.GET_DEAL_DETAIL);
             params.put("lang", Utils.getSelectedLanguage(ShowWalletDetails.this));
-            params.put("lat", String.valueOf(TJPreferences.getLatitude(ShowWalletDetails.this.
+            params.put("lat", String.valueOf(DealPreferences.getLatitude(ShowWalletDetails.this.
                     getApplicationContext())));
-            params.put("lng", String.valueOf(TJPreferences.getLongitude(this.
+            params.put("lng", String.valueOf(DealPreferences.getLongitude(this.
                     getApplicationContext())));
 
             params.put("deal_id", id);

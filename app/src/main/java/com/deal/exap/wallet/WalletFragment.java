@@ -22,13 +22,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.following.FollowingPartnerDetails;
-import com.deal.exap.misc.MyOnClickListener;
-import com.deal.exap.misc.RecyclerTouchListener;
 import com.deal.exap.model.DealDTO;
-import com.deal.exap.nearby.BuyCouponActivity;
-import com.deal.exap.nearby.adapter.NearByListAdapter;
 import com.deal.exap.utility.Constant;
-import com.deal.exap.utility.TJPreferences;
+import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -119,9 +115,9 @@ public class WalletFragment extends Fragment {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.GET_WALLET);
             params.put("lang", Utils.getSelectedLanguage(getActivity()));
-            params.put("lat", String.valueOf(TJPreferences.getLatitude(getActivity().
+            params.put("lat", String.valueOf(DealPreferences.getLatitude(getActivity().
                     getApplicationContext())));
-            params.put("lng", String.valueOf(TJPreferences.getLongitude(getActivity().
+            params.put("lng", String.valueOf(DealPreferences.getLongitude(getActivity().
                     getApplicationContext())));
             params.put("user_id",Utils.getUserId(getActivity()));
 

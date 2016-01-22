@@ -5,6 +5,6 @@
         android:id="@+id/menu_filter"
         android:icon="@drawable/menu_hide"
         app:showAsAction="always"
-        android:title="@string/menu_filter"></item>
+        android:title="@string/menu"></item>
 
 </menu>

@@ -1417,7 +1417,7 @@ public class Utils {
 
 	public static String getSelectedLanguage(Context context){
 
-		if (TJPreferences.getAPP_LANG(context).contains(Constant.LANG_ARABIC_CODE)){
+		if (DealPreferences.getAPP_LANG(context).contains(Constant.LANG_ARABIC_CODE)){
 			return "era";
 		}
 		else{
@@ -1507,7 +1507,7 @@ public class Utils {
 	}
 
 	public static boolean isArebic(Context context){
-		if (TJPreferences.getAPP_LANG(context).contains(Constant.LANG_ARABIC_CODE)){
+		if (DealPreferences.getAPP_LANG(context).contains(Constant.LANG_ARABIC_CODE)){
 			return true;
 		}
 		else

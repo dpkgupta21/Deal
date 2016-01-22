@@ -27,6 +27,8 @@
 
 
     <!-- Sign up screen-->
+    <string name="profile_header">Profile</string>
+    <string name="add_photo">Add Photo</string>
     <string name="name_hint">Name</string>
     <string name="dob_hint">DOB</string>
     <string name="gender_hint">Gender</string>
@@ -34,8 +36,6 @@
     <string name="password_hint">Password</string>
     <string name="confirm_password_hint">Confirm Password</string>
     <string name="save_btn">Save</string>
-    <string name="profile_header">Profile</string>
-    <string name="add_photo">Add Photo</string>
 
     <!-- Sign in screen-->
     <string name="connect_with_facebook_btn">Facebook</string>
@@ -48,17 +48,15 @@
     <string name="not_yet_registered">Not yet Registered?</string>
     <string name="register_now">Register Now!</string>
     <string name="forgot_password">Forgot Password?</string>
-    <string name="terms_and_conditions">Terms &amp; conditions | Privacy Policy</string>
-
+    <string name="terms_and_conditions">By using EXAP, You are agree to EXAP’s Terms of Use &amp; Privacy Policy</string>
 
 
     <!-- Number verification screen step1 -->
     <string name="verify_your_phone">Verify your Phone Number</string>
-    <string name="country_code_hint">Select</string>
+    <!--<string name="country_code_hint">Select</string>
+    -->
     <string name="enter_your_phone_number_hint">Enter your Phone Number</string>
     <string name="send_confirmation_code">Send Confirmation Code</string>
-    <string name="verification_msg">By tapping next above, Exap will send you a SMS message to
-        confirm your phone number and here by you agree to our Terms of services and Privacy Policy.</string>
 
 
     <!-- Number verification screen step2 -->
@@ -84,38 +82,43 @@
 
 
     <!--Interest screen-->
-    <string name="interest_screen_title">Interest</string>
+    <string name="interest_screen_title">Interests</string>
+    <string name="select_interest">Select Interests</string>
     <string name="menu_check">Check</string>
 
 
     <!--Alert Screen-->
     <string name="btn_text">Ok</string>
-    <string name="btn_notification">Notification</string>
-    <string name="btn_message">Message</string>
-    <string name="burger_king">Burger King</string>
+    <string name="btn_notification">Notifications</string>
+    <string name="btn_message">Messages</string>
+    <!--<string name="burger_king">Burger King</string>
     <string name="alert_detail">Weekend offer get 50% off in store purchase</string>
     <string name="alert_date_time">23 Sep | 11:00 PM</string>
+-->
     <string name="alert_screen_title">Alerts</string>
     <string name="uname_pwd_not_match">The username and password do not match.</string>
     <string name="sms_verification_error">The SMS verification code you entered is not correct</string>
 
 
     <!--Setting Screen-->
-    <string name="setting_screen_title">Setting</string>
-    <string name="location_service">Location Service</string>
+    <string name="action_settings">Settings</string>
+    <string name="setting_screen_title">Settings</string>
+    <string name="location_service">Location Services</string>
     <string name="notification_range">Notification Range</string>
-    <string name="km_miles">KM / Miles</string>
-    <string name="alert">Alerts</string>
-    <string name="push_alert">Push Alert</string>
-    <string name="message_alert">Message Alert</string>
-    <string name="deal_expiry_alert">Deal Expiry Alert</string>
-    <string name="change_language">Change Language</string>
+    <string name="push_alert">Push Alerts</string>
+    <string name="message_alert">Message Alerts</string>
+    <string name="deal_expiry_alert">Deal Expiry Alerts</string>
+    <string name="txt_change_currency">Change Currency</string>
+    <string name="txt_edit_profile">Edit Profile</string>
+    <string name="txt_edit_payment_details">Edit Payment Details</string>
+    <string name="txt_redefine_exp">REDEFINING YOUR SHOPPING EXPERIENCE</string>
     <string name="txt_english">English</string>
     <string name="txt_arabic">Arabic</string>
-    <string name="txt_edit_payment_details">Edit Payment Details</string>
-    <string name="txt_edit_profile">Edit Profile</string>
-    <string name="txt_change_currency">Change Currency -USD</string>
-    <string name="txt_redefine_exp">REDEFINING YOUR SHOPPING EXPERIENCE</string>
+<!--
+    <string name="km_miles">KM / Miles</string>
+    <string name="alert">Alerts</string>
+    <string name="change_language">Change Language</string>
+-->
 
 
     <!--Payment Details Screen-->
@@ -130,7 +133,7 @@
 
 
     <!--Favorite Screen-->
-    <string name="favorite_screen_title">Favorite</string>
+    <string name="favorite_screen_title">Favorites</string>
     <string name="auto">Auto</string>
 
 
@@ -139,44 +142,50 @@
     <string name="forget_password_header">Forget Password</string>
     <string name="enter_your_email_id_hint">Enter your email id</string>
     <string name="submit_btn">Submit</string>
+    <string name="verification_msg">By Tapping next above, EXAP will send you a mail to confirm your email id
+        and here by you agree to our Terms of Use and privacy Policy.</string>
+
 
 
     <!--Categories screen-->
-    <string name="menu_notification">Notification</string>
+    <!--<string name="menu_notification">Notification</string>
+    -->
     <string name="categories_title">Categories</string>
-    <string name="txt_category_name">Auto</string>
-
+    <!--<string name="txt_category_name">Auto</string>
+-->
     <!--following scrren-->
     <string name="following_screen_title">Following</string>
-    <string name="txt_active_coupons"># Active Coupons</string>
-    <string name="txt_downloads"># Redeemed</string>
-    <string name="txt_followers"># Followers</string>
-    <string name="txt_active_coupons_val">10</string>
-    <string name="txt_downloads_val">154</string>
-    <string name="txt_followers_val">95</string>
+    <string name="txt_followers">Followers</string>
+    <string name="txt_downloads">Purchased</string>
+    <string name="txt_active_coupons">Active Coupons</string>
     <string name="btn_follow_this_partner">Follow this Partner</string>
+    <string name="txt_featured">Featured</string>
+
+    <!--<string name="txt_active_coupons_val">10</string>
+    <string name="txt_downloads_val">154</string>
+    <string name="txt_followers_val">95</string>-->
 
 
 
     <!-- Near By Screen-->
 
-    <string name="txt_selcted_category">Food &amp; Dining</string>
-    <string name="txt_high_to_low">High To Low</string>
-    <string name="txt_low_to_high">Low To High</string>
-    <string name="txt_distance">Distance</string>
-    <string name="txt_discount">Discount</string>
     <string name="txt_end_date">End Date</string>
+    <string name="txt_distance">Distance</string>
+    <string name="txt_filter_distance_unit_km">KM</string>
+    <string name="txt_filter_distance_unit_miles">Miles</string>
+    <string name="txt_discount">Discount</string>
+    <string name="txt_low_to_high">Low To High</string>
+    <string name="txt_high_to_low">High To Low</string>
     <string name="txt_sooner_to_later">Sooner To Later</string>
     <string name="txt_later_to_sooner">Later To Sooner</string>
     <string name="nearby_screen_title">NearBy</string>
-    <string name="menu_filter">Filter</string>
+
+    <!--<string name="txt_selcted_category">Food &amp; Dining</string>
     <string name="txt_off">35% off</string>
     <string name="on_fanta">on Fanta Pride</string>
     <string name="txt_distance_val">1.5 Km</string>
-    <string name="txt_filter_distance_unit_km">Km</string>
-    <string name="txt_filter_distance_unit_miles">Miles</string>
     <string name="txt_filter_food_and_dining_menu">Food and Dinning</string>
-
+-->
     <!--Store details Screen-->
     <string name="btn_reedme">Redeem</string>
     <string name="title_activity_store_details">Map</string>
@@ -213,12 +222,10 @@
     <string name="feedback_name"> Asvin Mizak </string>
 
 
-    <!-- Settings screen -->
-    <string name="action_settings">Settings</string>
 
     <!-- Welcome screen -->
     <string name="skip_right">Skip</string>
-    <string name="skip_left">تخطى</string>
+    <string name="skip_left">تخطي</string>
 
     <!-- add photo screen-->
 
@@ -228,7 +235,8 @@
 
 
     <!--Wallet Screen-->
-    <string name="wallet_screen_title">Wallet</string>
+    <string name="wallet_screen_title">Pocket</string>
+    <string name="wallet_percentage_off">% Off</string>
 
     <!--Discussion or Chat Screen-->
     <string name="discussion_title">Discussion</string>
@@ -246,4 +254,13 @@
     <string name="location">Location</string>
 
     <string name="open_helper_classname">com.deal.exap.databasemanager.DatabaseHelper</string>
+    <!-- Menu -->
+    <string name="menu">Menu</string>
+
+    <!-- Alert messages -->
+    <string name="message">Message</string>
+    <string name="please_enter_mobile_number">Please enter mobile number</string>
+    <string name="please_enter_valid_mobile_number">Please enter valid mobile number</string>
+
+
 </resources>

@@ -13,7 +13,7 @@ import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.HelpMe;
-import com.deal.exap.utility.TJPreferences;
+import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
 import com.j256.ormlite.dao.Dao;
 
@@ -43,7 +43,7 @@ public class OrgSplashActivity extends FragmentActivity {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                HelpMe.setLocale(TJPreferences.getAPP_LANG(mContext), mContext);
+                HelpMe.setLocale(DealPreferences.getAPP_LANG(mContext), mContext);
 
                 UserDTO userDTO = Utils.getObjectFromPref(OrgSplashActivity.this, Constant.USER_INFO);
 

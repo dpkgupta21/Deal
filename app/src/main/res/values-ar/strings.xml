@@ -1,49 +1,47 @@
 <resources>
 
-
-
     <string name="facebook_app_id">1510998382534846</string>
 
-
-
     <!-- Sign up screen arabic-->
-    <string name="name_hint">اسم</string>
-    <string name="dob_hint">تاريخ الميلاد</string>
-    <string name="gender_hint">جنس</string>
-    <string name="email_id_hint">البريد الإلكتروني</string>
-    <string name="password_hint">كلمة المرور</string>
-    <string name="confirm_password_hint">تأكيد كلمة السر</string>
-    <string name="save_btn">حفظ</string>
     <string name="profile_header">الملف الشخصي</string>
     <string name="add_photo">إضافة صورة</string>
+    <string name="name_hint">الإسم</string>
+    <string name="dob_hint">تاريخ الميلاد</string>
+    <string name="gender_hint">الجنس</string>
+    <string name="email_id_hint">البريد الإلكتروني</string>
+    <string name="password_hint">كلمة المرور</string>
+    <string name="confirm_password_hint">تأكيد كلمة المرور</string>
+    <string name="save_btn">حفظ</string>
+
 
     <!--Sign in screen arabic-->
 
-    <string name="connect_with_facebook_btn">تواصل مع الفيسبوك</string>
-    <string name="connect_with_twitter_btn">تغريد</string>
+    <string name="connect_with_facebook_btn">Facebook</string>
+    <string name="connect_with_twitter_btn">Twitter</string>
     <string name="or">أو</string>
-    <string name="connect_with">اتصل مع</string>
+    <string name="connect_with">سجل بواسطة</string>
     <string name="username_hint">اسم المستخدم</string>
     <string name="password_sign_in_hint">كلمة المرور</string>
-    <string name="login_btn">تسجيل الدخول</string>
-    <string name="not_yet_registered">غغير مسجل حتى الآن؟</string>
+    <string name="login_btn">دخول</string>
+    <string name="not_yet_registered">لم تسجل بعد؟ سجل الآن</string>
     <string name="register_now">سجل الان!</string>
     <string name="forgot_password">هل نسيت كلمة المرور؟</string>
-    <string name="terms_and_conditions">البنود و الشروط | سياسة الخصوصية</string>
+    <string name="terms_and_conditions">استخدامك لتطبيق إكسب يعني موافقتك على الشروط والأحكام وسياسة الخصوصية الخاصة بالخدمة</string>
+
 
 
     <!-- Number verification screen arabic step1 -->
-    <string name="verify_your_phone">التحقق من رقم هاتفك</string>
+    <string name="verify_your_phone">التوثيق وربط رقم الجوال</string>
     <string name="country_code_hint">المتحدة الدولة +1</string>
-    <string name="enter_your_phone_number_hint">أدخل رقم هاتفك</string>
-    <string name="send_confirmation_code">إرسال رمز التأكيد</string>
-    <string name="verification_msg">من خلال النقر فوق التالي، سوف Exap نرسل لك رسالة SMS لتأكيد رقم هاتفك وهنا فإنك توافق على شروط الخدمة و سياسة الخصوصية</string>
+    <string name="enter_your_phone_number_hint">أدخل رقم الجوال</string>
+    <string name="send_confirmation_code">أرسل رمز التحقق</string>
+    <string name="verification_msg">تخطيك لهذه الخطوة يعني موافقتك على تلقي رسالة من خلال تطبيق إكسب وذلك للتحقق من رقم الجوال المسجل وموافقتك على شروط وأحكام الخدمة وخصوصيتها.</string>
 
 
     <!-- Number verification screen  arabic step2 -->
-    <string name="enter_confirmation_code">أدخل رمز التأكيد</string>
-    <string name="enter_code_hint">الكود</string>
-    <string name="create_profile">إنشاء الملف الشخصي</string>
+    <string name="enter_confirmation_code">أدخل رمز التحققذ</string>
+    <string name="enter_code_hint">رمز التحقق</string>
+    <string name="create_profile">إنشاء الملف <الشخصي></الشخصي></string>
 
 
 
@@ -63,36 +61,40 @@
     <string name="menu_setting">إعدادات</string>
 
     <!--Interest screen-->
-    <string name="interest_screen_title">اهتمام</string>
+    <string name="interest_screen_title">ااهتمامات</string>
+    <string name="select_interest">اختر الإهتمامات</string>
     <string name="menu_check">الاختيار</string>
 
     <!--Alert Screen arabic-->
     <string name="btn_text">حسنا</string>
-    <string name="btn_notification">إعلام</string>
-    <string name="btn_message">الرسالة</string>
-    <string name="burger_king">برغر كينغ</string>
+    <string name="btn_notification">الإعلانات</string>
+    <string name="btn_message">الرسائل</string>
+    <!--<string name="burger_king">برغر كينغ</string>
     <string name="alert_detail">عرض نهاية الأسبوع الحصول على خصم 50٪ في شراء متجر</string>
-    <string name="alert_date_time">23 سبتمبر | 11:00 PM</string>
-    <string name="alert_screen_title">التنبيهات</string>
+    <string name="alert_date_time">23 سبتمبر | 11:00 PM</string>-->
+    <string name="alert_screen_title">تنبيهات</string>
     <string name="uname_pwd_not_match">اسم المستخدم وكلمة المرور غير متطابقة.</string>
     <string name="sms_verification_error">رمز التحقق SMS الذي أدخلته غير صحيح</string>
 
     <!--Setting Screen-->
-    <string name="setting_screen_title">إعدادات</string>
-    <string name="location_service">خدمة الموقع</string>
-    <string name="notification_range">نطاق إعلام</string>
-    <string name="km_miles">KM / Miles</string>
-    <string name="alert">التنبيهات</string>
-    <string name="push_alert">دفع تنبيه</string>
-    <string name="message_alert">رسالة تنبيه</string>
-    <string name="deal_expiry_alert">التعامل انتهاء تنبيه</string>
-    <string name="change_language">غير اللغة</string>
+    <string name="action_settings">Settings</string>
+    <string name="setting_screen_title">Settings</string>
+    <string name="location_service">خدمة تحديد الموقع</string>
+    <string name="notification_range">نطاق التنبيهات</string>
+    <string name="push_alert">الإعلانات الموجهة</string>
+    <string name="message_alert">الرسائل</string>
+    <string name="deal_expiry_alert">تنبيهات الكوبونات المنتهية</string>
+    <string name="txt_change_currency">تغيير العملة</string>
+    <string name="txt_edit_profile">عديل الملف الشخصي</string>
+    <string name="txt_edit_payment_details">المعلومات الإئتمانية</string>
     <string name="txt_english">English</string>
     <string name="txt_arabic">العربية</string>
-    <string name="txt_edit_payment_details">تفاصيل تحرير الدفع</string>
-    <string name="txt_edit_profile">تعديل الملف الشخصي</string>
-    <string name="txt_change_currency">تغيير العملة -USD</string>
 
+<!--
+<string name="change_language">غير اللغة</string>
+    <string name="km_miles">KM / Miles</string>
+    <string name="alert">التنبيهات</string>
+-->
 
     <!--Payment Details Screen-->
     <string name="hint_card_no">بطاقة رقم</string>
@@ -105,7 +107,7 @@
     <string name="title_payment_pop_up">تفاصيل الدفع</string>
 
     <!--Favorite Screen-->
-    <string name="favorite_screen_title">المفضل</string>
+    <string name="favorite_screen_title">الالمفضلة</string>
     <string name="auto">السيارات</string>
 
 
@@ -117,38 +119,44 @@
 
 
     <!--Categories screen-->
-    <string name="menu_notification">إعلام</string>
-    <string name="categories_title">الفئات</string>
-    <string name="txt_category_name">السيارات</string>
-
+    <!--<string name="menu_notification">إعلام</string>
+    -->
+    <string name="categories_title">التصنيفات</string>
+    <!--<string name="txt_category_name">السيارات</string>
+-->
     <!--following scrren-->
-    <string name="following_screen_title">التالي</string>
-    <string name="txt_active_coupons"># كوبونات النشطة</string>
-    <string name="txt_downloads"># مطفأة</string>
-    <string name="txt_followers"># أتباع</string>
-    <string name="txt_active_coupons_val">10</string>
-    <string name="txt_downloads_val">154</string>
-    <string name="txt_followers_val">95</string>
+    <string name="following_screen_title">الالمتابَعون</string>
+    <string name="txt_followers">عدد المتابعين</string>
+    <string name="txt_downloads">مجموع المشتريات</string>
+    <string name="txt_active_coupons">كوبونات نشطة</string>
     <string name="btn_follow_this_partner">اتبع هذا الشريك</string>
+    <string name="txt_featured">امميز</string>
+
+    <!--<string name="txt_active_coupons_val">10</string>
+    <string name="txt_downloads_val">154</string>
+    <string name="txt_followers_val">95</string>-->
 
 
     <!-- Near By Screen-->
+    <string name="txt_end_date">تينتهي في:</string>
+    <string name="txt_distance">ايبعد:</string>
+    <string name="txt_filter_distance_unit_km">ككم</string>
+    <string name="txt_filter_distance_unit_miles">مميل</string>
+    <string name="txt_discount">تمقدار الخصم</string>
+    <string name="txt_low_to_high">عالقريبة أولاً</string>
+    <string name="txt_high_to_low">االبعيدة أولاً</string>
+    <string name="txt_sooner_to_later">عقريباً</string>
+    <string name="txt_later_to_sooner">فلاحقاً</string>
+    <string name="nearby_screen_title">قعروض قريبة</string>
+
+<!--
     <string name="txt_selcted_category">اغذية و مأكولات</string>
-    <string name="txt_high_to_low">الأعلى إلى الأقل</string>
-    <string name="txt_low_to_high">على ارتفاع منخفض</string>
-    <string name="txt_distance">المسافات</string>
-    <string name="txt_discount">تخفيض السعر</string>
-    <string name="txt_end_date">تاريخ الانتهاء</string>
-    <string name="txt_sooner_to_later">عاجلا لوقت لاحق</string>
-    <string name="txt_later_to_sooner">في وقت لاحق لعاجلا</string>
-    <string name="nearby_screen_title">قريب</string>
     <string name="menu_filter">فلتر</string>
     <string name="txt_off">35٪ أقل</string>
     <string name="txt_on_off">على فانتا الكبرياء</string>
     <string name="txt_distance_val">1.5 كم</string>
-    <string name="txt_filter_distance_unit_km">كم</string>
-    <string name="txt_filter_distance_unit_miles">مايلز</string>
     <string name="txt_filter_food_and_dining_menu">الغذاء والطعام</string>
+-->
 
 
     <!--Store details Screen-->
@@ -187,8 +195,6 @@
     <string name="feedback_name"> Asvin Mizak </string>
 
 
-    <!-- Settings screen -->
-    <string name="action_settings">إعدادات</string>
 
     <!-- Welcome screen -->
     <string name="skip_right">Skip</string>
@@ -200,7 +206,8 @@
 
 
     <!--Wallet Screen-->
-    <string name="wallet_screen_title">محفظة</string>
+    <string name="wallet_screen_title">مالمحفظة</string>
+    <string name="wallet_percentage_off">خصم  X %</string>
 
     <!--Discussion or Chat Screen-->
     <string name="discussion_title">نقاش</string>

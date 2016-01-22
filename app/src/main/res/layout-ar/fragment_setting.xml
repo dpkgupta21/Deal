@@ -41,10 +41,41 @@
 
             </RelativeLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:weightSum="1">
+
+                <com.deal.exap.customviews.MyButtonViewSemi
+                    android:id="@+id/btn_select_km"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".5"
+                    android:background="@color/btn_color"
+                    android:gravity="center"
+                    android:text="@string/txt_filter_distance_unit_km"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+
+                <com.deal.exap.customviews.MyButtonViewSemi
+                    android:id="@+id/btn_select_miles"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/txt_filter_distance_unit_miles"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="10dp">
 
                 <com.deal.exap.customviews.MyTextViewReg14
                     android:layout_width="wrap_content"
@@ -52,11 +83,6 @@
                     android:layout_alignParentRight="true"
                     android:text="@string/notification_range" />
 
-                <com.deal.exap.customviews.MyTextViewReg14
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="@string/km_miles" />
 
             </RelativeLayout>
 
@@ -97,7 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="@string/alert" />
+                 />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -164,13 +190,6 @@
                     android:padding="10dp" />
 
             </RelativeLayout>
-
-            <com.deal.exap.customviews.MyTextViewReg14
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/change_language" />
-
 
             <LinearLayout
                 android:layout_width="match_parent"

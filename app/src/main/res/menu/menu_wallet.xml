@@ -5,6 +5,6 @@
         android:id="@+id/menu_notification"
         android:icon="@drawable/notification_btn"
         app:showAsAction="always"
-        android:title="@string/menu_notification"></item>
+        android:title="@string/menu"></item>
 
 </menu>

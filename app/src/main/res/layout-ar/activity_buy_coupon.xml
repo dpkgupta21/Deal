@@ -251,13 +251,12 @@
                             android:gravity="center_horizontal"
                             android:text="@string/txt_distance"
                             android:textSize="10sp" />
-
+                   
                         <com.deal.exap.customviews.MyTextViewRegCustom
                             android:id="@+id/txt_distance_val"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="@string/txt_distance_val"
                             android:textColor="@color/btn_color"
                             android:textSize="14sp" />
 

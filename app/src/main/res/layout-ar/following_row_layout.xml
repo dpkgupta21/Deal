@@ -65,7 +65,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
-                            android:text="@string/burger_king"
                             android:textColor="@color/white"
                             android:textSize="18sp" />
 
@@ -121,7 +120,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="@string/txt_followers_val"
                             android:textColor="@color/btn_color"
                             android:textSize="14sp" />
 
@@ -153,7 +151,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="@string/txt_downloads_val"
                             android:textColor="@color/btn_color"
                             android:textSize="14sp" />
 
@@ -185,7 +182,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="@string/txt_active_coupons_val"
                             android:textColor="@color/btn_color"
                             android:textSize="14sp" />
 

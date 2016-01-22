@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -29,7 +28,7 @@ import com.deal.exap.login.BaseFragment;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.nearby.adapter.NearByListAdapter;
 import com.deal.exap.utility.Constant;
-import com.deal.exap.utility.TJPreferences;
+import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -195,9 +194,9 @@ public class NearByFragment extends BaseFragment {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.GET_NEAR_DEAL);
             params.put("lang", Utils.getSelectedLanguage(getActivity()));
-            params.put("lat", String.valueOf(TJPreferences.getLatitude(getActivity().
+            params.put("lat", String.valueOf(DealPreferences.getLatitude(getActivity().
                     getApplicationContext())));
-            params.put("lng", String.valueOf(TJPreferences.getLongitude(getActivity().
+            params.put("lng", String.valueOf(DealPreferences.getLongitude(getActivity().
                     getApplicationContext())));
 
             final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);

@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,18 +25,15 @@ import com.deal.exap.customerfeedback.CustomerFeedBackActivity;
 import com.deal.exap.following.FollowingPartnerDetails;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.misc.ImageActivity;
-import com.deal.exap.model.CategoryDTO;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
-import com.deal.exap.partner.ChatActivity;
 import com.deal.exap.termscondition.TermsConditionActivity;
 import com.deal.exap.utility.Constant;
-import com.deal.exap.utility.TJPreferences;
+import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -46,9 +42,7 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -278,9 +272,9 @@ public class BuyCouponActivity extends BaseActivity {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.GET_DEAL_DETAIL);
             params.put("lang", Utils.getSelectedLanguage(BuyCouponActivity.this));
-            params.put("lat", String.valueOf(TJPreferences.getLatitude(BuyCouponActivity.this.
+            params.put("lat", String.valueOf(DealPreferences.getLatitude(BuyCouponActivity.this.
                     getApplicationContext())));
-            params.put("lng", String.valueOf(TJPreferences.getLongitude(this.
+            params.put("lng", String.valueOf(DealPreferences.getLongitude(this.
                     getApplicationContext())));
 
             params.put("deal_id", id);

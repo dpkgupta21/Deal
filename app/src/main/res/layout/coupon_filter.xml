@@ -25,7 +25,6 @@
             android:padding="5dp"
             android:gravity="center_vertical"
             android:singleLine="true"
-            android:text="@string/txt_filter_food_and_dining_menu"
             android:textSize="10sp" />
 
         <LinearLayout

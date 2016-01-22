@@ -1,7 +1,6 @@
 package com.deal.exap.navigationdrawer;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -21,12 +20,11 @@ import com.deal.exap.favorite.FavoriteFragment;
 import com.deal.exap.following.FollowingFragment;
 import com.deal.exap.interest.InterestFragment;
 import com.deal.exap.login.BaseActivity;
-import com.deal.exap.model.DealDTO;
 import com.deal.exap.model.MenuDTO;
 import com.deal.exap.nearby.NearByFragment;
 import com.deal.exap.settings.SettingFragment;
 import com.deal.exap.utility.Constant;
-import com.deal.exap.utility.TJPreferences;
+import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -96,7 +94,7 @@ public class HomeActivity extends BaseActivity {
         itemCategory.setOnClickListener(this);
         itemSetting.setOnClickListener(this);
 
-        if (TJPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ENGLISH_CODE)) {
+        if (DealPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ENGLISH_CODE)) {
             resideMenu.addMenuItem(itemAlert, ResideMenuSecond.DIRECTION_LEFT);
             resideMenu.addMenuItem(itemNearby, ResideMenuSecond.DIRECTION_LEFT);
             resideMenu.addMenuItem(itemWallet, ResideMenuSecond.DIRECTION_LEFT);
@@ -108,7 +106,7 @@ public class HomeActivity extends BaseActivity {
 
             // resideMenu.setSwipeDirectionDisable(ResideMenuSecond.DIRECTION_LEFT);
 
-        } else if (TJPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ARABIC_CODE)) {
+        } else if (DealPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ARABIC_CODE)) {
             resideMenu.addMenuItem(itemAlert, ResideMenuSecond.DIRECTION_RIGHT);
             resideMenu.addMenuItem(itemNearby, ResideMenuSecond.DIRECTION_RIGHT);
             resideMenu.addMenuItem(itemWallet, ResideMenuSecond.DIRECTION_RIGHT);
@@ -196,9 +194,9 @@ public class HomeActivity extends BaseActivity {
                 ///  isopend = true;
                 if (resideMenu.isOpened() == false) {
                     resideMenu.setOpened(true);
-                    if (TJPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ENGLISH_CODE)) {
+                    if (DealPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ENGLISH_CODE)) {
                         resideMenu.openMenu(ResideMenuSecond.DIRECTION_LEFT);
-                    } else if (TJPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ARABIC_CODE)) {
+                    } else if (DealPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ARABIC_CODE)) {
                         resideMenu.openMenu(ResideMenuSecond.DIRECTION_RIGHT);
                     }
 

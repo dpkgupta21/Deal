@@ -30,27 +30,21 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
-import com.deal.exap.com.exap.sidemenu.ResideMenuSecond;
-import com.deal.exap.com.exap.sidemenu.TouchDisableView;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg16;
 import com.deal.exap.login.BaseFragment;
 import com.deal.exap.login.EditProfileActivity;
-import com.deal.exap.model.DealDTO;
 import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.HelpMe;
-import com.deal.exap.utility.TJPreferences;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,6 +56,9 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
     private View view;
     private MyButtonViewSemi btn_select_english;
     private MyButtonViewSemi btn_select_arabic;
+    private MyButtonViewSemi btn_select_km;
+    private MyButtonViewSemi btn_select_miles;
+
     private ArrayList<String> months;
     private ArrayList<String> years;
     private TextView txtMonth;
@@ -110,6 +107,9 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
         ((MyTextViewReg16) view.findViewById(R.id.txt_payment_details)).setOnClickListener(paymentClick);
         btn_select_english = (MyButtonViewSemi) view.findViewById(R.id.btn_select_english);
         btn_select_arabic = (MyButtonViewSemi) view.findViewById(R.id.btn_select_arabic);
+        btn_select_km = (MyButtonViewSemi) view.findViewById(R.id.btn_select_km);
+        btn_select_miles = (MyButtonViewSemi) view.findViewById(R.id.btn_select_miles);
+
         SeekBar seek_bar = (SeekBar) view.findViewById(R.id.seek_bar);
         switch_expiry = (Switch) view.findViewById(R.id.switch_expiry);
         switch_push = (Switch) view.findViewById(R.id.switch_push);
@@ -142,10 +142,12 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
 
         seek_bar.setOnSeekBarChangeListener(this);
         seek_bar.setOnTouchListener(this);
-        selectedButton(TJPreferences.getAPP_LANG(getActivity().getApplicationContext()));
+        selectedButton(DealPreferences.getAPP_LANG(getActivity().getApplicationContext()));
 
         btn_select_english.setOnClickListener(englishLanguageClick);
         btn_select_arabic.setOnClickListener(arabicLanguageClick);
+        btn_select_km.setOnClickListener(this);
+        btn_select_miles.setOnClickListener(this);
 
     }
 
@@ -154,6 +156,12 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
         switch (arg0.getId()) {
             case R.id.tv_editprofile:
                 getActivity().startActivity(new Intent(getActivity(), EditProfileActivity.class));
+                break;
+            case R.id.btn_select_km:
+                DealPreferences.setDistanceUnit(getActivity().getApplicationContext(),Constant.DISTANCE_UNIT_KM);
+                break;
+            case R.id.btn_select_miles:
+                DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_MILES);
                 break;
         }
     }
@@ -166,10 +174,10 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
     View.OnClickListener englishLanguageClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (TJPreferences.getAPP_LANG(getActivity().getApplicationContext()).contains(Constant.LANG_ARABIC_CODE)) {
+            if (DealPreferences.getAPP_LANG(getActivity().getApplicationContext()).contains(Constant.LANG_ARABIC_CODE)) {
                 HelpMe.setLocale(Constant.LANG_ENGLISH_CODE, getActivity().getApplicationContext());
                 selectedButton(Constant.LANG_ENGLISH_CODE);
-                TJPreferences.setAPP_LANG(getActivity().getApplicationContext(), Constant.LANG_ENGLISH_CODE);
+                DealPreferences.setAPP_LANG(getActivity().getApplicationContext(), Constant.LANG_ENGLISH_CODE);
                 syncSetting("language_id", "eng");
 
                 Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
@@ -183,10 +191,10 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
     View.OnClickListener arabicLanguageClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (TJPreferences.getAPP_LANG(getActivity().getApplicationContext()).contains(Constant.LANG_ENGLISH_CODE)) {
+            if (DealPreferences.getAPP_LANG(getActivity().getApplicationContext()).contains(Constant.LANG_ENGLISH_CODE)) {
                 HelpMe.setLocale(Constant.LANG_ARABIC_CODE, getActivity().getApplicationContext());
                 selectedButton(Constant.LANG_ARABIC_CODE);
-                TJPreferences.setAPP_LANG(getActivity().getApplicationContext(), Constant.LANG_ARABIC_CODE);
+                DealPreferences.setAPP_LANG(getActivity().getApplicationContext(), Constant.LANG_ARABIC_CODE);
                 syncSetting("language_id", "ar");
                 Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
                 startActivity(i);

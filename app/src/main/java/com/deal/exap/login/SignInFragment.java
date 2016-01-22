@@ -22,6 +22,7 @@ import com.deal.exap.gps.GPSTracker;
 import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -327,6 +328,7 @@ public class SignInFragment extends BaseFragment {
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
+                                        DealPreferences.setUserId(getActivity().getApplicationContext(),userDTO.getId());
                                         Utils.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
                                         Intent intent = new Intent(getActivity(), HomeActivity.class);
                                         intent.putExtra("fragmentName", getActivity().getString(R.string.interest_screen_title));

@@ -45,9 +45,9 @@ public class SMSReceiver extends BroadcastReceiver {
             // Display the entire SMS Message
             Log.d(TAG, msg);
             String verifyingText = msg.substring(msg.length() - 6, msg.length());
-            String checkOtp = TJPreferences.getUSER_OTP(context);
+            String checkOtp = DealPreferences.getUSER_OTP(context);
             if (verifyingText.equalsIgnoreCase(checkOtp)) {
-                TJPreferences.setPhone(context, phoneNumber);
+                DealPreferences.setPhone(context, phoneNumber);
 //                Intent i = new Intent(context, NumberVerificationActivity2.class);
 //                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                context.startActivity(i);

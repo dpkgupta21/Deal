@@ -47,8 +47,8 @@ public class SessionManager {
      */
     public void logoutUser(Context mContext) {
         // Clearing all data from Shared Preferences
-        TJPreferences.clearAllPreferences(mContext);
-        TJPreferences.setLoggedIn(mContext, false);
+        DealPreferences.clearAllPreferences(mContext);
+        DealPreferences.setLoggedIn(mContext, false);
 
         // After logout redirect user to Loing Activity
         Intent i = new Intent(_context, SignInFragment.class);
@@ -66,6 +66,6 @@ public class SessionManager {
      */
     // Get Login State
     public boolean isLoggedIn(Context mContext) {
-        return TJPreferences.isLoggedIn(mContext);
+        return DealPreferences.isLoggedIn(mContext);
     }
 }

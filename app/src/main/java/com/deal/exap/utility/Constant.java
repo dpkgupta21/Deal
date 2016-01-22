@@ -10,8 +10,11 @@ public class Constant {
 
     public static final String PREF_EMAIL_ID = "email_id";
     public static final String PREF_PASSWORD = "password";
-    public static final String LANG_ENGLISH_CODE = "en";
-    public static final String LANG_ARABIC_CODE = "ar";
+    public static final String LANG_ENGLISH_CODE = "eng";
+    public static final String LANG_ARABIC_CODE = "ara";
+    public static final String DISTANCE_UNIT_KM= "KM";
+    public static final String DISTANCE_UNIT_MILES = "MILES";
+
     // STATUS CODE
     public static final int RESULT_OK = 1001;
     public static final int RESULT_EXCEPTION = 1002;

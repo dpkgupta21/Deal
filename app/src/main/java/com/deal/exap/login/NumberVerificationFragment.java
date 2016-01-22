@@ -220,15 +220,11 @@ public class NumberVerificationFragment extends Fragment {
 
     public boolean validateForm(String number) {
         if (number.equals("")) {
-            Utils.showDialog(getActivity(), "Message", "Please enter mobile number");
+            Utils.showDialog(getActivity(), getResources().getString(R.string.message),
+                    getResources().getString(R.string.please_enter_mobile_number));
             return false;
         }
-        else
-        if(number.length()!=10)
-        {
-            Utils.showDialog(getActivity(), "Message", "Please enter valid mobile number");
-            return false;
-        }
+
         return true;
     }
 
@@ -246,8 +242,8 @@ public class NumberVerificationFragment extends Fragment {
     AuthCallback callback = new AuthCallback() {
         @Override
         public void success(DigitsSession session, String phoneNumber) {
-            Toast.makeText(getActivity().getApplicationContext(),
-                    "Authentication Successful for " + phoneNumber, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity().getApplicationContext(),
+//                    "Authentication Successful for " + phoneNumber, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getContext(), SignUp.class);
             intent.putExtra("MOB_NUMBER", phoneNumber);
             startActivity(intent);

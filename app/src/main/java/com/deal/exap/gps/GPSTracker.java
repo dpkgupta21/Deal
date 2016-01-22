@@ -11,7 +11,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 
-import com.deal.exap.utility.TJPreferences;
+import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -100,7 +100,7 @@ public class GPSTracker implements ConnectionCallbacks,
         if (mCurrentLocation != null) {
 
             latitude = mCurrentLocation.getLatitude();
-            TJPreferences.setLatitude(mActivity, latitude);
+            DealPreferences.setLatitude(mActivity, latitude);
         }
         return latitude;
     }
@@ -112,7 +112,7 @@ public class GPSTracker implements ConnectionCallbacks,
         double longitude = 0.0;
         if (mCurrentLocation != null) {
             longitude = mCurrentLocation.getLongitude();
-            TJPreferences.setLongitude(mActivity, longitude);
+            DealPreferences.setLongitude(mActivity, longitude);
         }
         return longitude;
     }

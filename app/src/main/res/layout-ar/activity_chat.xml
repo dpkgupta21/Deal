@@ -55,7 +55,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
-                        android:text="@string/burger_king"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
@@ -67,7 +66,6 @@
                         android:layout_marginTop="5dp"
                         android:drawableLeft="@drawable/place_marker"
                         android:singleLine="true"
-                        android:text="@string/burger_king"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
 
