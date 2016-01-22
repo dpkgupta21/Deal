@@ -104,11 +104,10 @@ public class BuyCouponActivity extends BaseActivity {
         //  setClick(R.id.iv_chat);
         setClick(R.id.txt_terms_conditions);
         setClick(R.id.txt_customer_reviews);
-        setClick(R.id.btn_redeem);
+
 
         setClick(R.id.img_title);
-        setClick(R.id.btn_buy_deal);
-        setClick(R.id.btn_redeem);
+
 
     }
 
@@ -193,9 +192,6 @@ public class BuyCouponActivity extends BaseActivity {
                 openPaymentDialog();
                 break;
 
-            case R.id.btn_buy_deal:
-                openPaymentDialog();
-                break;
             case R.id.btn_redeem:
                 readRedeeme();
                 break;
@@ -329,14 +325,14 @@ public class BuyCouponActivity extends BaseActivity {
 
     private void setData() {
 
-        if (dealDTO.getType().equalsIgnoreCase("paid")) {
-            setViewVisibility(R.id.btn_buy_deal, View.VISIBLE);
-            setViewVisibility(R.id.btn_redeem, View.GONE);
-
-        } else {
-            setViewVisibility(R.id.btn_buy_deal, View.GONE);
-            setViewVisibility(R.id.btn_redeem, View.VISIBLE);
-        }
+//        if (dealDTO.getType().equalsIgnoreCase("paid")) {
+//            setViewVisibility(R.id.btn_buy_deal, View.VISIBLE);
+//            setViewVisibility(R.id.btn_redeem, View.GONE);
+//
+//        } else {
+//            setViewVisibility(R.id.btn_buy_deal, View.GONE);
+//            setViewVisibility(R.id.btn_redeem, View.VISIBLE);
+//        }
         setTextViewText(R.id.txt_discount_rate, dealDTO.getDiscount() + "% off");
         if (Utils.isArebic(this)) {
             setTextViewText(R.id.txt_on_which, dealDTO.getName_ara());

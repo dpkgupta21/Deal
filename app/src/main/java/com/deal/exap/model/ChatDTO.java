@@ -1,64 +1,31 @@
 package com.deal.exap.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Mayur on 10-01-2016.
  */
-public class ChatDTO implements Serializable{
+public class ChatDTO implements Serializable {
 
-    private String message;
-    private String user;
-    private String user_id;
-    private String image;
-    private String timestamp;
-    private int unread;
 
-    public String getMessage() {
-        return message;
+    private Partner partner;
+
+    private List<MessageDTO> messageList;
+
+    public Partner getPartner() {
+        return partner;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setPartner(Partner partner) {
+        this.partner = partner;
     }
 
-    public String getUser() {
-        return user;
+    public List<MessageDTO> getMessageList() {
+        return messageList;
     }
 
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public int getUnread() {
-        return unread;
-    }
-
-    public void setUnread(int unread) {
-        this.unread = unread;
+    public void setMessageList(List<MessageDTO> messageList) {
+        this.messageList = messageList;
     }
 }

@@ -67,23 +67,11 @@ public class NearByListAdapter extends RecyclerView
             btnBuy = (Button) itemView.findViewById(R.id.btn_buy);
             ivLogo = (ImageView) itemView.findViewById(R.id.img_title);
             ivThumnail = (ImageView) itemView.findViewById(R.id.thumbnail);
-
-//            ivLogo.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    if (context instanceof BaseActivity) {
-//                        BaseActivity act = (BaseActivity) context;
-//
-//                        Intent intent = new Intent(act, FollowingPartnerDetails.class);
-//                        act.startActivity(intent);
-//                    }
-//                }
-//            });
-
-
             Log.i(LOG_TAG, "Adding Listener");
             ivThumnail.setOnClickListener(this);
             ivLogo.setOnClickListener(this);
+            btnBuy.setOnClickListener(this);
+            llBuy.setOnClickListener(this);
         }
 
         @Override
@@ -136,13 +124,14 @@ public class NearByListAdapter extends RecyclerView
 
     @Override
     public void onBindViewHolder(DataObjectHolder holder, int position) {
-        if (position % 2 == 0) {
-            holder.btnBuy.setVisibility(View.VISIBLE);
-            holder.llBuy.setVisibility(View.GONE);
-        } else {
-            holder.btnBuy.setVisibility(View.GONE);
-            holder.llBuy.setVisibility(View.VISIBLE);
-        }
+//        if (position % 2 == 0) {
+//            holder.btnBuy.setVisibility(View.VISIBLE);
+//            holder.llBuy.setVisibility(View.GONE);
+//        } else {
+//            holder.btnBuy.setVisibility(View.GONE);
+//            holder.llBuy.setVisibility(View.VISIBLE);
+//        }
+
         ImageLoader.getInstance().displayImage(mDataset.get(position).getDeal_image(), holder.ivThumnail,
                 options);
         ImageLoader.getInstance().displayImage(mDataset.get(position).getPartner_logo(), holder.ivLogo,

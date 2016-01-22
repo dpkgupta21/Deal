@@ -150,9 +150,10 @@ public class FollowingPartnerDetails extends BaseActivity {
     private void setPartnerDetails() {
 
 
-        mAdapter = new NearByListAdapter(partnerDTO.getDeals(), FollowingPartnerDetails.this);
-        mRecyclerView.setAdapter(mAdapter);
-
+        if (partnerDTO.getDeals() != null) {
+            mAdapter = new NearByListAdapter(partnerDTO.getDeals(), FollowingPartnerDetails.this);
+            mRecyclerView.setAdapter(mAdapter);
+        }
 
         ImageView imgThumnail = (ImageView) findViewById(R.id.thumbnail);
         ImageView partner = (ImageView) findViewById(R.id.img_company);
@@ -186,6 +187,10 @@ public class FollowingPartnerDetails extends BaseActivity {
             setViewVisibility(R.id.iv_chat, View.VISIBLE);
         }
 
+        if (partnerDTO.getIs_follow().equalsIgnoreCase("0"))
+            setViewVisibility(R.id.btn_follow_this_partner, View.VISIBLE);
+        else
+            setViewVisibility(R.id.btn_follow_this_partner, View.GONE);
 
 //        ((NearByListAdapter) mAdapter).setOnItemClickListener(new NearByListAdapter.MyClickListener() {
 //            @Override
