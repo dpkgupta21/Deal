@@ -13,12 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.deal.exap.R;
-import com.deal.exap.following.FollowingPartnerDetails;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.ConversionsDTO;
-import com.deal.exap.model.NotificationDTO;
-import com.deal.exap.nearby.BuyCouponActivity;
-import com.deal.exap.partner.ChatActivity;
+import com.deal.exap.chat.ChatActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;

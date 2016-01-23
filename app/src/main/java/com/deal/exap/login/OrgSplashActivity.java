@@ -12,9 +12,8 @@ import com.deal.exap.model.DealDTO;
 import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
-import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.DealPreferences;
-import com.deal.exap.utility.Utils;
+import com.deal.exap.utility.HelpMe;
 import com.j256.ormlite.dao.Dao;
 
 import java.util.Timer;
@@ -45,7 +44,7 @@ public class OrgSplashActivity extends FragmentActivity {
             public void run() {
                 HelpMe.setLocale(DealPreferences.getAPP_LANG(mContext), mContext);
 
-                UserDTO userDTO = Utils.getObjectFromPref(OrgSplashActivity.this, Constant.USER_INFO);
+                UserDTO userDTO = DealPreferences.getObjectFromPref(OrgSplashActivity.this, Constant.USER_INFO);
 
                 Intent i = null;
                 if (userDTO == null) {

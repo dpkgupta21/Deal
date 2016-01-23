@@ -318,7 +318,7 @@ public class SignInFragment extends BaseFragment {
                 params.put("lng", "" + gpsTracker.getLongitude());
                 params.put("address", "");
 
-                final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+                final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                         new Response.Listener<JSONObject>() {
                             @Override
@@ -329,7 +329,7 @@ public class SignInFragment extends BaseFragment {
                                     if (Utils.getWebServiceStatus(response)) {
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
                                         DealPreferences.setUserId(getActivity().getApplicationContext(),userDTO.getId());
-                                        Utils.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
+                                        DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
                                         Intent intent = new Intent(getActivity(), HomeActivity.class);
                                         intent.putExtra("fragmentName", getActivity().getString(R.string.interest_screen_title));
                                         startActivity(intent);
@@ -374,7 +374,7 @@ public class SignInFragment extends BaseFragment {
             params.put("device", "android");
             params.put("device_id", android_id);
             params.put("social_type", socialType);
-            final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -384,7 +384,7 @@ public class SignInFragment extends BaseFragment {
                             try {
                                 if (Utils.getWebServiceStatus(response)) {
                                     UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
-                                    Utils.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
+                                    DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
                                     startActivity(new Intent(getActivity(), HomeActivity.class));
                                 } else {
                                     Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));

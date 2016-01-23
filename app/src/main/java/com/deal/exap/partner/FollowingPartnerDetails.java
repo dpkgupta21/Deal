@@ -1,4 +1,4 @@
-package com.deal.exap.following;
+package com.deal.exap.partner;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -107,7 +107,7 @@ public class FollowingPartnerDetails extends BaseActivity {
             params.put("lang", Utils.getSelectedLanguage(this));
 
 
-            final ProgressDialog pdialog = Utils.createProgeessDialog(this, null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -162,7 +162,7 @@ public class FollowingPartnerDetails extends BaseActivity {
 
 
         setTextViewText(R.id.txt_title, partnerDTO.getName());
-        if (Utils.isArebic(FollowingPartnerDetails.this))
+        if (Utils.isArabic(FollowingPartnerDetails.this))
             setTextViewText(R.id.txt_place_tag, partnerDTO.getAddress_ara());
         else
             setTextViewText(R.id.txt_place_tag, partnerDTO.getAddress_eng());
@@ -210,7 +210,7 @@ public class FollowingPartnerDetails extends BaseActivity {
             params.put("user_id", Utils.getUserId(this));
 
 
-            final ProgressDialog pdialog = Utils.createProgeessDialog(this, null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override

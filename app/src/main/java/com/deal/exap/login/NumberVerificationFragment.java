@@ -180,7 +180,7 @@ public class NumberVerificationFragment extends Fragment {
                 Map<String, String> params = new HashMap<>();
                 params.put("action", Constant.CHECK_MOBILE);
                 params.put("mobile", phoneNumber);
-                final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+                final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                         new Response.Listener<JSONObject>() {
                             @Override

@@ -147,7 +147,7 @@ public class WalletAdapter extends RecyclerView
         holder.tvDiscount.setText(mDataset.get(position).getDiscount() + " % Off");
         holder.tvEnddate.setText(mDataset.get(position).getEnd_date());
         holder.tvDistance.setText("Distance "+mDataset.get(position).getDistance()+" Km");
-        if (Utils.isArebic(context))
+        if (Utils.isArabic(context))
             holder.tvDetail.setText(mDataset.get(position).getName_ara());
         else
             holder.tvDetail.setText(mDataset.get(position).getName_eng());

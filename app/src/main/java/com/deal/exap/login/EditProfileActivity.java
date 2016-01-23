@@ -10,7 +10,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -29,6 +28,7 @@ import com.deal.exap.camera.GallerySelectInterface;
 import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonImageRequest;
@@ -74,7 +74,7 @@ public class EditProfileActivity extends BaseActivity {
 
 
     private void init() {
-        userDTO = Utils.getObjectFromPref(this, Constant.USER_INFO);
+        userDTO = DealPreferences.getObjectFromPref(this, Constant.USER_INFO);
         setHeader("Edit Profile");
         setLeftClick();
         setClick(R.id.et_age);
@@ -318,7 +318,7 @@ public class EditProfileActivity extends BaseActivity {
             params.put("dob", getViewText(R.id.et_age));
             params.put("location", getViewText(R.id.txt_location));
 
-            final ProgressDialog pdialog = Utils.createProgeessDialog(this, null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
             if (f != null) {
 
                 CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST,
@@ -333,7 +333,8 @@ public class EditProfileActivity extends BaseActivity {
                                         Log.i("info", "" + response);
 
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
-                                        Utils.putObjectIntoPref(EditProfileActivity.this, userDTO, Constant.USER_INFO);
+                                        DealPreferences.putObjectIntoPref(EditProfileActivity.this,
+                                                userDTO, Constant.USER_INFO);
                                         Intent intent = new Intent(EditProfileActivity.this, HomeActivity.class);
                                         intent.putExtra("fragmentName", EditProfileActivity.this.getString(R.string.setting_screen_title));
                                         startActivity(intent);
@@ -373,7 +374,8 @@ public class EditProfileActivity extends BaseActivity {
                                         Log.i("info", "" + response);
 
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
-                                        Utils.putObjectIntoPref(EditProfileActivity.this, userDTO, Constant.USER_INFO);
+                                        DealPreferences.putObjectIntoPref(EditProfileActivity.this,
+                                                userDTO, Constant.USER_INFO);
                                         Intent intent = new Intent(EditProfileActivity.this, HomeActivity.class);
                                         intent.putExtra("fragmentName",EditProfileActivity.this.getString(R.string.setting_screen_title));
                                         startActivity(intent);

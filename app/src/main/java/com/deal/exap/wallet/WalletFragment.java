@@ -21,7 +21,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
-import com.deal.exap.following.FollowingPartnerDetails;
+import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
@@ -121,7 +121,7 @@ public class WalletFragment extends Fragment {
                     getApplicationContext())));
             params.put("user_id",Utils.getUserId(getActivity()));
 
-            final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override

@@ -78,8 +78,13 @@ public class HelpMe {
 
     // Check for valid mobile number of 10 digits
     public static void setLocale(String languageCode, Context mContext) {
-
-        Locale locale = new Locale(languageCode);
+        String code=null;
+        if(languageCode.equalsIgnoreCase(Constant.LANG_ENGLISH_CODE)){
+            code="en";
+        }else{
+            code="ar";
+        }
+        Locale locale = new Locale(code);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;

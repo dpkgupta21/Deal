@@ -10,6 +10,7 @@ public class MessageDTO implements Serializable {
     private String user_id;
     private String timestamp;
     private String userImg;
+
     public String getMessage() {
         return message;
     }

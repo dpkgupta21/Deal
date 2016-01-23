@@ -22,7 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.customerfeedback.CustomerFeedBackActivity;
-import com.deal.exap.following.FollowingPartnerDetails;
+import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.misc.ImageActivity;
 import com.deal.exap.model.DealDTO;
@@ -166,7 +166,7 @@ public class BuyCouponActivity extends BaseActivity {
 //                break;
             case R.id.txt_terms_conditions:
                 i = new Intent(this, TermsConditionActivity.class);
-                if (Utils.isArebic(this))
+                if (Utils.isArabic(this))
                     i.putExtra("dealTerm", dealDTO.getTerm_ara());
                 else
                     i.putExtra("dealTerm", dealDTO.getTerm_eng());
@@ -280,7 +280,7 @@ public class BuyCouponActivity extends BaseActivity {
 
             params.put("deal_id", id);
 
-            final ProgressDialog pdialog = Utils.createProgeessDialog(this, null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -329,7 +329,7 @@ public class BuyCouponActivity extends BaseActivity {
 //            setViewVisibility(R.id.btn_redeem, View.VISIBLE);
 //        }
         setTextViewText(R.id.txt_discount_rate, dealDTO.getDiscount() + "% off");
-        if (Utils.isArebic(this)) {
+        if (Utils.isArabic(this)) {
             setTextViewText(R.id.txt_on_which, dealDTO.getName_ara());
             setTextViewText(R.id.txt_details, dealDTO.getDetail_ara());
         } else {
@@ -388,7 +388,7 @@ public class BuyCouponActivity extends BaseActivity {
                 params.put("redeem_amount", "");
                 params.put("transaction_id", "");
             }
-            final ProgressDialog pdialog = Utils.createProgeessDialog(this, null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override

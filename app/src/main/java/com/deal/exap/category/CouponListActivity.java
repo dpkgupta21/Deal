@@ -12,7 +12,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
-import com.deal.exap.following.FollowingPartnerDetails;
+import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.CategoryDTO;
 import com.deal.exap.model.DealDTO;
@@ -71,7 +71,7 @@ public class CouponListActivity extends BaseActivity {
             params.put("lng", "0");
             params.put("lat", "0");
             params.put("category_id", categoryDTO.getId());
-            final ProgressDialog pdialog = Utils.createProgeessDialog(this, null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override

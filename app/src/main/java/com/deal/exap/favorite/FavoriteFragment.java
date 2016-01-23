@@ -122,7 +122,7 @@ public class FavoriteFragment extends Fragment {
             params.put("action", Constant.GET_FAVORITE_LIST);
             params.put("lang", Utils.getSelectedLanguage(getActivity()));
             params.put("user_id", Utils.getUserId(getActivity()));
-            final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -212,7 +212,7 @@ public class FavoriteFragment extends Fragment {
             params.put("category_id", id);
             params.put("status","0");
             params.put("user_id", Utils.getUserId(getActivity()));
-            final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override

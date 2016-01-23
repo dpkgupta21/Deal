@@ -31,7 +31,6 @@ import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonImageRequest;
-import com.deal.exap.volley.CustomJsonRequest;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONObject;
@@ -349,7 +348,7 @@ public class SignUp extends BaseActivity {
                 params.put("confirm_password", getViewText(R.id.edt_confirm_password));
                 params.put("mobile", getIntent().getStringExtra("MOB_NUMBER"));
 
-                final ProgressDialog pdialog = Utils.createProgeessDialog(SignUp.this, null, false);
+                final ProgressDialog pdialog = Utils.createProgressDialog(SignUp.this, null, false);
                 CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST,
                         Constant.SERVICE_BASE_URL, params, f,
                         new Response.Listener<JSONObject>() {

@@ -20,17 +20,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
-import com.deal.exap.category.CouponListActivity;
 import com.deal.exap.databasemanager.DatabaseHelper;
 import com.deal.exap.databasemanager.DatabaseManager;
-import com.deal.exap.favorite.adapter.FavoriteListAdapter;
-import com.deal.exap.favorite.bean.DataObject;
 import com.deal.exap.following.adapter.FollowingListAdapter;
 import com.deal.exap.misc.MyOnClickListener;
 import com.deal.exap.misc.RecyclerTouchListener;
-import com.deal.exap.model.FavoriteDTO;
 import com.deal.exap.model.FollowingDTO;
-import com.deal.exap.partner.ChatActivity;
+import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
@@ -115,7 +111,7 @@ public class FollowingFragment extends Fragment {
             params.put("action", Constant.GET_FOLLOWING_LIST);
             params.put("lang", Utils.getSelectedLanguage(getActivity()));
             params.put("user_id", Utils.getUserId(getActivity()));
-            final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override

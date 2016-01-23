@@ -58,6 +58,8 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="5dp"
                         android:layout_toLeftOf="@id/img_company"
+                        android:layout_toRightOf="@id/img_featured"
+                        android:layout_marginRight="10dp"
                         android:orientation="vertical">
 
                         <com.deal.exap.customviews.MyTextViewSemiCustom

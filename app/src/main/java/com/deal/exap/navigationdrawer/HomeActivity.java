@@ -244,7 +244,7 @@ public class HomeActivity extends BaseActivity {
             params.put("action", Constant.MENU_COUNT);
             params.put("user_id", Utils.getUserId(this));
 
-            final ProgressDialog pdialog = Utils.createProgeessDialog(this, null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override

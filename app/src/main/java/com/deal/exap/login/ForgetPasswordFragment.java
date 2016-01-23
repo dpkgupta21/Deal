@@ -90,7 +90,7 @@ public class ForgetPasswordFragment extends BaseFragment {
                Map<String, String> params = new HashMap<>();
                params.put("action", Constant.FORGOT_PASSWORD);
                params.put("email", getViewText(R.id.edt_enter_email_id, view));
-               final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+               final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                        new Response.Listener<JSONObject>() {
                            @Override

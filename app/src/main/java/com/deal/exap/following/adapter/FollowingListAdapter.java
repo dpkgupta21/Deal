@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.deal.exap.R;
 import com.deal.exap.favorite.bean.DataObject;
 import com.deal.exap.model.FollowingDTO;
+import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -40,6 +41,7 @@ public class FollowingListAdapter extends RecyclerView
         TextView txt_title;
         ImageView thumbnail;
         ImageView img_company;
+        ImageView img_featured;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
@@ -50,6 +52,7 @@ public class FollowingListAdapter extends RecyclerView
             txt_title = (TextView) itemView.findViewById(R.id.txt_title);
             thumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
             img_company = (ImageView) itemView.findViewById(R.id.img_company);
+            img_featured = (ImageView) itemView.findViewById(R.id.img_featured);
 
 
         }
@@ -90,11 +93,17 @@ public class FollowingListAdapter extends RecyclerView
         holder.txt_downloads_val.setText(followingValues.get(position).getDownload());
         holder.txt_followers_val.setText(followingValues.get(position).getFollower());
 
-        if (Utils.getSelectedLanguage(context).equalsIgnoreCase("eng")) {
+        if (Utils.getSelectedLanguage(context).equalsIgnoreCase(Constant.LANG_ENGLISH_CODE)) {
             holder.txt_place_tag.setText(followingValues.get(position).getAddress_eng() + " " + followingValues.get(position).getLocation());
 
         } else {
             holder.txt_place_tag.setText(followingValues.get(position).getAddress_ara() + " " + followingValues.get(position).getLocation());
+        }
+
+        if(followingValues.get(position).getIs_featured()==1){
+            holder.img_featured.setVisibility(View.VISIBLE);
+        }else{
+            holder.img_featured.setVisibility(View.GONE);
         }
 
         holder.txt_title.setText(followingValues.get(position).getName());

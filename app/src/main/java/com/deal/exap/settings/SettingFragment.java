@@ -97,7 +97,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
         months = Utils.getMonths();
         years = Utils.getYears();
         setClick(R.id.tv_editprofile, view);
-        userDTO = Utils.getObjectFromPref(getActivity(), Constant.USER_INFO);
+        userDTO = DealPreferences.getObjectFromPref(getActivity(), Constant.USER_INFO);
     }
 
     @Override
@@ -178,11 +178,9 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
                 HelpMe.setLocale(Constant.LANG_ENGLISH_CODE, getActivity().getApplicationContext());
                 selectedButton(Constant.LANG_ENGLISH_CODE);
                 DealPreferences.setAPP_LANG(getActivity().getApplicationContext(), Constant.LANG_ENGLISH_CODE);
-                syncSetting("language_id", "eng");
+                syncSetting("language_id", Constant.LANG_ENGLISH_CODE);
 
-                Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
-                startActivity(i);
-                getActivity().finish();
+
             }
 
         }
@@ -195,10 +193,8 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
                 HelpMe.setLocale(Constant.LANG_ARABIC_CODE, getActivity().getApplicationContext());
                 selectedButton(Constant.LANG_ARABIC_CODE);
                 DealPreferences.setAPP_LANG(getActivity().getApplicationContext(), Constant.LANG_ARABIC_CODE);
-                syncSetting("language_id", "ar");
-                Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
-                startActivity(i);
-                getActivity().finish();
+                syncSetting("language_id", Constant.LANG_ARABIC_CODE);
+
             }
         }
     };
@@ -388,7 +384,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
             params.put("key", key);
             params.put("value", value);
             params.put("user_id", Utils.getUserId(getActivity()));
-            final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -397,6 +393,11 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
 
                                 Toast.makeText(getActivity(), "Update Successfully", Toast.LENGTH_LONG).show();
+
+                                Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
+                                i.putExtra("fragmentName", getActivity().getString(R.string.interest_screen_title));
+                                startActivity(i);
+                                getActivity().finish();
 
                             } catch (Exception e) {
                                 e.printStackTrace();

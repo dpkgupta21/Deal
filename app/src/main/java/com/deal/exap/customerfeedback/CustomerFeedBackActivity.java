@@ -77,7 +77,7 @@ public class CustomerFeedBackActivity extends BaseActivity {
             params.put("action", Constant.GET_REVIEW);
             params.put("lang", Utils.getSelectedLanguage(CustomerFeedBackActivity.this));
             params.put("deal_id", id);
-            final ProgressDialog pdialog = Utils.createProgeessDialog(CustomerFeedBackActivity.this, null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(CustomerFeedBackActivity.this, null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override

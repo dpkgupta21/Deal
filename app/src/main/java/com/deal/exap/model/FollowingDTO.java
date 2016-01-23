@@ -29,6 +29,25 @@ public class FollowingDTO implements Serializable {
     @DatabaseField
     private String follower;
 
+    private int is_follow;
+
+    private int is_featured;
+
+    public int getIs_featured() {
+        return is_featured;
+    }
+
+    public void setIs_featured(int is_featured) {
+        this.is_featured = is_featured;
+    }
+
+    public int getIs_follow() {
+        return is_follow;
+    }
+
+    public void setIs_follow(int is_follow) {
+        this.is_follow = is_follow;
+    }
 
     public int getId() {
         return id;

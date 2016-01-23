@@ -76,7 +76,7 @@ public class PostFeedbackActivity extends BaseActivity implements View.OnClickLi
                 params.put("user_id", Utils.getUserId(this));
                 params.put("review", getViewText(R.id.et_comment));
                 params.put("rating", ""+(int)ratingBar.getRating());
-                final ProgressDialog pdialog = Utils.createProgeessDialog(this, null, false);
+                final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                         new Response.Listener<JSONObject>() {
                             @Override

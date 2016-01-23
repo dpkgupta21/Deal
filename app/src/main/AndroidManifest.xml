@@ -134,7 +134,7 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:windowSoftInputMode="stateAlwaysHidden"
-            android:name=".partner.ChatActivity"
+            android:name=".chat.ChatActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".category.CouponListActivity"
@@ -150,7 +150,7 @@
             android:name=".misc.ImageActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".following.FollowingPartnerDetails"
+            android:name=".partner.FollowingPartnerDetails"
             android:screenOrientation="portrait"></activity>
 
 

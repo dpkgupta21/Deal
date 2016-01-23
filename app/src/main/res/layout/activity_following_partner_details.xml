@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.deal.exap.following.FollowingPartnerDetails">
+    tools:context="com.deal.exap.partner.FollowingPartnerDetails">
 
     <LinearLayout
         android:id="@+id/linear"

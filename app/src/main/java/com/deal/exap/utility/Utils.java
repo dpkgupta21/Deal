@@ -745,37 +745,37 @@ public class Utils {
 		}
 	}
 
-	public static String getStringFromPref(Context context, String key){
-		return context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).getString(key, null);
-	}
-
-	public static void putStringIntoPref(Context context, String key, String value){
-		context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).edit().putString(key, value).commit();
-	}
-
-	public static void putIntIntoPref(Context context, String key, int value){
-		context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).edit().putInt(key, value).commit();
-	}
-
-	public static void putBooleanIntoPref(Context context, String key, boolean value){
-		context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).edit().putBoolean(key, value).commit();
-	}
-
-	public static void putLongIntoPref(Context context, String key, long value){
-		context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).edit().putLong(key, value).commit();
-	}
-
-	public static int getIntFromPref(Context context, String key){
-		return context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).getInt(key, 0);
-	}
-
-	public static boolean getBooleanFromPref(Context context, String key, boolean defValue){
-		return context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).getBoolean(key, defValue);
-	}
-
-	public static long getLongFromPref(Context context, String key){
-		return context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).getLong(key, 0);
-	}
+//	public static String getStringFromPref(Context context, String key){
+//		return context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).getString(key, null);
+//	}
+//
+//	public static void putStringIntoPref(Context context, String key, String value){
+//		context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).edit().putString(key, value).commit();
+//	}
+//
+//	public static void putIntIntoPref(Context context, String key, int value){
+//		context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).edit().putInt(key, value).commit();
+//	}
+//
+//	public static void putBooleanIntoPref(Context context, String key, boolean value){
+//		context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).edit().putBoolean(key, value).commit();
+//	}
+//
+//	public static void putLongIntoPref(Context context, String key, long value){
+//		context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).edit().putLong(key, value).commit();
+//	}
+//
+//	public static int getIntFromPref(Context context, String key){
+//		return context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).getInt(key, 0);
+//	}
+//
+//	public static boolean getBooleanFromPref(Context context, String key, boolean defValue){
+//		return context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).getBoolean(key, defValue);
+//	}
+//
+//	public static long getLongFromPref(Context context, String key){
+//		return context.getSharedPreferences(Constant.PREF_FILE, Context.MODE_PRIVATE).getLong(key, 0);
+//	}
 
 	public static boolean isRequiredEditText(EditText et){
 		if(et.getText().toString().trim().equals("")){
@@ -1253,54 +1253,6 @@ public class Utils {
     	activity.startActivity(intent);
     }
 
-	/**
-	 * This genric method use to put object into preference<br>
-	 * How to use<br>
-	 * Bean bean = new Bean();<br>
-	 * putObjectIntoPref(context,bean,key)
-	 * @param context Context of an application
-	 * @param e your genric object
-	 * @param key String key which is associate with object
-	 */
-	public static <E> void putObjectIntoPref(Context context, E e, String key) {
-		Editor editor = context.getSharedPreferences(Constant.PREF_FILE,
-				Context.MODE_PRIVATE).edit();
-		try {
-			editor.putString(key, ObjectSerializer.serialize(e));
-		} catch (IOException exc) {
-			exc.printStackTrace();
-		}
-
-		editor.commit();
-
-	}
-
-	public static <E> void removeObjectIntoPref(Context context, String key) {
-		Editor editor = context.getSharedPreferences(Constant.PREF_FILE,
-				Context.MODE_PRIVATE).edit();
-		editor.remove(key);
-		editor.commit();
-
-	}
-
-	/**
-	 * This method is use to get your object from preference.<br>
-	 * How to use<br>
-	 * Bean bean = getObjectFromPref(context,key);
-	 * @param context
-	 * @param key
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public static <E> E getObjectFromPref(Context context, String key){
-		try{
-			SharedPreferences pref = context.getSharedPreferences(Constant.PREF_FILE,Context.MODE_PRIVATE);
-			return (E) ObjectSerializer.deserialize(pref.getString(key, null));
-		}catch(Exception e){
-			e.printStackTrace();
-			return null;
-		}
-	}
 
 	/**
 	 * Method use to get byte array from file.
@@ -1418,15 +1370,15 @@ public class Utils {
 	public static String getSelectedLanguage(Context context){
 
 		if (DealPreferences.getAPP_LANG(context).contains(Constant.LANG_ARABIC_CODE)){
-			return "era";
+			return Constant.LANG_ARABIC_CODE;
 		}
 		else{
-			return "eng";
+			return Constant.LANG_ENGLISH_CODE;
 		}
 	}
 
 	public static String getUserId(Context context){
-		UserDTO userDTO = Utils.getObjectFromPref(context, Constant.USER_INFO);
+		UserDTO userDTO = DealPreferences.getObjectFromPref(context, Constant.USER_INFO);
 		if(userDTO!=null)
 			return userDTO.getId();
 		else
@@ -1434,7 +1386,7 @@ public class Utils {
 	}
 
 	public static String getUserName(Context context){
-		UserDTO userDTO = Utils.getObjectFromPref(context, Constant.USER_INFO);
+		UserDTO userDTO = DealPreferences.getObjectFromPref(context, Constant.USER_INFO);
 		if(userDTO!=null)
 			return userDTO.getName();
 		else
@@ -1443,14 +1395,14 @@ public class Utils {
 
 
 	public static String getUserImage(Context context){
-		UserDTO userDTO = Utils.getObjectFromPref(context, Constant.USER_INFO);
+		UserDTO userDTO = DealPreferences.getObjectFromPref(context, Constant.USER_INFO);
 		if(userDTO!=null)
 			return userDTO.getImage();
 		else
 			return "";
 	}
 
-	public static ProgressDialog createProgeessDialog(Context context, String message, boolean isCancelable){
+	public static ProgressDialog createProgressDialog(Context context, String message, boolean isCancelable){
 		ProgressDialog pdialog = new ProgressDialog(context);
 		if (message == null)
 			pdialog.setMessage("Loading....");
@@ -1506,7 +1458,7 @@ public class Utils {
 		return months;
 	}
 
-	public static boolean isArebic(Context context){
+	public static boolean isArabic(Context context){
 		if (DealPreferences.getAPP_LANG(context).contains(Constant.LANG_ARABIC_CODE)){
 			return true;
 		}

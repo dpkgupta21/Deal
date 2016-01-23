@@ -1,9 +1,6 @@
 package com.deal.exap.settings;
 
 import android.app.Dialog;
-import android.content.Intent;
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +11,6 @@ import android.widget.ListView;
 
 import com.deal.exap.R;
 import com.deal.exap.login.BaseActivity;
-import com.deal.exap.misc.ImageActivity;
-import com.deal.exap.partner.ChatActivity;
 import com.deal.exap.utility.Utils;
 
 import java.util.ArrayList;

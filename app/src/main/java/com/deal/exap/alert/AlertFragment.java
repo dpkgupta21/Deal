@@ -147,7 +147,7 @@ public class AlertFragment extends BaseFragment {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.GET_NOTIFICATION);
             params.put("user_id", Utils.getUserId(getActivity()));
-            final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -193,7 +193,7 @@ public class AlertFragment extends BaseFragment {
             params.put("user_id", Utils.getUserId(getActivity()));
             params.put("lang", Utils.getSelectedLanguage(getActivity()));
 
-            final ProgressDialog pdialog = Utils.createProgeessDialog(getActivity(), null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
