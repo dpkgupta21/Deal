@@ -132,6 +132,8 @@
                             android:layout_gravity="left"
                             android:background="@drawable/btn_green_bcg_shape"
                             android:text="@string/txt_buy"
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
                             android:textColor="@color/white" />
 
                         <LinearLayout

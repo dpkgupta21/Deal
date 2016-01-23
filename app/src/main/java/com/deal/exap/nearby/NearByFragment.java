@@ -227,7 +227,7 @@ public class NearByFragment extends BaseFragment {
             AppController.getInstance().getRequestQueue().add(postReq);
             // set request time-out
             postReq.setRetryPolicy(new DefaultRetryPolicy(
-                   30000, 0,
+                    30000, 0,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             pdialog.show();
         } else {
@@ -256,6 +256,9 @@ public class NearByFragment extends BaseFragment {
                         i = new Intent(getActivity(), FollowingPartnerDetails.class);
                         i.putExtra("partnerId", dealList.get(position).getPartner_id());
                         startActivity(i);
+                        break;
+
+
 
                 }
 

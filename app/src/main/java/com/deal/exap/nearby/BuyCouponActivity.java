@@ -183,12 +183,13 @@ public class BuyCouponActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.btn_buy:
-                openPaymentDialog();
-                break;
 
-            case R.id.btn_redeem:
+                if(dealDTO.getType().equalsIgnoreCase("Paid"))
+                openPaymentDialog();
+                else
                 readRedeeme();
                 break;
+
             case R.id.img_title:
                 i = new Intent(this, FollowingPartnerDetails.class);
                 i.putExtra("partnerId", dealDTO.getPartner_id());
@@ -336,6 +337,19 @@ public class BuyCouponActivity extends BaseActivity {
             setTextViewText(R.id.txt_details, dealDTO.getDetail_eng());
         }
 
+        Button buy =(Button)findViewById(R.id.btn_buy);
+
+        if(dealDTO.getType().equalsIgnoreCase("Paid"))
+        {
+            buy.setText(getString(R.string.txt_buy));
+            buy.setBackground(getDrawable(R.drawable.btn_green_bcg_shape));
+        }
+
+        else
+        {
+            buy.setText(getString(R.string.btn_reedme));
+            buy.setBackground(getDrawable(R.drawable.btn_red_bcg_shape));
+        }
 
         setTextViewText(R.id.txt_address, dealDTO.getLocation());
         ((RatingBar) findViewById(R.id.rating_bar)).setRating(dealDTO.getRating());

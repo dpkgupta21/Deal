@@ -67,11 +67,29 @@ public class NearByListAdapter extends RecyclerView
             btnBuy = (Button) itemView.findViewById(R.id.btn_buy);
             ivLogo = (ImageView) itemView.findViewById(R.id.img_title);
             ivThumnail = (ImageView) itemView.findViewById(R.id.thumbnail);
+
+            btnBuy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    llBuy.setVisibility(View.VISIBLE);
+                    btnBuy.setVisibility(View.GONE);
+                }
+            });
+
+
+            llBuy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    btnBuy.setVisibility(View.VISIBLE);
+                    llBuy.setVisibility(View.GONE);
+                }
+            });
+
             Log.i(LOG_TAG, "Adding Listener");
             ivThumnail.setOnClickListener(this);
             ivLogo.setOnClickListener(this);
-            btnBuy.setOnClickListener(this);
-            llBuy.setOnClickListener(this);
+           // btnBuy.setOnClickListener(this);
+           // llBuy.setOnClickListener(this);
         }
 
         @Override
@@ -131,6 +149,19 @@ public class NearByListAdapter extends RecyclerView
 //            holder.btnBuy.setVisibility(View.GONE);
 //            holder.llBuy.setVisibility(View.VISIBLE);
 //        }
+
+
+        if(mDataset.get(position).getType().equalsIgnoreCase("Paid"))
+        {
+
+            holder.btnBuy.setText(context.getString(R.string.txt_buy));
+            holder.btnBuy.setBackground(context.getDrawable(R.drawable.btn_green_bcg_shape));
+        }
+        else
+        {
+            holder.btnBuy.setText(context.getString(R.string.btn_reedme));
+            holder.btnBuy.setBackground(context.getDrawable(R.drawable.btn_red_bcg_shape));
+        }
 
         ImageLoader.getInstance().displayImage(mDataset.get(position).getDeal_image(), holder.ivThumnail,
                 options);

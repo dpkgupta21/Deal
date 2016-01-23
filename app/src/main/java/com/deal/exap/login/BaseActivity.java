@@ -1,5 +1,6 @@
 package com.deal.exap.login;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -90,6 +91,13 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener,
 
 	public void replaceButtoImageWith(int replaceId, int drawable){
 		((Button)findViewById(replaceId)).setBackgroundResource(drawable);
+	}
+
+
+	public void chnageBackGround(int id,Drawable drawable)
+	{
+		((Button)findViewById(id)).setBackground(drawable);
+
 	}
 	
 	public void setButtonSelected(int id, boolean flag){

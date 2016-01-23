@@ -129,6 +129,8 @@
                         <com.deal.exap.customviews.MyButtonViewRegCustom
                             android:id="@+id/btn_buy"
                             style="@style/btn_style_small"
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
                             android:layout_gravity="right"
                             android:background="@drawable/btn_green_bcg_shape"
                             android:text="@string/txt_buy"
