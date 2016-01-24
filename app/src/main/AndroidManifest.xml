@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS"/>
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -33,6 +34,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
+        <activity
+            android:name=".login.OrgSplashActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".login.SplashScreen"
             android:label="@string/app_name"
@@ -89,7 +101,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".nearby.BuyCouponActivity"
+            android:name=".payment.BuyCouponActivity"
             android:label="@string/title_activity_buy_coupon"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
@@ -117,16 +129,7 @@
             android:label="@string/title_activity_buy_coupon"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name=".login.OrgSplashActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".login.IntroActivity" />
         <activity
             android:name=".customerfeedback.CustomerFeedBackActivity"
@@ -137,7 +140,7 @@
             android:name=".chat.ChatActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".category.CouponListActivity"
+            android:name=".category.CategoryDealListActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".login.EditProfileActivity"
@@ -156,6 +159,10 @@
 
         <activity android:name="com.facebook.FacebookActivity"/>
 
+        <service
+            android:name="com.mobile.connect.service.PWConnectService"
+            android:exported="false" >
+        </service>
 
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 

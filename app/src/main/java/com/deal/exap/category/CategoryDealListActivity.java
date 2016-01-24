@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -16,9 +17,10 @@ import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.CategoryDTO;
 import com.deal.exap.model.DealDTO;
-import com.deal.exap.nearby.BuyCouponActivity;
+import com.deal.exap.payment.BuyCouponActivity;
 import com.deal.exap.nearby.adapter.NearByListAdapter;
 import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -32,7 +34,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CouponListActivity extends BaseActivity {
+public class CategoryDealListActivity extends BaseActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -68,19 +70,32 @@ public class CouponListActivity extends BaseActivity {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.GET_CATEGORY_DEAL);
             params.put("lang", Utils.getSelectedLanguage(this));
-            params.put("lng", "0");
-            params.put("lat", "0");
+            params.put("lng", String.valueOf(DealPreferences.getLongitude(getApplicationContext())));
+            params.put("lat", String.valueOf(DealPreferences.getLatitude(getApplicationContext())));
             params.put("category_id", categoryDTO.getId());
+
             final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+
+            CustomJsonRequest postReq = new CustomJsonRequest(
+                    Request.Method.POST,
+                    Constant.SERVICE_BASE_URL,
+                    params,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<DealDTO>>(){}.getType();
-                                dealList = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
-                                setDealList();
+                                if(response.getBoolean("status")) {
+                                    Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                    Type type = new TypeToken<ArrayList<DealDTO>>() {
+                                    }.getType();
+                                    dealList = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
+                                    setDealList();
+                                }else{
+                                    String msg=response.getString("message");
+                                    TextView txt_blank=(TextView)findViewById(R.id.txt_blank);
+                                    txt_blank.setVisibility(View.VISIBLE);
+                                    txt_blank.setText(msg);
+                                }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -91,7 +106,7 @@ public class CouponListActivity extends BaseActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     pdialog.dismiss();
-                    Utils.showExceptionDialog(CouponListActivity.this);
+                    Utils.showExceptionDialog(CategoryDealListActivity.this);
                     //       CustomProgressDialog.hideProgressDialog();
                 }
             });
@@ -102,7 +117,7 @@ public class CouponListActivity extends BaseActivity {
             pdialog.show();
         }
         else{
-            Utils.showNoNetworkDialog(CouponListActivity.this);
+            Utils.showNoNetworkDialog(CategoryDealListActivity.this);
         }
     }
 
@@ -118,13 +133,13 @@ public class CouponListActivity extends BaseActivity {
                 Intent i;
                 switch (v.getId()) {
                     case R.id.thumbnail:
-                        i = new Intent(CouponListActivity.this, BuyCouponActivity.class);
+                        i = new Intent(CategoryDealListActivity.this, BuyCouponActivity.class);
                         i.putExtra("id", dealList.get(position).getId());
                         startActivity(i);
                         break;
 
                     case R.id.img_title:
-                        i = new Intent(CouponListActivity.this, FollowingPartnerDetails.class);
+                        i = new Intent(CategoryDealListActivity.this, FollowingPartnerDetails.class);
                         i.putExtra("partnerId", dealList.get(position).getPartner_id());
                         startActivity(i);
 

@@ -18,8 +18,77 @@ public class DealPreferences {
     public static final String LATITUDE = "LATITUDE";
     public static final String LONGITUDE = "LONGITUDE";
     public static final String DISTANCE_UNIT = "DISTANCE_UNIT";
+    public static final String CARD_HOLDER_NAME = "CARD_HOLDER_NAME";
+    public static final String CARD_NUMBER = "CARD_NUMBER";
+    public static final String CARD_CVV = "CARD_CVV";
+    public static final String CARD_MONTH = "CARD_MONTH";
+    public static final String CARD_YEAR = "CARD_YEAR";
 
 
+    public static void setCardholderName(Context context, String userId) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(CARD_HOLDER_NAME, userId);
+        editor.apply();
+    }
+
+    public static String getCardholderName(Context context) {
+        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(CARD_HOLDER_NAME,
+                null);
+    }
+
+    public static void setCardNumber(Context context, String userId) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(CARD_NUMBER, userId);
+        editor.apply();
+    }
+
+    public static String getCardNumber(Context context) {
+        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(CARD_NUMBER,
+                null);
+    }
+
+    public static void setCardCVV(Context context, String userId) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(CARD_CVV, userId);
+        editor.apply();
+    }
+
+    public static String getCardCVV(Context context) {
+        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(CARD_CVV,
+                null);
+    }
+
+    public static void setCardMonth(Context context, String userId) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(CARD_MONTH, userId);
+        editor.apply();
+    }
+
+    public static String getCardMonth(Context context) {
+        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(CARD_MONTH,
+                null);
+    }
+
+    public static void setCardYear(Context context, String userId) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(CARD_YEAR, userId);
+        editor.apply();
+    }
+
+    public static String getCardYear(Context context) {
+        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(CARD_YEAR,
+                null);
+    }
 
     public static void setLatitude(Context context, double latitude) {
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
@@ -30,7 +99,7 @@ public class DealPreferences {
     }
 
     public static double getLatitude(Context context) {
-        String latitude= context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(
+        String latitude = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(
                 LATITUDE, "0.0");
         return Double.parseDouble(latitude);
     }
@@ -44,7 +113,7 @@ public class DealPreferences {
     }
 
     public static double getLongitude(Context context) {
-        String longitude= context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(
+        String longitude = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(
                 LONGITUDE, "0.0");
         return Double.parseDouble(longitude);
     }
@@ -87,8 +156,6 @@ public class DealPreferences {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(KEY_PHONE,
                 null);
     }
-
-
 
 
     public static void setUSER_OTP(Context context, String otp) {
@@ -138,9 +205,10 @@ public class DealPreferences {
      * How to use<br>
      * Bean bean = new Bean();<br>
      * putObjectIntoPref(context,bean,key)
+     *
      * @param context Context of an application
-     * @param e your genric object
-     * @param key String key which is associate with object
+     * @param e       your genric object
+     * @param key     String key which is associate with object
      */
     public static <E> void putObjectIntoPref(Context context, E e, String key) {
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
@@ -169,20 +237,21 @@ public class DealPreferences {
      * This method is use to get your object from preference.<br>
      * How to use<br>
      * Bean bean = getObjectFromPref(context,key);
+     *
      * @param context
      * @param key
      * @return
      */
     @SuppressWarnings("unchecked")
-    public static <E> E getObjectFromPref(Context context, String key){
-        try{
+    public static <E> E getObjectFromPref(Context context, String key) {
+        try {
             SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
                     Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
 
             return (E) ObjectSerializer.deserialize(context.getSharedPreferences(PREF_NAME,
                     Context.MODE_PRIVATE).getString(key, null));
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

@@ -48,8 +48,8 @@ public class CategoriesFragment extends Fragment {
 
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    //private RecyclerView.Adapter mAdapter;
+    //private RecyclerView.LayoutManager mLayoutManager;
     private List<CategoryDTO> categoryList;
     private View view;
     private Dao<CategoryDTO, String> categoryDao;
@@ -87,7 +87,7 @@ public class CategoriesFragment extends Fragment {
         ((BaseActivity) getActivity()).setHeader(getString(R.string.categories_title));
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_category);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         init();
@@ -133,11 +133,18 @@ public class CategoriesFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<CategoryDTO>>() {
-                                }.getType();
-                                categoryList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
-                                setCategoryList();
+                                if (response.getBoolean("status")) {
+                                    Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                    Type type = new TypeToken<ArrayList<CategoryDTO>>() {
+                                    }.getType();
+                                    categoryList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
+                                    setCategoryList();
+                                } else {
+                                    String msg = response.getString("message");
+                                    TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
+                                    txt_blank.setVisibility(View.VISIBLE);
+                                    txt_blank.setText(msg);
+                                }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -170,7 +177,7 @@ public class CategoriesFragment extends Fragment {
     }
 
     public void setCategoryList() {
-        mAdapter = new CategoriesListAdapter(categoryList, getActivity());
+        RecyclerView.Adapter mAdapter = new CategoriesListAdapter(categoryList, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
 
@@ -182,7 +189,7 @@ public class CategoriesFragment extends Fragment {
                     case R.id.thumbnail:
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("categoryDTO", categoryList.get(position));
-                        Intent i = new Intent(getActivity(), CouponListActivity.class);
+                        Intent i = new Intent(getActivity(), CategoryDealListActivity.class);
                         i.putExtras(bundle);
                         startActivity(i);
                         break;
@@ -243,6 +250,9 @@ public class CategoriesFragment extends Fragment {
                 }
             });
             AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             pdialog.show();
         } else {
             Utils.showNoNetworkDialog(getActivity());

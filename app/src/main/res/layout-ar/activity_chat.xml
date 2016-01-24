@@ -81,14 +81,30 @@
             </RelativeLayout>
         </FrameLayout>
 
-        <ListView
-            android:id="@+id/lv_chat"
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
-            android:dividerHeight="0dp"
-            android:divider="@null"
-            android:layout_weight="1"></ListView>
+            android:layout_weight="1">
+
+            <ListView
+                android:id="@+id/lv_chat"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null"
+                android:dividerHeight="0dp"></ListView>
+
+            <TextView
+                android:id="@+id/txt_blank"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="No Message found"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -107,10 +123,10 @@
 
             <ImageView
                 android:id="@+id/iv_send"
-                android:padding="5dp"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="5dp"
                 android:src="@drawable/add_icon" />
         </LinearLayout>
     </LinearLayout>

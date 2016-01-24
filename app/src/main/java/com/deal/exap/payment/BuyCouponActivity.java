@@ -1,20 +1,29 @@
-package com.deal.exap.nearby;
+package com.deal.exap.payment;
 
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -22,11 +31,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.customerfeedback.CustomerFeedBackActivity;
-import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.misc.ImageActivity;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
+import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.termscondition.TermsConditionActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
@@ -34,11 +43,20 @@ import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
 import com.google.gson.Gson;
+import com.mobile.connect.PWConnect;
+import com.mobile.connect.exception.PWError;
+import com.mobile.connect.exception.PWException;
+import com.mobile.connect.exception.PWProviderNotInitializedException;
+import com.mobile.connect.listener.PWTransactionListener;
+import com.mobile.connect.payment.PWCurrency;
+import com.mobile.connect.payment.PWPaymentParams;
+import com.mobile.connect.payment.credit.PWCreditCardType;
+import com.mobile.connect.provider.PWTransaction;
+import com.mobile.connect.service.PWProviderBinder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
-//import com.google.android.gms.maps.GoogleMap;
 
 import org.json.JSONObject;
 
@@ -46,7 +64,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BuyCouponActivity extends BaseActivity {
+//import com.google.android.gms.maps.GoogleMap;
+
+public class BuyCouponActivity extends BaseActivity implements PWTransactionListener {
 
     //private GoogleMap mMap;
     private TextView txtMonth;
@@ -55,6 +75,32 @@ public class BuyCouponActivity extends BaseActivity {
     private ArrayList<String> years;
     private DealDTO dealDTO;
     private DisplayImageOptions options;
+    private Dialog dialog;
+    private PWProviderBinder _binder;
+    private static final String APPLICATIONIDENTIFIER = "payworks.sandbox";
+    private static final String PROFILETOKEN = "20d5a0d5ce1d4501a4826a8b7e159d19";
+
+    private ServiceConnection _serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            _binder = (PWProviderBinder) service;
+            // we have a connection to the service
+            try {
+                _binder.initializeProvider(PWConnect.PWProviderMode.TEST,
+                        APPLICATIONIDENTIFIER, PROFILETOKEN);
+                _binder.addTransactionListener(BuyCouponActivity.this);
+            } catch (PWException ee) {
+                setStatusText("Error initializing the provider.");
+                // error initializing the provider
+                ee.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            _binder = null;
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +113,15 @@ public class BuyCouponActivity extends BaseActivity {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);*/
 
+        startService(new Intent(this,
+                com.mobile.connect.service.PWConnectService.class));
+        bindService(new Intent(this,
+                        com.mobile.connect.service.PWConnectService.class),
+                _serviceConnection, Context.BIND_AUTO_CREATE);
+
         init();
+
+
     }
 
 
@@ -92,7 +146,7 @@ public class BuyCouponActivity extends BaseActivity {
 
         months = Utils.getMonths();
         years = Utils.getYears();
-        setClick(R.id.btn_buy);
+        setClick(R.id.btn_purchase);
         setClick(R.id.iv_back);
         setClick(R.id.thumbnail);
         //  setClick(R.id.iv_chat);
@@ -106,7 +160,7 @@ public class BuyCouponActivity extends BaseActivity {
     }
 
     private void openPaymentDialog() {
-        final Dialog dialog = new Dialog(BuyCouponActivity.this, R.style.Theme_Dialog);
+        dialog = new Dialog(BuyCouponActivity.this, R.style.Theme_Dialog);
         // Include dialog.xml file
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_payment);
@@ -115,8 +169,11 @@ public class BuyCouponActivity extends BaseActivity {
         ImageView ivClose = (ImageView) dialog.findViewById(R.id.iv_close);
         txtMonth = (TextView) dialog.findViewById(R.id.txt_month);
         txtYear = (TextView) dialog.findViewById(R.id.txt_year);
-        Button btnBuy = (Button) dialog.findViewById(R.id.btn_pay);
+        final double transactionPrice = getIntent().getDoubleExtra("BUY_PRICE", 0.0);
 
+        Button btn_pay = (Button) dialog.findViewById(R.id.btn_pay);
+
+        btn_pay.setText("Pay " + transactionPrice);
         txtMonth.setText(months.get(0));
         txtYear.setText(years.get(0));
 
@@ -130,7 +187,37 @@ public class BuyCouponActivity extends BaseActivity {
             }
         });
 
-        btnBuy.setOnClickListener(buyDeal);
+        btn_pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String cardHolderName = ((EditText) dialog.findViewById(R.id.edt_card_number)).
+                        getText().toString().trim();
+                String cardNumber = ((EditText) dialog.findViewById(R.id.edt_card_number)).
+                        getText().toString().trim();//"4005550000000001";
+                String cvv = ((EditText) dialog.findViewById(R.id.edt_cvv)).
+                        getText().toString().trim();//123
+                String month = ((TextView) findViewById(R.id.txt_month)).
+                        getText().toString().trim();//05
+                String year = ((TextView) findViewById(R.id.txt_year)).
+                        getText().toString().trim();//"2017";
+                CheckBox chkRememberMe = (CheckBox) findViewById(R.id.chk_remember_me);
+                if (!cardHolderName.equalsIgnoreCase("") &&
+                        !cardNumber.equalsIgnoreCase("") &&
+                        !cvv.equalsIgnoreCase("") &&
+                        !month.equalsIgnoreCase("") &&
+                        !year.equalsIgnoreCase("")) {
+                    if (chkRememberMe.isChecked()) {
+                        DealPreferences.setCardholderName(getApplicationContext(), cardHolderName);
+                        DealPreferences.setCardNumber(getApplicationContext(), cardNumber);
+                        DealPreferences.setCardCVV(getApplicationContext(), cvv);
+                        DealPreferences.setCardMonth(getApplicationContext(), month);
+                        DealPreferences.setCardYear(getApplicationContext(), year);
+
+                    }
+                    buyTransaction(cardHolderName, cardNumber, month, year, cvv, transactionPrice);
+                }
+            }
+        });
         dialog.show();
     }
 
@@ -182,12 +269,12 @@ public class BuyCouponActivity extends BaseActivity {
             case R.id.iv_back:
                 finish();
                 break;
-            case R.id.btn_buy:
+            case R.id.btn_purchase:
 
-                if(dealDTO.getType().equalsIgnoreCase("Paid"))
-                openPaymentDialog();
+                if (dealDTO.getType().equalsIgnoreCase("Paid"))
+                    openPaymentDialog();
                 else
-                readRedeeme();
+                    redeemDeal();
                 break;
 
             case R.id.img_title:
@@ -214,10 +301,10 @@ public class BuyCouponActivity extends BaseActivity {
         }
     };
 
-    private View.OnClickListener buyDeal = new View.OnClickListener() {
+    private View.OnClickListener redeemDeal = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            readRedeeme();
+            redeemDeal();
         }
     };
 
@@ -318,6 +405,7 @@ public class BuyCouponActivity extends BaseActivity {
     }
 
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setData() {
 
 //        if (dealDTO.getType().equalsIgnoreCase("paid")) {
@@ -337,18 +425,14 @@ public class BuyCouponActivity extends BaseActivity {
             setTextViewText(R.id.txt_details, dealDTO.getDetail_eng());
         }
 
-        Button buy =(Button)findViewById(R.id.btn_buy);
+        Button btn_purchase = (Button) findViewById(R.id.btn_purchase);
 
-        if(dealDTO.getType().equalsIgnoreCase("Paid"))
-        {
-            buy.setText(getString(R.string.txt_buy));
-            buy.setBackground(getDrawable(R.drawable.btn_green_bcg_shape));
-        }
-
-        else
-        {
-            buy.setText(getString(R.string.btn_reedme));
-            buy.setBackground(getDrawable(R.drawable.btn_red_bcg_shape));
+        if (dealDTO.getType().equalsIgnoreCase("Paid")) {
+            btn_purchase.setText(getString(R.string.txt_buy));
+            btn_purchase.setBackgroundResource(R.drawable.btn_green_bcg_shape);
+        } else {
+            btn_purchase.setText(getString(R.string.btn_reedme));
+            btn_purchase.setBackgroundResource(R.drawable.btn_red_bcg_shape);
         }
 
         setTextViewText(R.id.txt_address, dealDTO.getLocation());
@@ -373,8 +457,48 @@ public class BuyCouponActivity extends BaseActivity {
 
     }
 
+    private void buyTransaction(String cardHolderName,
+                                String cardNumber,
+                                String month,
+                                String year,
+                                String cvv,
+                                double transactionPrice) {
 
-    private void readRedeeme() {
+        PWPaymentParams paymentParams = null;
+        try {
+
+
+            paymentParams = _binder
+                    .getPaymentParamsFactory()
+                    .createCreditCardPaymentParams(transactionPrice,
+                            PWCurrency.EURO,
+                            "A test charge",
+                            cardHolderName,
+                            PWCreditCardType.VISA,
+                            cardNumber, year, month, cvv);
+
+        } catch (PWProviderNotInitializedException e) {
+            setStatusText("Error: Provider not initialized!");
+            e.printStackTrace();
+            return;
+        } catch (PWException e) {
+            setStatusText("Error: Invalid Parameters!");
+            e.printStackTrace();
+            return;
+        }
+
+        setStatusText("Preparing...");
+
+        try {
+            _binder.createAndRegisterDebitTransaction(paymentParams);
+        } catch (PWException e) {
+            setStatusText("Error: Could not contact Gateway!");
+            e.printStackTrace();
+        }
+    }
+
+
+    private void redeemDeal() {
 
         if (Utils.isOnline(this)) {
             Map<String, String> params = new HashMap<>();
@@ -419,6 +543,9 @@ public class BuyCouponActivity extends BaseActivity {
                 }
             });
             AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             pdialog.show();
         } else {
             Utils.showNoNetworkDialog(this);
@@ -433,4 +560,53 @@ public class BuyCouponActivity extends BaseActivity {
         intent.putExtra("fragmentName", getString(R.string.wallet_screen_title));
         startActivity(intent);
     }
+
+    private void setStatusText(final String string) {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                ((TextView) dialog.findViewById(R.id.txt_status)).setText(string);
+            }
+        });
+    }
+
+    protected void onDestroy() {
+        super.onDestroy();
+
+        unbindService(_serviceConnection);
+        stopService(new Intent(this,
+                com.mobile.connect.service.PWConnectService.class));
+    }
+
+
+    @Override
+    public void creationAndRegistrationFailed(PWTransaction transaction, PWError error) {
+        setStatusText("Error contacting the gateway.");
+        //Log.e("com.payworks.customtokenization.TokenizationActivity", error.getErrorMessage());
+    }
+
+    @Override
+    public void creationAndRegistrationSucceeded(PWTransaction transaction) {
+        setStatusText("Processing...");
+        try {
+            _binder.debitTransaction(transaction);
+        } catch (PWException e) {
+            setStatusText("Invalid Transaction.");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void transactionFailed(PWTransaction arg0, PWError error) {
+        setStatusText("Error contacting the gateway.");
+        // Log.e("com.payworks.customtokenization.TokenizationActivity", error.getErrorMessage());
+    }
+
+    @Override
+    public void transactionSucceeded(PWTransaction transaction) {
+        Toast.makeText(getApplicationContext(), "Sucee :" + transaction.getState(), Toast.LENGTH_LONG).show();
+        // our debit succeeded
+        setStatusText("Charged 5 EUR!");
+    }
+
+
 }

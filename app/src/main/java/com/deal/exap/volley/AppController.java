@@ -7,6 +7,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.deal.exap.R;
+import com.deal.exap.crashreport.ACRAReportSender;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -17,11 +19,17 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
+import org.acra.ACRA;
+import org.acra.ReportingInteractionMode;
+import org.acra.annotation.ReportsCrashes;
+
 import io.fabric.sdk.android.Fabric;
 
 // This class id included in android manifest in <application>
 // So that it is android launches it every time app starts
 
+@ReportsCrashes(mailTo = "smtp.gmail.com", // my email here
+        mode = ReportingInteractionMode.SILENT)
 public class AppController extends Application {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
@@ -33,8 +41,8 @@ public class AppController extends Application {
 
     public static final String TAG = AppController.class.getSimpleName();
     private static AppController mInstance;
-  //  public static ArrayList<String> buddyList;
-  //  public static List<Laps> lapsList;
+    //  public static ArrayList<String> buddyList;
+    //  public static List<Laps> lapsList;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
 
@@ -46,10 +54,22 @@ public class AppController extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        ACRA.init(this);
+
+        // instantiate the report sender with the email credentials.
+        // these will be used to send the crash report
+//        ACRAReportSender reportSender = new ACRAReportSender("dpkgupta.thepsi@gmail.com",
+//                "deepak@123");
+//
+//        // register it with ACRA.
+//        ACRA.getErrorReporter().setReportSender(reportSender);
+
+
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
         mInstance = this;
-      //  lapsList = new ArrayList<>();
+        //  lapsList = new ArrayList<>();
 
 //        LeakCanary.install(this);
 

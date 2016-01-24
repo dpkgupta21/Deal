@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.deal.exap.R;
 import com.deal.exap.customerfeedback.CustomerFeedBackActivity;
 import com.deal.exap.feedback.PostFeedbackActivity;
+import com.deal.exap.payment.BuyCouponActivity;
 import com.deal.exap.termscondition.TermsConditionActivity;
 /*
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,7 +22,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 */
 
-public class CouponDetailsActivity extends FragmentActivity implements View.OnClickListener{
+public class CouponDetailsActivity extends FragmentActivity implements View.OnClickListener {
 
     //private GoogleMap mMap;
 
@@ -44,7 +45,7 @@ public class CouponDetailsActivity extends FragmentActivity implements View.OnCl
     }
 
 
-    private void init(){
+    private void init() {
 
         ImageView ivBack = (ImageView) findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +78,8 @@ public class CouponDetailsActivity extends FragmentActivity implements View.OnCl
     private View.OnClickListener customerReviewClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent postFeedbackIntent = new Intent(CouponDetailsActivity.this, CustomerFeedBackActivity.class);
+            Intent postFeedbackIntent = new Intent(CouponDetailsActivity.this,
+                    CustomerFeedBackActivity.class);
             startActivity(postFeedbackIntent);
 
         }
@@ -111,7 +113,7 @@ public class CouponDetailsActivity extends FragmentActivity implements View.OnCl
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.txt_terms_conditions:
                 startActivity(new Intent(this, TermsConditionActivity.class));
                 break;

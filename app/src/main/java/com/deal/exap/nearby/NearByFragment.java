@@ -23,10 +23,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
-import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.login.BaseFragment;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.nearby.adapter.NearByListAdapter;
+import com.deal.exap.partner.FollowingPartnerDetails;
+import com.deal.exap.payment.BuyCouponActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
@@ -46,11 +47,13 @@ import java.util.Map;
 public class NearByFragment extends BaseFragment {
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    //private RecyclerView.Adapter mAdapter;
+    //private RecyclerView.LayoutManager mLayoutManager;
     private View view;
     private LinearLayout llFilter;
-    private Button btnKm, btnMiles, btnDistantLth, btnDistantHtl, btnDiscountLth, btnDiscountHtl, btnDateStl, btnDateLts;
+    private Button btnKm, btnMiles, btnDistantLth,
+            btnDistantHtl, btnDiscountLth, btnDiscountHtl,
+            btnDateStl, btnDateLts;
     private ArrayList<DealDTO> dealList;
 //    public static NearByFragment newInstance() {
 //        NearByFragment fragment = new NearByFragment();
@@ -114,7 +117,7 @@ public class NearByFragment extends BaseFragment {
         //setTitleFragment(getString(R.string.nearby_screen_title));
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_nearby);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         getDealList();
@@ -205,11 +208,18 @@ public class NearByFragment extends BaseFragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<DealDTO>>() {
-                                }.getType();
-                                dealList = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
-                                setDealList();
+                                if (response.getBoolean("status")) {
+                                    Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                    Type type = new TypeToken<ArrayList<DealDTO>>() {
+                                    }.getType();
+                                    dealList = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
+                                    setDealList();
+                                } else {
+                                    String msg = response.getString("message");
+                                    TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
+                                    txt_blank.setVisibility(View.VISIBLE);
+                                    txt_blank.setText(msg);
+                                }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -236,7 +246,7 @@ public class NearByFragment extends BaseFragment {
     }
 
     public void setDealList() {
-        mAdapter = new NearByListAdapter(dealList, getActivity());
+        RecyclerView.Adapter mAdapter = new NearByListAdapter(dealList, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
 
@@ -257,7 +267,6 @@ public class NearByFragment extends BaseFragment {
                         i.putExtra("partnerId", dealList.get(position).getPartner_id());
                         startActivity(i);
                         break;
-
 
 
                 }

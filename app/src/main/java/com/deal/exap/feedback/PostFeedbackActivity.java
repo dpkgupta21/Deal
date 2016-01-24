@@ -1,5 +1,6 @@
 package com.deal.exap.feedback;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -23,11 +24,13 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PostFeedbackActivity extends BaseActivity implements View.OnClickListener{
+public class PostFeedbackActivity extends BaseActivity implements View.OnClickListener {
 
 
     private RatingBar ratingBar;
-    DealDTO dealDTO;
+    private DealDTO dealDTO;
+    private AlertDialog alertDialog;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +39,7 @@ public class PostFeedbackActivity extends BaseActivity implements View.OnClickLi
         init();
     }
 
-    private void init(){
+    private void init() {
 
         setTouchNClick(R.id.btn_cancel);
         setTouchNClick(R.id.btn_post_comments);
@@ -45,14 +48,14 @@ public class PostFeedbackActivity extends BaseActivity implements View.OnClickLi
         setRightClick();
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 
-        if(getIntent()!=null && getIntent().getExtras()!=null){
+        if (getIntent() != null && getIntent().getExtras() != null) {
             dealDTO = (DealDTO) getIntent().getExtras().getSerializable("dealDTO");
         }
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_cancel:
                 finish();
                 break;
@@ -67,7 +70,7 @@ public class PostFeedbackActivity extends BaseActivity implements View.OnClickLi
 
     public void postFeedback() {
         Utils.hideKeyboard(this);
-        if(validateForm()) {
+        if (validateForm()) {
             if (Utils.isOnline(this)) {
                 Map<String, String> params = new HashMap<>();
                 params.put("action", Constant.POST_REVIEW);
@@ -75,7 +78,7 @@ public class PostFeedbackActivity extends BaseActivity implements View.OnClickLi
                 params.put("deal_id", "1");
                 params.put("user_id", Utils.getUserId(this));
                 params.put("review", getViewText(R.id.et_comment));
-                params.put("rating", ""+(int)ratingBar.getRating());
+                params.put("rating", "" + (int) ratingBar.getRating());
                 final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                         new Response.Listener<JSONObject>() {
@@ -85,14 +88,23 @@ public class PostFeedbackActivity extends BaseActivity implements View.OnClickLi
                                 pdialog.dismiss();
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
-                                        Utils.showDialog(PostFeedbackActivity.this, "Message", Utils.getWebServiceMessage(response), new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                finish();
-                                            }
-                                        });
+                                        alertDialog = Utils.showDialog(PostFeedbackActivity.this,
+                                                "Message",
+                                                Utils.getWebServiceMessage(response),
+                                                new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                        finish();
+                                                        if (alertDialog != null) {
+                                                            alertDialog.cancel();
+                                                            alertDialog = null;
+                                                        }
+                                                    }
+                                                });
                                     } else {
-                                        Utils.showDialog(PostFeedbackActivity.this, "Error", Utils.getWebServiceMessage(response));
+                                        Utils.showDialog(PostFeedbackActivity.this,
+                                                "Error",
+                                                Utils.getWebServiceMessage(response));
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -109,7 +121,6 @@ public class PostFeedbackActivity extends BaseActivity implements View.OnClickLi
                 });
                 pdialog.show();
                 AppController.getInstance().getRequestQueue().add(postReq);
-                AppController.getInstance().getRequestQueue().add(postReq);
                 postReq.setRetryPolicy(new DefaultRetryPolicy(
                         30000, 0,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -119,9 +130,9 @@ public class PostFeedbackActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    public boolean validateForm(){
+    public boolean validateForm() {
 
-        if(getViewText(R.id.et_comment).equals("")){
+        if (getViewText(R.id.et_comment).equals("")) {
             Utils.showDialog(this, "Message", "Please enter comments");
             return false;
         }

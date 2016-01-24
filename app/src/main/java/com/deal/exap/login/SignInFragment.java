@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -87,6 +88,7 @@ public class SignInFragment extends BaseFragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.sign_in, container, false);
 
+
         init();
         return view;
     }
@@ -107,6 +109,7 @@ public class SignInFragment extends BaseFragment {
     }
 
     private void init() {
+
         btnTwitterLogin = (TwitterLoginButton) view.findViewById(R.id.twitter_login_button);
         setClick(R.id.btn_twitter_login, view);
         setClick(R.id.btn_facebook_login, view);
@@ -328,7 +331,7 @@ public class SignInFragment extends BaseFragment {
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
-                                        DealPreferences.setUserId(getActivity().getApplicationContext(),userDTO.getId());
+                                        DealPreferences.setUserId(getActivity().getApplicationContext(), userDTO.getId());
                                         DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
                                         Intent intent = new Intent(getActivity(), HomeActivity.class);
                                         intent.putExtra("fragmentName", getActivity().getString(R.string.interest_screen_title));

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -162,9 +163,17 @@ public class ChatActivity extends BaseActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
+
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                 chatDTO = new Gson().fromJson(response.toString(), ChatDTO.class);
-                                setChatList();
+                                if(chatDTO.isStatus()) {
+                                    setChatList();
+                                }else{
+                                    String msg=response.getString("message");
+                                    TextView txt_blank=(TextView)findViewById(R.id.txt_blank);
+                                    txt_blank.setVisibility(View.VISIBLE);
+                                    txt_blank.setText(msg);
+                                }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

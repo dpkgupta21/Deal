@@ -125,7 +125,7 @@
     <string name="hint_card_no">Card No.</string>
     <string name="hint_name_on_card">Name On Card</string>
     <string name="hint_mm_yy">MM / YY</string>
-    <string name="hint_ccv">CCV</string>
+    <string name="hint_ccv">CVV</string>
     <string name="btn_pay_usd">Pay USD 20</string>
     <string name="btn_save">Save</string>
     <string name="chk_remember_me">Remember Me</string>

@@ -48,8 +48,8 @@ public class FollowingFragment extends Fragment {
 
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    //private RecyclerView.Adapter mAdapter;
+    //private RecyclerView.LayoutManager mLayoutManager;
     private View view;
 
     private List<FollowingDTO> followingList;
@@ -82,7 +82,7 @@ public class FollowingFragment extends Fragment {
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.following_recycler_view);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         init();
@@ -137,7 +137,6 @@ public class FollowingFragment extends Fragment {
                 }
             });
             AppController.getInstance().getRequestQueue().add(postReq);
-            AppController.getInstance().getRequestQueue().add(postReq);
             postReq.setRetryPolicy(new DefaultRetryPolicy(
                     30000, 0,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -155,7 +154,7 @@ public class FollowingFragment extends Fragment {
     }
 
     public void setFollowingList() {
-        mAdapter = new FollowingListAdapter(followingList, getActivity());
+        RecyclerView.Adapter mAdapter = new FollowingListAdapter(followingList, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), mRecyclerView, new MyOnClickListener() {

@@ -155,12 +155,12 @@ public class NearByListAdapter extends RecyclerView
         {
 
             holder.btnBuy.setText(context.getString(R.string.txt_buy));
-            holder.btnBuy.setBackground(context.getDrawable(R.drawable.btn_green_bcg_shape));
+            holder.btnBuy.setBackgroundResource(R.drawable.btn_green_bcg_shape);
         }
         else
         {
             holder.btnBuy.setText(context.getString(R.string.btn_reedme));
-            holder.btnBuy.setBackground(context.getDrawable(R.drawable.btn_red_bcg_shape));
+            holder.btnBuy.setBackgroundResource(R.drawable.btn_red_bcg_shape);
         }
 
         ImageLoader.getInstance().displayImage(mDataset.get(position).getDeal_image(), holder.ivThumnail,

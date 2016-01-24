@@ -21,17 +21,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
-import com.deal.exap.category.CouponListActivity;
-import com.deal.exap.category.adapter.CategoriesListAdapter;
+import com.deal.exap.category.CategoryDealListActivity;
 import com.deal.exap.databasemanager.DatabaseHelper;
 import com.deal.exap.databasemanager.DatabaseManager;
 import com.deal.exap.favorite.adapter.FavoriteListAdapter;
-import com.deal.exap.favorite.bean.DataObject;
-import com.deal.exap.misc.MyOnClickListener;
-import com.deal.exap.misc.RecyclerTouchListener;
 import com.deal.exap.model.CategoryDTO;
-import com.deal.exap.model.FavoriteDTO;
-import com.deal.exap.nearby.BuyCouponActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
@@ -53,8 +47,8 @@ public class FavoriteFragment extends Fragment {
 
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    //private RecyclerView.Adapter mAdapter;
+    //private RecyclerView.LayoutManager mLayoutManager;
     private View view;
 
     private List<CategoryDTO> favoriteList;
@@ -93,7 +87,7 @@ public class FavoriteFragment extends Fragment {
         //setTitleFragment(getString(R.string.favorite_screen_title));
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         init();
@@ -128,11 +122,18 @@ public class FavoriteFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<CategoryDTO>>() {
-                                }.getType();
-                                favoriteList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
-                                setFavoriteList();
+                                if (response.getBoolean("status")) {
+                                    Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                    Type type = new TypeToken<ArrayList<CategoryDTO>>() {
+                                    }.getType();
+                                    favoriteList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
+                                    setFavoriteList();
+                                } else {
+                                    String msg = response.getString("message");
+                                    TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
+                                    txt_blank.setVisibility(View.VISIBLE);
+                                    txt_blank.setText(msg);
+                                }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -147,7 +148,6 @@ public class FavoriteFragment extends Fragment {
                     //       CustomProgressDialog.hideProgressDialog();
                 }
             });
-            AppController.getInstance().getRequestQueue().add(postReq);
             AppController.getInstance().getRequestQueue().add(postReq);
             postReq.setRetryPolicy(new DefaultRetryPolicy(
                     30000, 0,
@@ -166,7 +166,7 @@ public class FavoriteFragment extends Fragment {
     }
 
     public void setFavoriteList() {
-        mAdapter = new FavoriteListAdapter(favoriteList, getActivity());
+        RecyclerView.Adapter mAdapter = new FavoriteListAdapter(favoriteList, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
 
@@ -178,7 +178,7 @@ public class FavoriteFragment extends Fragment {
                     case R.id.thumbnail:
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("categoryDTO", favoriteList.get(position));
-                        Intent i = new Intent(getActivity(), CouponListActivity.class);
+                        Intent i = new Intent(getActivity(), CategoryDealListActivity.class);
                         i.putExtras(bundle);
                         startActivity(i);
                         break;
@@ -210,7 +210,7 @@ public class FavoriteFragment extends Fragment {
             params.put("action", Constant.ADD_REMOVE_CATEGORY_FAVORITE);
             params.put("lang", Utils.getSelectedLanguage(getActivity()));
             params.put("category_id", id);
-            params.put("status","0");
+            params.put("status", "0");
             params.put("user_id", Utils.getUserId(getActivity()));
             final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
@@ -237,6 +237,9 @@ public class FavoriteFragment extends Fragment {
                 }
             });
             AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             pdialog.show();
         } else {
             Utils.showNoNetworkDialog(getActivity());
