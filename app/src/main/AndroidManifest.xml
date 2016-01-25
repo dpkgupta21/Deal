@@ -76,7 +76,11 @@
             android:screenOrientation="portrait"
         </activity>
         <activity
-            android:name=".settings.PaymentDetailsActivity"
+        android:name=".payment.PaymentDetailsActivity"
+        android:theme="@style/Base.Theme.AppCompat.Light.Dialog" />
+
+        <activity
+            android:name=".payment.BuyPaymentDialogActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.Dialog" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -140,7 +144,7 @@
             android:name=".chat.ChatActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".category.CategoryDealListActivity"
+            android:name=".deal.CategoryDealListActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".login.EditProfileActivity"

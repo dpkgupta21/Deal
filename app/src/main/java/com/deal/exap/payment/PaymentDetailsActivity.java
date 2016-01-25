@@ -1,4 +1,4 @@
-package com.deal.exap.settings;
+package com.deal.exap.payment;
 
 import android.app.Dialog;
 import android.content.ComponentName;

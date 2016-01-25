@@ -21,7 +21,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
-import com.deal.exap.category.CategoryDealListActivity;
+import com.deal.exap.deal.CategoryDealListActivity;
 import com.deal.exap.databasemanager.DatabaseHelper;
 import com.deal.exap.databasemanager.DatabaseManager;
 import com.deal.exap.favorite.adapter.FavoriteListAdapter;

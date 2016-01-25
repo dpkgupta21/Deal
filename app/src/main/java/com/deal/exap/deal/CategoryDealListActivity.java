@@ -1,4 +1,4 @@
-package com.deal.exap.category;
+package com.deal.exap.deal;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -134,6 +134,7 @@ public class CategoryDealListActivity extends BaseActivity {
                 switch (v.getId()) {
                     case R.id.thumbnail:
                         i = new Intent(CategoryDealListActivity.this, BuyCouponActivity.class);
+                        i.putExtra("BUY_PRICE",0.0);
                         i.putExtra("id", dealList.get(position).getId());
                         startActivity(i);
                         break;

@@ -113,11 +113,6 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);*/
 
-        startService(new Intent(this,
-                com.mobile.connect.service.PWConnectService.class));
-        bindService(new Intent(this,
-                        com.mobile.connect.service.PWConnectService.class),
-                _serviceConnection, Context.BIND_AUTO_CREATE);
 
         init();
 
@@ -166,6 +161,10 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
         dialog.setContentView(R.layout.dialog_payment);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
+
+
+
+
         ImageView ivClose = (ImageView) dialog.findViewById(R.id.iv_close);
         txtMonth = (TextView) dialog.findViewById(R.id.txt_month);
         txtYear = (TextView) dialog.findViewById(R.id.txt_year);
@@ -190,17 +189,17 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
         btn_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String cardHolderName = ((EditText) dialog.findViewById(R.id.edt_card_number)).
+                String cardHolderName = ((EditText) dialog.findViewById(R.id.edt_card_holder_name)).
                         getText().toString().trim();
                 String cardNumber = ((EditText) dialog.findViewById(R.id.edt_card_number)).
                         getText().toString().trim();//"4005550000000001";
                 String cvv = ((EditText) dialog.findViewById(R.id.edt_cvv)).
                         getText().toString().trim();//123
-                String month = ((TextView) findViewById(R.id.txt_month)).
+                String month = txtMonth.
                         getText().toString().trim();//05
-                String year = ((TextView) findViewById(R.id.txt_year)).
+                String year = txtYear.
                         getText().toString().trim();//"2017";
-                CheckBox chkRememberMe = (CheckBox) findViewById(R.id.chk_remember_me);
+                CheckBox chkRememberMe = (CheckBox) dialog.findViewById(R.id.chk_remember_me);
                 if (!cardHolderName.equalsIgnoreCase("") &&
                         !cardNumber.equalsIgnoreCase("") &&
                         !cvv.equalsIgnoreCase("") &&
@@ -214,11 +213,13 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
                         DealPreferences.setCardYear(getApplicationContext(), year);
 
                     }
-                    buyTransaction(cardHolderName, cardNumber, month, year, cvv, transactionPrice);
+                    buyTransaction(cardHolderName, cardNumber, month, year, cvv, 5.00);
                 }
             }
         });
         dialog.show();
+
+
     }
 
     /**
@@ -271,10 +272,14 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
                 break;
             case R.id.btn_purchase:
 
-                if (dealDTO.getType().equalsIgnoreCase("Paid"))
-                    openPaymentDialog();
-                else
+                if (dealDTO.getType().equalsIgnoreCase("Paid")) {
+                    //openPaymentDialog();
+                    Intent intent = new Intent(getApplicationContext(), BuyPaymentDialogActivity.class);
+                    intent.putExtra("BUY_PRICE",5.0);
+                    startActivity(intent);
+                } else {
                     redeemDeal();
+                }
                 break;
 
             case R.id.img_title:
@@ -569,9 +574,20 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
         });
     }
 
-    protected void onDestroy() {
-        super.onDestroy();
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        startService(new Intent(this,
+                com.mobile.connect.service.PWConnectService.class));
+        bindService(new Intent(this,
+                        com.mobile.connect.service.PWConnectService.class),
+                _serviceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
         unbindService(_serviceConnection);
         stopService(new Intent(this,
                 com.mobile.connect.service.PWConnectService.class));
@@ -603,7 +619,6 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
 
     @Override
     public void transactionSucceeded(PWTransaction transaction) {
-        Toast.makeText(getApplicationContext(), "Sucee :" + transaction.getState(), Toast.LENGTH_LONG).show();
         // our debit succeeded
         setStatusText("Charged 5 EUR!");
     }

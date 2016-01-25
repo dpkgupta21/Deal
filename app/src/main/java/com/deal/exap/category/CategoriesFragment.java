@@ -25,6 +25,7 @@ import com.deal.exap.R;
 import com.deal.exap.category.adapter.CategoriesListAdapter;
 import com.deal.exap.databasemanager.DatabaseHelper;
 import com.deal.exap.databasemanager.DatabaseManager;
+import com.deal.exap.deal.CategoryDealListActivity;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.CategoryDTO;
 import com.deal.exap.utility.Constant;
