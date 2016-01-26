@@ -19,7 +19,7 @@ public class TermsConditionActivity extends BaseActivity {
     private void init() {
         setRightClick();
         String term = getIntent().getStringExtra("dealTerm");
-        setHeader("Terms and Condition");
+        setHeader(getString(R.string.term_and_condition_header));
         setTextViewText(R.id.txt_terms, term);
     }
 

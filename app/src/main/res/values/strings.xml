@@ -3,7 +3,6 @@
     <string name="facebook_app_id">1510998382534846</string>
 
 
-
     <!-- Splash screen-->
     <string name="title">Lorem ipsum</string>
     <string name="title_separator">|</string>
@@ -23,7 +22,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-
 
 
     <!-- Sign up screen-->
@@ -65,7 +63,6 @@
     <string name="create_profile">Create Profile</string>
 
 
-
     <!--Navigation drawer screen-->
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
@@ -73,7 +70,7 @@
     <string name="age_city">29F | Dubai</string>
     <string name="menu_alert">Alert</string>
     <string name="menu_near_by">Near BY</string>
-    <string name="menu_wallet">Wallet</string>
+    <string name="menu_wallet">Pocket</string>
     <string name="menu_interest">Interest</string>
     <string name="menu_favorite">Favorite</string>
     <string name="menu_following">Following</string>
@@ -114,11 +111,11 @@
     <string name="txt_redefine_exp">REDEFINING YOUR SHOPPING EXPERIENCE</string>
     <string name="txt_english">English</string>
     <string name="txt_arabic">Arabic</string>
-<!--
-    <string name="km_miles">KM / Miles</string>
-    <string name="alert">Alerts</string>
-    <string name="change_language">Change Language</string>
--->
+    <!--
+        <string name="km_miles">KM / Miles</string>
+        <string name="alert">Alerts</string>
+        <string name="change_language">Change Language</string>
+    -->
 
 
     <!--Payment Details Screen-->
@@ -137,14 +134,12 @@
     <string name="auto">Auto</string>
 
 
-
     <!--Forget Password screen-->
     <string name="forget_password_header">Forget Password</string>
     <string name="enter_your_email_id_hint">Enter your email id</string>
     <string name="submit_btn">Submit</string>
     <string name="verification_msg">By Tapping next above, EXAP will send you a mail to confirm your email id
         and here by you agree to our Terms of Use and privacy Policy.</string>
-
 
 
     <!--Categories screen-->
@@ -164,7 +159,6 @@
     <!--<string name="txt_active_coupons_val">10</string>
     <string name="txt_downloads_val">154</string>
     <string name="txt_followers_val">95</string>-->
-
 
 
     <!-- Near By Screen-->
@@ -221,6 +215,8 @@
     <string name="by"> BY </string>
     <string name="feedback_name"> Asvin Mizak </string>
 
+    <!--Terms and Conditions Screen-->
+    <string name="term_and_condition_header">Terms and Condition</string>
 
 
     <!-- Welcome screen -->

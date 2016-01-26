@@ -34,7 +34,6 @@ import java.util.Map;
 public class CustomerFeedBackActivity extends BaseActivity {
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +58,9 @@ public class CustomerFeedBackActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.btn_post_comments:
-                startActivity(new Intent(this, PostFeedbackActivity.class));
+                Intent intent = new Intent(this, PostFeedbackActivity.class);
+                intent.putExtra("dealId", getIntent().getStringExtra("dealId"));
+                startActivity(intent);
                 break;
         }
     }

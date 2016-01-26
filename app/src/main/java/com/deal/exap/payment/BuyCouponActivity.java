@@ -430,14 +430,18 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
 
         Button btn_purchase = (Button) findViewById(R.id.btn_buy);
 
-        if (dealDTO.getType().equalsIgnoreCase("Paid")) {
-            btn_purchase.setText(getString(R.string.txt_buy));
-            btn_purchase.setBackgroundResource(R.drawable.btn_green_bcg_shape);
+        if (dealDTO.getTotal_codes() > 0) {
+            btn_purchase.setVisibility(View.VISIBLE);
+            if (dealDTO.getType().equalsIgnoreCase("Paid")) {
+                btn_purchase.setText(getString(R.string.txt_buy));
+                btn_purchase.setBackgroundResource(R.drawable.btn_green_bcg_shape);
+            } else {
+                btn_purchase.setText(getString(R.string.btn_reedme));
+                btn_purchase.setBackgroundResource(R.drawable.btn_red_bcg_shape);
+            }
         } else {
-            btn_purchase.setText(getString(R.string.btn_reedme));
-            btn_purchase.setBackgroundResource(R.drawable.btn_red_bcg_shape);
+            btn_purchase.setVisibility(View.GONE);
         }
-
         setTextViewText(R.id.txt_address, dealDTO.getLocation());
         ((RatingBar) findViewById(R.id.rating_bar)).setRating(dealDTO.getRating());
 
@@ -642,7 +646,7 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
 
             params.put("redeem_amount", "" + transactionPrice);
             params.put("transaction_id", transactionID);
-         final   ProgressDialog pdialog = Utils.createProgressDialog(BuyCouponActivity.this, null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(BuyCouponActivity.this, null, false);
 
 
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,

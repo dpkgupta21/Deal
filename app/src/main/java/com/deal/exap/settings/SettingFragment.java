@@ -34,6 +34,7 @@ import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg16;
 import com.deal.exap.login.BaseFragment;
 import com.deal.exap.login.EditProfileActivity;
+import com.deal.exap.model.ConuntriesDTO;
 import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
@@ -42,11 +43,15 @@ import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -67,6 +72,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
     private Switch switch_push;
     private Switch switch_message;
     private Switch switch_expiry;
+    private List<ConuntriesDTO> countryList;
 
     private UserDTO userDTO;
 
@@ -149,6 +155,9 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
         btn_select_km.setOnClickListener(this);
         btn_select_miles.setOnClickListener(this);
 
+
+        setClick(R.id.txt_change_currency, view);
+
     }
 
     @Override
@@ -158,10 +167,14 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
                 getActivity().startActivity(new Intent(getActivity(), EditProfileActivity.class));
                 break;
             case R.id.btn_select_km:
-                DealPreferences.setDistanceUnit(getActivity().getApplicationContext(),Constant.DISTANCE_UNIT_KM);
+                DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_KM);
                 break;
             case R.id.btn_select_miles:
                 DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_MILES);
+                break;
+
+            case R.id.txt_change_currency:
+                getCountry();
                 break;
         }
     }
@@ -376,7 +389,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
     }
 
 
-    private void syncSetting(String key, String value) {
+    private void syncSetting(final String key, final String value) {
 
         if (Utils.isOnline(getActivity())) {
             Map<String, String> params = new HashMap<>();
@@ -393,6 +406,26 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
 
                                 Toast.makeText(getActivity(), "Update Successfully", Toast.LENGTH_LONG).show();
+
+                                UserDTO userDTO = DealPreferences.getObjectFromPref(getActivity(), Constant.USER_INFO);
+
+                                if (key.equalsIgnoreCase("is_deal_expiry_alert")) {
+
+                                    userDTO.setIs_deal_expiry_alert(value.equals("0") ? false : true);
+                                } else if (key.equalsIgnoreCase("is_location_service")) {
+                                    userDTO.setIs_location_service(value.equals("0") ? false : true);
+
+                                } else if (key.equalsIgnoreCase("is_message_alert")) {
+                                    userDTO.setIs_message_alert(value.equals("0") ? false : true);
+
+                                } else if (key.equalsIgnoreCase("is_push_alert")) {
+                                    userDTO.setIs_push_alert(value.equals("0") ? false : true);
+
+                                } else if (key.equalsIgnoreCase("language_id")) {
+                                }
+
+                                DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
+
 
                                 Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
                                 i.putExtra("fragmentName", getActivity().getString(R.string.interest_screen_title));
@@ -471,5 +504,74 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
 
     }
 
+
+    private void getCountry() {
+
+        if (Utils.isOnline(getActivity())) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.GET_COUNTRY);
+
+            final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                Type type = new TypeToken<ArrayList<ConuntriesDTO>>() {
+                                }.getType();
+                                countryList = new Gson().fromJson(response.getJSONArray("countries").toString(), type);
+                                openCurrencyDialog();
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            pdialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(getActivity());
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            pdialog.show();
+        } else {
+            Utils.showNoNetworkDialog(getActivity());
+        }
+
+    }
+
+
+    private void openCurrencyDialog() {
+
+        final Dialog dialog = new Dialog(getActivity());
+        // Include dialog.xml file
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_country_code);
+        getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        ListView listView = (ListView) dialog.findViewById(R.id.list);
+        CountryListAdapter countryListAdapter = new CountryListAdapter(getActivity(), countryList);
+
+
+        //ArrayAdapter<ConuntriesDTO> adapter = new ArrayAdapter<ConuntriesDTO>(getActivity(), android.R.layout.simple_list_item_single_choice, countryList);
+        listView.setAdapter(countryListAdapter);
+        dialog.show();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                dialog.dismiss();
+            }
+        });
+
+
+    }
 
 }

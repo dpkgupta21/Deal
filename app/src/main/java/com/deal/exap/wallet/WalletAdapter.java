@@ -2,6 +2,7 @@ package com.deal.exap.wallet;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -156,6 +157,7 @@ public class WalletAdapter extends RecyclerView
 
         holder.txt_final_price.setText(mDataset.get(position).getFinal_price());
         holder.txt_visible_price.setText(mDataset.get(position).getVisible_price());
+        holder.txt_visible_price.setPaintFlags(holder.txt_visible_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     }
 
     public void addItem(DealDTO dataObj, int index) {

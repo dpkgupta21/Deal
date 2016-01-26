@@ -75,7 +75,7 @@ public class PostFeedbackActivity extends BaseActivity implements View.OnClickLi
                 Map<String, String> params = new HashMap<>();
                 params.put("action", Constant.POST_REVIEW);
                 params.put("lang", Utils.getSelectedLanguage(this));
-                params.put("deal_id", "1");
+                params.put("deal_id", getIntent().getStringExtra("dealId"));
                 params.put("user_id", Utils.getUserId(this));
                 params.put("review", getViewText(R.id.et_comment));
                 params.put("rating", "" + (int) ratingBar.getRating());

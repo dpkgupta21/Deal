@@ -58,6 +58,8 @@ public class DealDTO implements Serializable {
     private int rating;
     @DatabaseField
     private int review;
+    @DatabaseField
+    private int total_codes;
 
 
     public String getName_eng() {
@@ -237,6 +239,14 @@ public class DealDTO implements Serializable {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public int getTotal_codes() {
+        return total_codes;
+    }
+
+    public void setTotal_codes(int total_codes) {
+        this.total_codes = total_codes;
     }
 }
 

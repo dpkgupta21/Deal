@@ -60,5 +60,7 @@ public class Constant {
     public static String GET_NOTIFICATION ="notifications";
     public static String LOAD_MESSAGE="loadMessage";
 
+    public static String GET_COUNTRY ="countries";
+
 
 }

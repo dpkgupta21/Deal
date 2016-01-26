@@ -233,6 +233,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:padding="10dp"
+                    android:id="@+id/txt_change_currency"
                     android:text="@string/txt_change_currency" />
             </LinearLayout>
 

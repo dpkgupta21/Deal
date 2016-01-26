@@ -239,6 +239,15 @@ public class InterestFragment extends Fragment {
 
     public void setInterestList(){
         final FlowLayout layout = (FlowLayout) view.findViewById(R.id.flowLayout);
+
+        if(Utils.isArabic(getActivity()))
+        {
+
+        }
+        else
+        {
+
+        }
         if(interestValuesSelected==null)
             interestValuesSelected = new ArrayList<String>();
 

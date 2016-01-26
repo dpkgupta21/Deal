@@ -29,7 +29,6 @@
     <string name="terms_and_conditions">استخدامك لتطبيق إكسب يعني موافقتك على الشروط والأحكام وسياسة الخصوصية الخاصة بالخدمة</string>
 
 
-
     <!-- Number verification screen arabic step1 -->
     <string name="verify_your_phone">التوثيق وربط رقم الجوال</string>
     <string name="country_code_hint">المتحدة الدولة +1</string>
@@ -44,8 +43,6 @@
     <string name="create_profile">إنشاء الملف <الشخصي></الشخصي></string>
 
 
-
-
     <!--Navigation drawer screen-->
     <string name="drawer_open">فتح</string>
     <string name="drawer_close">إغلاق</string>
@@ -53,7 +50,7 @@
     <string name="age_city">29F | دبي</string>
     <string name="menu_alert">إنذار</string>
     <string name="menu_near_by">قريب</string>
-    <string name="menu_wallet">محفظة جيب</string>
+    <string name="menu_wallet">مالمحفظة</string>
     <string name="menu_interest">اهتمام</string>
     <string name="menu_favorite">المفضل</string>
     <string name="menu_following">التالي</string>
@@ -90,11 +87,11 @@
     <string name="txt_english">English</string>
     <string name="txt_arabic">العربية</string>
 
-<!--
-<string name="change_language">غير اللغة</string>
-    <string name="km_miles">KM / Miles</string>
-    <string name="alert">التنبيهات</string>
--->
+    <!--
+    <string name="change_language">غير اللغة</string>
+        <string name="km_miles">KM / Miles</string>
+        <string name="alert">التنبيهات</string>
+    -->
 
     <!--Payment Details Screen-->
     <string name="hint_card_no">بطاقة رقم</string>
@@ -109,7 +106,6 @@
     <!--Favorite Screen-->
     <string name="favorite_screen_title">الالمفضلة</string>
     <string name="auto">السيارات</string>
-
 
 
     <!--Forget Password screen-->
@@ -149,14 +145,14 @@
     <string name="txt_later_to_sooner">فلاحقاً</string>
     <string name="nearby_screen_title">قعروض قريبة</string>
 
-<!--
-    <string name="txt_selcted_category">اغذية و مأكولات</string>
-    <string name="menu_filter">فلتر</string>
-    <string name="txt_off">35٪ أقل</string>
-    <string name="txt_on_off">على فانتا الكبرياء</string>
-    <string name="txt_distance_val">1.5 كم</string>
-    <string name="txt_filter_food_and_dining_menu">الغذاء والطعام</string>
--->
+    <!--
+        <string name="txt_selcted_category">اغذية و مأكولات</string>
+        <string name="menu_filter">فلتر</string>
+        <string name="txt_off">35٪ أقل</string>
+        <string name="txt_on_off">على فانتا الكبرياء</string>
+        <string name="txt_distance_val">1.5 كم</string>
+        <string name="txt_filter_food_and_dining_menu">الغذاء والطعام</string>
+    -->
 
 
     <!--Store details Screen-->
@@ -194,6 +190,10 @@
     <string name="by"> بواسطة </string>
     <string name="feedback_name"> Asvin Mizak </string>
 
+
+
+    <!--Terms and Conditions Screen-->
+    <string name="term_and_condition_header">أحكام وشروط</string>
 
 
     <!-- Welcome screen -->

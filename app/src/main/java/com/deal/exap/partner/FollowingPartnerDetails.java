@@ -161,11 +161,13 @@ public class FollowingPartnerDetails extends BaseActivity {
                 options);
 
 
-        setTextViewText(R.id.txt_title, partnerDTO.getName());
-        if (Utils.isArabic(FollowingPartnerDetails.this))
+        if (Utils.isArabic(FollowingPartnerDetails.this)) {
             setTextViewText(R.id.txt_place_tag, partnerDTO.getAddress_ara());
-        else
+            setTextViewText(R.id.txt_title, partnerDTO.getName_ara());
+        } else {
             setTextViewText(R.id.txt_place_tag, partnerDTO.getAddress_eng());
+            setTextViewText(R.id.txt_title, partnerDTO.getName());
+        }
 
         setTextViewText(R.id.txt_active_coupons_val, partnerDTO.getActive_coupan());
         setTextViewText(R.id.txt_downloads_val, partnerDTO.getDownload());
@@ -208,6 +210,7 @@ public class FollowingPartnerDetails extends BaseActivity {
             params.put("partner_id", partnerID + "");
             params.put("lang", Utils.getSelectedLanguage(this));
             params.put("user_id", Utils.getUserId(this));
+            params.put("status","");
 
 
             final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
