@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent"
     android:orientation="vertical"
+    android:weightSum="5"
     tools:context="com.deal.exap.customerfeedback.CustomerFeedBackActivity">
-
     <include
-        android:id="@+id/header"
         layout="@layout/header_transparent" />
 
     <RelativeLayout
         android:id="@+id/relative"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/header"
+        android:layout_height="0dp"
+        android:layout_weight="4.5"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -46,8 +45,9 @@
     <Button
         android:id="@+id/btn_post_comments"
         style="@style/btn_style"
+        android:layout_height="0dp"
+        android:layout_weight=".5"
         android:layout_width="fill_parent"
-        android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
         android:text="@string/btn_rate" />
-</RelativeLayout>
+</LinearLayout>

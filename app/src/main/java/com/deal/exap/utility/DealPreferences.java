@@ -23,6 +23,7 @@ public class DealPreferences {
     public static final String CARD_CVV = "CARD_CVV";
     public static final String CARD_MONTH = "CARD_MONTH";
     public static final String CARD_YEAR = "CARD_YEAR";
+    public static  final String USER_TYPE="USER_TYPE";
 
 
     public static void setCardholderName(Context context, String userId) {
@@ -143,6 +144,20 @@ public class DealPreferences {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(KEY_USER_ID,
                 null);
     }
+
+    public static void setUserType(Context context, String userType) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(USER_TYPE, userType);
+        editor.apply();
+    }
+
+    public static String getUserType(Context context) {
+        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(USER_TYPE,
+                null);
+    }
+
 
     public static void setPhone(Context context, String userId) {
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,

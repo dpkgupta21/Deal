@@ -1399,6 +1399,15 @@ public class Utils {
 			return "";
 	}
 
+	public static String getUserType(Context context) {
+		if (DealPreferences.getUserType(context).contains(Constant.NON_REGISTER))
+			return Constant.NON_REGISTER;
+		else
+			return Constant.REGISTER;
+	}
+
+
+
 	public static ProgressDialog createProgressDialog(Context context, String message, boolean isCancelable){
 		ProgressDialog pdialog = new ProgressDialog(context);
 		if (message == null)

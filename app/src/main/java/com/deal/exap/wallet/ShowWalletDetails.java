@@ -62,7 +62,7 @@ public class ShowWalletDetails extends BaseActivity {
         String id = getIntent().getStringExtra("id");
         getDealDetails(id);
 
-        setViewVisibility(R.id.btn_buy,View.GONE);
+       setViewVisibility(R.id.btn_buy,View.GONE);
 
 
         options = new DisplayImageOptions.Builder()

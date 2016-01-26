@@ -223,6 +223,15 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener,
 		ivRight.setOnClickListener(this);
 	}
 
+
+	public void setRighClick(View view)
+	{
+		Toolbar toolbar = (Toolbar)view.findViewById(R.id.app_bar);
+		ImageView ivRight = (ImageView) toolbar.findViewById(R.id.iv_close);
+		ivRight.setVisibility(View.VISIBLE);
+		ivRight.setOnClickListener(this);
+	}
+
 	public void setLeftClick(){
 		Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
 		ImageView ivLeft = (ImageView) toolbar.findViewById(R.id.iv_back);

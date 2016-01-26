@@ -1,8 +1,10 @@
 package com.deal.exap.login;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -11,10 +13,23 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.deal.exap.R;
+import com.deal.exap.gps.GPSTracker;
+import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
+import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.SessionManager;
+import com.deal.exap.utility.Utils;
+import com.deal.exap.volley.AppController;
+import com.deal.exap.volley.CustomJsonRequest;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +47,7 @@ public class SplashScreen extends BaseActivity {
     private RadioGroup mSwipeIndicator;
     // List of Ids of radio buttons for displaying the dot of currently displayed picture
     private List<Integer> mRadioButtonIds;
+    private GPSTracker gpsTracker;
 
 
     @Override
@@ -40,7 +56,7 @@ public class SplashScreen extends BaseActivity {
         setContentView(R.layout.splash_screen);
 
         String language = DealPreferences.getAPP_LANG(SplashScreen.this);
-       // setUpToolbar();
+        // setUpToolbar();
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         FrameLayout frame_lay = (FrameLayout) findViewById(R.id.frame_lay);
         populateRadioButtonIds();
@@ -82,13 +98,15 @@ public class SplashScreen extends BaseActivity {
         ft.replace(R.id.frame_lay, signInFragment, "signFragment");
         ft.setTransition(FragmentTransaction.TRANSIT_NONE);
         ft.commit();
+
+        gpsTracker = new GPSTracker(this);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Fragment f = getSupportFragmentManager().findFragmentByTag("signFragment");
-        if(f != null) {
+        if (f != null) {
             f.onActivityResult(requestCode, resultCode, data);
         }
     }
@@ -103,12 +121,14 @@ public class SplashScreen extends BaseActivity {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.tv_skip_arb:
-                startActivity(new Intent(this, HomeActivity.class));
+                skipRegistration();
+                //startActivity(new Intent(this, HomeActivity.class));
                 break;
             case R.id.tv_skip_eng:
-                startActivity(new Intent(this, HomeActivity.class));
+                skipRegistration();
+                // startActivity(new Intent(this, HomeActivity.class));
                 break;
 
         }
@@ -188,6 +208,59 @@ public class SplashScreen extends BaseActivity {
 
         }
     };
+
+
+    private void skipRegistration() {
+        Utils.hideKeyboard(SplashScreen.this);
+        if (Utils.isOnline(SplashScreen.this)) {
+            String android_id = Settings.Secure.getString(getContentResolver(),
+                    Settings.Secure.ANDROID_ID);
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.SKIP_REGISTRATION);
+            params.put("device", "android");
+            params.put("device_id", android_id);
+            params.put("lat", "" + gpsTracker.getLatitude());
+            params.put("lng", "" + gpsTracker.getLongitude());
+
+            final ProgressDialog pdialog = Utils.createProgressDialog(SplashScreen.this, null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Utils.ShowLog(TAG, "Response -> " + response.toString());
+                            pdialog.dismiss();
+                            try {
+                                if (Utils.getWebServiceStatus(response)) {
+                                    UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
+                                    DealPreferences.setUserId(getApplicationContext(), userDTO.getId());
+                                    DealPreferences.setUserType(getApplicationContext(), Constant.NON_REGISTER);
+                                    DealPreferences.putObjectIntoPref(SplashScreen.this, userDTO, Constant.USER_INFO);
+                                    Intent intent = new Intent(SplashScreen.this, HomeActivity.class);
+                                    intent.putExtra("fragmentName", getString(R.string.interest_screen_title));
+                                    startActivity(intent);
+                                } else {
+                                    Utils.showDialog(SplashScreen.this, "Error", Utils.getWebServiceMessage(response));
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(SplashScreen.this);
+                }
+            });
+            pdialog.show();
+            AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        }
+    }
 
 
 }

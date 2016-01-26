@@ -13,6 +13,10 @@ public class Constant {
     public static final String DISTANCE_UNIT_KM= "KM";
     public static final String DISTANCE_UNIT_MILES = "MILES";
 
+    public static String NON_REGISTER = "NON_REGISTER";
+    public static String REGISTER ="REGISTER";
+
+
     // STATUS CODE
     public static final int RESULT_OK = 1001;
     public static final int RESULT_EXCEPTION = 1002;
@@ -26,7 +30,7 @@ public class Constant {
     public static String USER_ID = "user_id";
     public static String TAG = "Exam";
 
-
+    public static String SKIP_REGISTRATION ="skipregister";
     public static String DO_LOGIN = "login";
     public static String DO_SIGNUP = "register";
     public static String GET_INTEREST = "interests";

@@ -333,6 +333,7 @@ public class SignInFragment extends BaseFragment {
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
                                         DealPreferences.setUserId(getActivity().getApplicationContext(), userDTO.getId());
                                         DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
+                                        DealPreferences.setUserType(getActivity().getApplicationContext(), Constant.REGISTER);
                                         Intent intent = new Intent(getActivity(), HomeActivity.class);
                                         intent.putExtra("fragmentName", getActivity().getString(R.string.interest_screen_title));
                                         startActivity(intent);
@@ -388,7 +389,11 @@ public class SignInFragment extends BaseFragment {
                                 if (Utils.getWebServiceStatus(response)) {
                                     UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
                                     DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
-                                    startActivity(new Intent(getActivity(), HomeActivity.class));
+                                    //startActivity(new Intent(getActivity(), HomeActivity.class));
+                                    DealPreferences.setUserType(getActivity().getApplicationContext(), Constant.REGISTER);
+                                    Intent intent = new Intent(getActivity(), HomeActivity.class);
+                                    intent.putExtra("fragmentName", getActivity().getString(R.string.interest_screen_title));
+
                                 } else {
                                     Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));
                                 }

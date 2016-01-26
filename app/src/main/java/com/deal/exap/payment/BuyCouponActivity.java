@@ -14,6 +14,7 @@ import android.os.IBinder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -79,7 +80,7 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
     private PWProviderBinder _binder;
     private static final String APPLICATIONIDENTIFIER = "payworks.sandbox";
     private static final String PROFILETOKEN = "20d5a0d5ce1d4501a4826a8b7e159d19";
-
+    private double transactionPrice = 0.0;
     private ServiceConnection _serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -141,7 +142,7 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
 
         months = Utils.getMonths();
         years = Utils.getYears();
-        setClick(R.id.btn_purchase);
+        setClick(R.id.btn_buy);
         setClick(R.id.iv_back);
         setClick(R.id.thumbnail);
         //  setClick(R.id.iv_chat);
@@ -154,21 +155,18 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
 
     }
 
-    private void openPaymentDialog() {
+    private void openPaymentDialog(String price) {
         dialog = new Dialog(BuyCouponActivity.this, R.style.Theme_Dialog);
         // Include dialog.xml file
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_payment);
-        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-
-
-
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
 
         ImageView ivClose = (ImageView) dialog.findViewById(R.id.iv_close);
         txtMonth = (TextView) dialog.findViewById(R.id.txt_month);
         txtYear = (TextView) dialog.findViewById(R.id.txt_year);
-        final double transactionPrice = getIntent().getDoubleExtra("BUY_PRICE", 0.0);
+        transactionPrice = Double.parseDouble(price);
 
         Button btn_pay = (Button) dialog.findViewById(R.id.btn_pay);
 
@@ -213,7 +211,7 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
                         DealPreferences.setCardYear(getApplicationContext(), year);
 
                     }
-                    buyTransaction(cardHolderName, cardNumber, month, year, cvv, 5.00);
+                    buyTransaction(cardHolderName, cardNumber, month, year, cvv, transactionPrice);
                 }
             }
         });
@@ -270,13 +268,13 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
             case R.id.iv_back:
                 finish();
                 break;
-            case R.id.btn_purchase:
+            case R.id.btn_buy:
 
                 if (dealDTO.getType().equalsIgnoreCase("Paid")) {
-                    //openPaymentDialog();
-                    Intent intent = new Intent(getApplicationContext(), BuyPaymentDialogActivity.class);
-                    intent.putExtra("BUY_PRICE",5.0);
-                    startActivity(intent);
+                    openPaymentDialog(dealDTO.getFinal_price());
+//                    Intent intent = new Intent(getApplicationContext(), BuyPaymentDialogActivity.class);
+//                    intent.putExtra("BUY_PRICE",5.0);
+//                    startActivity(intent);
                 } else {
                     redeemDeal();
                 }
@@ -430,7 +428,7 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
             setTextViewText(R.id.txt_details, dealDTO.getDetail_eng());
         }
 
-        Button btn_purchase = (Button) findViewById(R.id.btn_purchase);
+        Button btn_purchase = (Button) findViewById(R.id.btn_buy);
 
         if (dealDTO.getType().equalsIgnoreCase("Paid")) {
             btn_purchase.setText(getString(R.string.txt_buy));
@@ -513,11 +511,7 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
             params.put("user_id", Utils.getUserId(this));
             params.put("category_id", dealDTO.getCategory_id() + "");
 
-            if (dealDTO.getType().equalsIgnoreCase("paid")) {
-                params.put("redeem_amount", "");
-                params.put("transaction_id", "");
-            }
-            final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(BuyCouponActivity.this, null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -526,7 +520,7 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
 
                                 if (Utils.getWebServiceStatus(response)) {
-                                    finish();
+                                    //  finish();
                                     callWalletFragment();
 
                                 } else {
@@ -561,17 +555,21 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
 
 
     private void callWalletFragment() {
+//        unbindService(_serviceConnection);
+//        stopService(new Intent(this,
+//                com.mobile.connect.service.PWConnectService.class));
+        finish();
         Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra("fragmentName", getString(R.string.wallet_screen_title));
         startActivity(intent);
     }
 
     private void setStatusText(final String string) {
-        runOnUiThread(new Runnable() {
-            public void run() {
-                ((TextView) dialog.findViewById(R.id.txt_status)).setText(string);
-            }
-        });
+//        runOnUiThread(new Runnable() {
+//            public void run() {
+//                ((TextView) dialog.findViewById(R.id.txt_status)).setText(string);
+//            }
+//        });
     }
 
     @Override
@@ -614,13 +612,92 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
     @Override
     public void transactionFailed(PWTransaction arg0, PWError error) {
         setStatusText("Error contacting the gateway.");
+
+        Utils.showDialog(BuyCouponActivity.this, "Error", "Transaction Failed ");
+        dialog.dismiss();
+
         // Log.e("com.payworks.customtokenization.TokenizationActivity", error.getErrorMessage());
     }
 
     @Override
     public void transactionSucceeded(PWTransaction transaction) {
-        // our debit succeeded
-        setStatusText("Charged 5 EUR!");
+
+        String transactionID = transaction.getProcessorUniqueIdentifier();
+
+        dialog.dismiss();
+        buyDeal(transactionID);
+
+    }
+
+
+    private void buyDeal(String transactionID) {
+
+        if (Utils.isOnline(this)) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.READ_REDEEM);
+            params.put("deal_id", dealDTO.getId());
+            params.put("partner_id", dealDTO.getPartner_id() + "");
+            params.put("user_id", Utils.getUserId(this));
+            params.put("category_id", dealDTO.getCategory_id() + "");
+
+            params.put("redeem_amount", "" + transactionPrice);
+            params.put("transaction_id", transactionID);
+         final   ProgressDialog pdialog = Utils.createProgressDialog(BuyCouponActivity.this, null, false);
+
+
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+
+                                if (Utils.getWebServiceStatus(response)) {
+
+                                    // finish();
+                                    callWalletFragment();
+
+                                } else {
+                                    Utils.showDialog(BuyCouponActivity.this, "Error", Utils.getWebServiceMessage(response));
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            pdialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(BuyCouponActivity.this);
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().
+
+                    getRequestQueue()
+
+                    .
+
+                            add(postReq);
+
+            postReq.setRetryPolicy(new
+
+                            DefaultRetryPolicy(
+                            30000, 0,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+
+            );
+            pdialog.show();
+        } else
+
+        {
+            Utils.showNoNetworkDialog(this);
+        }
+
+
     }
 
 

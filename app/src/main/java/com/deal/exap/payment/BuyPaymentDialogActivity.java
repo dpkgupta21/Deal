@@ -85,30 +85,23 @@ public class BuyPaymentDialogActivity extends BaseActivity implements PWTransact
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_payment);
-
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         transactionPrice = getIntent().getDoubleExtra("BUY_PRICE", 0.0);
 
+        months = Utils.getMonths();
+        years = Utils.getYears();
         txtMonth = (TextView) findViewById(R.id.txt_month);
         txtYear = (TextView) findViewById(R.id.txt_year);
 
+        txtMonth.setText(months.get(0));
+        txtYear.setText(years.get(0));
         Button btn_pay = (Button) findViewById(R.id.btn_pay);
         btn_pay.setText("Pay " + transactionPrice);
 
 
-        View.OnClickListener monthDialog = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMonthDialog();
+        txtMonth.setOnClickListener(monthDialog);
+        txtYear.setOnClickListener(yearDialog);
 
-            }
-        };
-
-        View.OnClickListener yearDialog = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openYearDialog();
-            }
-        };
 
         ((ImageView) findViewById(R.id.iv_close)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,6 +141,23 @@ public class BuyPaymentDialogActivity extends BaseActivity implements PWTransact
         });
 
     }
+
+    View.OnClickListener monthDialog = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            openMonthDialog();
+
+        }
+    };
+
+    View.OnClickListener yearDialog = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            openYearDialog();
+        }
+    };
+
+
 
     @Override
     protected void onResume() {
@@ -209,7 +219,7 @@ public class BuyPaymentDialogActivity extends BaseActivity implements PWTransact
 
 
     public void openMonthDialog() {
-        final Dialog dialog = new Dialog(getApplicationContext());
+        final Dialog dialog = new Dialog(BuyPaymentDialogActivity.this);
         // Include dialog.xml file
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_country_code);
@@ -232,7 +242,7 @@ public class BuyPaymentDialogActivity extends BaseActivity implements PWTransact
     }
 
     public void openYearDialog() {
-        final Dialog dialog = new Dialog(getApplicationContext());
+        final Dialog dialog = new Dialog(BuyPaymentDialogActivity.this);
         // Include dialog.xml file
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_country_code);
@@ -310,5 +320,6 @@ public class BuyPaymentDialogActivity extends BaseActivity implements PWTransact
     public void transactionSucceeded(PWTransaction transaction) {
         // our debit succeeded
         setStatusText("Charged "+transactionPrice+"!");
+
     }
 }

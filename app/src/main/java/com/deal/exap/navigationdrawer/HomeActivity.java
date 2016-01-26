@@ -95,27 +95,38 @@ public class HomeActivity extends BaseActivity {
         itemSetting.setOnClickListener(this);
 
         if (DealPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ENGLISH_CODE)) {
-            resideMenu.addMenuItem(itemAlert, ResideMenuSecond.DIRECTION_LEFT);
-            resideMenu.addMenuItem(itemNearby, ResideMenuSecond.DIRECTION_LEFT);
-            resideMenu.addMenuItem(itemWallet, ResideMenuSecond.DIRECTION_LEFT);
-            resideMenu.addMenuItem(itemInterest, ResideMenuSecond.DIRECTION_LEFT);
-            resideMenu.addMenuItem(itemFavorite, ResideMenuSecond.DIRECTION_LEFT);
-            resideMenu.addMenuItem(itemFollowing, ResideMenuSecond.DIRECTION_LEFT);
-            resideMenu.addMenuItem(itemCategory, ResideMenuSecond.DIRECTION_LEFT);
-            resideMenu.addMenuItem(itemSetting, ResideMenuSecond.DIRECTION_LEFT);
 
+            if (Utils.getUserType(this).contains(Constant.NON_REGISTER)) {
+                resideMenu.addMenuItem(itemNearby, ResideMenuSecond.DIRECTION_LEFT);
+                resideMenu.addMenuItem(itemInterest, ResideMenuSecond.DIRECTION_LEFT);
+                resideMenu.addMenuItem(itemCategory, ResideMenuSecond.DIRECTION_LEFT);
+            } else {
+                resideMenu.addMenuItem(itemAlert, ResideMenuSecond.DIRECTION_LEFT);
+                resideMenu.addMenuItem(itemNearby, ResideMenuSecond.DIRECTION_LEFT);
+                resideMenu.addMenuItem(itemWallet, ResideMenuSecond.DIRECTION_LEFT);
+                resideMenu.addMenuItem(itemInterest, ResideMenuSecond.DIRECTION_LEFT);
+                resideMenu.addMenuItem(itemFavorite, ResideMenuSecond.DIRECTION_LEFT);
+                resideMenu.addMenuItem(itemFollowing, ResideMenuSecond.DIRECTION_LEFT);
+                resideMenu.addMenuItem(itemCategory, ResideMenuSecond.DIRECTION_LEFT);
+                resideMenu.addMenuItem(itemSetting, ResideMenuSecond.DIRECTION_LEFT);
+            }
             // resideMenu.setSwipeDirectionDisable(ResideMenuSecond.DIRECTION_LEFT);
 
         } else if (DealPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ARABIC_CODE)) {
-            resideMenu.addMenuItem(itemAlert, ResideMenuSecond.DIRECTION_RIGHT);
-            resideMenu.addMenuItem(itemNearby, ResideMenuSecond.DIRECTION_RIGHT);
-            resideMenu.addMenuItem(itemWallet, ResideMenuSecond.DIRECTION_RIGHT);
-            resideMenu.addMenuItem(itemInterest, ResideMenuSecond.DIRECTION_RIGHT);
-            resideMenu.addMenuItem(itemFavorite, ResideMenuSecond.DIRECTION_RIGHT);
-            resideMenu.addMenuItem(itemFollowing, ResideMenuSecond.DIRECTION_RIGHT);
-            resideMenu.addMenuItem(itemCategory, ResideMenuSecond.DIRECTION_RIGHT);
-            resideMenu.addMenuItem(itemSetting, ResideMenuSecond.DIRECTION_RIGHT);
-
+            if (Utils.getUserType(this).contains(Constant.NON_REGISTER)) {
+                resideMenu.addMenuItem(itemNearby, ResideMenuSecond.DIRECTION_RIGHT);
+                resideMenu.addMenuItem(itemInterest, ResideMenuSecond.DIRECTION_RIGHT);
+                resideMenu.addMenuItem(itemCategory, ResideMenuSecond.DIRECTION_RIGHT);
+            } else {
+                resideMenu.addMenuItem(itemAlert, ResideMenuSecond.DIRECTION_RIGHT);
+                resideMenu.addMenuItem(itemNearby, ResideMenuSecond.DIRECTION_RIGHT);
+                resideMenu.addMenuItem(itemWallet, ResideMenuSecond.DIRECTION_RIGHT);
+                resideMenu.addMenuItem(itemInterest, ResideMenuSecond.DIRECTION_RIGHT);
+                resideMenu.addMenuItem(itemFavorite, ResideMenuSecond.DIRECTION_RIGHT);
+                resideMenu.addMenuItem(itemFollowing, ResideMenuSecond.DIRECTION_RIGHT);
+                resideMenu.addMenuItem(itemCategory, ResideMenuSecond.DIRECTION_RIGHT);
+                resideMenu.addMenuItem(itemSetting, ResideMenuSecond.DIRECTION_RIGHT);
+            }
             // resideMenu.setSwipeDirectionDisable(ResideMenuSecond.DIRECTION_RIGHT);
 
         }
