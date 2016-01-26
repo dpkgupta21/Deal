@@ -635,7 +635,7 @@ public class Utils {
 	}
 
 	public static String getCurrentDate(){
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		Date date = new Date();
 		return dateFormat.format(date);
 	}
@@ -656,7 +656,7 @@ public class Utils {
 
 	public static boolean isFromDateGreater(String fromDate, String toDate){
 		try{
-			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         	Date date1 = sdf.parse(fromDate);
         	Date date2 = sdf.parse(toDate);
         	if(date2.after(date1)){

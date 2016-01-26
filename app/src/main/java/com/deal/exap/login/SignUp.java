@@ -53,7 +53,7 @@ public class SignUp extends BaseActivity {
     private ImageLoader image_loader;
     private CameraChooseDialogFragment dFragment;
     private ImageView ivProfile;
-    private File f;
+    private File f = null;
     private byte[] bitmapdata;
 
     /**
@@ -392,13 +392,25 @@ public class SignUp extends BaseActivity {
 
     public boolean validateForm() {
 
-        if (getViewText(R.id.edt_name).equals("")) {
+
+        if(f==null)
+        {
+            Utils.showDialog(SignUp.this, "Message", "Please enter image");
+        }
+        else if (getViewText(R.id.edt_name).equals("")) {
             Utils.showDialog(SignUp.this, "Message", "Please enter name");
             return false;
         } else if (getViewText(R.id.edt_dob).equals("")) {
             Utils.showDialog(SignUp.this, "Message", "Please enter DOB");
             return false;
-        } else if (getViewText(R.id.edt_gender).equals("")) {
+        }
+        else if(Utils.isFromDateGreater(Utils.getCurrentDate(),getViewText(R.id.edt_dob)))
+        {
+            Utils.showDialog(SignUp.this, "Message", "Please enter valid DOB");
+            return false;
+        }
+
+        else if (getViewText(R.id.edt_gender).equals("")) {
             Utils.showDialog(SignUp.this, "Message", "Please enter gender");
             return false;
         } else if (getViewText(R.id.edt_email_id).equals("")) {

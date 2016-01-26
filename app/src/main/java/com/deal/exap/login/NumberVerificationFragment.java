@@ -55,6 +55,9 @@ public class NumberVerificationFragment extends Fragment {
     private Dialog dialogCountryCode;
     private List<Map<String, String>> countryCodeList;
 
+    private String phoneNum;
+    private String countryNumber;
+
     public static NumberVerificationFragment newInstance() {
         NumberVerificationFragment fragment = new NumberVerificationFragment();
         return fragment;
@@ -97,12 +100,12 @@ public class NumberVerificationFragment extends Fragment {
     View.OnClickListener goToNumberVerificationStage2 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String mobNumber=edtCountryCode.getText().toString().trim()+
-                    ((MyEditTextViewReg) view.findViewById(R.id.edt_phone_number)).getText().toString().trim();
+            countryNumber = edtCountryCode.getText().toString().trim();
+            //((MyEditTextViewReg) view.findViewById(R.id.edt_phone_number)).getText().toString().trim();
 
+            phoneNum = ((MyEditTextViewReg) view.findViewById(R.id.edt_phone_number)).getText().toString().trim();
 
-
-            doCheckMobile(mobNumber);
+            doCheckMobile(countryNumber,phoneNum);
 
 
 //            NumberVerificationFragment2 numberVerificationFragment2 = NumberVerificationFragment2.newInstance();
@@ -173,7 +176,7 @@ public class NumberVerificationFragment extends Fragment {
     }
 
 
-    private void doCheckMobile(final String phoneNumber) {
+    private void doCheckMobile(final String countNumber,final String phoneNumber) {
         Utils.hideKeyboard(getActivity());
         if (validateForm(phoneNumber)) {
             if (Utils.isOnline(getActivity())) {
@@ -189,7 +192,7 @@ public class NumberVerificationFragment extends Fragment {
                                 pdialog.dismiss();
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
-                                        verifyMobNumberDigit(phoneNumber);
+                                        verifyMobNumberDigit(countNumber+phoneNumber);
 
                                     } else {
                                         Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));
@@ -244,9 +247,17 @@ public class NumberVerificationFragment extends Fragment {
         public void success(DigitsSession session, String phoneNumber) {
 //            Toast.makeText(getActivity().getApplicationContext(),
 //                    "Authentication Successful for " + phoneNumber, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getContext(), SignUp.class);
-            intent.putExtra("MOB_NUMBER", phoneNumber);
-            startActivity(intent);
+
+            String num = phoneNumber.substring(countryNumber.length(),phoneNumber.length());
+            if (num.equalsIgnoreCase(phoneNum)) {
+                Intent intent = new Intent(getContext(), SignUp.class);
+                intent.putExtra("MOB_NUMBER", phoneNum);
+                startActivity(intent);
+            }
+            else
+            {
+                Utils.showDialog(getActivity(),"Error",Constant.WRONG_NUMBER_ERROR);
+            }
         }
 
         @Override

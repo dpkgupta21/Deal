@@ -26,6 +26,7 @@ public class Constant {
 
 
 
+    public static String WRONG_NUMBER_ERROR="Please enter valid number";
 
     public static String USER_ID = "user_id";
     public static String TAG = "Exam";
