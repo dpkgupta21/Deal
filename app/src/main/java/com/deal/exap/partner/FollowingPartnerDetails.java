@@ -92,8 +92,13 @@ public class FollowingPartnerDetails extends BaseActivity {
                 break;
 
             case R.id.btn_follow_this_partner:
-                followPartner();
-
+                if (partnerDTO.getUser_follow().equalsIgnoreCase("0")) {
+                    // From here we call follow the partner
+                    followPartner(1);
+                } else {
+                    // From here we call unfollow the partner
+                    followPartner(0);
+                }
                 break;
         }
 
@@ -117,7 +122,8 @@ public class FollowingPartnerDetails extends BaseActivity {
                                 Type type = new TypeToken<ArrayList<DealDTO>>() {
                                 }.getType();
                                 // dealList = new Gson().fromJson(response.getJSONArray("deals").toString(), type);
-                                partnerDTO = new Gson().fromJson(response.getJSONObject("partner").toString(), PartnerDTO.class);
+                                partnerDTO = new Gson().fromJson(response.getJSONObject("partner").toString(),
+                                        PartnerDTO.class);
                                 setPartnerDetails();
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -185,12 +191,20 @@ public class FollowingPartnerDetails extends BaseActivity {
         } else {
             setViewVisibility(R.id.iv_chat, View.VISIBLE);
         }
-
-        if (partnerDTO.getIs_follow().equalsIgnoreCase("0"))
+        if (partnerDTO.getIs_follow().equalsIgnoreCase("1")) {
             setViewVisibility(R.id.btn_follow_this_partner, View.VISIBLE);
-        else
+            if (partnerDTO.getUser_follow().equalsIgnoreCase("0")) {
+                // Set Follow this partner label over button
+                setButtonText(R.id.btn_follow_this_partner, getString(R.string.btn_follow_this_partner));
+                //setViewVisibility(R.id.btn_follow_this_partner, View.VISIBLE);
+            } else {
+                // Set UnFollow this partner label over button
+                setButtonText(R.id.btn_follow_this_partner, getString(R.string.btn_unfollow_this_partner));
+                //setViewVisibility(R.id.btn_follow_this_partner, View.GONE);
+            }
+        }else{
             setViewVisibility(R.id.btn_follow_this_partner, View.GONE);
-
+        }
 //        ((NearByListAdapter) mAdapter).setOnItemClickListener(new NearByListAdapter.MyClickListener() {
 //            @Override
 //            public void onItemClick(int position, View v) {
@@ -203,14 +217,14 @@ public class FollowingPartnerDetails extends BaseActivity {
 
     }
 
-    private void followPartner() {
+    private void followPartner(int followStatus) {
         if (Utils.isOnline(this)) {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.ADD_FOLLOWER);
             params.put("partner_id", partnerID + "");
             params.put("lang", Utils.getSelectedLanguage(this));
             params.put("user_id", Utils.getUserId(this));
-            params.put("status","");
+            params.put("status", followStatus + "");
 
 
             final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
@@ -225,7 +239,7 @@ public class FollowingPartnerDetails extends BaseActivity {
                                     callFollowingFragment();
 
                                 } else {
-                                    Utils.showDialog(FollowingPartnerDetails.this, "Error", Utils.getWebServiceMessage(response));
+                                    Utils.showDialog(FollowingPartnerDetails.this, "", Utils.getWebServiceMessage(response));
                                 }
 
 

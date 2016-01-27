@@ -187,6 +187,8 @@ public class GPSTracker implements ConnectionCallbacks,
     public void onLocationChanged(Location mCurrentLocation) {
         Utils.ShowLog(TAG, "onLocationChanged :" + mCurrentLocation.getLatitude() + ", " + mCurrentLocation.getLongitude());
         canGetLocation = true;
+        DealPreferences.setLatitude(mActivity, mCurrentLocation.getLatitude());
+        DealPreferences.setLongitude(mActivity, mCurrentLocation.getLongitude());
         this.mCurrentLocation = mCurrentLocation;
         //mLocationChangedListener.onReceiveLocation(mCurrentLocation, 1);
         stopLocationUpdates();
@@ -199,6 +201,8 @@ public class GPSTracker implements ConnectionCallbacks,
             mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if (mCurrentLocation != null) {
                 canGetLocation = true;
+                DealPreferences.setLatitude(mActivity, mCurrentLocation.getLatitude());
+                DealPreferences.setLongitude(mActivity, mCurrentLocation.getLongitude());
                 // mLocationChangedListener.onReceiveLocation(mCurrentLocation, 1);
             }
         }

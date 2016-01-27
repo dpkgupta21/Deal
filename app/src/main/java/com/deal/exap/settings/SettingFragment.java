@@ -76,6 +76,8 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
 
     private UserDTO userDTO;
 
+    private Dialog dialog;
+
 
     public SettingFragment() {
         // Required empty public constructor
@@ -410,18 +412,19 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
                                 UserDTO userDTO = DealPreferences.getObjectFromPref(getActivity(), Constant.USER_INFO);
 
                                 if (key.equalsIgnoreCase("is_deal_expiry_alert")) {
-
                                     userDTO.setIs_deal_expiry_alert(value.equals("0") ? false : true);
                                 } else if (key.equalsIgnoreCase("is_location_service")) {
                                     userDTO.setIs_location_service(value.equals("0") ? false : true);
-
                                 } else if (key.equalsIgnoreCase("is_message_alert")) {
                                     userDTO.setIs_message_alert(value.equals("0") ? false : true);
-
                                 } else if (key.equalsIgnoreCase("is_push_alert")) {
                                     userDTO.setIs_push_alert(value.equals("0") ? false : true);
-
                                 } else if (key.equalsIgnoreCase("language_id")) {
+
+                                } else if (key.equalsIgnoreCase("country_id")) {
+                                    userDTO.setCountry_id(value);
+                                } else if (key.equalsIgnoreCase("currency")) {
+                                    userDTO.setCurrency(value);
                                 }
 
                                 DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
@@ -551,7 +554,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
 
     private void openCurrencyDialog() {
 
-        final Dialog dialog = new Dialog(getActivity());
+        dialog = new Dialog(getActivity());
         // Include dialog.xml file
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_country_code);
@@ -563,15 +566,22 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
         //ArrayAdapter<ConuntriesDTO> adapter = new ArrayAdapter<ConuntriesDTO>(getActivity(), android.R.layout.simple_list_item_single_choice, countryList);
         listView.setAdapter(countryListAdapter);
         dialog.show();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        listView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
 
-                dialog.dismiss();
-            }
-        });
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        dialog.dismiss();
+                        if (dialog != null) {
+                            dialog = null;
+                        }
 
+                        syncSetting("country_id",countryList.get(position).getId());
+                        syncSetting("currency",countryList.get(position).getName());
 
+                    }
+                }
+        );
     }
 
 }

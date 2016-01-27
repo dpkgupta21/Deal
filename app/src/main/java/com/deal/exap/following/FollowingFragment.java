@@ -51,7 +51,6 @@ public class FollowingFragment extends Fragment {
     //private RecyclerView.Adapter mAdapter;
     //private RecyclerView.LayoutManager mLayoutManager;
     private View view;
-
     private List<FollowingDTO> followingList;
     private Dao<FollowingDTO, String> followingDao;
 

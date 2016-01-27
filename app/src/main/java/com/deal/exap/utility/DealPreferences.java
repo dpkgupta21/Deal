@@ -25,7 +25,6 @@ public class DealPreferences {
     public static final String CARD_YEAR = "CARD_YEAR";
     public static  final String USER_TYPE="USER_TYPE";
 
-
     public static void setCardholderName(Context context, String userId) {
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
                 Context.MODE_PRIVATE);

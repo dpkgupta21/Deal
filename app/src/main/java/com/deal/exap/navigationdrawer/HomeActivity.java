@@ -18,6 +18,7 @@ import com.deal.exap.com.exap.sidemenu.ResideMenuItem;
 import com.deal.exap.com.exap.sidemenu.ResideMenuSecond;
 import com.deal.exap.favorite.FavoriteFragment;
 import com.deal.exap.following.FollowingFragment;
+import com.deal.exap.gps.GPSTracker;
 import com.deal.exap.interest.InterestFragment;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.MenuDTO;
@@ -55,6 +56,9 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_home);
         mContext = this;
         fragmentName = getIntent().getStringExtra("fragmentName");
+
+        // set latitude and longitude in Deal Preferences
+        GPSTracker gpsTracker = new GPSTracker(HomeActivity.this);
         init();
         getMenuCount();
         // setUpMenu();

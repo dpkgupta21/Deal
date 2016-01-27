@@ -154,6 +154,7 @@
     <string name="txt_downloads">Purchased</string>
     <string name="txt_active_coupons">Active Coupons</string>
     <string name="btn_follow_this_partner">Follow this Partner</string>
+    <string name="btn_unfollow_this_partner">UnFollow this Partner</string>
     <string name="txt_featured">Featured</string>
 
     <!--<string name="txt_active_coupons_val">10</string>
