@@ -12,7 +12,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="10dp"
             android:paddingLeft="20dp"
@@ -271,6 +271,24 @@
                     android:padding="10dp"
                     android:text="@string/txt_edit_payment_details" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/white">
+
+                <com.deal.exap.customviews.MyTextViewReg16
+                    android:id="@+id/txt_signOut"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="@string/txt_signout" />
+            </LinearLayout>
+
+
+
 
             <ImageView
                 android:layout_width="wrap_content"

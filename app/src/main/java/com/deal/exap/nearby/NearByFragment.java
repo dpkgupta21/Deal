@@ -39,7 +39,11 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,6 +59,8 @@ public class NearByFragment extends BaseFragment {
             btnDistantHtl, btnDiscountLth, btnDiscountHtl,
             btnDateStl, btnDateLts;
     private ArrayList<DealDTO> dealList;
+    private ArrayList<DealDTO> visibleDealList;
+    RecyclerView.Adapter mAdapter = null;
 //    public static NearByFragment newInstance() {
 //        NearByFragment fragment = new NearByFragment();
 //
@@ -168,26 +174,33 @@ public class NearByFragment extends BaseFragment {
             case R.id.btn_discount_htl:
                 btnDiscountHtl.setSelected(true);
                 btnDiscountLth.setSelected(false);
+                sortByProperty(6);
                 break;
             case R.id.btn_discount_lth:
                 btnDiscountHtl.setSelected(false);
                 btnDiscountLth.setSelected(true);
+                sortByProperty(5);
+
                 break;
             case R.id.btn_distance_htl:
                 btnDistantHtl.setSelected(true);
                 btnDistantLth.setSelected(false);
+                sortByProperty(2);
                 break;
             case R.id.btn_distance_lth:
                 btnDistantHtl.setSelected(false);
                 btnDistantLth.setSelected(true);
+                sortByProperty(1);
                 break;
             case R.id.btn_date_lts:
                 btnDateLts.setSelected(true);
                 btnDateStl.setSelected(false);
+                sortByProperty(3);
                 break;
             case R.id.btn_date_stl:
                 btnDateLts.setSelected(false);
                 btnDateStl.setSelected(true);
+                sortByProperty(4);
                 break;
         }
     }
@@ -213,6 +226,7 @@ public class NearByFragment extends BaseFragment {
                                     Type type = new TypeToken<ArrayList<DealDTO>>() {
                                     }.getType();
                                     dealList = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
+                                    visibleDealList = dealList;
                                     setDealList();
                                 } else {
                                     String msg = response.getString("message");
@@ -246,7 +260,9 @@ public class NearByFragment extends BaseFragment {
     }
 
     public void setDealList() {
-        RecyclerView.Adapter mAdapter = new NearByListAdapter(dealList, getActivity());
+
+
+        mAdapter = new NearByListAdapter(dealList, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
 
@@ -274,5 +290,70 @@ public class NearByFragment extends BaseFragment {
 
             }
         });
+    }
+
+
+    private void sortByProperty(final int sort_type) {
+        try {
+            Collections.sort(visibleDealList, new Comparator<DealDTO>() {
+                @Override
+                public int compare(DealDTO lhs, DealDTO rhs) {
+                    // TODO Auto-generated method stub
+                    int result = 0;
+                    switch (sort_type) {
+                        case 1:
+                            if (Integer.parseInt(lhs.getDistance()) < Integer.parseInt(rhs.getDistance()))
+                                result = -1;
+                            else
+                                result = 1;
+                            break;
+                        case 2:
+                            if (Integer.parseInt(rhs.getDistance()) < Integer.parseInt(lhs.getDistance()))
+                                result = -1;
+                            else
+                                result = 1;
+                            break;
+                        case 3:
+                            SimpleDateFormat simpleFormatter = new SimpleDateFormat("dd MMM yyyy");
+                            try {
+                                Date d1 = (Date) simpleFormatter.parse(lhs.getEnd_date());
+                                Date d2 = (Date) simpleFormatter.parse(rhs.getEnd_date());
+                                result = d1.compareTo(d2);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        case 4:
+                            SimpleDateFormat simpleFormatter1 = new SimpleDateFormat("dd MMM yyyy");
+                            try {
+                                Date d1 = (Date) simpleFormatter1.parse(lhs.getEnd_date());
+                                Date d2 = (Date) simpleFormatter1.parse(rhs.getEnd_date());
+                                result = d2.compareTo(d1);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        case 5:
+                            if (Integer.parseInt(lhs.getDiscount()) < Integer.parseInt(rhs.getDiscount()))
+                                result = -1;
+                            else
+                                result = 1;
+                            break;
+
+                        case 6:
+                            if (Integer.parseInt(rhs.getDiscount()) < Integer.parseInt(lhs.getDiscount()))
+                                result = -1;
+                            else
+                                result = 1;
+                            break;
+                    }
+                    return result;
+                }
+            });
+            ((NearByListAdapter) mAdapter).setDealList(visibleDealList);
+            mAdapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

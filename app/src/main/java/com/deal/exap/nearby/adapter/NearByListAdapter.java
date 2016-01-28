@@ -1,5 +1,8 @@
 package com.deal.exap.nearby.adapter;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
@@ -21,6 +24,9 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import java.util.ArrayList;
 
@@ -50,9 +56,15 @@ public class NearByListAdapter extends RecyclerView
         ImageView ivThumnail;
         TextView txt_final_price;
         TextView txt_visible_price;
+        ;
+
+        LinearLayout ll_share;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
+
+            ll_share = (LinearLayout) itemView.findViewById(R.id.ll_share);
+            addShareButon(ll_share);
             tvDiscount = (TextView) itemView.findViewById(R.id.txt_discount_rate);
             tvEnddate = (TextView) itemView.findViewById(R.id.txt_end_date_val);
             tvDistance = (TextView) itemView.findViewById(R.id.txt_distance_val);
@@ -89,8 +101,8 @@ public class NearByListAdapter extends RecyclerView
             Log.i(LOG_TAG, "Adding Listener");
             ivThumnail.setOnClickListener(this);
             ivLogo.setOnClickListener(this);
-           // btnBuy.setOnClickListener(this);
-           // llBuy.setOnClickListener(this);
+            // btnBuy.setOnClickListener(this);
+            // llBuy.setOnClickListener(this);
         }
 
         @Override
@@ -102,6 +114,12 @@ public class NearByListAdapter extends RecyclerView
     public void setOnItemClickListener(MyClickListener myClickListener) {
         this.myClickListener = myClickListener;
     }
+
+
+    public void setDealList(ArrayList<DealDTO> myDataset) {
+        this.mDataset = mDataset;
+    }
+
 
     public NearByListAdapter(ArrayList<DealDTO> myDataset, Context context) {
         mDataset = myDataset;
@@ -152,14 +170,11 @@ public class NearByListAdapter extends RecyclerView
 //        }
 
 
-        if(mDataset.get(position).getType().equalsIgnoreCase("Paid"))
-        {
+        if (mDataset.get(position).getType().equalsIgnoreCase("Paid")) {
 
             holder.btnBuy.setText(context.getString(R.string.txt_buy));
             holder.btnBuy.setBackgroundResource(R.drawable.btn_green_bcg_shape);
-        }
-        else
-        {
+        } else {
             holder.btnBuy.setText(context.getString(R.string.btn_reedme));
             holder.btnBuy.setBackgroundResource(R.drawable.btn_red_bcg_shape);
         }
@@ -170,7 +185,7 @@ public class NearByListAdapter extends RecyclerView
                 options1);
         holder.tvDiscount.setText(mDataset.get(position).getDiscount() + " % Off");
         holder.tvEnddate.setText(mDataset.get(position).getEnd_date());
-        holder.tvDistance.setText("Distance "+mDataset.get(position).getDistance()+" Km");
+        holder.tvDistance.setText("Distance " + mDataset.get(position).getDistance() + " Km");
         if (Utils.isArabic(context))
             holder.tvDetail.setText(mDataset.get(position).getName_ara());
         else
@@ -202,5 +217,69 @@ public class NearByListAdapter extends RecyclerView
         public void onItemClick(int position, View v);
     }
 
+
+    private static void addShareButon(LinearLayout linearLayout) {
+
+//
+//        final ImageView icon = new ImageView((Activity) context);
+//        icon.setImageDrawable(context.getResources().getDrawable(R.drawable.share_icon));
+//
+//        FloatingActionButton.LayoutParams params = new FloatingActionButton.LayoutParams(50, 50);
+//        params.setMargins(0, 0, 30, 0);
+//        final FloatingActionButton fabButton = new FloatingActionButton.Builder((Activity) context).setBackgroundDrawable(R.drawable.share_icon)
+//                .setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
+//                .setLayoutParams(params)
+//                .build();
+//        SubActionButton.Builder subButton = new SubActionButton.Builder((Activity) context);
+//        ImageView icon1 = new ImageView((Activity) context);
+//        ImageView icon2 = new ImageView((Activity) context);
+//        ImageView icon3 = new ImageView((Activity) context);
+//        ImageView icon4 = new ImageView((Activity) context);
+//
+//        icon1.setImageDrawable(context.getResources().getDrawable(R.drawable.insta_share));
+//        icon2.setImageDrawable(context.getResources().getDrawable(R.drawable.fb_share));
+//        icon3.setImageDrawable(context.getResources().getDrawable(R.drawable.tt_share));
+//        icon4.setImageDrawable(context.getResources().getDrawable(R.drawable.whatsup_share));
+//        SubActionButton button1 = subButton.setContentView(icon1).build();
+//        button1.setTag(1001);
+//        //button1.setOnClickListener(instaShare);
+//        SubActionButton button2 = subButton.setContentView(icon2).build();
+//        button2.setTag(1002);
+//        //button2.setOnClickListener(fbShare);
+//        SubActionButton button3 = subButton.setContentView(icon3).build();
+//        button3.setTag(3);
+//        // button3.setOnClickListener(ttShare);
+//        SubActionButton button4 = subButton.setContentView(icon4).build();
+//        button4.setTag(4);
+//        //button4.setOnClickListener(whatsShare);
+//
+//        final FloatingActionMenu fabMenu = new FloatingActionMenu.Builder((Activity) context)
+//                .addSubActionView(button1)
+//                .addSubActionView(button2)
+//                .addSubActionView(button3)
+//                .addSubActionView(button4)
+//                .attachTo(fabButton).build();
+//
+//        fabMenu.setStateChangeListener(new FloatingActionMenu.MenuStateChangeListener() {
+//            @Override
+//            public void onMenuOpened(FloatingActionMenu floatingActionMenu) {
+//                icon.setRotation(0);
+//                PropertyValuesHolder holder = PropertyValuesHolder.ofFloat(View.ROTATION, 45);
+//                ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(icon, holder);
+//                animator.start();
+//            }
+//
+//            @Override
+//            public void onMenuClosed(FloatingActionMenu floatingActionMenu) {
+//                icon.setRotation(45);
+//                PropertyValuesHolder holder = PropertyValuesHolder.ofFloat(View.ROTATION, 0);
+//                ObjectAnimator animation = ObjectAnimator.ofPropertyValuesHolder(icon, holder);
+//                animation.start();
+//            }
+//        });
+//
+//
+
+    }
 
 }

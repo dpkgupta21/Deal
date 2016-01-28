@@ -34,6 +34,7 @@ import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg16;
 import com.deal.exap.login.BaseFragment;
 import com.deal.exap.login.EditProfileActivity;
+import com.deal.exap.login.SplashScreen;
 import com.deal.exap.model.ConuntriesDTO;
 import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
@@ -159,6 +160,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
 
 
         setClick(R.id.txt_change_currency, view);
+        setClick(R.id.txt_signOut, view);
 
     }
 
@@ -177,6 +179,15 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
 
             case R.id.txt_change_currency:
                 getCountry();
+                break;
+
+            case R.id.txt_signOut:
+
+                UserDTO userDTO = DealPreferences.getObjectFromPref(getActivity(), Constant.USER_INFO);
+                userDTO = null;
+                DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
+                startActivity(new Intent(getActivity(), SplashScreen.class));
+
                 break;
         }
     }
@@ -576,8 +587,8 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
                             dialog = null;
                         }
 
-                        syncSetting("country_id",countryList.get(position).getId());
-                        syncSetting("currency",countryList.get(position).getName());
+                        syncSetting("country_id", countryList.get(position).getId());
+                        syncSetting("currency", countryList.get(position).getName());
 
                     }
                 }

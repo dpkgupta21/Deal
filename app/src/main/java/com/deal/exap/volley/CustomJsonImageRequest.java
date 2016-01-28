@@ -31,8 +31,9 @@ public class CustomJsonImageRequest extends Request<JSONObject> {
     private Listener<JSONObject> listener;
     private Map<String, String> params;
     private File file;
-   // private MultipartEntity entity = new MultipartEntity();
+    // private MultipartEntity entity = new MultipartEntity();
     private HttpEntity mHttpEntity;
+
     public CustomJsonImageRequest(String url, Map<String, String> params,
                                   Listener<JSONObject> reponseListener, ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
@@ -65,10 +66,13 @@ public class CustomJsonImageRequest extends Request<JSONObject> {
 
     private HttpEntity buildMultipartEntity(File file) {
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        String fileName = file.getName();
-        FileBody fileBody = new FileBody(file);
-        builder.addPart(KEY_PICTURE, fileBody);
-                try {
+        if (file != null) {
+            String fileName = file.getName();
+
+            FileBody fileBody = new FileBody(file);
+            builder.addPart(KEY_PICTURE, fileBody);
+        }
+        try {
             for (String key : params.keySet())
                 builder.addPart(key, new StringBody(params.get(key)));
 

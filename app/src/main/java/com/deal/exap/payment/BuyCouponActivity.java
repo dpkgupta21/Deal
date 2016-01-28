@@ -1,6 +1,9 @@
 package com.deal.exap.payment;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
@@ -59,6 +62,9 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import org.json.JSONObject;
 
@@ -119,7 +125,7 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
 
         init();
 
-
+        addShareView();
     }
 
 
@@ -709,12 +715,134 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
                     30000, 0,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             pdialog.show();
-        } else{
+        } else {
             Utils.showNoNetworkDialog(this);
         }
 
 
     }
 
+
+    private void addShareView() {
+        final ImageView icon = new ImageView(this);
+        icon.setImageDrawable(getResources().getDrawable(R.drawable.share_icon));
+
+        FloatingActionButton.LayoutParams params = new FloatingActionButton.LayoutParams(50, 50);
+        params.setMargins(0, 200, 30, 0);
+        final FloatingActionButton fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)
+                .setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
+                .setLayoutParams(params)
+                .build();
+        SubActionButton.Builder subButton = new SubActionButton.Builder(this);
+        ImageView icon1 = new ImageView(this);
+        ImageView icon2 = new ImageView(this);
+        ImageView icon3 = new ImageView(this);
+        ImageView icon4 = new ImageView(this);
+
+        icon1.setImageDrawable(getResources().getDrawable(R.drawable.insta_share));
+        icon2.setImageDrawable(getResources().getDrawable(R.drawable.fb_share));
+        icon3.setImageDrawable(getResources().getDrawable(R.drawable.tt_share));
+        icon4.setImageDrawable(getResources().getDrawable(R.drawable.whatsup_share));
+        SubActionButton button1 = subButton.setContentView(icon1).build();
+        button1.setTag(1001);
+        button1.setOnClickListener(instaShare);
+        SubActionButton button2 = subButton.setContentView(icon2).build();
+        button2.setTag(1002);
+        button2.setOnClickListener(fbShare);
+        SubActionButton button3 = subButton.setContentView(icon3).build();
+        button3.setTag(3);
+        button3.setOnClickListener(ttShare);
+        SubActionButton button4 = subButton.setContentView(icon4).build();
+        button4.setTag(4);
+        button4.setOnClickListener(whatsShare);
+
+        final FloatingActionMenu fabMenu = new FloatingActionMenu.Builder(this)
+                .addSubActionView(button1)
+                .addSubActionView(button2)
+                .addSubActionView(button3)
+                .addSubActionView(button4).setRadius(120)
+                .attachTo(fabButton).build();
+
+        fabMenu.setStateChangeListener(new FloatingActionMenu.MenuStateChangeListener() {
+            @Override
+            public void onMenuOpened(FloatingActionMenu floatingActionMenu) {
+                icon.setRotation(0);
+                PropertyValuesHolder holder = PropertyValuesHolder.ofFloat(View.ROTATION, 45);
+                ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(icon, holder);
+                animator.start();
+            }
+
+            @Override
+            public void onMenuClosed(FloatingActionMenu floatingActionMenu) {
+                icon.setRotation(45);
+                PropertyValuesHolder holder = PropertyValuesHolder.ofFloat(View.ROTATION, 0);
+                ObjectAnimator animation = ObjectAnimator.ofPropertyValuesHolder(icon, holder);
+                animation.start();
+            }
+        });
+    }
+
+
+    View.OnClickListener fbShare = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            try {
+                Intent facebookIntent = new Intent(Intent.ACTION_SEND);
+                facebookIntent.setType("text/plain");
+                facebookIntent.setPackage("com.facebook.katana");
+                facebookIntent.putExtra(Intent.EXTRA_TEXT, "Hello");
+                startActivity(facebookIntent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    };
+
+    View.OnClickListener instaShare = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            try {
+                Intent instagramIntent = new Intent(Intent.ACTION_SEND);
+                instagramIntent.setType("image/*");
+                instagramIntent.setPackage("com.instagram.android");
+                instagramIntent.putExtra(Intent.EXTRA_TEXT, "Hello");
+                startActivity(instagramIntent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    View.OnClickListener ttShare = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            try {
+                Intent twitterIntent = new Intent(Intent.ACTION_SEND);
+                twitterIntent.setType("text/plain");
+                twitterIntent.setPackage("com.twitter.android");
+                twitterIntent.putExtra(Intent.EXTRA_TEXT, "Hello");
+                startActivity(twitterIntent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    };
+
+    View.OnClickListener whatsShare = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            try {
+                Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
+                whatsappIntent.setType("text/plain");
+                whatsappIntent.setPackage("com.whatsapp");
+                whatsappIntent.putExtra(Intent.EXTRA_TEXT, "Hello");
+                startActivity(whatsappIntent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
 }

@@ -393,11 +393,13 @@ public class SignUp extends BaseActivity {
     public boolean validateForm() {
 
 
-        if(f==null)
-        {
-            Utils.showDialog(SignUp.this, "Message", "Please enter image");
-        }
-        else if (getViewText(R.id.edt_name).equals("")) {
+//        if(f==null)
+//        {
+//            Utils.showDialog(SignUp.this, "Message", "Please enter image");
+//        }
+//        else
+
+        if (getViewText(R.id.edt_name).equals("")) {
             Utils.showDialog(SignUp.this, "Message", "Please enter name");
             return false;
         } else if (getViewText(R.id.edt_dob).equals("")) {

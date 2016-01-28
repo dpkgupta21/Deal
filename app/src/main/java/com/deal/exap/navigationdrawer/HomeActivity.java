@@ -79,16 +79,26 @@ public class HomeActivity extends BaseActivity {
         resideMenu.attachToActivity(this);
         resideMenu.setMenuListener(menuListener);
 
-        // create menu items;
-        itemAlert = new ResideMenuItem(this, R.drawable.nav_bell_icon, getString(R.string.menu_alert) + " (" + menuDTO.getAlert() + ")");
-        itemNearby = new ResideMenuItem(this, R.drawable.nav_nearby_icon, getString(R.string.menu_near_by) + " (" + menuDTO.getNearby() + ")");
-        itemWallet = new ResideMenuItem(this, R.drawable.nav_wallet_icon, getString(R.string.menu_wallet) + " (" + menuDTO.getWallet() + ")");
-        itemInterest = new ResideMenuItem(this, R.drawable.nav_interest_icon, getString(R.string.menu_interest));
-        itemFavorite = new ResideMenuItem(this, R.drawable.nav_fav_icon, getString(R.string.menu_favorite) + " (" + menuDTO.getFavorite() + ")");
-        itemFollowing = new ResideMenuItem(this, R.drawable.nav_following_icon, getString(R.string.menu_following) + " (" + menuDTO.getFollowing() + ")");
-        itemCategory = new ResideMenuItem(this, R.drawable.nav_categories_icon, getString(R.string.menu_categories));
-        itemSetting = new ResideMenuItem(this, R.drawable.nav_settings_icon, getString(R.string.menu_setting));
-
+        if (menuDTO != null) {
+            // create menu items;
+            itemAlert = new ResideMenuItem(this, R.drawable.nav_bell_icon, getString(R.string.menu_alert) + " (" + menuDTO.getAlert() + ")");
+            itemNearby = new ResideMenuItem(this, R.drawable.nav_nearby_icon, getString(R.string.menu_near_by) + " (" + menuDTO.getNearby() + ")");
+            itemWallet = new ResideMenuItem(this, R.drawable.nav_wallet_icon, getString(R.string.menu_wallet) + " (" + menuDTO.getWallet() + ")");
+            itemInterest = new ResideMenuItem(this, R.drawable.nav_interest_icon, getString(R.string.menu_interest));
+            itemFavorite = new ResideMenuItem(this, R.drawable.nav_fav_icon, getString(R.string.menu_favorite) + " (" + menuDTO.getFavorite() + ")");
+            itemFollowing = new ResideMenuItem(this, R.drawable.nav_following_icon, getString(R.string.menu_following) + " (" + menuDTO.getFollowing() + ")");
+            itemCategory = new ResideMenuItem(this, R.drawable.nav_categories_icon, getString(R.string.menu_categories));
+            itemSetting = new ResideMenuItem(this, R.drawable.nav_settings_icon, getString(R.string.menu_setting));
+        } else {
+            itemAlert = new ResideMenuItem(this, R.drawable.nav_bell_icon, getString(R.string.menu_alert) + " (0)");
+            itemNearby = new ResideMenuItem(this, R.drawable.nav_nearby_icon, getString(R.string.menu_near_by) + " (0)");
+            itemWallet = new ResideMenuItem(this, R.drawable.nav_wallet_icon, getString(R.string.menu_wallet) + " (0)");
+            itemInterest = new ResideMenuItem(this, R.drawable.nav_interest_icon, getString(R.string.menu_interest));
+            itemFavorite = new ResideMenuItem(this, R.drawable.nav_fav_icon, getString(R.string.menu_favorite) + " (0)");
+            itemFollowing = new ResideMenuItem(this, R.drawable.nav_following_icon, getString(R.string.menu_following) + " (0)");
+            itemCategory = new ResideMenuItem(this, R.drawable.nav_categories_icon, getString(R.string.menu_categories));
+            itemSetting = new ResideMenuItem(this, R.drawable.nav_settings_icon, getString(R.string.menu_setting));
+        }
         itemAlert.setOnClickListener(this);
         itemNearby.setOnClickListener(this);
         itemWallet.setOnClickListener(this);
@@ -266,9 +276,7 @@ public class HomeActivity extends BaseActivity {
                         public void onResponse(JSONObject response) {
                             try {
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-
                                 menuDTO = new Gson().fromJson(response.getJSONObject("count").toString(), MenuDTO.class);
-
                                 setUpMenu();
 
                             } catch (Exception e) {
