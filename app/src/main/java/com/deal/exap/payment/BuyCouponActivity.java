@@ -316,12 +316,12 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
         }
     };
 
-    private View.OnClickListener redeemDeal = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            redeemDeal();
-        }
-    };
+//    private View.OnClickListener redeemDeal = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            redeemDeal();
+//        }
+//    };
 
 
     public void openMonthDialog() {
@@ -422,7 +422,8 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setData() {
-
+        String dealCode = dealDTO.getDeal_code();
+        setDealCode(dealCode);
 //        if (dealDTO.getType().equalsIgnoreCase("paid")) {
 //            setViewVisibility(R.id.btn_buy_deal, View.VISIBLE);
 //            setViewVisibility(R.id.btn_redeem, View.GONE);
@@ -592,9 +593,11 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
 
 
     private void setDealCode(String dealCode) {
-        setViewVisibility(R.id.ll_deal_price, View.GONE);
-        setViewVisibility(R.id.ll_deal_code, View.VISIBLE);
-        setTextViewText(R.id.deal_code, dealCode);
+        if (dealCode != null) {
+            setViewVisibility(R.id.ll_deal_price, View.GONE);
+            setViewVisibility(R.id.ll_deal_code, View.VISIBLE);
+            setTextViewText(R.id.deal_code, dealCode);
+        }
     }
 
 

@@ -3,6 +3,7 @@ package com.deal.exap.model;
 import com.j256.ormlite.field.DatabaseField;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Mayur on 09-01-2016.
@@ -63,6 +64,35 @@ public class DealDTO implements Serializable {
     @DatabaseField
     private int total_codes;
 
+    private double lat;
+
+    private double lng;
+
+    private List<String> deal_images;
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public List<String>  getDeal_images() {
+        return deal_images;
+    }
+
+    public void setDeal_images(List<String>  deal_images) {
+        this.deal_images = deal_images;
+    }
 
     public String getName_eng() {
         return name_eng;

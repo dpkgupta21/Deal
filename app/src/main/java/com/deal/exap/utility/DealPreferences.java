@@ -24,6 +24,20 @@ public class DealPreferences {
     public static final String CARD_MONTH = "CARD_MONTH";
     public static final String CARD_YEAR = "CARD_YEAR";
     public static  final String USER_TYPE="USER_TYPE";
+    public static  final String PUSH_REGISTRATION_ID="PUSH_REGISTRATION_ID";
+
+    public static void setPushRegistrationId(Context context, String userId) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(PUSH_REGISTRATION_ID, userId);
+        editor.apply();
+    }
+
+    public static String getPushRegistrationId(Context context) {
+        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(PUSH_REGISTRATION_ID,
+                null);
+    }
 
     public static void setCardholderName(Context context, String userId) {
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,

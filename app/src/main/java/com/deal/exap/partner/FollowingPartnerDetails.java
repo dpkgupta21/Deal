@@ -1,5 +1,6 @@
 package com.deal.exap.partner;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
+import com.deal.exap.customviews.CustomProgressDialog;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.model.PartnerDTO;
@@ -48,18 +50,20 @@ public class FollowingPartnerDetails extends BaseActivity {
     // private ArrayList<DealDTO> dealList;
     private PartnerDTO partnerDTO;
     private DisplayImageOptions options;
+    private Activity mActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_following_partner_details);
-
+        mActivity = FollowingPartnerDetails.this;
         init();
 
     }
 
 
     private void init() {
+        CustomProgressDialog.showProgDialog(mActivity, null);
         partnerID = getIntent().getIntExtra("partnerId", -1);
         setClick(R.id.iv_back);
         setClick(R.id.btn_follow_this_partner);
@@ -110,9 +114,10 @@ public class FollowingPartnerDetails extends BaseActivity {
             params.put("action", Constant.GET_PARTNER);
             params.put("partner_id", partnerID + "");
             params.put("lang", Utils.getSelectedLanguage(this));
+            params.put("user_id", Utils.getUserId(this));
 
 
-            final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
+          //  final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -128,13 +133,15 @@ public class FollowingPartnerDetails extends BaseActivity {
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            pdialog.dismiss();
+                            CustomProgressDialog.hideProgressDialog();
+                            //pdialog.dismiss();
                         }
                     }, new Response.ErrorListener() {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    pdialog.dismiss();
+                    //pdialog.dismiss();
+                    CustomProgressDialog.hideProgressDialog();
                     Utils.showExceptionDialog(FollowingPartnerDetails.this);
                     //       CustomProgressDialog.hideProgressDialog();
                 }
@@ -143,8 +150,9 @@ public class FollowingPartnerDetails extends BaseActivity {
             postReq.setRetryPolicy(new DefaultRetryPolicy(
                     30000, 0,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            pdialog.show();
+            //pdialog.show();
         } else {
+            CustomProgressDialog.hideProgressDialog();
             Utils.showNoNetworkDialog(this);
         }
     }
@@ -202,7 +210,7 @@ public class FollowingPartnerDetails extends BaseActivity {
                 setButtonText(R.id.btn_follow_this_partner, getString(R.string.btn_unfollow_this_partner));
                 //setViewVisibility(R.id.btn_follow_this_partner, View.GONE);
             }
-        }else{
+        } else {
             setViewVisibility(R.id.btn_follow_this_partner, View.GONE);
         }
 //        ((NearByListAdapter) mAdapter).setOnItemClickListener(new NearByListAdapter.MyClickListener() {
@@ -239,7 +247,7 @@ public class FollowingPartnerDetails extends BaseActivity {
                                     callFollowingFragment();
 
                                 } else {
-                                    Utils.showDialog(FollowingPartnerDetails.this, "", Utils.getWebServiceMessage(response));
+                                    //Utils.showDialog(FollowingPartnerDetails.this, "", Utils.getWebServiceMessage(response));
                                 }
 
 

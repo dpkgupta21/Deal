@@ -236,14 +236,16 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
             final Dialog dialog = new Dialog(getActivity(), R.style.Theme_Dialog);
             // Include dialog.xml file
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.activity_payment_details);
+            dialog.setContentView(R.layout.dialog_payment);
             getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
             txtMonth = (TextView) dialog.findViewById(R.id.txt_month);
             txtYear = (TextView) dialog.findViewById(R.id.txt_year);
 
-            txtMonth.setText(months.get(0));
-            txtYear.setText(years.get(0));
+            txtMonth.setText(DealPreferences.getCardMonth(getActivity()) != null ?
+                    DealPreferences.getCardMonth(getActivity()) : months.get(0));
+            txtYear.setText(DealPreferences.getCardYear(getActivity()) != null ?
+                    DealPreferences.getCardYear(getActivity()) :years.get(0));
 
             txtMonth.setOnClickListener(monthDialog);
 
