@@ -273,6 +273,7 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
             case R.id.txt_customer_reviews:
                 i = new Intent(this, CustomerFeedBackActivity.class);
                 i.putExtra("dealId", dealDTO.getId());
+                i.putExtra("dealCode", dealDTO.getDeal_code());
                 startActivity(i);
                 break;
 
@@ -378,7 +379,7 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
                     getApplicationContext())));
             params.put("lng", String.valueOf(DealPreferences.getLongitude(this.
                     getApplicationContext())));
-
+            params.put("user_id", Utils.getUserId(this));
             params.put("deal_id", id);
 
             final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
@@ -441,7 +442,11 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
 
         Button btn_purchase = (Button) findViewById(R.id.btn_buy);
 
-        if (dealDTO.getTotal_codes() > 0) {
+        if (dealDTO.getDeal_code() != null && !dealDTO.getDeal_code().equalsIgnoreCase("")) {
+            btn_purchase.setVisibility(View.GONE);
+        } else {
+
+
             btn_purchase.setVisibility(View.VISIBLE);
             if (dealDTO.getType().equalsIgnoreCase("Paid")) {
                 btn_purchase.setText(getString(R.string.txt_buy));
@@ -450,9 +455,9 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
                 btn_purchase.setText(getString(R.string.btn_reedme));
                 btn_purchase.setBackgroundResource(R.drawable.btn_red_bcg_shape);
             }
-        } else {
-            btn_purchase.setVisibility(View.GONE);
         }
+
+
         setTextViewText(R.id.txt_address, dealDTO.getLocation());
         ((RatingBar) findViewById(R.id.rating_bar)).setRating(dealDTO.getRating());
 
@@ -461,8 +466,19 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
         setTextViewText(R.id.txt_redeemed_val, dealDTO.getRedeemed() + "");
         setTextViewText(R.id.txt_distance_val, dealDTO.getDistance());
         setTextViewText(R.id.txt_redeem_option, dealDTO.getRedeem_option());
-        setTextViewText(R.id.txt_discount, dealDTO.getDiscount() + "%");
-        setTextViewText(R.id.txt_store_price, dealDTO.getFinal_price());
+
+        if (dealDTO.getDeal_code() != null && !dealDTO.getDeal_code().equalsIgnoreCase("")) {
+            setViewVisibility(R.id.ll_deal_price, View.GONE);
+            setViewVisibility(R.id.ll_deal_code, View.VISIBLE);
+            setTextViewText(R.id.deal_code, dealDTO.getDeal_code());
+
+        } else {
+            setViewVisibility(R.id.ll_deal_price, View.VISIBLE);
+            setViewVisibility(R.id.ll_deal_code, View.GONE);
+            setTextViewText(R.id.txt_discount, dealDTO.getDiscount() + "%");
+            setTextViewText(R.id.txt_store_price, dealDTO.getFinal_price());
+
+        }
 
 
         ImageView imgThumnail = (ImageView) findViewById(R.id.thumbnail);
@@ -539,7 +555,10 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
 
                                 if (Utils.getWebServiceStatus(response)) {
                                     //  finish();
-                                    callWalletFragment();
+                                    //callWalletFragment();
+
+                                    String dealCode = response.getString("dealcode");
+                                    setDealCode(dealCode);
 
                                 } else {
                                     Utils.showDialog(BuyCouponActivity.this, "Error", Utils.getWebServiceMessage(response));
@@ -569,6 +588,13 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
         }
 
 
+    }
+
+
+    private void setDealCode(String dealCode) {
+        setViewVisibility(R.id.ll_deal_price, View.GONE);
+        setViewVisibility(R.id.ll_deal_code, View.VISIBLE);
+        setTextViewText(R.id.deal_code, dealCode);
     }
 
 
@@ -728,11 +754,20 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
         icon.setImageDrawable(getResources().getDrawable(R.drawable.share_icon));
 
         FloatingActionButton.LayoutParams params = new FloatingActionButton.LayoutParams(50, 50);
-        params.setMargins(0, 200, 30, 0);
-        final FloatingActionButton fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)
-                .setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
-                .setLayoutParams(params)
-                .build();
+        final FloatingActionButton fabButton;
+        if (Utils.isArabic(BuyCouponActivity.this)) {
+            params.setMargins(0, 200, 30, 0);
+            fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)
+                    .setPosition(FloatingActionButton.POSITION_TOP_LEFT)
+                    .setLayoutParams(params)
+                    .build();
+        } else {
+            params.setMargins(30, 200, 0, 0);
+            fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)
+                    .setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
+                    .setLayoutParams(params)
+                    .build();
+        }
         SubActionButton.Builder subButton = new SubActionButton.Builder(this);
         ImageView icon1 = new ImageView(this);
         ImageView icon2 = new ImageView(this);
@@ -767,7 +802,11 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
             @Override
             public void onMenuOpened(FloatingActionMenu floatingActionMenu) {
                 icon.setRotation(0);
-                PropertyValuesHolder holder = PropertyValuesHolder.ofFloat(View.ROTATION, 45);
+                PropertyValuesHolder holder;
+                if (Utils.isArabic(BuyCouponActivity.this))
+                    holder = PropertyValuesHolder.ofFloat(View.ROTATION, 135);
+                else
+                    holder = PropertyValuesHolder.ofFloat(View.ROTATION, 45);
                 ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(icon, holder);
                 animator.start();
             }

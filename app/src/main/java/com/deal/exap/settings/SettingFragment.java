@@ -74,6 +74,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
     private Switch switch_message;
     private Switch switch_expiry;
     private List<ConuntriesDTO> countryList;
+    private String currencyName;
 
     private UserDTO userDTO;
 
@@ -434,6 +435,8 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
 
                                 } else if (key.equalsIgnoreCase("country_id")) {
                                     userDTO.setCountry_id(value);
+                                    syncSetting("currency", currencyName);
+                                    return;
                                 } else if (key.equalsIgnoreCase("currency")) {
                                     userDTO.setCurrency(value);
                                 }
@@ -442,7 +445,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
 
 
                                 Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
-                                i.putExtra("fragmentName", getActivity().getString(R.string.interest_screen_title));
+                                i.putExtra("fragmentName", getActivity().getString(R.string.setting_screen_title));
                                 startActivity(i);
                                 getActivity().finish();
 
@@ -588,7 +591,8 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
                         }
 
                         syncSetting("country_id", countryList.get(position).getId());
-                        syncSetting("currency", countryList.get(position).getName());
+                        currencyName=countryList.get(position).getName();
+
 
                     }
                 }

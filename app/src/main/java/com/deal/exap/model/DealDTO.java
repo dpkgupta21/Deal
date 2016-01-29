@@ -51,6 +51,8 @@ public class DealDTO implements Serializable {
     private String location;
 
     @DatabaseField
+    private String deal_code;
+    @DatabaseField
     private int redeemed;
     @DatabaseField
     private String distance;
@@ -247,6 +249,14 @@ public class DealDTO implements Serializable {
 
     public void setTotal_codes(int total_codes) {
         this.total_codes = total_codes;
+    }
+
+    public String getDeal_code() {
+        return deal_code;
+    }
+
+    public void setDeal_code(String deal_code) {
+        this.deal_code = deal_code;
     }
 }
 

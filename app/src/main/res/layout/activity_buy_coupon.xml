@@ -27,25 +27,6 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/slide_img" />
 
-                <!--<ImageView-->
-                <!--android:id="@+id/btn_share"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="right|center_vertical"-->
-                <!--android:layout_marginBottom="20dp"-->
-                <!--android:padding="5dp"-->
-                <!--android:src="@drawable/share_active_icon" />-->
-
-
-                <!--<LinearLayout-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:id="@+id/ll_share"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="right|center_vertical"-->
-                    <!--android:layout_marginBottom="20dp"-->
-                    <!--android:padding="5dp">-->
-                    <!-- -->
-                <!--</LinearLayout>-->
 
                 <ImageView
                     android:id="@+id/iv_back"
@@ -55,14 +36,6 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/back_btn" />
 
-                <!--<ImageView-->
-                <!--android:id="@+id/iv_chat"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="right"-->
-                <!--android:padding="5dp"-->
-                <!--android:scaleType="centerCrop"-->
-                <!--android:src="@drawable/chat_btn" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -298,6 +271,7 @@
                     android:textSize="12sp" />
 
                 <LinearLayout
+                    android:id="@+id/ll_deal_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -351,6 +325,44 @@
 
 
                 </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_deal_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:orientation="vertical">
+
+                        <com.deal.exap.customviews.MyTextViewRegCustom
+                            android:id="@+id/deal_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="AD457S"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <com.deal.exap.customviews.MyTextViewRegCustom
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/txt_coupon_code"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
 
                 <!--<com.deal.exap.customviews.MyTextViewSemiCustom-->
                 <!--style="@style/tv_normal"-->

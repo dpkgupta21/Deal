@@ -58,13 +58,10 @@ public class NearByListAdapter extends RecyclerView
         TextView txt_visible_price;
         ;
 
-        LinearLayout ll_share;
-
         public DataObjectHolder(View itemView) {
             super(itemView);
 
-            ll_share = (LinearLayout) itemView.findViewById(R.id.ll_share);
-            addShareButon(ll_share);
+
             tvDiscount = (TextView) itemView.findViewById(R.id.txt_discount_rate);
             tvEnddate = (TextView) itemView.findViewById(R.id.txt_end_date_val);
             tvDistance = (TextView) itemView.findViewById(R.id.txt_distance_val);
@@ -218,68 +215,5 @@ public class NearByListAdapter extends RecyclerView
     }
 
 
-    private static void addShareButon(LinearLayout linearLayout) {
-
-//
-//        final ImageView icon = new ImageView((Activity) context);
-//        icon.setImageDrawable(context.getResources().getDrawable(R.drawable.share_icon));
-//
-//        FloatingActionButton.LayoutParams params = new FloatingActionButton.LayoutParams(50, 50);
-//        params.setMargins(0, 0, 30, 0);
-//        final FloatingActionButton fabButton = new FloatingActionButton.Builder((Activity) context).setBackgroundDrawable(R.drawable.share_icon)
-//                .setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
-//                .setLayoutParams(params)
-//                .build();
-//        SubActionButton.Builder subButton = new SubActionButton.Builder((Activity) context);
-//        ImageView icon1 = new ImageView((Activity) context);
-//        ImageView icon2 = new ImageView((Activity) context);
-//        ImageView icon3 = new ImageView((Activity) context);
-//        ImageView icon4 = new ImageView((Activity) context);
-//
-//        icon1.setImageDrawable(context.getResources().getDrawable(R.drawable.insta_share));
-//        icon2.setImageDrawable(context.getResources().getDrawable(R.drawable.fb_share));
-//        icon3.setImageDrawable(context.getResources().getDrawable(R.drawable.tt_share));
-//        icon4.setImageDrawable(context.getResources().getDrawable(R.drawable.whatsup_share));
-//        SubActionButton button1 = subButton.setContentView(icon1).build();
-//        button1.setTag(1001);
-//        //button1.setOnClickListener(instaShare);
-//        SubActionButton button2 = subButton.setContentView(icon2).build();
-//        button2.setTag(1002);
-//        //button2.setOnClickListener(fbShare);
-//        SubActionButton button3 = subButton.setContentView(icon3).build();
-//        button3.setTag(3);
-//        // button3.setOnClickListener(ttShare);
-//        SubActionButton button4 = subButton.setContentView(icon4).build();
-//        button4.setTag(4);
-//        //button4.setOnClickListener(whatsShare);
-//
-//        final FloatingActionMenu fabMenu = new FloatingActionMenu.Builder((Activity) context)
-//                .addSubActionView(button1)
-//                .addSubActionView(button2)
-//                .addSubActionView(button3)
-//                .addSubActionView(button4)
-//                .attachTo(fabButton).build();
-//
-//        fabMenu.setStateChangeListener(new FloatingActionMenu.MenuStateChangeListener() {
-//            @Override
-//            public void onMenuOpened(FloatingActionMenu floatingActionMenu) {
-//                icon.setRotation(0);
-//                PropertyValuesHolder holder = PropertyValuesHolder.ofFloat(View.ROTATION, 45);
-//                ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(icon, holder);
-//                animator.start();
-//            }
-//
-//            @Override
-//            public void onMenuClosed(FloatingActionMenu floatingActionMenu) {
-//                icon.setRotation(45);
-//                PropertyValuesHolder holder = PropertyValuesHolder.ofFloat(View.ROTATION, 0);
-//                ObjectAnimator animation = ObjectAnimator.ofPropertyValuesHolder(icon, holder);
-//                animation.start();
-//            }
-//        });
-//
-//
-
-    }
 
 }

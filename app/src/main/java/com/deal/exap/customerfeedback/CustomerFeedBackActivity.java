@@ -38,7 +38,17 @@ public class CustomerFeedBackActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_feed_back);
+String dealCode =getIntent().getStringExtra("dealCode");
 
+        if(dealCode!=null && !dealCode.equalsIgnoreCase(""))
+        {
+            setViewVisibility(R.id.btn_post_comments,View.VISIBLE);
+        }
+        else
+        {
+            setViewVisibility(R.id.btn_post_comments,View.GONE);
+
+        }
         getReviewList();
         init();
 
