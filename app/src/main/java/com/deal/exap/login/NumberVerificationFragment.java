@@ -105,7 +105,7 @@ public class NumberVerificationFragment extends Fragment {
 
             phoneNum = ((MyEditTextViewReg) view.findViewById(R.id.edt_phone_number)).getText().toString().trim();
 
-            doCheckMobile(countryNumber,phoneNum);
+            doCheckMobile(countryNumber, phoneNum);
 
 
 //            NumberVerificationFragment2 numberVerificationFragment2 = NumberVerificationFragment2.newInstance();
@@ -176,7 +176,7 @@ public class NumberVerificationFragment extends Fragment {
     }
 
 
-    private void doCheckMobile(final String countNumber,final String phoneNumber) {
+    private void doCheckMobile(final String countNumber, final String phoneNumber) {
         Utils.hideKeyboard(getActivity());
         if (validateForm(phoneNumber)) {
             if (Utils.isOnline(getActivity())) {
@@ -192,10 +192,11 @@ public class NumberVerificationFragment extends Fragment {
                                 pdialog.dismiss();
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
-                                        verifyMobNumberDigit(countNumber+phoneNumber);
+                                        verifyMobNumberDigit(countNumber + phoneNumber);
 
                                     } else {
                                         Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));
+                                        startActivity(new Intent(getActivity(), SplashScreen.class));
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -248,15 +249,13 @@ public class NumberVerificationFragment extends Fragment {
 //            Toast.makeText(getActivity().getApplicationContext(),
 //                    "Authentication Successful for " + phoneNumber, Toast.LENGTH_SHORT).show();
 
-            String num = phoneNumber.substring(countryNumber.length(),phoneNumber.length());
+            String num = phoneNumber.substring(countryNumber.length(), phoneNumber.length());
             if (num.equalsIgnoreCase(phoneNum)) {
                 Intent intent = new Intent(getContext(), SignUp.class);
                 intent.putExtra("MOB_NUMBER", phoneNum);
                 startActivity(intent);
-            }
-            else
-            {
-                Utils.showDialog(getActivity(),"Error",Constant.WRONG_NUMBER_ERROR);
+            } else {
+                Utils.showDialog(getActivity(), "Error", Constant.WRONG_NUMBER_ERROR);
             }
         }
 

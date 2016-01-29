@@ -100,6 +100,7 @@ public class ForgetPasswordFragment extends BaseFragment {
                                try {
                                    if (Utils.getWebServiceStatus(response)) {
                                        Utils.showDialog(getActivity(), "Message", Utils.getWebServiceMessage(response));
+                                       startActivity(new Intent(getActivity(), SplashScreen.class));
 
                                    } else {
                                        Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));

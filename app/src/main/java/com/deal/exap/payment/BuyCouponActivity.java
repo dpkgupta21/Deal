@@ -756,13 +756,13 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
         FloatingActionButton.LayoutParams params = new FloatingActionButton.LayoutParams(50, 50);
         final FloatingActionButton fabButton;
         if (Utils.isArabic(BuyCouponActivity.this)) {
-            params.setMargins(0, 200, 30, 0);
+            params.setMargins(0, 180, 30, 0);
             fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)
                     .setPosition(FloatingActionButton.POSITION_TOP_LEFT)
                     .setLayoutParams(params)
                     .build();
         } else {
-            params.setMargins(30, 200, 0, 0);
+            params.setMargins(30, 180, 0, 0);
             fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)
                     .setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
                     .setLayoutParams(params)
