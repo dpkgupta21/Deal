@@ -215,7 +215,7 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
                     if (chkRememberMe.isChecked()) {
                         DealPreferences.setCardholderName(getApplicationContext(), cardHolderName);
                         DealPreferences.setCardNumber(getApplicationContext(), cardNumber);
-                        DealPreferences.setCardCVV(getApplicationContext(), cvv);
+                        //DealPreferences.setCardCVV(getApplicationContext(), cvv);
                         DealPreferences.setCardMonth(getApplicationContext(), month);
                         DealPreferences.setCardYear(getApplicationContext(), year);
 
@@ -562,7 +562,7 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
                                     setDealCode(dealCode);
 
                                 } else {
-                                    Utils.showDialog(BuyCouponActivity.this, "Error", Utils.getWebServiceMessage(response));
+                                    Utils.showDialog(BuyCouponActivity.this, "Message", Utils.getWebServiceMessage(response));
                                 }
 
                             } catch (Exception e) {
@@ -694,6 +694,62 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
     }
 
 
+    private void saveCardDetail() {
+
+        if (Utils.isOnline(this)) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.SAVE_CARD_DETAIL);
+            params.put("user_id", Utils.getUserId(this));
+            params.put("card_name", DealPreferences.getCardholderName(BuyCouponActivity.this));
+            params.put("card_no", DealPreferences.getCardNumber(BuyCouponActivity.this));
+            params.put("month", DealPreferences.getCardMonth(BuyCouponActivity.this));
+            params.put("year", DealPreferences.getCardYear(BuyCouponActivity.this));
+            final ProgressDialog pdialog = Utils.createProgressDialog(BuyCouponActivity.this, null, false);
+
+
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+
+                                if (Utils.getWebServiceStatus(response)) {
+                                    Utils.showDialog(BuyCouponActivity.this, "Message", Utils.getWebServiceMessage(response));
+                                    // finish();
+                                    //callWalletFragment();
+
+                                } else {
+                                    Utils.showDialog(BuyCouponActivity.this, "Message", Utils.getWebServiceMessage(response));
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            pdialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(BuyCouponActivity.this);
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            pdialog.show();
+        } else {
+            Utils.showNoNetworkDialog(this);
+        }
+
+
+    }
+
     private void buyDeal(String transactionID) {
 
         if (Utils.isOnline(this)) {
@@ -716,14 +772,15 @@ public class BuyCouponActivity extends BaseActivity implements PWTransactionList
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
 
                                 if (Utils.getWebServiceStatus(response)) {
-
+                                    String dealCode = response.getString("dealcode");
+                                    setDealCode(dealCode);
                                     // finish();
-                                    callWalletFragment();
+                                    //callWalletFragment();
 
                                 } else {
-                                    Utils.showDialog(BuyCouponActivity.this, "Error", Utils.getWebServiceMessage(response));
+                                    Utils.showDialog(BuyCouponActivity.this, "Message", Utils.getWebServiceMessage(response));
                                 }
-
+                                saveCardDetail();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

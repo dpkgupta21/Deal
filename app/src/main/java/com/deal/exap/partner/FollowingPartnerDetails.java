@@ -21,6 +21,7 @@ import com.deal.exap.model.DealDTO;
 import com.deal.exap.model.PartnerDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.nearby.adapter.NearByListAdapter;
+import com.deal.exap.payment.BuyCouponActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
@@ -164,6 +165,26 @@ public class FollowingPartnerDetails extends BaseActivity {
         if (partnerDTO.getDeals() != null) {
             mAdapter = new NearByListAdapter(partnerDTO.getDeals(), FollowingPartnerDetails.this);
             mRecyclerView.setAdapter(mAdapter);
+            ((NearByListAdapter) mAdapter).setOnItemClickListener(new NearByListAdapter.MyClickListener() {
+                @Override
+                public void onItemClick(int position, View v) {
+
+                    Intent i;
+                    switch (v.getId()) {
+                        case R.id.thumbnail:
+                            i = new Intent(FollowingPartnerDetails.this, BuyCouponActivity.class);
+                            i.putExtra("BUY_PRICE", 0.0);
+                            i.putExtra("id", partnerDTO.getDeals().get(position).getId());
+                            startActivity(i);
+                            break;
+
+
+
+                    }
+
+
+                }
+            });
         }
 
         ImageView imgThumnail = (ImageView) findViewById(R.id.thumbnail);

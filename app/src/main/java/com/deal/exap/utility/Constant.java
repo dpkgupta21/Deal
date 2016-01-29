@@ -59,8 +59,8 @@ public class Constant {
     public static String EDIT_PROFILE="editprofile";
     public static String GET_NOTIFICATION ="notifications";
     public static String LOAD_MESSAGE="loadMessage";
-
     public static String GET_COUNTRY ="countries";
+    public static String SAVE_CARD_DETAIL ="cardsave";
 
 
 }

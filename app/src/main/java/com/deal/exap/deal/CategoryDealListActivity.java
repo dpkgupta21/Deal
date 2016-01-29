@@ -40,7 +40,8 @@ public class CategoryDealListActivity extends BaseActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private CategoryDTO categoryDTO;
-    private ArrayList<DealDTO>dealList;
+    private ArrayList<DealDTO> dealList;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,11 +51,11 @@ public class CategoryDealListActivity extends BaseActivity {
         getDealList();
     }
 
-    private void init(){
-        if(getIntent()!=null && getIntent().getExtras()!=null){
+    private void init() {
+        if (getIntent() != null && getIntent().getExtras() != null) {
             categoryDTO = (CategoryDTO) getIntent().getExtras().getSerializable("categoryDTO");
         }
-        if(categoryDTO!=null)
+        if (categoryDTO != null)
             setHeader(categoryDTO.getName());
         setLeftClick();
         setHeaderNormal();
@@ -66,14 +67,14 @@ public class CategoryDealListActivity extends BaseActivity {
     }
 
     public void getDealList() {
-        if(Utils.isOnline(this)){
+        if (Utils.isOnline(this)) {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.GET_CATEGORY_DEAL);
             params.put("lang", Utils.getSelectedLanguage(this));
             params.put("lng", String.valueOf(DealPreferences.getLongitude(getApplicationContext())));
             params.put("lat", String.valueOf(DealPreferences.getLatitude(getApplicationContext())));
             params.put("category_id", categoryDTO.getId());
-
+            params.put("user_id", Utils.getUserId(this));
             final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
 
             CustomJsonRequest postReq = new CustomJsonRequest(
@@ -84,15 +85,15 @@ public class CategoryDealListActivity extends BaseActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                if(response.getBoolean("status")) {
+                                if (response.getBoolean("status")) {
                                     Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                     Type type = new TypeToken<ArrayList<DealDTO>>() {
                                     }.getType();
                                     dealList = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
                                     setDealList();
-                                }else{
-                                    String msg=response.getString("message");
-                                    TextView txt_blank=(TextView)findViewById(R.id.txt_blank);
+                                } else {
+                                    String msg = response.getString("message");
+                                    TextView txt_blank = (TextView) findViewById(R.id.txt_blank);
                                     txt_blank.setVisibility(View.VISIBLE);
                                     txt_blank.setText(msg);
                                 }
@@ -115,13 +116,12 @@ public class CategoryDealListActivity extends BaseActivity {
                     30000, 0,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             pdialog.show();
-        }
-        else{
+        } else {
             Utils.showNoNetworkDialog(CategoryDealListActivity.this);
         }
     }
 
-    public void setDealList(){
+    public void setDealList() {
         mAdapter = new NearByListAdapter(dealList, this);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -134,7 +134,7 @@ public class CategoryDealListActivity extends BaseActivity {
                 switch (v.getId()) {
                     case R.id.thumbnail:
                         i = new Intent(CategoryDealListActivity.this, BuyCouponActivity.class);
-                        i.putExtra("BUY_PRICE",0.0);
+                        i.putExtra("BUY_PRICE", 0.0);
                         i.putExtra("id", dealList.get(position).getId());
                         startActivity(i);
                         break;
@@ -153,7 +153,7 @@ public class CategoryDealListActivity extends BaseActivity {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
