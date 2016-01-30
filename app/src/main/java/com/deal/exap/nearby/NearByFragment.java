@@ -172,6 +172,11 @@ public class NearByFragment extends BaseFragment {
     @Override
     public void onClick(View arg0) {
         switch (arg0.getId()) {
+
+
+            case R.id.et_category:
+                getCategoryList();
+                break;
             case R.id.btn_miles:
                 btnMiles.setSelected(true);
                 btnMiles.setTextColor(getResources().getColor(R.color.white));
@@ -371,15 +376,61 @@ public class NearByFragment extends BaseFragment {
     }
 
 
-    private void openCurrencyDialog() {
+    private void getCategoryList() {
+        if (Utils.isOnline(getActivity())) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.GET_CATEOGRY_LIST);
+            params.put("lang", Utils.getSelectedLanguage(getActivity()));
+            params.put("user_id", Utils.getUserId(getActivity()));
+            final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                if (response.getBoolean("status")) {
+                                    Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                    Type type = new TypeToken<ArrayList<CategoryDTO>>() {
+                                    }.getType();
+                                    categoryList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
+                                    openCatogryDialog();
+                                } else {
+                                    String msg = response.getString("message");
+
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            pdialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(getActivity());
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            pdialog.show();
+
+        } else {
+
+        }
+
+    }
+
+
+    private void openCatogryDialog() {
         dialog = new Dialog(getActivity());
-        // Include dialog.xml file
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_country_code);
         getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         ListView listView = (ListView) dialog.findViewById(R.id.list);
-        // CountryListAdapter countryListAdapter = new CountryListAdapter(getActivity(), countryList);
-
         CategoryListAdapter categoryListAdapter = new CategoryListAdapter(getActivity(), categoryList);
         listView.setAdapter(categoryListAdapter);
         dialog.show();
@@ -393,7 +444,17 @@ public class NearByFragment extends BaseFragment {
                             dialog = null;
                         }
 
+                        txtCategory.setText(categoryList.get(position).getName());
 
+
+                        for (int i = 0; i < categoryList.size(); i++) {
+                            if (dealList.get(i).getCategory_id() != Integer.parseInt(categoryList.get(position).getId())) {
+                                visibleDealList.remove(i);
+                            }
+                        }
+
+                        ((NearByListAdapter) mAdapter).setDealList(visibleDealList);
+                        mAdapter.notifyDataSetChanged();
                     }
                 }
         );

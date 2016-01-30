@@ -3,11 +3,15 @@ package com.deal.exap.login;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -24,13 +28,16 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
+import com.deal.exap.WakeLocker;
 import com.deal.exap.camera.CameraChooseDialogFragment;
 import com.deal.exap.camera.CameraSelectInterface;
 import com.deal.exap.camera.GallerySelectInterface;
 import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonImageRequest;
+import com.google.android.gcm.GCMRegistrar;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONObject;
@@ -45,6 +52,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+import static com.deal.exap.CommonUtilities.DISPLAY_MESSAGE_ACTION;
+import static com.deal.exap.CommonUtilities.EXTRA_MESSAGE;
+import static com.deal.exap.CommonUtilities.SENDER_ID;
+
 public class SignUp extends BaseActivity {
 
     private static final String TAG = "SignUp";
@@ -55,6 +66,7 @@ public class SignUp extends BaseActivity {
     private ImageView ivProfile;
     private File f = null;
     private byte[] bitmapdata;
+    private AsyncTask<Void, Void, Void> mRegisterTask;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -82,6 +94,12 @@ public class SignUp extends BaseActivity {
         ivProfile = (ImageView) findViewById(R.id.iv_profile);
         setClick(R.id.edt_gender);
         setClick(R.id.edt_dob);
+
+
+        String pushRegistrationId = DealPreferences.getPushRegistrationId(SignUp.this);
+        if (pushRegistrationId == null || pushRegistrationId.equalsIgnoreCase("")) {
+            registrationPushNotification();
+        }
     }
 
     View.OnClickListener signUpClick = new View.OnClickListener() {
@@ -432,6 +450,96 @@ public class SignUp extends BaseActivity {
             return false;
         }
         return true;
+    }
+
+
+    // For Push notification
+    private void registrationPushNotification() {
+        // Make sure the device has the proper dependencies.
+        GCMRegistrar.checkDevice(SignUp.this);
+
+        // Make sure the manifest was properly set - comment out this line
+        // while developing the app, then uncomment it when it's ready.
+        GCMRegistrar.checkManifest(SignUp.this);
+
+        registerReceiver(mHandleMessageReceiver, new IntentFilter(
+                DISPLAY_MESSAGE_ACTION));
+
+        // Get GCM registration id
+        final String regId = GCMRegistrar
+                .getRegistrationId(SignUp.this);
+
+        DealPreferences.setPushRegistrationId(SignUp.this,regId);
+        Log.i("info", "RegId :" + regId);
+        // Check if regid already presents
+        if (regId.equals("")) {
+            Log.i("info", "RegId :" + regId);
+            // Registration is not present, register now with GCM
+            GCMRegistrar.register(SignUp.this, SENDER_ID);
+        } else {
+            // Device is already registered on GCM
+            if (GCMRegistrar
+                    .isRegisteredOnServer(SignUp.this)) {
+                // Skips registration.
+                Log.i("info", "Already registered with GCM");
+            } else {
+                Log.i("info", "Not registered with GCM");
+                // Try to register again, but not in the UI thread.
+                // It's also necessary to cancel the thread onDestroy(),
+                // hence the use of AsyncTask instead of a raw thread.
+                mRegisterTask = new AsyncTask<Void, Void, Void>() {
+
+                    @Override
+                    protected Void doInBackground(Void... params) {
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void result) {
+                        mRegisterTask = null;
+                    }
+
+                };
+                mRegisterTask.execute(null, null, null);
+            }
+        }
+    }
+
+    /**
+     * Receiving push messages
+     */
+    private final BroadcastReceiver mHandleMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String newMessage = intent.getExtras().getString(EXTRA_MESSAGE);
+            // Waking up mobile if it is sleeping
+            WakeLocker.acquire(getApplicationContext());
+
+            /**
+             * Take appropriate action on this message depending upon your app
+             * requirement For now i am just displaying it on the screen
+             * */
+
+            // Showing received message
+
+            // Releasing wake lock
+            WakeLocker.release();
+        }
+    };
+
+
+    @Override
+    protected void onDestroy() {
+        if (mRegisterTask != null) {
+            mRegisterTask.cancel(true);
+        }
+        try {
+            unregisterReceiver(mHandleMessageReceiver);
+            GCMRegistrar.onDestroy(SignUp.this);
+        } catch (Exception e) {
+            Utils.ShowLog(TAG, "UnRegister Receiver Error " + e.getMessage());
+        }
+        super.onDestroy();
     }
 
 
