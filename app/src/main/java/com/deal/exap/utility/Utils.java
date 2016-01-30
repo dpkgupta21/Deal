@@ -916,8 +916,8 @@ public class Utils {
             cal.setTimeZone(TimeZone.getTimeZone("GMT"));
             cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(t[0]));
             cal.set(Calendar.MINUTE, Integer.parseInt(t[1]));
-			 /*if(t[2].equalsIgnoreCase("am")){
-				 cal.set(Calendar.AM_PM, Calendar.AM);
+             /*if(t[2].equalsIgnoreCase("am")){
+                 cal.set(Calendar.AM_PM, Calendar.AM);
 			 }else{
 				 cal.set(Calendar.AM_PM, Calendar.PM);
 			 }*/
@@ -1471,4 +1471,24 @@ public class Utils {
         SimpleDateFormat sdf = new SimpleDateFormat("d MMM | h:mm a");
         return sdf.format(date);
     }
+
+
+    public static String convertKMToMiles(String kilometers) {
+
+        DecimalFormat decimalFormat = new DecimalFormat("##.###");
+        int km = Integer.parseInt(kilometers);
+        double miles = 0.621 * km;
+        decimalFormat.format(miles);
+        return miles + "";
+    }
+
+
+    public static boolean isMiles(Context context) {
+        if (DealPreferences.getDistanceUnit(context).equalsIgnoreCase(Constant.DISTANCE_UNIT_MILES)) {
+            return true;
+        } else
+            return false;
+    }
+
+
 }

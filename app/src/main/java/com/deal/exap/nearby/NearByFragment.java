@@ -104,10 +104,14 @@ public class NearByFragment extends BaseFragment {
     private void init() {
         llFilter = (LinearLayout) view.findViewById(R.id.ll_filter);
         txtCategory = (TextView) view.findViewById(R.id.et_category);
+        txtCategory.setText(getActivity().getString(R.string.all));
         setTouchNClick(R.id.btn_km, view);
         setTouchNClick(R.id.btn_miles, view);
         btnMiles = (Button) view.findViewById(R.id.btn_miles);
         btnKm = (Button) view.findViewById(R.id.btn_km);
+
+        selectedKMButton(DealPreferences.getDistanceUnit(getActivity().getApplicationContext()));
+
         btnDistantLth = (Button) view.findViewById(R.id.btn_distance_lth);
         btnDistantLth.setSelected(true);
         btnDistantHtl = (Button) view.findViewById(R.id.btn_distance_htl);
@@ -178,16 +182,23 @@ public class NearByFragment extends BaseFragment {
                 getCategoryList();
                 break;
             case R.id.btn_miles:
-                btnMiles.setSelected(true);
-                btnMiles.setTextColor(getResources().getColor(R.color.white));
-                btnKm.setSelected(false);
-                btnKm.setTextColor(getResources().getColor(R.color.tv_color));
+                DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_MILES);
+                selectedKMButton(Constant.DISTANCE_UNIT_MILES);
+                mAdapter.notifyDataSetChanged();
+//                btnMiles.setSelected(true);
+//                btnMiles.setTextColor(getResources().getColor(R.color.white));
+//                btnKm.setSelected(false);
+//                btnKm.setTextColor(getResources().getColor(R.color.tv_color));
                 break;
             case R.id.btn_km:
-                btnMiles.setSelected(false);
-                btnMiles.setTextColor(getResources().getColor(R.color.tv_color));
-                btnKm.setSelected(true);
-                btnKm.setTextColor(getResources().getColor(R.color.white));
+
+                DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_KM);
+                selectedKMButton(Constant.DISTANCE_UNIT_KM);
+                mAdapter.notifyDataSetChanged();
+//                btnMiles.setSelected(false);
+//                btnMiles.setTextColor(getResources().getColor(R.color.tv_color));
+//                btnKm.setSelected(true);
+//                btnKm.setTextColor(getResources().getColor(R.color.white));
                 break;
             case R.id.btn_discount_htl:
                 btnDiscountHtl.setSelected(true);
@@ -447,7 +458,7 @@ public class NearByFragment extends BaseFragment {
                         txtCategory.setText(categoryList.get(position).getName());
 
 
-                        for (int i = 0; i < categoryList.size(); i++) {
+                        for (int i = 0; i < dealList.size(); i++) {
                             if (dealList.get(i).getCategory_id() != Integer.parseInt(categoryList.get(position).getId())) {
                                 visibleDealList.remove(i);
                             }
@@ -458,6 +469,26 @@ public class NearByFragment extends BaseFragment {
                     }
                 }
         );
+    }
+
+
+    private void selectedKMButton(String STATUS_CODE) {
+        if (STATUS_CODE.contains(Constant.DISTANCE_UNIT_KM)) {
+
+            btnKm.setBackgroundColor(getResources().getColor(R.color.btn_color));
+            btnMiles.setBackgroundColor(getResources().getColor(R.color.white));
+
+            btnKm.setTextColor(getResources().getColor(R.color.white));
+            btnMiles.setTextColor(getResources().getColor(R.color.black));
+
+        } else {
+
+            btnMiles.setBackgroundColor(getResources().getColor(R.color.btn_color));
+            btnKm.setBackgroundColor(getResources().getColor(R.color.white));
+
+            btnMiles.setTextColor(getResources().getColor(R.color.white));
+            btnKm.setTextColor(getResources().getColor(R.color.black));
+        }
     }
 
 
