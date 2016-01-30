@@ -11,7 +11,6 @@ public class DealPreferences {
     public static final String PREF_NAME = "DEAL_PREFERENCES";
 
     public static final String IS_LOGGED_IN = "IS_LOGGED_IN";
-    public static final String KEY_USER_ID = "USER_ID";
     public static final String KEY_PHONE = "PHONE";
     public static final String USER_OTP = "OTP";
     public static final String APP_LANG = "LANG";
@@ -23,7 +22,6 @@ public class DealPreferences {
     public static final String CARD_CVV = "CARD_CVV";
     public static final String CARD_MONTH = "CARD_MONTH";
     public static final String CARD_YEAR = "CARD_YEAR";
-    public static  final String USER_TYPE="USER_TYPE";
     public static  final String PUSH_REGISTRATION_ID="PUSH_REGISTRATION_ID";
 
     public static void setPushRegistrationId(Context context, String userId) {
@@ -145,32 +143,6 @@ public class DealPreferences {
                 IS_LOGGED_IN, false);
     }
 
-    public static void setUserId(Context context, String userId) {
-        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(KEY_USER_ID, userId);
-        editor.apply();
-    }
-
-    public static String getUserId(Context context) {
-        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(KEY_USER_ID,
-                null);
-    }
-
-    public static void setUserType(Context context, String userType) {
-        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(USER_TYPE, userType);
-        editor.apply();
-    }
-
-    public static String getUserType(Context context) {
-        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(USER_TYPE,
-                null);
-    }
-
 
     public static void setPhone(Context context, String userId) {
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
@@ -289,9 +261,6 @@ public class DealPreferences {
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        // User SharedPreferences.Editor.remove() in place of putString()
-
-        editor.putString(KEY_USER_ID, null);
         editor.putString(DISTANCE_UNIT, Constant.DISTANCE_UNIT_MILES);
         editor.putString(KEY_PHONE, null);
         editor.putString(APP_LANG, Constant.LANG_ENGLISH_CODE);

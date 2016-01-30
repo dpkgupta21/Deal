@@ -232,8 +232,7 @@ public class SplashScreen extends BaseActivity {
                             try {
                                 if (Utils.getWebServiceStatus(response)) {
                                     UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
-                                    DealPreferences.setUserId(getApplicationContext(), userDTO.getId());
-                                    DealPreferences.setUserType(getApplicationContext(), Constant.NON_REGISTER);
+                                    userDTO.setUserType(Constant.NON_REGISTER);
                                     DealPreferences.putObjectIntoPref(SplashScreen.this, userDTO, Constant.USER_INFO);
                                     Intent intent = new Intent(SplashScreen.this, HomeActivity.class);
                                     intent.putExtra("fragmentName", getString(R.string.interest_screen_title));

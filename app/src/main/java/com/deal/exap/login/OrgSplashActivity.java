@@ -57,7 +57,7 @@ public class OrgSplashActivity extends FragmentActivity {
         mContext = OrgSplashActivity.this;
         String pushRegistrationId = DealPreferences.getPushRegistrationId(mContext);
         if (pushRegistrationId == null || pushRegistrationId.equalsIgnoreCase("")) {
-           // registrationPushNotification();
+            // registrationPushNotification();
         }
 
 
@@ -69,7 +69,7 @@ public class OrgSplashActivity extends FragmentActivity {
                 UserDTO userDTO = DealPreferences.getObjectFromPref(OrgSplashActivity.this, Constant.USER_INFO);
 
                 Intent i = null;
-                if (userDTO == null) {
+                if (userDTO == null || userDTO.getUserType().equalsIgnoreCase(Constant.NON_REGISTER)) {
                     i = new Intent(OrgSplashActivity.this, SplashScreen.class);
                 } else {
                     i = new Intent(OrgSplashActivity.this, HomeActivity.class);

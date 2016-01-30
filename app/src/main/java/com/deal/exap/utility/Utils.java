@@ -844,7 +844,7 @@ public class Utils {
 	   
 	    return output;
 	  }*/
-	
+
 	/* public static Intent getOpenFacebookIntent(Context context) {
 
 	     try {
@@ -1393,10 +1393,11 @@ public class Utils {
     }
 
     public static String getUserType(Context context) {
-        if (DealPreferences.getUserType(context).contains(Constant.NON_REGISTER))
-            return Constant.NON_REGISTER;
+        UserDTO userDTO = DealPreferences.getObjectFromPref(context, Constant.USER_INFO);
+        if (userDTO != null)
+            return userDTO.getUserType();
         else
-            return Constant.REGISTER;
+            return "";
     }
 
 

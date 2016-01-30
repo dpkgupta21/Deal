@@ -118,7 +118,7 @@ public class FollowingPartnerDetails extends BaseActivity {
             params.put("user_id", Utils.getUserId(this));
 
 
-          //  final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
+            //  final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -173,11 +173,9 @@ public class FollowingPartnerDetails extends BaseActivity {
                     switch (v.getId()) {
                         case R.id.thumbnail:
                             i = new Intent(FollowingPartnerDetails.this, BuyCouponActivity.class);
-                            i.putExtra("BUY_PRICE", 0.0);
                             i.putExtra("id", partnerDTO.getDeals().get(position).getId());
                             startActivity(i);
                             break;
-
 
 
                     }

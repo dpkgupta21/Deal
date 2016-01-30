@@ -46,6 +46,7 @@ import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -230,9 +231,11 @@ public class SignInFragment extends BaseFragment {
 
 
     private void setFbClick() {
-        callbackmanager = CallbackManager.Factory.create();
 
-        //fbLogin.setReadPermissions(Arrays.asList("public_profile", "email", "user_birthday"));
+
+       // btnFbLogin.setReadPermissions(Arrays.asList("public_profile","id" ,"email", "user_birthday"));
+
+        callbackmanager = CallbackManager.Factory.create();
         btnFbLogin.registerCallback(callbackmanager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(final LoginResult loginResult) {
@@ -260,7 +263,7 @@ public class SignInFragment extends BaseFragment {
 
                 );
                 Bundle param = new Bundle();
-                param.putString("fields", "id,name,email,gender,birthday,first_name,last_name,link");
+                param.putString("fields", "public_profile,id,name,email,gender,birthday,first_name,last_name,link");
                 req.setParameters(param);
                 req.executeAsync();
             }
@@ -331,9 +334,8 @@ public class SignInFragment extends BaseFragment {
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
-                                        DealPreferences.setUserId(getActivity().getApplicationContext(), userDTO.getId());
+                                        userDTO.setUserType(Constant.REGISTER);
                                         DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
-                                        DealPreferences.setUserType(getActivity().getApplicationContext(), Constant.REGISTER);
                                         Intent intent = new Intent(getActivity(), HomeActivity.class);
                                         intent.putExtra("fragmentName", getActivity().getString(R.string.interest_screen_title));
                                         startActivity(intent);
@@ -388,9 +390,9 @@ public class SignInFragment extends BaseFragment {
                             try {
                                 if (Utils.getWebServiceStatus(response)) {
                                     UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
+                                    userDTO.setUserType(Constant.REGISTER);
                                     DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
                                     //startActivity(new Intent(getActivity(), HomeActivity.class));
-                                    DealPreferences.setUserType(getActivity().getApplicationContext(), Constant.REGISTER);
                                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                                     intent.putExtra("fragmentName", getActivity().getString(R.string.interest_screen_title));
 
