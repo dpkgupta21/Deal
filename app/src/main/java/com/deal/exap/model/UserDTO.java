@@ -23,6 +23,7 @@ public class UserDTO implements Serializable{
     public String name;
     public CountryDTO Country;
     public LanguageDTO Language;
+    public String userType;
 
     public String getId() {
         return id;
@@ -151,5 +152,13 @@ public class UserDTO implements Serializable{
 
     public void setDob(String dob) {
         this.dob = dob;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }

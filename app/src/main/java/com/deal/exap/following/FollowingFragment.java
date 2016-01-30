@@ -159,9 +159,6 @@ public class FollowingFragment extends Fragment {
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), mRecyclerView, new MyOnClickListener() {
             @Override
             public void onRecyclerClick(View view, int position) {
-//                Intent i = new Intent(getActivity(), ChatActivity.class);
-//                startActivity(i);
-
                 Intent i= new Intent(getActivity(), FollowingPartnerDetails.class);
                 i.putExtra("partnerId", followingList.get(position).getId());
                 startActivity(i);

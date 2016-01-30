@@ -259,7 +259,7 @@
     <string name="message">Message</string>
     <string name="please_enter_mobile_number">Please enter mobile number</string>
     <string name="please_enter_valid_mobile_number">Please enter valid mobile number</string>
-
+    <string name="for_access_this_please_login">For access this please login</string>
     <!-- Android push notifications -->
 
     <string name="title_activity_main">Push Notifications</string>
@@ -282,4 +282,6 @@
     <string name="options_exit">Exit</string>
     <string name="title_no_internet">Internet Connection Error!</string>
     <string name="msg_no_internet">Please connect to working Internet connection.</string>
+
+
 </resources>

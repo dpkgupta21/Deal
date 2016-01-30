@@ -1,6 +1,8 @@
 package com.deal.exap.navigationdrawer;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -21,6 +23,7 @@ import com.deal.exap.following.FollowingFragment;
 import com.deal.exap.gps.GPSTracker;
 import com.deal.exap.interest.InterestFragment;
 import com.deal.exap.login.BaseActivity;
+import com.deal.exap.login.SplashScreen;
 import com.deal.exap.model.MenuDTO;
 import com.deal.exap.nearby.NearByFragment;
 import com.deal.exap.settings.SettingFragment;
@@ -110,37 +113,27 @@ public class HomeActivity extends BaseActivity {
 
         if (DealPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ENGLISH_CODE)) {
 
-            if (Utils.getUserType(this).contains(Constant.NON_REGISTER)) {
-                resideMenu.addMenuItem(itemNearby, ResideMenuSecond.DIRECTION_LEFT);
-                resideMenu.addMenuItem(itemInterest, ResideMenuSecond.DIRECTION_LEFT);
-                resideMenu.addMenuItem(itemCategory, ResideMenuSecond.DIRECTION_LEFT);
-            } else {
-                resideMenu.addMenuItem(itemAlert, ResideMenuSecond.DIRECTION_LEFT);
-                resideMenu.addMenuItem(itemNearby, ResideMenuSecond.DIRECTION_LEFT);
-                resideMenu.addMenuItem(itemWallet, ResideMenuSecond.DIRECTION_LEFT);
-                resideMenu.addMenuItem(itemInterest, ResideMenuSecond.DIRECTION_LEFT);
-                resideMenu.addMenuItem(itemFavorite, ResideMenuSecond.DIRECTION_LEFT);
-                resideMenu.addMenuItem(itemFollowing, ResideMenuSecond.DIRECTION_LEFT);
-                resideMenu.addMenuItem(itemCategory, ResideMenuSecond.DIRECTION_LEFT);
-                resideMenu.addMenuItem(itemSetting, ResideMenuSecond.DIRECTION_LEFT);
-            }
+            resideMenu.addMenuItem(itemAlert, ResideMenuSecond.DIRECTION_LEFT);
+            resideMenu.addMenuItem(itemNearby, ResideMenuSecond.DIRECTION_LEFT);
+            resideMenu.addMenuItem(itemWallet, ResideMenuSecond.DIRECTION_LEFT);
+            resideMenu.addMenuItem(itemInterest, ResideMenuSecond.DIRECTION_LEFT);
+            resideMenu.addMenuItem(itemFavorite, ResideMenuSecond.DIRECTION_LEFT);
+            resideMenu.addMenuItem(itemFollowing, ResideMenuSecond.DIRECTION_LEFT);
+            resideMenu.addMenuItem(itemCategory, ResideMenuSecond.DIRECTION_LEFT);
+            resideMenu.addMenuItem(itemSetting, ResideMenuSecond.DIRECTION_LEFT);
             // resideMenu.setSwipeDirectionDisable(ResideMenuSecond.DIRECTION_LEFT);
 
         } else if (DealPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ARABIC_CODE)) {
-            if (Utils.getUserType(this).contains(Constant.NON_REGISTER)) {
-                resideMenu.addMenuItem(itemNearby, ResideMenuSecond.DIRECTION_RIGHT);
-                resideMenu.addMenuItem(itemInterest, ResideMenuSecond.DIRECTION_RIGHT);
-                resideMenu.addMenuItem(itemCategory, ResideMenuSecond.DIRECTION_RIGHT);
-            } else {
-                resideMenu.addMenuItem(itemAlert, ResideMenuSecond.DIRECTION_RIGHT);
-                resideMenu.addMenuItem(itemNearby, ResideMenuSecond.DIRECTION_RIGHT);
-                resideMenu.addMenuItem(itemWallet, ResideMenuSecond.DIRECTION_RIGHT);
-                resideMenu.addMenuItem(itemInterest, ResideMenuSecond.DIRECTION_RIGHT);
-                resideMenu.addMenuItem(itemFavorite, ResideMenuSecond.DIRECTION_RIGHT);
-                resideMenu.addMenuItem(itemFollowing, ResideMenuSecond.DIRECTION_RIGHT);
-                resideMenu.addMenuItem(itemCategory, ResideMenuSecond.DIRECTION_RIGHT);
-                resideMenu.addMenuItem(itemSetting, ResideMenuSecond.DIRECTION_RIGHT);
-            }
+
+            resideMenu.addMenuItem(itemAlert, ResideMenuSecond.DIRECTION_RIGHT);
+            resideMenu.addMenuItem(itemNearby, ResideMenuSecond.DIRECTION_RIGHT);
+            resideMenu.addMenuItem(itemWallet, ResideMenuSecond.DIRECTION_RIGHT);
+            resideMenu.addMenuItem(itemInterest, ResideMenuSecond.DIRECTION_RIGHT);
+            resideMenu.addMenuItem(itemFavorite, ResideMenuSecond.DIRECTION_RIGHT);
+            resideMenu.addMenuItem(itemFollowing, ResideMenuSecond.DIRECTION_RIGHT);
+            resideMenu.addMenuItem(itemCategory, ResideMenuSecond.DIRECTION_RIGHT);
+            resideMenu.addMenuItem(itemSetting, ResideMenuSecond.DIRECTION_RIGHT);
+
             // resideMenu.setSwipeDirectionDisable(ResideMenuSecond.DIRECTION_RIGHT);
 
         }
@@ -188,8 +181,14 @@ public class HomeActivity extends BaseActivity {
         resideMenu.closeMenu();
 
         if (view == itemAlert) {
-            changeFragment(new AlertFragment());
-            setHeader(getString(R.string.alert_screen_title));
+            if (Utils.getUserType(this).contains(Constant.NON_REGISTER)) {
+
+                Utils.showDialog(HomeActivity.this,getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
+
+            } else {
+                changeFragment(new AlertFragment());
+                setHeader(getString(R.string.alert_screen_title));
+            }
         } else if (view == itemNearby) {
             changeFragment(new NearByFragment());
             setHeader(getString(R.string.nearby_screen_title));
@@ -200,17 +199,30 @@ public class HomeActivity extends BaseActivity {
             changeFragment(new InterestFragment());
             setHeader(getString(R.string.interest_screen_title));
         } else if (view == itemFavorite) {
-            changeFragment(new FavoriteFragment());
-            setHeader(getString(R.string.favorite_screen_title));
+            if (Utils.getUserType(this).contains(Constant.NON_REGISTER)) {
+                Utils.showDialog(HomeActivity.this,getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
+            } else {
+                changeFragment(new FavoriteFragment());
+                setHeader(getString(R.string.favorite_screen_title));
+            }
         } else if (view == itemFollowing) {
-            changeFragment(new FollowingFragment());
-            setHeader(getString(R.string.following_screen_title));
+            if (Utils.getUserType(this).contains(Constant.NON_REGISTER)) {
+                Utils.showDialog(HomeActivity.this,getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
+            } else {
+                changeFragment(new FollowingFragment());
+                setHeader(getString(R.string.following_screen_title));
+            }
         } else if (view == itemCategory) {
             changeFragment(new CategoriesFragment());
             setHeader(getString(R.string.categories_title));
         } else if (view == itemSetting) {
-            changeFragment(new SettingFragment());
-            setHeader(getString(R.string.setting_screen_title));
+            if (Utils.getUserType(this).contains(Constant.NON_REGISTER)) {
+                Utils.showDialog(HomeActivity.this,getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
+            } else {
+
+                changeFragment(new SettingFragment());
+                setHeader(getString(R.string.setting_screen_title));
+            }
         }
 
         switch (view.getId()) {
@@ -299,10 +311,21 @@ public class HomeActivity extends BaseActivity {
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             pdialog.show();
         } else {
+
+            setUpMenu();
             Utils.showNoNetworkDialog(this);
         }
 
 
     }
+
+
+    DialogInterface.OnClickListener login = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            startActivity(new Intent(HomeActivity.this, SplashScreen.class));
+        }
+    };
+
 
 }
