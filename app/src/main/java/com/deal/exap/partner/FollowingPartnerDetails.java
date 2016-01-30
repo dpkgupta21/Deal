@@ -15,6 +15,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
+import com.deal.exap.chat.ChatActivity;
 import com.deal.exap.customviews.CustomProgressDialog;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.DealDTO;
@@ -92,6 +93,15 @@ public class FollowingPartnerDetails extends BaseActivity {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+
+
+            case R.id.iv_chat:
+
+                Intent i = new Intent(FollowingPartnerDetails.this, ChatActivity.class);
+                i.putExtra("receiverID", partnerDTO.getId());
+                startActivity(i);
+
+                break;
             case R.id.iv_back:
                 finish();
                 break;
@@ -105,6 +115,8 @@ public class FollowingPartnerDetails extends BaseActivity {
                     followPartner(0);
                 }
                 break;
+
+
         }
 
     }
@@ -217,6 +229,7 @@ public class FollowingPartnerDetails extends BaseActivity {
             setViewVisibility(R.id.iv_chat, View.GONE);
         } else {
             setViewVisibility(R.id.iv_chat, View.VISIBLE);
+            setClick(R.id.iv_chat);
         }
         if (partnerDTO.getIs_follow().equalsIgnoreCase("1")) {
             setViewVisibility(R.id.btn_follow_this_partner, View.VISIBLE);
