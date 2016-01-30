@@ -46,7 +46,6 @@ import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import org.json.JSONObject;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -231,11 +230,9 @@ public class SignInFragment extends BaseFragment {
 
 
     private void setFbClick() {
-
-
-       // btnFbLogin.setReadPermissions(Arrays.asList("public_profile","id" ,"email", "user_birthday"));
-
         callbackmanager = CallbackManager.Factory.create();
+
+        //fbLogin.setReadPermissions(Arrays.asList("public_profile", "email", "user_birthday"));
         btnFbLogin.registerCallback(callbackmanager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(final LoginResult loginResult) {
@@ -263,7 +260,7 @@ public class SignInFragment extends BaseFragment {
 
                 );
                 Bundle param = new Bundle();
-                param.putString("fields", "public_profile,id,name,email,gender,birthday,first_name,last_name,link");
+                param.putString("fields", "id,name,email,gender,birthday,first_name,last_name,link");
                 req.setParameters(param);
                 req.executeAsync();
             }

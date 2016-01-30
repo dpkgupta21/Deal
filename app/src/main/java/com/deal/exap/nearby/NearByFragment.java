@@ -1,5 +1,6 @@
 package com.deal.exap.nearby;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +15,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -24,10 +28,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.login.BaseFragment;
+import com.deal.exap.model.CategoryDTO;
 import com.deal.exap.model.DealDTO;
+import com.deal.exap.nearby.adapter.CategoryListAdapter;
 import com.deal.exap.nearby.adapter.NearByListAdapter;
 import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.payment.BuyCouponActivity;
+import com.deal.exap.settings.CountryListAdapter;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
@@ -45,6 +52,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -55,12 +63,15 @@ public class NearByFragment extends BaseFragment {
     //private RecyclerView.LayoutManager mLayoutManager;
     private View view;
     private LinearLayout llFilter;
+    private TextView txtCategory;
     private Button btnKm, btnMiles, btnDistantLth,
             btnDistantHtl, btnDiscountLth, btnDiscountHtl,
             btnDateStl, btnDateLts;
     private ArrayList<DealDTO> dealList;
     private ArrayList<DealDTO> visibleDealList;
     RecyclerView.Adapter mAdapter = null;
+    private List<CategoryDTO> categoryList;
+    private Dialog dialog;
 //    public static NearByFragment newInstance() {
 //        NearByFragment fragment = new NearByFragment();
 //
@@ -92,6 +103,7 @@ public class NearByFragment extends BaseFragment {
 
     private void init() {
         llFilter = (LinearLayout) view.findViewById(R.id.ll_filter);
+        txtCategory = (TextView) view.findViewById(R.id.et_category);
         setTouchNClick(R.id.btn_km, view);
         setTouchNClick(R.id.btn_miles, view);
         btnMiles = (Button) view.findViewById(R.id.btn_miles);
@@ -113,6 +125,7 @@ public class NearByFragment extends BaseFragment {
         setTouchNClick(R.id.btn_distance_htl, view);
         setTouchNClick(R.id.btn_date_lts, view);
         setTouchNClick(R.id.btn_date_stl, view);
+        setTouchNClick(R.id.et_category, view);
 
 
     }
@@ -356,4 +369,35 @@ public class NearByFragment extends BaseFragment {
             e.printStackTrace();
         }
     }
+
+
+    private void openCurrencyDialog() {
+        dialog = new Dialog(getActivity());
+        // Include dialog.xml file
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_country_code);
+        getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        ListView listView = (ListView) dialog.findViewById(R.id.list);
+        // CountryListAdapter countryListAdapter = new CountryListAdapter(getActivity(), countryList);
+
+        CategoryListAdapter categoryListAdapter = new CategoryListAdapter(getActivity(), categoryList);
+        listView.setAdapter(categoryListAdapter);
+        dialog.show();
+        listView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        dialog.dismiss();
+                        if (dialog != null) {
+                            dialog = null;
+                        }
+
+
+                    }
+                }
+        );
+    }
+
+
 }
