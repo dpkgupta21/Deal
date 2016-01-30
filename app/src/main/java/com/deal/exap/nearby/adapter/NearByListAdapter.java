@@ -182,7 +182,11 @@ public class NearByListAdapter extends RecyclerView
                 options1);
         holder.tvDiscount.setText(mDataset.get(position).getDiscount() + " % Off");
         holder.tvEnddate.setText(mDataset.get(position).getEnd_date());
-        holder.tvDistance.setText("Distance " + mDataset.get(position).getDistance() + " Km");
+        if (Utils.isMiles(context))
+            holder.tvDistance.setText(context.getString(R.string.txt_distance)+" " + Utils.convertKMToMiles(mDataset.get(position).getDistance()) +" "+ context.getString(R.string.txt_filter_distance_unit_miles));
+        else
+            holder.tvDistance.setText(context.getString(R.string.txt_distance) +" "+ mDataset.get(position).getDistance() +" "+ context.getString(R.string.txt_filter_distance_unit_km));
+
         if (Utils.isArabic(context))
             holder.tvDetail.setText(mDataset.get(position).getName_ara());
         else
@@ -213,7 +217,6 @@ public class NearByListAdapter extends RecyclerView
     public interface MyClickListener {
         public void onItemClick(int position, View v);
     }
-
 
 
 }

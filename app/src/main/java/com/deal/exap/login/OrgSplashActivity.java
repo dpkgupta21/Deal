@@ -20,13 +20,13 @@ import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.HelpMe;
 
-import com.deal.exap.utility.Utils;
-import com.google.android.gcm.GCMRegistrar;
 import com.j256.ormlite.dao.Dao;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.deal.exap.utility.Utils;
+import com.google.android.gcm.GCMRegistrar;
 import static com.deal.exap.CommonUtilities.DISPLAY_MESSAGE_ACTION;
 import static com.deal.exap.CommonUtilities.EXTRA_MESSAGE;
 import static com.deal.exap.CommonUtilities.SENDER_ID;
@@ -58,7 +58,7 @@ public class OrgSplashActivity extends FragmentActivity {
         mContext = OrgSplashActivity.this;
         String pushRegistrationId = DealPreferences.getPushRegistrationId(mContext);
         if (pushRegistrationId == null || pushRegistrationId.equalsIgnoreCase("")) {
-            registrationPushNotification();
+           registrationPushNotification();
         }
 
 
@@ -70,7 +70,7 @@ public class OrgSplashActivity extends FragmentActivity {
                 UserDTO userDTO = DealPreferences.getObjectFromPref(OrgSplashActivity.this, Constant.USER_INFO);
 
                 Intent i = null;
-                if (userDTO == null || userDTO.getUserType().equalsIgnoreCase(Constant.NON_REGISTER)) {
+                if (userDTO == null) {
                     i = new Intent(OrgSplashActivity.this, SplashScreen.class);
                 } else {
                     i = new Intent(OrgSplashActivity.this, HomeActivity.class);

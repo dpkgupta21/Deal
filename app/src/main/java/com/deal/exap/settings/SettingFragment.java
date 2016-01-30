@@ -153,6 +153,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
         seek_bar.setOnSeekBarChangeListener(this);
         seek_bar.setOnTouchListener(this);
         selectedButton(DealPreferences.getAPP_LANG(getActivity().getApplicationContext()));
+        selectedKMButton(DealPreferences.getDistanceUnit(getActivity().getApplicationContext()));
 
         btn_select_english.setOnClickListener(englishLanguageClick);
         btn_select_arabic.setOnClickListener(arabicLanguageClick);
@@ -173,9 +174,11 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
                 break;
             case R.id.btn_select_km:
                 DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_KM);
+               selectedKMButton(Constant.DISTANCE_UNIT_KM);
                 break;
             case R.id.btn_select_miles:
                 DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_MILES);
+                selectedKMButton(Constant.DISTANCE_UNIT_MILES);
                 break;
 
             case R.id.txt_change_currency:
@@ -245,7 +248,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
             txtMonth.setText(DealPreferences.getCardMonth(getActivity()) != null ?
                     DealPreferences.getCardMonth(getActivity()) : months.get(0));
             txtYear.setText(DealPreferences.getCardYear(getActivity()) != null ?
-                    DealPreferences.getCardYear(getActivity()) :years.get(0));
+                    DealPreferences.getCardYear(getActivity()) : years.get(0));
 
             txtMonth.setOnClickListener(monthDialog);
 
@@ -289,6 +292,26 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
             btn_select_english.setTextColor(getResources().getColor(R.color.black));
         }
     }
+
+    private void selectedKMButton(String STATUS_CODE) {
+        if (STATUS_CODE.contains(Constant.DISTANCE_UNIT_KM)) {
+
+            btn_select_km.setBackgroundColor(getResources().getColor(R.color.btn_color));
+            btn_select_miles.setBackgroundColor(getResources().getColor(R.color.white));
+
+            btn_select_km.setTextColor(getResources().getColor(R.color.white));
+            btn_select_miles.setTextColor(getResources().getColor(R.color.black));
+
+        } else {
+
+            btn_select_miles.setBackgroundColor(getResources().getColor(R.color.btn_color));
+            btn_select_km.setBackgroundColor(getResources().getColor(R.color.white));
+
+            btn_select_miles.setTextColor(getResources().getColor(R.color.white));
+            btn_select_km.setTextColor(getResources().getColor(R.color.black));
+        }
+    }
+
 
     @Override
     public boolean onDown(MotionEvent e) {
@@ -593,7 +616,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
                         }
 
                         syncSetting("country_id", countryList.get(position).getId());
-                        currencyName=countryList.get(position).getName();
+                        currencyName = countryList.get(position).getName();
 
 
                     }

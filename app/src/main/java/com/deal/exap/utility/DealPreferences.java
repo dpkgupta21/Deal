@@ -193,10 +193,10 @@ public class DealPreferences {
         editor.apply();
     }
 
-    // Use Miles by default distance unit
+    // Use KM by default distance unit
     public static String getDistanceUnit(Context context) {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(DISTANCE_UNIT,
-                Constant.DISTANCE_UNIT_MILES);
+                Constant.DISTANCE_UNIT_KM);
     }
 
 
