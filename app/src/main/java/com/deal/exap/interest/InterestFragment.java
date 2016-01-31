@@ -21,7 +21,6 @@ import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.ImageView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -124,7 +123,8 @@ public class InterestFragment extends Fragment {
                         public void onResponse(JSONObject response) {
                             try {
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                openSurveyDialog(response.getString("url"));
+                                if (response.getBoolean("status"))
+                                    openSurveyDialog(response.getString("url"));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -169,41 +169,11 @@ public class InterestFragment extends Fragment {
 //        settings.setJavaScriptEnabled(true);
         webview.loadUrl(url + "/android");
 
-        ImageView ivClose = (ImageView) dialog.findViewById(R.id.iv_close);
-
-        ivClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
         dialog.show();
 
 
     }
 
-    /**
-     * @return - Static HTML data
-     */
-    private String getHTMLData() {
-        StringBuilder html = new StringBuilder();
-        try {
-            AssetManager assetManager = getActivity().getAssets();
-
-            InputStream input = assetManager.open("javascriptexample.html");
-            BufferedReader br = new BufferedReader(new InputStreamReader(input));
-            String line;
-            while ((line = br.readLine()) != null) {
-                html.append(line);
-            }
-            br.close();
-        } catch (Exception e) {
-            //Handle the exception here
-        }
-
-        return html.toString();
-    }
 
     public class MyJavaScriptInterface {
         Activity activity;
@@ -214,13 +184,18 @@ public class InterestFragment extends Fragment {
 
         @JavascriptInterface
         public void showToast() {
-            Utils.ShowLog(TAG, "showAndroidToast");
+            dialog.dismiss();
+            if (dialog != null) {
+                dialog = null;
+            }
         }
 
         @JavascriptInterface
         public void closeActivity() {
             dialog.dismiss();
-            Utils.ShowLog(TAG, "closeAndActivity");
+            if (dialog != null) {
+                dialog = null;
+            }
         }
 
 
