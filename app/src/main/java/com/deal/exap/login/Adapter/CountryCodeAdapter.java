@@ -6,10 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 import com.deal.exap.R;
-import com.deal.exap.customviews.MyTextViewLight14;
 import com.deal.exap.customviews.MyTextViewReg14;
 
 import java.util.List;

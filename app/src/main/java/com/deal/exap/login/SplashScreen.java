@@ -18,7 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.gps.GPSTracker;
-import com.deal.exap.login.adapter.SplashScreenPagerAdapter;
+import com.deal.exap.login.Adapter.SplashScreenPagerAdapter;
 import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;

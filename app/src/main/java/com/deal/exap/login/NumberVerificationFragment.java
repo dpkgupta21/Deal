@@ -21,7 +21,7 @@ import com.deal.exap.R;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyEditTextViewReg;
 import com.deal.exap.customviews.MyTextViewReg14;
-import com.deal.exap.login.adapter.CountryCodeAdapter;
+import com.deal.exap.login.Adapter.CountryCodeAdapter;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;

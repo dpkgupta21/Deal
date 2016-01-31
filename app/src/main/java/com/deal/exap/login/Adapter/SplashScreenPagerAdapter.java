@@ -1,4 +1,4 @@
-package com.deal.exap.login;
+package com.deal.exap.login.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
