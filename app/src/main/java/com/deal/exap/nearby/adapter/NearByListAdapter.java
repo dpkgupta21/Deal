@@ -113,7 +113,7 @@ public class NearByListAdapter extends RecyclerView
     }
 
 
-    public void setDealList(ArrayList<DealDTO> myDataset) {
+    public void setDealList(ArrayList<DealDTO> mDataset) {
         this.mDataset = mDataset;
     }
 

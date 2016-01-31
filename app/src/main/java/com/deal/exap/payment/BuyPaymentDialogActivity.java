@@ -126,14 +126,7 @@ public class BuyPaymentDialogActivity extends BaseActivity implements PWTransact
                             getText().toString().trim();//"2017";
                     CheckBox chkRememberMe = (CheckBox) findViewById(R.id.chk_remember_me);
 
-                    if (chkRememberMe.isChecked()) {
-                        DealPreferences.setCardholderName(getApplicationContext(), cardHolderName);
-                        DealPreferences.setCardNumber(getApplicationContext(), cardNumber);
-                        DealPreferences.setCardCVV(getApplicationContext(), cvv);
-                        DealPreferences.setCardMonth(getApplicationContext(), month);
-                        DealPreferences.setCardYear(getApplicationContext(), year);
 
-                    }
                     callTransaction(cardHolderName, cardNumber, month, year, cvv, transactionPrice);
                 }
             }

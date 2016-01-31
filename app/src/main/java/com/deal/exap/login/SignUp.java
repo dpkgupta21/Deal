@@ -352,14 +352,13 @@ public class SignUp extends BaseActivity {
         Utils.hideKeyboard(SignUp.this);
         if (validateForm()) {
             if (Utils.isOnline(SignUp.this)) {
-                String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
-                        Settings.Secure.ANDROID_ID);
+
                 Map<String, String> params = new HashMap<>();
                 params.put("action", Constant.DO_SIGNUP);
                 params.put("email", getViewText(R.id.edt_email_id));
                 params.put("password", getViewText(R.id.edt_password));
                 params.put("device", "android");
-                params.put("device_id", android_id);
+                params.put("device_id", DealPreferences.getPushRegistrationId(SignUp.this));
                 params.put("name", getViewText(R.id.edt_name));
                 params.put("gender", getViewText(R.id.edt_gender).equals("Male") ? "M" : "F");
                 params.put("dob", getViewText(R.id.edt_dob));

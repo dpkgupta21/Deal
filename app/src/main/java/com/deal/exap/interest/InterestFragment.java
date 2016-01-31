@@ -1,6 +1,7 @@
 package com.deal.exap.interest;
 
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.widget.ImageView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -25,6 +31,7 @@ import com.deal.exap.databasemanager.DatabaseHelper;
 import com.deal.exap.databasemanager.DatabaseManager;
 import com.deal.exap.model.InterestDTO;
 import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -41,7 +48,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class InterestFragment extends Fragment {
 
     private View view;
@@ -52,6 +58,7 @@ public class InterestFragment extends Fragment {
 //        InterestFragment fragment = new InterestFragment();
 //        return fragment;
 //    }
+
 
     public InterestFragment() {
         // Required empty public constructor
@@ -79,7 +86,79 @@ public class InterestFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         init();
+
+        if (DealPreferences.isShowSurveyAfterLogin(getActivity())) {
+            getSurveyForm();
+            //openSurveyDialog();
+
+        }
+
         getInterestList();
+
+    }
+
+    private void getSurveyForm() {
+        if (Utils.isOnline(getActivity())) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.GET_SURVEY_FORM);
+            params.put("lang", Utils.getSelectedLanguage(getActivity()));
+            params.put("user_id", Utils.getUserId(getActivity()));
+            final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                openSurveyDialog(response.getString("url"));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            pdialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(getActivity());
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            pdialog.show();
+        }
+    }
+
+    private void openSurveyDialog(String url) {
+        DealPreferences.setIsShowSurveyAfterLogin(getActivity(), false);
+        final Dialog dialog = new Dialog(getActivity(), R.style.Theme_Dialog);
+        // Include dialog.xml file
+        dialog.setCancelable(false);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_survey_webview);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+
+        WebView webview = (WebView) dialog.findViewById(R.id.webview_survey);
+        WebSettings settings = webview.getSettings();
+        settings.setJavaScriptEnabled(true);
+        webview.loadUrl(url);
+
+        ImageView ivClose = (ImageView) dialog.findViewById(R.id.iv_close);
+
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
 
     }
 
@@ -104,13 +183,12 @@ public class InterestFragment extends Fragment {
         }
     };
 
-    private void init(){
+    private void init() {
         DatabaseManager<DatabaseHelper> manager = new DatabaseManager<DatabaseHelper>();
         DatabaseHelper db = manager.getHelper(getActivity());
         try {
             interestDao = db.getInterestDao();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -137,7 +215,7 @@ public class InterestFragment extends Fragment {
     }
 
     public void getInterestList() {
-        if(Utils.isOnline(getActivity())){
+        if (Utils.isOnline(getActivity())) {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.GET_INTEREST);
             params.put("lang", Utils.getSelectedLanguage(getActivity()));
@@ -149,13 +227,15 @@ public class InterestFragment extends Fragment {
                         public void onResponse(JSONObject response) {
                             try {
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<InterestDTO>>(){}.getType();
+                                Type type = new TypeToken<ArrayList<InterestDTO>>() {
+                                }.getType();
                                 interestValues = new Gson().fromJson(response.getJSONArray("interests").toString(), type);
-                                for(InterestDTO dto : interestValues){
+                                for (InterestDTO dto : interestValues) {
                                     interestDao.create(dto);
                                 }
-                                if(response.has("user_interests")) {
-                                    type = new TypeToken<ArrayList<String>>(){}.getType();
+                                if (response.has("user_interests")) {
+                                    type = new TypeToken<ArrayList<String>>() {
+                                    }.getType();
                                     interestValuesSelected = new Gson().fromJson(response.getJSONArray("user_interests").toString(), type);
                                 }
                                 setInterestList();
@@ -178,13 +258,12 @@ public class InterestFragment extends Fragment {
                     30000, 0,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             pdialog.show();
-        }
-        else{
+        } else {
             //Utils.showNoNetworkDialog(getActivity());
-            try{
+            try {
                 interestValues = interestDao.queryForAll();
                 setInterestList();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -192,10 +271,10 @@ public class InterestFragment extends Fragment {
     }
 
     public void addInterest() {
-        if(Utils.isOnline(getActivity())){
+        if (Utils.isOnline(getActivity())) {
             StringBuffer interestIds = new StringBuffer();
-            for(String dto : interestValuesSelected){
-                interestIds.append(dto+",");
+            for (String dto : interestValuesSelected) {
+                interestIds.append(dto + ",");
             }
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.ADD_INTEREST);
@@ -230,25 +309,21 @@ public class InterestFragment extends Fragment {
             });
             AppController.getInstance().getRequestQueue().add(postReq);
             pdialog.show();
-        }
-        else{
+        } else {
             Utils.showNoNetworkDialog(getActivity());
         }
 
     }
 
-    public void setInterestList(){
+    public void setInterestList() {
         final FlowLayout layout = (FlowLayout) view.findViewById(R.id.flowLayout);
 
-        if(Utils.isArabic(getActivity()))
-        {
+        if (Utils.isArabic(getActivity())) {
+
+        } else {
 
         }
-        else
-        {
-
-        }
-        if(interestValuesSelected==null)
+        if (interestValuesSelected == null)
             interestValuesSelected = new ArrayList<String>();
 
         for (int i = 0; i < interestValues.size(); i++) {
@@ -265,10 +340,10 @@ public class InterestFragment extends Fragment {
             textView.setText(interestValues.get(i).getName());
             textView.setTag(i);
             textView.setClickable(true);
-            if(isInterestSelected(interestValues.get(i).getId())){
+            if (isInterestSelected(interestValues.get(i).getId())) {
                 textView.setBackgroundResource(R.drawable.txt_interest_border_select);
                 textView.setTextColor(getResources().getColor(R.color.white));
-            }else{
+            } else {
                 textView.setBackgroundResource(R.drawable.txt_interest_border_unselect);
                 textView.setTextColor(getResources().getColor(R.color.black));
             }
@@ -277,10 +352,10 @@ public class InterestFragment extends Fragment {
         }
     }
 
-    public boolean isInterestSelected(String interest){
-        if(interestValuesSelected==null)
+    public boolean isInterestSelected(String interest) {
+        if (interestValuesSelected == null)
             return false;
-        for(String dto : interestValuesSelected){
+        for (String dto : interestValuesSelected) {
             if (dto.equals(interest))
                 return true;
         }

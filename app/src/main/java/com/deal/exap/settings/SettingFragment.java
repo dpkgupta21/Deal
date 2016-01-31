@@ -245,10 +245,10 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
             txtMonth = (TextView) dialog.findViewById(R.id.txt_month);
             txtYear = (TextView) dialog.findViewById(R.id.txt_year);
 
-            txtMonth.setText(DealPreferences.getCardMonth(getActivity()) != null ?
-                    DealPreferences.getCardMonth(getActivity()) : months.get(0));
-            txtYear.setText(DealPreferences.getCardYear(getActivity()) != null ?
-                    DealPreferences.getCardYear(getActivity()) : years.get(0));
+//            txtMonth.setText(DealPreferences.getCardMonth(getActivity()) != null ?
+//                    DealPreferences.getCardMonth(getActivity()) : months.get(0));
+//            txtYear.setText(DealPreferences.getCardYear(getActivity()) != null ?
+//                    DealPreferences.getCardYear(getActivity()) : years.get(0));
 
             txtMonth.setOnClickListener(monthDialog);
 

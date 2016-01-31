@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 
 import com.deal.exap.R;
+import com.deal.exap.login.adapter.SplashScreenPagerAdapter;
 import com.deal.exap.utility.SessionManager;
 
 import java.util.ArrayList;

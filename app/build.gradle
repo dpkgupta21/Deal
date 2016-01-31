@@ -32,6 +32,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -65,9 +66,11 @@ dependencies {
     compile 'org.apache.httpcomponents:httpmime:4.3.6'
     compile 'ch.acra:acra:4.7.0'
     compile 'com.google.android.gms:play-services:6.1+'
+    compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
     compile('com.twitter.sdk.android:twitter:1.11.0@aar') {
         transitive = true;
     }
+    compile project(':mobileconnectcheckout')
     android {
         packagingOptions {
             exclude 'META-INF/DEPENDENCIES'

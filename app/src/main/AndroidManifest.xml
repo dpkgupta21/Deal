@@ -15,7 +15,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -24,8 +24,7 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
 
 
 
@@ -64,12 +63,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".login.SplashScreen"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
+
+
+
         <activity
             android:name=".login.SignUp"
             android:label="@string/app_name"
@@ -96,8 +97,8 @@
             android:screenOrientation="portrait"
         </activity>
         <activity
-        android:name=".payment.PaymentDetailsActivity"
-        android:theme="@style/Base.Theme.AppCompat.Light.Dialog" />
+            android:name=".payment.PaymentDetailsActivity"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog" />
 
         <activity
             android:name=".payment.BuyPaymentDialogActivity"
@@ -160,9 +161,9 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".chat.ChatActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".deal.CategoryDealListActivity"
             android:screenOrientation="portrait" />
@@ -180,15 +181,27 @@
             android:name=".partner.FollowingPartnerDetails"
             android:screenOrientation="portrait"></activity>
 
-
-        <activity android:name="com.facebook.FacebookActivity"/>
-
+        <!-- mobile.connect.checkout service -->
         <service
             android:name="com.mobile.connect.service.PWConnectService"
             android:exported="false" >
         </service>
+        <!-- mobile.connect.checkout activity -->
+        <activity
+            android:name="com.mobile.connect.checkout.dialog.PWConnectCheckoutActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ConnectCheckout"
+            android:windowSoftInputMode="stateUnspecified|adjustPan" >
+        </activity>
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
+        <activity android:name="com.facebook.FacebookActivity" />
+
+
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
         <meta-data
             android:name="com.google.android.gms.version"

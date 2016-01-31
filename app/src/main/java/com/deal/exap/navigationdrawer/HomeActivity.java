@@ -48,6 +48,7 @@ public class HomeActivity extends BaseActivity {
     //Boolean isopend = false;
     View topView;
     private String fragmentName;
+    private boolean isFromLogin;
     private MenuDTO menuDTO;
 
     /**
@@ -183,7 +184,7 @@ public class HomeActivity extends BaseActivity {
         if (view == itemAlert) {
             if (Utils.getUserType(this).contains(Constant.NON_REGISTER)) {
 
-                Utils.showDialog(HomeActivity.this,getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
+                Utils.showDialog(HomeActivity.this, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
 
             } else {
                 changeFragment(new AlertFragment());
@@ -200,14 +201,14 @@ public class HomeActivity extends BaseActivity {
             setHeader(getString(R.string.interest_screen_title));
         } else if (view == itemFavorite) {
             if (Utils.getUserType(this).contains(Constant.NON_REGISTER)) {
-                Utils.showDialog(HomeActivity.this,getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
+                Utils.showDialog(HomeActivity.this, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
             } else {
                 changeFragment(new FavoriteFragment());
                 setHeader(getString(R.string.favorite_screen_title));
             }
         } else if (view == itemFollowing) {
             if (Utils.getUserType(this).contains(Constant.NON_REGISTER)) {
-                Utils.showDialog(HomeActivity.this,getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
+                Utils.showDialog(HomeActivity.this, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
             } else {
                 changeFragment(new FollowingFragment());
                 setHeader(getString(R.string.following_screen_title));
@@ -217,7 +218,7 @@ public class HomeActivity extends BaseActivity {
             setHeader(getString(R.string.categories_title));
         } else if (view == itemSetting) {
             if (Utils.getUserType(this).contains(Constant.NON_REGISTER)) {
-                Utils.showDialog(HomeActivity.this,getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
+                Utils.showDialog(HomeActivity.this, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
             } else {
 
                 changeFragment(new SettingFragment());

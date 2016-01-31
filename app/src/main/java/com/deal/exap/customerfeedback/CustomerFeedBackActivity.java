@@ -38,15 +38,12 @@ public class CustomerFeedBackActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_feed_back);
-String dealCode =getIntent().getStringExtra("dealCode");
+        String dealCode = getIntent().getStringExtra("dealCode");
 
-        if(dealCode!=null && !dealCode.equalsIgnoreCase(""))
-        {
-            setViewVisibility(R.id.btn_post_comments,View.VISIBLE);
-        }
-        else
-        {
-            setViewVisibility(R.id.btn_post_comments,View.GONE);
+        if (dealCode != null && !dealCode.equalsIgnoreCase("")) {
+            setViewVisibility(R.id.btn_post_comments, View.VISIBLE);
+        } else {
+            setViewVisibility(R.id.btn_post_comments, View.GONE);
 
         }
         getReviewList();
@@ -82,6 +79,8 @@ String dealCode =getIntent().getStringExtra("dealCode");
             params.put("action", Constant.GET_REVIEW);
             params.put("lang", Utils.getSelectedLanguage(CustomerFeedBackActivity.this));
             params.put("deal_id", getIntent().getStringExtra("dealId"));
+            params.put("user_id", Utils.getUserId(CustomerFeedBackActivity.this));
+
             final ProgressDialog pdialog = Utils.createProgressDialog(CustomerFeedBackActivity.this, null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {

@@ -29,11 +29,12 @@
                     android:id="@+id/txt_image_change"
                     android:layout_width="match_parent"
                     android:layout_gravity="bottom"
-                    android:background="#30000000"
+                    android:background="#90000000"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="@string/change_photo"
-                    android:textColor="@color/black" />
+                    android:textStyle="bold"
+                    android:textColor="@color/white" />
             </FrameLayout>
 
             <LinearLayout

@@ -67,10 +67,10 @@ public class NearByFragment extends BaseFragment {
     private Button btnKm, btnMiles, btnDistantLth,
             btnDistantHtl, btnDiscountLth, btnDiscountHtl,
             btnDateStl, btnDateLts;
-    private ArrayList<DealDTO> dealList;
-    private ArrayList<DealDTO> visibleDealList;
+    private ArrayList<DealDTO> dealList = new ArrayList<DealDTO>();
+    private ArrayList<DealDTO> visibleDealList = new ArrayList<DealDTO>();
     RecyclerView.Adapter mAdapter = null;
-    private List<CategoryDTO> categoryList;
+    //private List<CategoryDTO> categoryList;
     private Dialog dialog;
 //    public static NearByFragment newInstance() {
 //        NearByFragment fragment = new NearByFragment();
@@ -179,6 +179,11 @@ public class NearByFragment extends BaseFragment {
 
 
             case R.id.et_category:
+                visibleDealList.clear();
+//                for (DealDTO dealOBJ : dealList) {
+//                    visibleDealList.add(dealOBJ);
+//                }
+//                visibleDealList=dealList;
                 getCategoryList();
                 break;
             case R.id.btn_miles:
@@ -243,6 +248,7 @@ public class NearByFragment extends BaseFragment {
                     getApplicationContext())));
             params.put("lng", String.valueOf(DealPreferences.getLongitude(getActivity().
                     getApplicationContext())));
+            params.put("user_id", Utils.getUserId(getActivity()));
 
             final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
@@ -255,7 +261,10 @@ public class NearByFragment extends BaseFragment {
                                     Type type = new TypeToken<ArrayList<DealDTO>>() {
                                     }.getType();
                                     dealList = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
-                                    visibleDealList = dealList;
+//                                    for (DealDTO dealOBJ : dealList) {
+//                                        visibleDealList.add(dealOBJ);
+//                                    }
+                                    //visibleDealList = dealList;
                                     setDealList();
                                 } else {
                                     String msg = response.getString("message");
@@ -403,8 +412,13 @@ public class NearByFragment extends BaseFragment {
                                     Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                     Type type = new TypeToken<ArrayList<CategoryDTO>>() {
                                     }.getType();
-                                    categoryList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
-                                    openCatogryDialog();
+
+                                    List<CategoryDTO> categoryList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
+                                    CategoryDTO categoryDTO = new CategoryDTO();
+                                    categoryDTO.setName("All");
+                                    categoryDTO.setId("0");
+                                    categoryList.add(0, categoryDTO);
+                                    openCategoryDialog(categoryList);
                                 } else {
                                     String msg = response.getString("message");
 
@@ -436,10 +450,11 @@ public class NearByFragment extends BaseFragment {
     }
 
 
-    private void openCatogryDialog() {
+    private void openCategoryDialog(final List<CategoryDTO> categoryList) {
         dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_country_code);
+        dialog.setCancelable(false);
         getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         ListView listView = (ListView) dialog.findViewById(R.id.list);
         CategoryListAdapter categoryListAdapter = new CategoryListAdapter(getActivity(), categoryList);
@@ -457,13 +472,17 @@ public class NearByFragment extends BaseFragment {
 
                         txtCategory.setText(categoryList.get(position).getName());
 
-
-                        for (int i = 0; i < dealList.size(); i++) {
-                            if (dealList.get(i).getCategory_id() != Integer.parseInt(categoryList.get(position).getId())) {
-                                visibleDealList.remove(i);
+                        if (categoryList.get(position).getName().equalsIgnoreCase("All")) {
+                            for(DealDTO dealOBJ: dealList) {
+                                visibleDealList.add(dealOBJ);
+                            }
+                        } else {
+                            for (int i = 0; i < dealList.size(); i++) {
+                                if (dealList.get(i).getCategory_id() == Integer.parseInt(categoryList.get(position).getId())) {
+                                    visibleDealList.add(dealList.get(i));
+                                }
                             }
                         }
-
                         ((NearByListAdapter) mAdapter).setDealList(visibleDealList);
                         mAdapter.notifyDataSetChanged();
                     }

@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Exap</string>
+<!--
     <string name="facebook_app_id">1510998382534846</string>
+-->
+    <string name="facebook_app_id">1108744365854962</string>
+
 
 
     <!-- Splash screen-->

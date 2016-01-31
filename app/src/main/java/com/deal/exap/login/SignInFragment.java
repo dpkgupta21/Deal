@@ -1,6 +1,7 @@
 package com.deal.exap.login;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
@@ -49,6 +50,16 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.content.pm.PackageManager;
+import android.content.pm.PackageInfo;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import android.util.Base64;
+
+import android.widget.Toast;
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -60,10 +71,10 @@ public class SignInFragment extends BaseFragment {
     private static final String TWITTER_KEY = "0WzgEZ838raQlA7BPASXLgsub";
     private static final String TWITTER_SECRET = "szOdlqn9obH0MEMaGnz2dTMMQXIdcbSQvtDcT7YkOjyALQKuEF";
     private GPSTracker gpsTracker;
-    TwitterLoginButton btnTwitterLogin;
+    private TwitterLoginButton btnTwitterLogin;
     TwitterSession session;
 
-    LoginButton btnFbLogin;
+    private LoginButton btnFbLogin;
 
 
     public static SignInFragment newInstance() {
@@ -104,9 +115,30 @@ public class SignInFragment extends BaseFragment {
 
 
         super.onActivityCreated(savedInstanceState);
-
+        //showHashKey(getActivity().getApplicationContext());
 
     }
+
+
+//    public void showHashKey(Context context) {
+//        try {
+//            PackageInfo info = context.getPackageManager().getPackageInfo("com.deal.exap",
+//                    PackageManager.GET_SIGNATURES);
+//            for (android.content.pm.Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//
+//                String sign = Base64.encodeToString(md.digest(), Base64.DEFAULT);
+//                Log.e("KeyHash:", sign);
+//                  Toast.makeText(context, sign, Toast.LENGTH_LONG).show();
+//            }
+//            Log.d("KeyHash:", "****------------***");
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void init() {
 
@@ -121,8 +153,9 @@ public class SignInFragment extends BaseFragment {
                 session = result.data;
 
                 String username = session.getUserName();
-                Long userid = session.getUserId();
-                getEmailidFromTwitter();
+                //Long userid = session.getUserId();
+                doSocialLogin("twitter", username, session.getId() + "");
+                //getEmailidFromTwitter();
 
             }
 
@@ -133,25 +166,28 @@ public class SignInFragment extends BaseFragment {
         });
 
         btnFbLogin = (LoginButton) view.findViewById(R.id.btnFb);
+        btnFbLogin.setBackgroundResource(R.drawable.backgound_fill);
+        btnFbLogin.setText("Hi");
+        btnFbLogin.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         setFbClick();
     }
 
-    void getEmailidFromTwitter() {
-
-        TwitterAuthClient authClient = new TwitterAuthClient();
-        authClient.requestEmail(session, new Callback<String>() {
-            @Override
-            public void success(Result<String> result) {
-                Log.d("", "" + result.data);
-                doSocialLogin("twitter", result.data, session.getId() + "");
-            }
-
-            @Override
-            public void failure(TwitterException e) {
-                e.printStackTrace();
-                doSocialLogin("twitter", "coolmack999@gmail.com", session.getId() + "");
-            }
-        });
+//    void getEmailidFromTwitter() {
+//
+//        TwitterAuthClient authClient = new TwitterAuthClient();
+//        authClient.requestEmail(session, new Callback<String>() {
+//            @Override
+//            public void success(Result<String> result) {
+//                Log.d("", "" + result.data);
+//                doSocialLogin("twitter", result.data, session.getId() + "");
+//            }
+//
+//            @Override
+//            public void failure(TwitterException e) {
+//                e.printStackTrace();
+//                doSocialLogin("twitter", "coolmack999@gmail.com", session.getId() + "");
+//            }
+//        });
 
 /*
         Twitter.getApiClient(session).getAccountService()
@@ -185,8 +221,6 @@ public class SignInFragment extends BaseFragment {
                 });
 */
 
-
-    }
 
     View.OnClickListener goToNumberVerificationClick = new View.OnClickListener() {
         @Override
@@ -231,8 +265,9 @@ public class SignInFragment extends BaseFragment {
 
     private void setFbClick() {
         callbackmanager = CallbackManager.Factory.create();
+        btnFbLogin.setReadPermissions("public_profile", "email", "user_birthday");
 
-        //fbLogin.setReadPermissions(Arrays.asList("public_profile", "email", "user_birthday"));
+
         btnFbLogin.registerCallback(callbackmanager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(final LoginResult loginResult) {
@@ -248,11 +283,12 @@ public class SignInFragment extends BaseFragment {
                                     Log.i("info", "onCompleted Error.");
                                 } else {
                                     System.out.println("Success");
-                                    String jsonresult = String.valueOf(json);
+                                    //String jsonresult = String.valueOf(json);
                                     try {
                                         doSocialLogin("facebook", json.getString("email"), json.getString("id"));
                                     } catch (Exception e) {
-                                        Utils.sendEmail(getActivity(), "Error", e.getMessage());
+                                        e.printStackTrace();
+//                                        Utils.sendEmail(getActivity(), "Error", e.getMessage());
                                     }
                                 }
                             }
@@ -260,7 +296,8 @@ public class SignInFragment extends BaseFragment {
 
                 );
                 Bundle param = new Bundle();
-                param.putString("fields", "id,name,email,gender,birthday,first_name,last_name,link");
+                //, gender, birthday, first_name, last_name, link
+                param.putString("fields", "id, name, email");
                 req.setParameters(param);
                 req.executeAsync();
             }
@@ -309,14 +346,13 @@ public class SignInFragment extends BaseFragment {
         Utils.hideKeyboard(getActivity());
         if (validateForm()) {
             if (Utils.isOnline(getActivity())) {
-                String android_id = Secure.getString(getContext().getContentResolver(),
-                        Secure.ANDROID_ID);
+
                 Map<String, String> params = new HashMap<>();
                 params.put("action", Constant.DO_LOGIN);
                 params.put("email", getViewText(R.id.edt_username, view));
                 params.put("password", getViewText(R.id.edt_password, view));
                 params.put("device", "android");
-                params.put("device_id", android_id);
+                params.put("device_id", DealPreferences.getPushRegistrationId(getActivity().getApplicationContext()));
                 params.put("lat", "" + gpsTracker.getLatitude());
                 params.put("lng", "" + gpsTracker.getLongitude());
                 params.put("address", "");
@@ -333,6 +369,10 @@ public class SignInFragment extends BaseFragment {
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
                                         userDTO.setUserType(Constant.REGISTER);
                                         DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
+
+                                        DealPreferences.setIsShowSurveyAfterLogin(
+                                                getActivity().getApplicationContext(), true);
+
                                         Intent intent = new Intent(getActivity(), HomeActivity.class);
                                         intent.putExtra("fragmentName", getActivity().getString(R.string.interest_screen_title));
                                         startActivity(intent);
@@ -363,19 +403,18 @@ public class SignInFragment extends BaseFragment {
         }
     }
 
-    public void doSocialLogin(String socialType, String email, String socialId) {
+    public void doSocialLogin(String socialType, String username, String socialId) {
         Utils.hideKeyboard(getActivity());
 
         if (Utils.isOnline(getActivity())) {
-            String android_id = Secure.getString(getContext().getContentResolver(),
-                    Secure.ANDROID_ID);
+
 
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.DO_SOCIAL_LOGIN);
-            params.put("email", email);
+            params.put("email", username);
             params.put("social_id", socialId);
             params.put("device", "android");
-            params.put("device_id", android_id);
+            params.put("device_id", DealPreferences.getPushRegistrationId(getActivity().getApplicationContext()));
             params.put("social_type", socialType);
             final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
@@ -390,9 +429,11 @@ public class SignInFragment extends BaseFragment {
                                     userDTO.setUserType(Constant.REGISTER);
                                     DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
                                     //startActivity(new Intent(getActivity(), HomeActivity.class));
+                                    DealPreferences.setIsShowSurveyAfterLogin(getActivity().getApplicationContext(),true);
                                     Intent intent = new Intent(getActivity(), HomeActivity.class);
-                                    intent.putExtra("fragmentName", getActivity().getString(R.string.interest_screen_title));
-
+                                    intent.putExtra("fragmentName",
+                                            getActivity().getString(R.string.interest_screen_title));
+                                    startActivity(intent);
                                 } else {
                                     Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));
                                 }
@@ -440,6 +481,7 @@ public class SignInFragment extends BaseFragment {
                 break;
             case R.id.btn_facebook_login:
                 btnFbLogin.performClick();
+                setFbClick();
                 break;
             case R.id.txt_forgot_password:
                 forgotpassword();

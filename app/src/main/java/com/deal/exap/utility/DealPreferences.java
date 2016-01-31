@@ -17,12 +17,25 @@ public class DealPreferences {
     public static final String LATITUDE = "LATITUDE";
     public static final String LONGITUDE = "LONGITUDE";
     public static final String DISTANCE_UNIT = "DISTANCE_UNIT";
-    public static final String CARD_HOLDER_NAME = "CARD_HOLDER_NAME";
-    public static final String CARD_NUMBER = "CARD_NUMBER";
-    public static final String CARD_CVV = "CARD_CVV";
-    public static final String CARD_MONTH = "CARD_MONTH";
-    public static final String CARD_YEAR = "CARD_YEAR";
-    public static  final String PUSH_REGISTRATION_ID="PUSH_REGISTRATION_ID";
+    public static final String PUSH_REGISTRATION_ID = "PUSH_REGISTRATION_ID";
+    public static final String IS_SHOW_SURVEY_AFTER_LOGIN = "IS_SHOW_SURVEY_AFTER_LOGIN";
+    // for payment info
+    public static final String ACCOUNTS = "ACCOUNTS";
+
+
+    public static void setIsShowSurveyAfterLogin(Context context, Boolean isShowSurveyAfterLogin) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(IS_SHOW_SURVEY_AFTER_LOGIN, isShowSurveyAfterLogin);
+        editor.apply();
+    }
+
+    public static Boolean isShowSurveyAfterLogin(Context context) {
+        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getBoolean(
+                IS_SHOW_SURVEY_AFTER_LOGIN, false);
+    }
+
 
     public static void setPushRegistrationId(Context context, String userId) {
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
@@ -37,70 +50,6 @@ public class DealPreferences {
                 null);
     }
 
-    public static void setCardholderName(Context context, String userId) {
-        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(CARD_HOLDER_NAME, userId);
-        editor.apply();
-    }
-
-    public static String getCardholderName(Context context) {
-        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(CARD_HOLDER_NAME,
-                null);
-    }
-
-    public static void setCardNumber(Context context, String userId) {
-        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(CARD_NUMBER, userId);
-        editor.apply();
-    }
-
-    public static String getCardNumber(Context context) {
-        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(CARD_NUMBER,
-                null);
-    }
-
-    public static void setCardCVV(Context context, String userId) {
-        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(CARD_CVV, userId);
-        editor.apply();
-    }
-
-    public static String getCardCVV(Context context) {
-        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(CARD_CVV,
-                null);
-    }
-
-    public static void setCardMonth(Context context, String userId) {
-        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(CARD_MONTH, userId);
-        editor.apply();
-    }
-
-    public static String getCardMonth(Context context) {
-        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(CARD_MONTH,
-                null);
-    }
-
-    public static void setCardYear(Context context, String userId) {
-        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(CARD_YEAR, userId);
-        editor.apply();
-    }
-
-    public static String getCardYear(Context context) {
-        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(CARD_YEAR,
-                null);
-    }
 
     public static void setLatitude(Context context, double latitude) {
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,

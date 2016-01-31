@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.gps.GPSTracker;
+import com.deal.exap.login.adapter.SplashScreenPagerAdapter;
 import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
@@ -213,12 +213,11 @@ public class SplashScreen extends BaseActivity {
     private void skipRegistration() {
         Utils.hideKeyboard(SplashScreen.this);
         if (Utils.isOnline(SplashScreen.this)) {
-            String android_id = Settings.Secure.getString(getContentResolver(),
-                    Settings.Secure.ANDROID_ID);
+
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.SKIP_REGISTRATION);
             params.put("device", "android");
-            params.put("device_id", android_id);
+            params.put("device_id", DealPreferences.getPushRegistrationId(SplashScreen.this));
             params.put("lat", "" + gpsTracker.getLatitude());
             params.put("lng", "" + gpsTracker.getLongitude());
 

@@ -42,6 +42,7 @@ public class CategoryDealListActivity extends BaseActivity {
     private CategoryDTO categoryDTO;
     private ArrayList<DealDTO> dealList;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
