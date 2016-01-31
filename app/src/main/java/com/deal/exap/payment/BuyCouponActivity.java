@@ -483,7 +483,8 @@ public class BuyCouponActivity extends BaseActivity {
                 if (currentPage == NUM_PAGES) {
                     currentPage = 0;
                 }
-                mPager.setCurrentItem(currentPage++, true);
+                mPager.setCurrentItem(currentPage, true);
+                currentPage++;
             }
         };
         Timer swipeTimer = new Timer();

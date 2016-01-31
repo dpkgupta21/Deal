@@ -3,6 +3,7 @@ package com.deal.exap.payment.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,6 +82,23 @@ public class SlidingImageAdapter extends PagerAdapter {
         view.addView(imageLayout, 0);
 
         return imageLayout;
+    }
+
+
+
+    @Override
+    public void restoreState(Parcelable state, ClassLoader loader) {
+    }
+
+    @Override
+    public Parcelable saveState() {
+        return null;
+    }
+
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        container.removeView((View) object);
     }
 
 
