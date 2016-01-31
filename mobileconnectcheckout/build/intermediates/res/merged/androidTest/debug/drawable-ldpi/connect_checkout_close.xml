@@ -5,4 +5,4 @@
     <item android:drawable="@drawable/connect_checkout_header_close" android:state_focused="true"/>
     <item android:drawable="@drawable/connect_checkout_header_close"/>
 
-</selector><!-- From: file:/Users/DeepakGupta/Workspace1/DealApp_28_Jan/mobileconnectcheckout/src/main/res/drawable-ldpi/connect_checkout_close.xml --><!-- From: file:/Users/DeepakGupta/Workspace1/DealApp_28_Jan/mobileconnectcheckout/build/intermediates/bundles/debug/res/drawable-ldpi/connect_checkout_close.xml -->
+</selector><!-- From: file:/F:/Deal%2031%20jan%202016/Deal/mobileconnectcheckout/src/main/res/drawable-ldpi/connect_checkout_close.xml --><!-- From: file:/F:/Deal%2031%20jan%202016/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/drawable-ldpi/connect_checkout_close.xml -->

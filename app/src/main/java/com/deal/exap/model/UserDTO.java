@@ -24,6 +24,7 @@ public class UserDTO implements Serializable{
     public CountryDTO Country;
     public LanguageDTO Language;
     public String userType;
+    public String notificationRange;
 
     public String getId() {
         return id;
@@ -160,5 +161,13 @@ public class UserDTO implements Serializable{
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public String getNotificationRange() {
+        return notificationRange;
+    }
+
+    public void setNotificationRange(String notificationRange) {
+        this.notificationRange = notificationRange;
     }
 }

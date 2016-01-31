@@ -57,8 +57,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class SettingFragment extends BaseFragment implements GestureDetector.OnGestureListener,
-        SeekBar.OnSeekBarChangeListener, View.OnTouchListener, CompoundButton.OnCheckedChangeListener {
+public class SettingFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener {
 
     private View view;
     private MyButtonViewSemi btn_select_english;
@@ -76,6 +75,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
     private Switch switch_expiry;
     private List<CountriesDTO> countryList;
     private String currencyName;
+    private SeekBar seekBar;
 
     private UserDTO userDTO;
 
@@ -121,11 +121,23 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
         btn_select_km = (MyTextViewReg12) view.findViewById(R.id.btn_select_km);
         btn_select_miles = (MyTextViewReg12) view.findViewById(R.id.btn_select_miles);
 
-        SeekBar seek_bar = (SeekBar) view.findViewById(R.id.seek_bar);
         switch_expiry = (Switch) view.findViewById(R.id.switch_expiry);
         switch_push = (Switch) view.findViewById(R.id.switch_push);
         switch_location = (Switch) view.findViewById(R.id.switch_location);
         switch_message = (Switch) view.findViewById(R.id.switch_message);
+
+
+        seekBar = (SeekBar) view.findViewById(R.id.seek_bar);
+
+        if (userDTO.getNotificationRange() != null && !userDTO.getNotificationRange().equalsIgnoreCase("")) {
+            seekBar.setProgress(Integer.parseInt(userDTO.getNotificationRange()));
+        } else {
+            seekBar.setProgress(5);
+
+        }
+
+        seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
+
 
         if (userDTO.is_location_service())
             switch_location.setChecked(true);
@@ -151,8 +163,6 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
         switch_location.setOnCheckedChangeListener(this);
         switch_message.setOnCheckedChangeListener(this);
 
-        seek_bar.setOnSeekBarChangeListener(this);
-        seek_bar.setOnTouchListener(this);
         selectedButton(DealPreferences.getAPP_LANG(getActivity().getApplicationContext()));
         selectedKMButton(DealPreferences.getDistanceUnit(getActivity().getApplicationContext()));
 
@@ -313,61 +323,6 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
     }
 
 
-    @Override
-    public boolean onDown(MotionEvent e) {
-        return false;
-    }
-
-    @Override
-    public void onShowPress(MotionEvent e) {
-
-    }
-
-    @Override
-    public boolean onSingleTapUp(MotionEvent e) {
-        return false;
-    }
-
-    @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        return false;
-    }
-
-    @Override
-    public void onLongPress(MotionEvent e) {
-
-    }
-
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        return false;
-    }
-
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-
-
-    }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_MOVE) {
-
-        }
-        return true;
-    }
-
-
     private View.OnClickListener monthDialog = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -464,7 +419,10 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
                                     return;
                                 } else if (key.equalsIgnoreCase("currency")) {
                                     userDTO.setCurrency(value);
+                                } else if (key.equalsIgnoreCase("notification_range")) {
+                                    userDTO.setNotificationRange(value);
                                 }
+
 
                                 DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
 
@@ -623,5 +581,27 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
                 }
         );
     }
+
+
+    SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+
+            seekBar.setProgress(progress);
+            syncSetting("notification_range", progress + "");
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+    };
+
 
 }
