@@ -333,6 +333,7 @@ public class EditProfileActivity extends BaseActivity {
                                         Log.i("info", "" + response);
 
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
+                                        userDTO.setUserType(Constant.REGISTER);
                                         DealPreferences.putObjectIntoPref(EditProfileActivity.this,
                                                 userDTO, Constant.USER_INFO);
                                         Intent intent = new Intent(EditProfileActivity.this, HomeActivity.class);
@@ -377,7 +378,7 @@ public class EditProfileActivity extends BaseActivity {
                                         DealPreferences.putObjectIntoPref(EditProfileActivity.this,
                                                 userDTO, Constant.USER_INFO);
                                         Intent intent = new Intent(EditProfileActivity.this, HomeActivity.class);
-                                        intent.putExtra("fragmentName",EditProfileActivity.this.getString(R.string.setting_screen_title));
+                                        intent.putExtra("fragmentName", EditProfileActivity.this.getString(R.string.setting_screen_title));
                                         startActivity(intent);
 
                                     } else {
