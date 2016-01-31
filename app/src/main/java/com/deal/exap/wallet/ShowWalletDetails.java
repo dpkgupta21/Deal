@@ -7,6 +7,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -21,6 +23,7 @@ import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.misc.ImageActivity;
 import com.deal.exap.model.DealDTO;
+import com.deal.exap.payment.adapter.SlidingImageAdapter;
 import com.deal.exap.termscondition.TermsConditionActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
@@ -35,17 +38,28 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+import com.viewpagerindicator.CirclePageIndicator;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ShowWalletDetails extends BaseActivity {
 
     //private GoogleMap mMap;
     private DealDTO dealDTO;
     private DisplayImageOptions options;
+    private List<String> imageList;
+
+    private static ViewPager mPager;
+    private static int currentPage = 0;
+    private static int NUM_PAGES = 0;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,10 +80,10 @@ public class ShowWalletDetails extends BaseActivity {
     private void init() {
 
         String id = getIntent().getStringExtra("id");
-        getDealDetails(id);
 
 
-
+        imageList = new ArrayList<>();
+        mPager = (ViewPager) findViewById(R.id.pager);
 
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
@@ -82,10 +96,10 @@ public class ShowWalletDetails extends BaseActivity {
                 .showImageOnFail(R.drawable.slide_img)
                 .showImageForEmptyUri(R.drawable.slide_img)
                 .build();
-
+        getDealDetails(id);
 
         setClick(R.id.iv_back);
-      //  setClick(R.id.thumbnail);
+        //  setClick(R.id.thumbnail);
         setClick(R.id.txt_terms_conditions);
         setClick(R.id.txt_customer_reviews);
         setClick(R.id.img_title);
@@ -150,8 +164,6 @@ public class ShowWalletDetails extends BaseActivity {
 
         }
     }
-
-
 
 
     private void getDealDetails(String id) {
@@ -229,14 +241,76 @@ public class ShowWalletDetails extends BaseActivity {
         setTextViewText(R.id.txt_discount, dealDTO.getDiscount() + "%");
         setTextViewText(R.id.txt_store_price, dealDTO.getFinal_price());
 
-
-     //   ImageView imgThumnail = (ImageView) findViewById(R.id.thumbnail);
         ImageView partner = (ImageView) findViewById(R.id.img_title);
-
-//        ImageLoader.getInstance().displayImage(dealDTO.getDeal_image(), imgThumnail,
-//                options);
         ImageLoader.getInstance().displayImage(dealDTO.getPartner_logo(), partner,
                 options);
+
+
+        if (dealDTO.getDeal_image() != null && !dealDTO.getDeal_image().equalsIgnoreCase("")) {
+            imageList.add(dealDTO.getDeal_image());
+        }
+        if (dealDTO.getDeal_images().size() > 0) {
+            for (int i = 0; i < dealDTO.getDeal_images().size(); i++) {
+                imageList.add(dealDTO.getDeal_images().get(i));
+            }
+        }
+
+
+        mPager.setAdapter(new SlidingImageAdapter(ShowWalletDetails.this, imageList));
+
+
+        CirclePageIndicator indicator = (CirclePageIndicator)
+                findViewById(R.id.indicator);
+
+        indicator.setViewPager(mPager);
+
+
+
+        final float density = getResources().getDisplayMetrics().density;
+
+//Set circle indicator radius
+        indicator.setRadius(5 * density);
+
+        NUM_PAGES = imageList.size();
+
+        // Auto start of viewpager
+        final Handler handler = new Handler();
+        final Runnable Update = new Runnable() {
+            public void run() {
+                if (currentPage == NUM_PAGES) {
+                    currentPage = 0;
+                }
+                mPager.setCurrentItem(currentPage++, true);
+            }
+        };
+        Timer swipeTimer = new Timer();
+        swipeTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, 3000, 3000);
+
+        // Pager listener over indicator
+        indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int position) {
+                currentPage = position;
+
+            }
+
+            @Override
+            public void onPageScrolled(int pos, float arg1, int arg2) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int pos) {
+
+            }
+        });
+
 
     }
 
@@ -254,19 +328,11 @@ public class ShowWalletDetails extends BaseActivity {
 
         FloatingActionButton.LayoutParams params = new FloatingActionButton.LayoutParams(50, 50);
         final FloatingActionButton fabButton;
-        if (Utils.isArabic(ShowWalletDetails.this)) {
-            params.setMargins(0, 200, 30, 0);
-            fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)
-                    .setPosition(FloatingActionButton.POSITION_TOP_LEFT)
-                    .setLayoutParams(params)
-                    .build();
-        } else {
-            params.setMargins(30, 200, 0, 0);
-            fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)
-                    .setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
-                    .setLayoutParams(params)
-                    .build();
-        }
+        params.setMargins(30, 200, 0, 0);
+        fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)
+                .setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
+                .setLayoutParams(params)
+                .build();
         SubActionButton.Builder subButton = new SubActionButton.Builder(this);
         ImageView icon1 = new ImageView(this);
         ImageView icon2 = new ImageView(this);
@@ -302,10 +368,7 @@ public class ShowWalletDetails extends BaseActivity {
             public void onMenuOpened(FloatingActionMenu floatingActionMenu) {
                 icon.setRotation(0);
                 PropertyValuesHolder holder;
-                if (Utils.isArabic(ShowWalletDetails.this))
-                    holder = PropertyValuesHolder.ofFloat(View.ROTATION, 135);
-                else
-                    holder = PropertyValuesHolder.ofFloat(View.ROTATION, 45);
+                holder = PropertyValuesHolder.ofFloat(View.ROTATION, 45);
                 ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(icon, holder);
                 animator.start();
             }

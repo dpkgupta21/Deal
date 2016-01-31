@@ -14,21 +14,18 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.support.v4.view.ViewPager;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
+
 import android.widget.RatingBar;
-import android.widget.TextView;
-import android.widget.ViewFlipper;
+
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -41,6 +38,7 @@ import com.deal.exap.misc.ImageActivity;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.partner.FollowingPartnerDetails;
+import com.deal.exap.payment.adapter.SlidingImageAdapter;
 import com.deal.exap.termscondition.TermsConditionActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
@@ -67,16 +65,16 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+import com.viewpagerindicator.CirclePageIndicator;
 
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Timer;
+import java.util.TimerTask;
 //import com.google.android.gms.maps.GoogleMap;
 
 public class BuyCouponActivity extends BaseActivity {
@@ -97,8 +95,10 @@ public class BuyCouponActivity extends BaseActivity {
     private double transactionPrice = 0.0;
 
     private List<String> imageList;
-    private ViewFlipper viewFlipper;
-    private GestureDetector gestureDetector;
+
+    private static ViewPager mPager;
+    private static int currentPage = 0;
+    private static int NUM_PAGES = 0;
     //private ProgressBar progressBar;
 
     /**
@@ -142,7 +142,6 @@ public class BuyCouponActivity extends BaseActivity {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);*/
 
-        viewFlipper = (ViewFlipper) findViewById(R.id.view_flipper);
         startService(new Intent(this, PWConnectService.class));
         bindService(new Intent(this, PWConnectService.class), serviceConnection, Context.BIND_AUTO_CREATE);
 
@@ -167,6 +166,7 @@ public class BuyCouponActivity extends BaseActivity {
         String id = getIntent().getStringExtra("id");
 
         imageList = new ArrayList<>();
+        mPager = (ViewPager) findViewById(R.id.pager);
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
                 .cacheOnDisk(true)
@@ -179,14 +179,6 @@ public class BuyCouponActivity extends BaseActivity {
                 .showImageForEmptyUri(R.drawable.slide_img)
                 .build();
         getDealDetails(id);
-
-
-        CustomGestureDetector customGestureDetector = new CustomGestureDetector();
-        gestureDetector = new GestureDetector(this, customGestureDetector);
-
-
-        viewFlipper.setAutoStart(true);
-        viewFlipper.setFlipInterval(2000);
 
 
         setClick(R.id.btn_buy);
@@ -456,6 +448,8 @@ public class BuyCouponActivity extends BaseActivity {
 
         // ImageView imgThumnail = (ImageView) findViewById(R.id.thumbnail);
         ImageView partner = (ImageView) findViewById(R.id.img_title);
+        ImageLoader.getInstance().displayImage(dealDTO.getPartner_logo(), partner,
+                options);
         // Here we create a deal image url list so we can show image slider
         if (dealDTO.getDeal_image() != null && !dealDTO.getDeal_image().equalsIgnoreCase("")) {
             imageList.add(dealDTO.getDeal_image());
@@ -466,23 +460,63 @@ public class BuyCouponActivity extends BaseActivity {
             }
         }
 
-        for (int i = 0; i < imageList.size(); i++) {
 
-            ImageView imageView = new ImageView(this);
-            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-            param.setMargins(0, 0, 0, 0);
-            imageView.setLayoutParams(param);
-            ImageLoader.getInstance().displayImage(imageList.get(i), imageView,
-                    options);
-            viewFlipper.addView(imageView);
-        }
+        mPager.setAdapter(new SlidingImageAdapter(BuyCouponActivity.this, imageList));
+
+
+        CirclePageIndicator indicator = (CirclePageIndicator)
+                findViewById(R.id.indicator);
+
+        indicator.setViewPager(mPager);
+
+        final float density = getResources().getDisplayMetrics().density;
+
+//Set circle indicator radius
+        indicator.setRadius(5 * density);
+
+        NUM_PAGES = imageList.size();
+
+        // Auto start of viewpager
+        final Handler handler = new Handler();
+        final Runnable Update = new Runnable() {
+            public void run() {
+                if (currentPage == NUM_PAGES) {
+                    currentPage = 0;
+                }
+                mPager.setCurrentItem(currentPage++, true);
+            }
+        };
+        Timer swipeTimer = new Timer();
+        swipeTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, 3000, 3000);
+
+        // Pager listener over indicator
+        indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int position) {
+                currentPage = position;
+
+            }
+
+            @Override
+            public void onPageScrolled(int pos, float arg1, int arg2) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int pos) {
+
+            }
+        });
 
 //        ImageLoader.getInstance().displayImage(dealImageList.get(0), imgThumnail,
 //                options);
 
-
-        ImageLoader.getInstance().displayImage(dealDTO.getPartner_logo(), partner,
-                options);
 
     }
 
@@ -780,12 +814,12 @@ public class BuyCouponActivity extends BaseActivity {
 //                    .setLayoutParams(params)
 //                    .build();
 //        } else {
-            params = new FloatingActionButton.LayoutParams(50, 50);
-            params.setMargins(30, 180, 0, 0);
-            fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)
-                    .setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
-                    .setLayoutParams(params)
-                    .build();
+        params = new FloatingActionButton.LayoutParams(50, 50);
+        params.setMargins(30, 180, 0, 0);
+        fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)
+                .setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
+                .setLayoutParams(params)
+                .build();
 //        }
         SubActionButton.Builder subButton = new SubActionButton.Builder(this);
         ImageView icon1 = new ImageView(this);
@@ -825,7 +859,7 @@ public class BuyCouponActivity extends BaseActivity {
 //                if (Utils.isArabic(BuyCouponActivity.this))
 //                    holder = PropertyValuesHolder.ofFloat(View.ROTATION, 360);
 //                else
-                    holder = PropertyValuesHolder.ofFloat(View.ROTATION, 45);
+                holder = PropertyValuesHolder.ofFloat(View.ROTATION, 45);
                 ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(icon, holder);
                 animator.start();
             }
@@ -979,33 +1013,6 @@ public class BuyCouponActivity extends BaseActivity {
 //
 //
 //    }
-
-
-    class CustomGestureDetector extends GestureDetector.SimpleOnGestureListener {
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-
-            // Swipe left (next)
-            if (e1.getX() > e2.getX()) {
-                viewFlipper.showNext();
-            }
-
-            // Swipe right (previous)
-            if (e1.getX() < e2.getX()) {
-                viewFlipper.showPrevious();
-            }
-
-            return super.onFling(e1, e2, velocityX, velocityY);
-        }
-    }
-
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        gestureDetector.onTouchEvent(event);
-
-        return super.onTouchEvent(event);
-    }
 
 
 }
