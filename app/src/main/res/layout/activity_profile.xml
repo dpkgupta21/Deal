@@ -110,7 +110,7 @@
                     android:text="@string/location"
                     android:textColor="@color/black" />
 
-                <com.deal.exap.customviews.MyEditTextViewLight
+                <com.deal.exap.customviews.CustomAutoCompleteTextView
                     style="@style/et_style_line"
                     android:id="@+id/txt_location"
                     android:layout_marginTop="5dp"
