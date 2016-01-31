@@ -12,14 +12,12 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.deal.exap.R;
-import com.deal.exap.favorite.bean.DataObject;
 import com.deal.exap.model.ReviewDTO;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerFeedBackListAdapter extends BaseAdapter {
@@ -38,9 +36,9 @@ public class CustomerFeedBackListAdapter extends BaseAdapter {
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
-                .showImageOnLoading(R.drawable.slide_img)
-                .showImageOnFail(R.drawable.slide_img)
-                .showImageForEmptyUri(R.drawable.slide_img)
+                .showImageOnLoading(R.drawable.default_img)
+                .showImageOnFail(R.drawable.default_img)
+                .showImageForEmptyUri(R.drawable.default_img)
                 .build();
 
     }

@@ -37,5 +37,5 @@
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/slide_img" />
+        android:src="@drawable/default_img" />
 </LinearLayout>

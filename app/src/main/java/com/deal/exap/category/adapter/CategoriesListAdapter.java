@@ -1,41 +1,22 @@
 package com.deal.exap.category.adapter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.model.CategoryDTO;
-import com.deal.exap.model.DealDTO;
-import com.deal.exap.utility.Constant;
-import com.deal.exap.utility.Utils;
-import com.deal.exap.volley.AppController;
-import com.deal.exap.volley.CustomJsonRequest;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class CategoriesListAdapter extends RecyclerView
         .Adapter<CategoriesListAdapter
@@ -88,9 +69,9 @@ public class CategoriesListAdapter extends RecyclerView
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
-                .showImageOnLoading(R.drawable.slide_img)
-                .showImageOnFail(R.drawable.slide_img)
-                .showImageForEmptyUri(R.drawable.slide_img)
+                .showImageOnLoading(R.drawable.default_img)
+                .showImageOnFail(R.drawable.default_img)
+                .showImageForEmptyUri(R.drawable.default_img)
                 .build();
     }
 

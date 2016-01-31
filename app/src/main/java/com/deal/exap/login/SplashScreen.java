@@ -144,10 +144,10 @@ public class SplashScreen extends BaseActivity {
 //        mPictureTextList.add("No need to chase people for pictures anymore. Travel Jar automatically syncs everything");
 
         mPictureIdsList = new ArrayList<>();
-        mPictureIdsList.add(R.drawable.slide_img);
-        mPictureIdsList.add(R.drawable.slide_img);
-        mPictureIdsList.add(R.drawable.slide_img);
-        mPictureIdsList.add(R.drawable.slide_img);
+        mPictureIdsList.add(R.drawable.default_img);
+        mPictureIdsList.add(R.drawable.default_img);
+        mPictureIdsList.add(R.drawable.default_img);
+        mPictureIdsList.add(R.drawable.default_img);
 
         int i = 0;
         for (Integer a : mPictureIdsList) {

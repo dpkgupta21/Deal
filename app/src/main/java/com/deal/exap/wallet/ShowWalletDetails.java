@@ -21,7 +21,6 @@ import com.deal.exap.R;
 import com.deal.exap.customerfeedback.CustomerFeedBackActivity;
 import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.login.BaseActivity;
-import com.deal.exap.misc.ImageActivity;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.payment.adapter.SlidingImageAdapter;
 import com.deal.exap.termscondition.TermsConditionActivity;
@@ -92,9 +91,9 @@ public class ShowWalletDetails extends BaseActivity {
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
-                .showImageOnLoading(R.drawable.slide_img)
-                .showImageOnFail(R.drawable.slide_img)
-                .showImageForEmptyUri(R.drawable.slide_img)
+                .showImageOnLoading(R.drawable.default_img)
+                .showImageOnFail(R.drawable.default_img)
+                .showImageForEmptyUri(R.drawable.default_img)
                 .build();
         getDealDetails(id);
 

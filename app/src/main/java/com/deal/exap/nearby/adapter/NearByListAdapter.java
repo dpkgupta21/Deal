@@ -1,8 +1,5 @@
 package com.deal.exap.nearby.adapter;
 
-import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
@@ -24,9 +21,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
-import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import java.util.ArrayList;
 
@@ -128,9 +122,9 @@ public class NearByListAdapter extends RecyclerView
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
-                .showImageOnLoading(R.drawable.slide_img)
-                .showImageOnFail(R.drawable.slide_img)
-                .showImageForEmptyUri(R.drawable.slide_img)
+                .showImageOnLoading(R.drawable.default_img)
+                .showImageOnFail(R.drawable.default_img)
+                .showImageForEmptyUri(R.drawable.default_img)
                 .build();
         options1 = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
@@ -139,9 +133,9 @@ public class NearByListAdapter extends RecyclerView
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
-                .showImageOnLoading(R.drawable.burger_king)
-                .showImageOnFail(R.drawable.burger_king)
-                .showImageForEmptyUri(R.drawable.burger_king)
+                .showImageOnLoading(R.drawable.no_image)
+                .showImageOnFail(R.drawable.no_image)
+                .showImageForEmptyUri(R.drawable.no_image)
                 .build();
     }
 

@@ -3,7 +3,6 @@ package com.deal.exap.following.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.deal.exap.R;
-import com.deal.exap.favorite.bean.DataObject;
 import com.deal.exap.model.FollowingDTO;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
@@ -20,7 +18,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -70,9 +67,9 @@ public class FollowingListAdapter extends RecyclerView
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
-                .showImageOnLoading(R.drawable.slide_img)
-                .showImageOnFail(R.drawable.slide_img)
-                .showImageForEmptyUri(R.drawable.slide_img)
+                .showImageOnLoading(R.drawable.default_img)
+                .showImageOnFail(R.drawable.default_img)
+                .showImageForEmptyUri(R.drawable.default_img)
                 .build();
     }
 

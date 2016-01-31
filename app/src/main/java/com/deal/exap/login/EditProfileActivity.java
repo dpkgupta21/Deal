@@ -33,13 +33,11 @@ import com.deal.exap.camera.GallerySelectInterface;
 import com.deal.exap.misc.PlaceJSONParser;
 import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
-import com.deal.exap.utility.Base64;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonImageRequest;
-import com.deal.exap.volley.CustomJsonRequest;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -112,9 +110,9 @@ public class EditProfileActivity extends BaseActivity {
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
-                .showImageOnLoading(R.drawable.slide_img)
-                .showImageOnFail(R.drawable.slide_img)
-                .showImageForEmptyUri(R.drawable.slide_img)
+                .showImageOnLoading(R.drawable.default_img)
+                .showImageOnFail(R.drawable.default_img)
+                .showImageForEmptyUri(R.drawable.default_img)
                 .build();
 
         profile = (ImageView) findViewById(R.id.profile);
@@ -333,23 +331,18 @@ public class EditProfileActivity extends BaseActivity {
                 bitmap1.compress(Bitmap.CompressFormat.PNG, 70 /*ignored for PNG*/, bos);
                 bitmapdata = bos.toByteArray();
 
-//write the bytes in file
+                //write the bytes in file
                 FileOutputStream fos = new FileOutputStream(f);
                 fos.write(bitmapdata);
                 fos.flush();
                 fos.close();
-
-
             }
         } catch (NullPointerException npe) {
             npe.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
-
         }
-
     }
-
 
     private void doEditProfile() {
         if (Utils.isOnline(this)) {
@@ -362,108 +355,65 @@ public class EditProfileActivity extends BaseActivity {
             params.put("location", getViewText(R.id.txt_location));
 
             final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
-            if (f != null) {
+            CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST,
+                    Constant.SERVICE_BASE_URL, params, f,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Utils.ShowLog(TAG, "Response -> " + response.toString());
+                            pdialog.dismiss();
+                            try {
+                                if (Utils.getWebServiceStatus(response)) {
+                                    Log.i("info", "" + response);
 
-                CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST,
-                        Constant.SERVICE_BASE_URL, params, f,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Utils.ShowLog(TAG, "Response -> " + response.toString());
-                                pdialog.dismiss();
-                                try {
-                                    if (Utils.getWebServiceStatus(response)) {
-                                        Log.i("info", "" + response);
+                                    UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
+                                    userDTO.setUserType(Constant.REGISTER);
+                                    DealPreferences.putObjectIntoPref(EditProfileActivity.this,
+                                            userDTO, Constant.USER_INFO);
+                                    Intent intent = new Intent(EditProfileActivity.this, HomeActivity.class);
+                                    intent.putExtra("fragmentName", EditProfileActivity.this.getString(R.string.setting_screen_title));
+                                    startActivity(intent);
 
-                                        UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
-                                        userDTO.setUserType(Constant.REGISTER);
-                                        DealPreferences.putObjectIntoPref(EditProfileActivity.this,
-                                                userDTO, Constant.USER_INFO);
-                                        Intent intent = new Intent(EditProfileActivity.this, HomeActivity.class);
-                                        intent.putExtra("fragmentName", EditProfileActivity.this.getString(R.string.setting_screen_title));
-                                        startActivity(intent);
-
-                                    } else {
-                                        Utils.showDialog(EditProfileActivity.this, "Error", Utils.getWebServiceMessage(response));
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
+                                } else {
+                                    Utils.showDialog(EditProfileActivity.this, "Error", Utils.getWebServiceMessage(response));
                                 }
-
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                        }, new Response.ErrorListener() {
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        pdialog.dismiss();
-                        Utils.showExceptionDialog(EditProfileActivity.this);
-                    }
-                });
-                pdialog.show();
-                Log.i("info", postReq.toString());
-                AppController.getInstance().getRequestQueue().add(postReq);
-                postReq.setRetryPolicy(new DefaultRetryPolicy(
-                        30000, 0,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            } else {
-                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
-                        Constant.SERVICE_BASE_URL, params,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Utils.ShowLog(TAG, "Response -> " + response.toString());
-                                pdialog.dismiss();
-                                try {
-                                    if (Utils.getWebServiceStatus(response)) {
-                                        Log.i("info", "" + response);
+                        }
+                    }, new Response.ErrorListener() {
 
-                                        UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
-                                        DealPreferences.putObjectIntoPref(EditProfileActivity.this,
-                                                userDTO, Constant.USER_INFO);
-                                        Intent intent = new Intent(EditProfileActivity.this, HomeActivity.class);
-                                        intent.putExtra("fragmentName", EditProfileActivity.this.getString(R.string.setting_screen_title));
-                                        startActivity(intent);
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(EditProfileActivity.this);
+                }
+            });
 
-                                    } else {
-                                        Utils.showDialog(EditProfileActivity.this, "Error", Utils.getWebServiceMessage(response));
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
+            pdialog.show();
+            Log.i("info", postReq.toString());
+            AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-                            }
-                        }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        pdialog.dismiss();
-                        Utils.showExceptionDialog(EditProfileActivity.this);
-                    }
-                });
-                pdialog.show();
-                Log.i("info", postReq.toString());
-                AppController.getInstance().getRequestQueue().add(postReq);
-                postReq.setRetryPolicy(new DefaultRetryPolicy(
-                        30000, 0,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-            }
 
         } else {
             Utils.showNoNetworkDialog(this);
+
         }
     }
 
 
-
-
-
-    /** A method to download json data from url */
-    private String downloadUrl(String strUrl) throws IOException{
+    /**
+     * A method to download json data from url
+     */
+    private String downloadUrl(String strUrl) throws IOException {
         String data = "";
         InputStream iStream = null;
         HttpURLConnection urlConnection = null;
-        try{
+        try {
             URL url = new URL(strUrl);
 
             // Creating an http connection to communicate with url
@@ -480,7 +430,7 @@ public class EditProfileActivity extends BaseActivity {
             StringBuffer sb = new StringBuffer();
 
             String line = "";
-            while( ( line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
 
@@ -488,9 +438,9 @@ public class EditProfileActivity extends BaseActivity {
 
             br.close();
 
-        }catch(Exception e){
-           // Log.d("Exception while downloading url", e.toString());
-        }finally{
+        } catch (Exception e) {
+            // Log.d("Exception while downloading url", e.toString());
+        } finally {
             iStream.close();
             urlConnection.disconnect();
         }
@@ -508,7 +458,7 @@ public class EditProfileActivity extends BaseActivity {
             // Obtain browser key from https://code.google.com/apis/console
             String key = "key=AIzaSyCnFCfiC8PBKUFdUfHpAfSSlqh24F8wHEQ";
 
-            String input="";
+            String input = "";
 
             try {
                 input = "input=" + URLEncoder.encode(place[0], "utf-8");
@@ -523,19 +473,19 @@ public class EditProfileActivity extends BaseActivity {
             String sensor = "sensor=false";
 
             // Building the parameters to the web service
-            String parameters = input+"&"+types+"&"+sensor+"&"+key;
+            String parameters = input + "&" + types + "&" + sensor + "&" + key;
 
             // Output format
             String output = "json";
 
             // Building the url to the web service
-            String url = "https://maps.googleapis.com/maps/api/place/autocomplete/"+output+"?"+parameters;
+            String url = "https://maps.googleapis.com/maps/api/place/autocomplete/" + output + "?" + parameters;
 
-            try{
+            try {
                 // Fetching the data from we service
                 data = downloadUrl(url);
-            }catch(Exception e){
-                Log.d("Background Task",e.toString());
+            } catch (Exception e) {
+                Log.d("Background Task", e.toString());
             }
             return data;
         }
@@ -551,8 +501,11 @@ public class EditProfileActivity extends BaseActivity {
             parserTask.execute(result);
         }
     }
-    /** A class to parse the Google Places in JSON format */
-    private class ParserTask extends AsyncTask<String, Integer, List<HashMap<String,String>>>{
+
+    /**
+     * A class to parse the Google Places in JSON format
+     */
+    private class ParserTask extends AsyncTask<String, Integer, List<HashMap<String, String>>> {
 
         JSONObject jObject;
 
@@ -563,14 +516,14 @@ public class EditProfileActivity extends BaseActivity {
 
             PlaceJSONParser placeJsonParser = new PlaceJSONParser();
 
-            try{
+            try {
                 jObject = new JSONObject(jsonData[0]);
 
                 // Getting the parsed data as a List construct
                 places = placeJsonParser.parse(jObject);
 
-            }catch(Exception e){
-                Log.d("Exception",e.toString());
+            } catch (Exception e) {
+                Log.d("Exception", e.toString());
             }
             return places;
         }
@@ -578,8 +531,8 @@ public class EditProfileActivity extends BaseActivity {
         @Override
         protected void onPostExecute(List<HashMap<String, String>> result) {
 
-            String[] from = new String[] { "description"};
-            int[] to = new int[] { android.R.id.text1 };
+            String[] from = new String[]{"description"};
+            int[] to = new int[]{android.R.id.text1};
 
             // Creating a SimpleAdapter for the AutoCompleteTextView
             SimpleAdapter adapter = new SimpleAdapter(getBaseContext(), result, android.R.layout.simple_list_item_1, from, to);
@@ -588,8 +541,6 @@ public class EditProfileActivity extends BaseActivity {
             atvPlaces.setAdapter(adapter);
         }
     }
-
-
 
 
 }

@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/slide_img" />
+                android:src="@drawable/default_img" />
 
             <ImageView
                 android:id="@+id/iv_back"
