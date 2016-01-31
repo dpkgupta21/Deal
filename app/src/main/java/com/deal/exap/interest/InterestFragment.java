@@ -1,8 +1,10 @@
 package com.deal.exap.interest;
 
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -42,18 +45,24 @@ import com.j256.ormlite.dao.Dao;
 import org.apmem.tools.layouts.FlowLayout;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class InterestFragment extends Fragment {
 
+    private static final String TAG = "InterestFragment";
     private View view;
     private List<InterestDTO> interestValues;
     private List<String> interestValuesSelected;
     private Dao<InterestDTO, String> interestDao;
+    private Dialog dialog;
 //    public static InterestFragment newInstance() {
 //        InterestFragment fragment = new InterestFragment();
 //        return fragment;
@@ -87,13 +96,13 @@ public class InterestFragment extends Fragment {
 
         init();
 
-        if (DealPreferences.isShowSurveyAfterLogin(getActivity())) {
-            getSurveyForm();
-            //openSurveyDialog();
-
-        }
+        //if (DealPreferences.isShowSurveyAfterLogin(getActivity())) {
+        getSurveyForm();
+        //openSurveyDialog();
+        //}
 
         getInterestList();
+
 
     }
 
@@ -140,7 +149,8 @@ public class InterestFragment extends Fragment {
 
     private void openSurveyDialog(String url) {
         DealPreferences.setIsShowSurveyAfterLogin(getActivity(), false);
-        final Dialog dialog = new Dialog(getActivity(), R.style.Theme_Dialog);
+
+        dialog = new Dialog(getActivity(), R.style.Theme_Dialog);
         // Include dialog.xml file
         dialog.setCancelable(false);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -149,9 +159,15 @@ public class InterestFragment extends Fragment {
                 WindowManager.LayoutParams.WRAP_CONTENT);
 
         WebView webview = (WebView) dialog.findViewById(R.id.webview_survey);
-        WebSettings settings = webview.getSettings();
-        settings.setJavaScriptEnabled(true);
-        webview.loadUrl(url);
+        WebSettings webSettings = webview.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webview.addJavascriptInterface(new MyJavaScriptInterface(getActivity()), "Android");
+        //webview.loadData(getHTMLData(), "text/html", "UTF-8");
+        //webview.loadDataWithBaseURL(url, getHTMLData(), "text/html", "UTF-8", null);
+
+//        WebSettings settings = webview.getSettings();
+//        settings.setJavaScriptEnabled(true);
+        webview.loadUrl(url + "/android");
 
         ImageView ivClose = (ImageView) dialog.findViewById(R.id.iv_close);
 
@@ -167,6 +183,48 @@ public class InterestFragment extends Fragment {
 
     }
 
+    /**
+     * @return - Static HTML data
+     */
+    private String getHTMLData() {
+        StringBuilder html = new StringBuilder();
+        try {
+            AssetManager assetManager = getActivity().getAssets();
+
+            InputStream input = assetManager.open("javascriptexample.html");
+            BufferedReader br = new BufferedReader(new InputStreamReader(input));
+            String line;
+            while ((line = br.readLine()) != null) {
+                html.append(line);
+            }
+            br.close();
+        } catch (Exception e) {
+            //Handle the exception here
+        }
+
+        return html.toString();
+    }
+
+    public class MyJavaScriptInterface {
+        Activity activity;
+
+        MyJavaScriptInterface(Activity activity) {
+            this.activity = activity;
+        }
+
+        @JavascriptInterface
+        public void showToast() {
+            Utils.ShowLog(TAG, "showAndroidToast");
+        }
+
+        @JavascriptInterface
+        public void closeActivity() {
+            dialog.dismiss();
+            Utils.ShowLog(TAG, "closeAndActivity");
+        }
+
+
+    }
 
     View.OnClickListener interestSelectListener = new View.OnClickListener() {
         @Override
