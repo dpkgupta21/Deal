@@ -110,9 +110,9 @@ public class EditProfileActivity extends BaseActivity {
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
-                .showImageOnLoading(R.drawable.default_img)
-                .showImageOnFail(R.drawable.default_img)
-                .showImageForEmptyUri(R.drawable.default_img)
+                .showImageOnLoading(R.drawable.avtar)
+                .showImageOnFail(R.drawable.avtar)
+                .showImageForEmptyUri(R.drawable.avtar)
                 .build();
 
         profile = (ImageView) findViewById(R.id.profile);
