@@ -85,7 +85,7 @@ public class ShowWalletDetails extends BaseActivity {
 
 
         setClick(R.id.iv_back);
-        setClick(R.id.thumbnail);
+      //  setClick(R.id.thumbnail);
         setClick(R.id.txt_terms_conditions);
         setClick(R.id.txt_customer_reviews);
         setClick(R.id.img_title);
@@ -115,11 +115,11 @@ public class ShowWalletDetails extends BaseActivity {
     public void onClick(View view) {
         Intent i;
         switch (view.getId()) {
-            case R.id.thumbnail:
-                i = new Intent(this, ImageActivity.class);
-                i.putExtra("image", dealDTO.getDeal_image());
-                startActivity(i);
-                break;
+//            case R.id.thumbnail:
+//                i = new Intent(this, ImageActivity.class);
+//                i.putExtra("image", dealDTO.getDeal_image());
+//                startActivity(i);
+//                break;
 //            case R.id.iv_chat:
 //                startActivity(new Intent(this, ChatActivity.class));
 //                break;
@@ -230,11 +230,11 @@ public class ShowWalletDetails extends BaseActivity {
         setTextViewText(R.id.txt_store_price, dealDTO.getFinal_price());
 
 
-        ImageView imgThumnail = (ImageView) findViewById(R.id.thumbnail);
+     //   ImageView imgThumnail = (ImageView) findViewById(R.id.thumbnail);
         ImageView partner = (ImageView) findViewById(R.id.img_title);
 
-        ImageLoader.getInstance().displayImage(dealDTO.getDeal_image(), imgThumnail,
-                options);
+//        ImageLoader.getInstance().displayImage(dealDTO.getDeal_image(), imgThumnail,
+//                options);
         ImageLoader.getInstance().displayImage(dealDTO.getPartner_logo(), partner,
                 options);
 

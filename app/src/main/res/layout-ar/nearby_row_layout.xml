@@ -16,12 +16,12 @@
             android:scaleType="centerCrop"
             android:src="@drawable/slide_img" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left|center_vertical"
-            android:padding="5dp"
-            android:src="@drawable/share_active_icon" />
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="left|center_vertical"-->
+            <!--android:padding="5dp"-->
+            <!--android:src="@drawable/share_active_icon" />-->
 
         <LinearLayout
             android:id="@+id/ll_filter_item"

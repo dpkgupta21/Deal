@@ -3,6 +3,7 @@ package com.deal.exap.payment;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
@@ -14,6 +15,8 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -21,9 +24,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -85,12 +90,15 @@ public class BuyCouponActivity extends BaseActivity {
     private DealDTO dealDTO;
     private DisplayImageOptions options;
     //private Dialog dialog;
-    private ArrayList<String> dealImageList;
     private PWProviderBinder _binder;
 
     private static final String APPLICATIONIDENTIFIER = "payworks.swipeandbuy";
     private static final String PROFILETOKEN = "5644a34583fc49da87892843aa8fb27b";
     private double transactionPrice = 0.0;
+
+    private List<String> imageList;
+    private ViewFlipper viewFlipper;
+    private GestureDetector gestureDetector;
     //private ProgressBar progressBar;
 
     /**
@@ -134,6 +142,7 @@ public class BuyCouponActivity extends BaseActivity {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);*/
 
+        viewFlipper = (ViewFlipper) findViewById(R.id.view_flipper);
         startService(new Intent(this, PWConnectService.class));
         bindService(new Intent(this, PWConnectService.class), serviceConnection, Context.BIND_AUTO_CREATE);
 
@@ -156,9 +165,8 @@ public class BuyCouponActivity extends BaseActivity {
     private void init() {
 
         String id = getIntent().getStringExtra("id");
-        getDealDetails(id);
 
-
+        imageList = new ArrayList<>();
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
                 .cacheOnDisk(true)
@@ -170,14 +178,20 @@ public class BuyCouponActivity extends BaseActivity {
                 .showImageOnFail(R.drawable.slide_img)
                 .showImageForEmptyUri(R.drawable.slide_img)
                 .build();
+        getDealDetails(id);
 
 
-        // months = Utils.getMonths();
-        //years = Utils.getYears();
+        CustomGestureDetector customGestureDetector = new CustomGestureDetector();
+        gestureDetector = new GestureDetector(this, customGestureDetector);
+
+
+        viewFlipper.setAutoStart(true);
+        viewFlipper.setFlipInterval(2000);
+
+
         setClick(R.id.btn_buy);
         setClick(R.id.iv_back);
-        setClick(R.id.thumbnail);
-        //  setClick(R.id.iv_chat);
+
         setClick(R.id.txt_terms_conditions);
         setClick(R.id.txt_customer_reviews);
 
@@ -440,19 +454,33 @@ public class BuyCouponActivity extends BaseActivity {
         }
 
 
-        ImageView imgThumnail = (ImageView) findViewById(R.id.thumbnail);
+        // ImageView imgThumnail = (ImageView) findViewById(R.id.thumbnail);
         ImageView partner = (ImageView) findViewById(R.id.img_title);
         // Here we create a deal image url list so we can show image slider
         if (dealDTO.getDeal_image() != null && !dealDTO.getDeal_image().equalsIgnoreCase("")) {
-            dealImageList.add(dealDTO.getDeal_image());
+            imageList.add(dealDTO.getDeal_image());
         }
         if (dealDTO.getDeal_images().size() > 0) {
             for (int i = 0; i < dealDTO.getDeal_images().size(); i++) {
-                dealImageList.add(dealDTO.getDeal_images().get(i));
+                imageList.add(dealDTO.getDeal_images().get(i));
             }
         }
-        ImageLoader.getInstance().displayImage(dealImageList.get(0), imgThumnail,
-                options);
+
+        for (int i = 0; i < imageList.size(); i++) {
+
+            ImageView imageView = new ImageView(this);
+            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            param.setMargins(0, 0, 0, 0);
+            imageView.setLayoutParams(param);
+            ImageLoader.getInstance().displayImage(imageList.get(i), imageView,
+                    options);
+            viewFlipper.addView(imageView);
+        }
+
+//        ImageLoader.getInstance().displayImage(dealImageList.get(0), imgThumnail,
+//                options);
+
+
         ImageLoader.getInstance().displayImage(dealDTO.getPartner_logo(), partner,
                 options);
 
@@ -742,21 +770,23 @@ public class BuyCouponActivity extends BaseActivity {
         final ImageView icon = new ImageView(this);
         icon.setImageDrawable(getResources().getDrawable(R.drawable.share_icon));
 
-        FloatingActionButton.LayoutParams params = new FloatingActionButton.LayoutParams(50, 50);
+        FloatingActionButton.LayoutParams params;
         final FloatingActionButton fabButton;
-        if (Utils.isArabic(BuyCouponActivity.this)) {
-            params.setMargins(0, 180, 30, 0);
-            fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)
-                    .setPosition(FloatingActionButton.POSITION_TOP_LEFT)
-                    .setLayoutParams(params)
-                    .build();
-        } else {
+//        if (Utils.isArabic(BuyCouponActivity.this)) {
+//            params = new FloatingActionButton.LayoutParams(50, 50);
+//            params.setMargins(0, 180, 30, 0);
+//            fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)
+//                    .setPosition(FloatingActionButton.POSITION_TOP_LEFT)
+//                    .setLayoutParams(params)
+//                    .build();
+//        } else {
+            params = new FloatingActionButton.LayoutParams(50, 50);
             params.setMargins(30, 180, 0, 0);
             fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)
                     .setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
                     .setLayoutParams(params)
                     .build();
-        }
+//        }
         SubActionButton.Builder subButton = new SubActionButton.Builder(this);
         ImageView icon1 = new ImageView(this);
         ImageView icon2 = new ImageView(this);
@@ -792,9 +822,9 @@ public class BuyCouponActivity extends BaseActivity {
             public void onMenuOpened(FloatingActionMenu floatingActionMenu) {
                 icon.setRotation(0);
                 PropertyValuesHolder holder;
-                if (Utils.isArabic(BuyCouponActivity.this))
-                    holder = PropertyValuesHolder.ofFloat(View.ROTATION, 135);
-                else
+//                if (Utils.isArabic(BuyCouponActivity.this))
+//                    holder = PropertyValuesHolder.ofFloat(View.ROTATION, 360);
+//                else
                     holder = PropertyValuesHolder.ofFloat(View.ROTATION, 45);
                 ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(icon, holder);
                 animator.start();
@@ -949,6 +979,33 @@ public class BuyCouponActivity extends BaseActivity {
 //
 //
 //    }
+
+
+    class CustomGestureDetector extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+
+            // Swipe left (next)
+            if (e1.getX() > e2.getX()) {
+                viewFlipper.showNext();
+            }
+
+            // Swipe right (previous)
+            if (e1.getX() < e2.getX()) {
+                viewFlipper.showPrevious();
+            }
+
+            return super.onFling(e1, e2, velocityX, velocityY);
+        }
+    }
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        gestureDetector.onTouchEvent(event);
+
+        return super.onTouchEvent(event);
+    }
 
 
 }

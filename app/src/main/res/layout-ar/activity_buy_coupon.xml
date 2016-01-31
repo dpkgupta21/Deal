@@ -20,12 +20,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp">
 
-                <ImageView
-                    android:id="@+id/thumbnail"
+                <!--<ImageView-->
+                    <!--android:id="@+id/thumbnail"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:scaleType="centerCrop"-->
+                    <!--android:src="@drawable/slide_img" />-->
+
+                <ViewFlipper
+                    android:id="@+id/view_flipper"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/slide_img" />
+                    android:layout_height="match_parent"></ViewFlipper>
 
                 <ImageView
                     android:id="@+id/iv_back"
