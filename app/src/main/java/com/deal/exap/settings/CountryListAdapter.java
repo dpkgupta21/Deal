@@ -10,16 +10,18 @@ import android.widget.BaseAdapter;
 
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyTextViewReg14;
-import com.deal.exap.model.ConuntriesDTO;
+import com.deal.exap.model.CountriesDTO;
+import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.DealPreferences;
 
 import java.util.List;
 
 public class CountryListAdapter extends BaseAdapter {
     private Context context;
-    private List<ConuntriesDTO> countriesList;
+    private List<CountriesDTO> countriesList;
 
 
-    public CountryListAdapter(Context context, List<ConuntriesDTO> countriesList) {
+    public CountryListAdapter(Context context, List<CountriesDTO> countriesList) {
         this.context = context;
         this.countriesList = countriesList;
     }
@@ -56,8 +58,12 @@ public class CountryListAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) mView.getTag();
         }
+        if (DealPreferences.getAPP_LANG(context).equalsIgnoreCase(Constant.LANG_ENGLISH_CODE)) {
+            holder.txtCountryCode.setText(countriesList.get(position).getName());
+        } else if (DealPreferences.getAPP_LANG(context).equalsIgnoreCase(Constant.LANG_ARABIC_CODE)) {
+            holder.txtCountryCode.setText(countriesList.get(position).getName_ara());
 
-        holder.txtCountryCode.setText(countriesList.get(position).getName());
+        }
         return mView;
     }
 

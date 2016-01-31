@@ -43,10 +43,10 @@ public class OrgSplashActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mContext = OrgSplashActivity.this;
 
         DatabaseManager<DatabaseHelper> manager = new DatabaseManager<DatabaseHelper>();
-        DatabaseHelper db = manager.getHelper(this);
+        DatabaseHelper db = manager.getHelper(mContext);
         Dao<DealDTO, String> dealDao = null;
         try {
             dealDao = db.getDealDao();
@@ -55,7 +55,7 @@ public class OrgSplashActivity extends FragmentActivity {
             e.printStackTrace();
         }
         setContentView(R.layout.activity_org_splash);
-        mContext = OrgSplashActivity.this;
+
         String pushRegistrationId = DealPreferences.getPushRegistrationId(mContext);
         if (pushRegistrationId == null || pushRegistrationId.equalsIgnoreCase("")) {
            registrationPushNotification();

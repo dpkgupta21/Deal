@@ -97,6 +97,11 @@ public class InterestFragment extends Fragment {
 
     }
 
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//    }
+
     private void getSurveyForm() {
         if (Utils.isOnline(getActivity())) {
             Map<String, String> params = new HashMap<>();

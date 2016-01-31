@@ -4,6 +4,7 @@ package com.deal.exap.alert;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -48,8 +49,8 @@ public class AlertFragment extends BaseFragment {
     private ListView lvMessage, lvNotification;
     private Button btnMessage, btnNotification;
     private ArrayList<NotificationDTO> notificationList;
-
     private ArrayList<ConversionsDTO> messageList;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 //    public static AlertFragment newInstance() {
 //        AlertFragment fragment = new AlertFragment();
 //        return fragment;
@@ -87,6 +88,22 @@ public class AlertFragment extends BaseFragment {
         lvMessage.setVisibility(View.GONE);
 
         getNotificationList();
+
+
+        // Add pull to refresh functionality
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.active_swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+            @Override
+            public void onRefresh() {
+                if(btnNotification.isSelected()) {
+                    getNotificationList();
+                }else{
+                    getMessageList();
+                }
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
 
     }
@@ -153,11 +170,20 @@ public class AlertFragment extends BaseFragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<NotificationDTO>>() {
-                                }.getType();
-                                notificationList = new Gson().fromJson(response.getJSONArray("notifications").toString(), type);
-                                setNotificationList();
+                                if (response.getBoolean("status")) {
+                                    lvNotification.setVisibility(View.VISIBLE);
+                                    Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                    Type type = new TypeToken<ArrayList<NotificationDTO>>() {
+                                    }.getType();
+                                    notificationList = new Gson().fromJson(response.getJSONArray("notifications").toString(), type);
+                                    setNotificationList();
+                                } else {
+                                    lvNotification.setVisibility(View.GONE);
+                                    String msg = response.getString("message");
+                                    TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
+                                    txt_blank.setVisibility(View.VISIBLE);
+                                    txt_blank.setText(msg);
+                                }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -199,11 +225,19 @@ public class AlertFragment extends BaseFragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<ConversionsDTO>>() {
-                                }.getType();
-                                messageList = new Gson().fromJson(response.getJSONArray("conversions").toString(), type);
-                                setLvMessageList();
+                                if (response.getBoolean("status")) {
+                                    Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                    Type type = new TypeToken<ArrayList<ConversionsDTO>>() {
+                                    }.getType();
+                                    messageList = new Gson().fromJson(response.getJSONArray("conversions").toString(), type);
+                                    setLvMessageList();
+                                } else {
+                                    lvMessage.setVisibility(View.GONE);
+                                    String msg = response.getString("message");
+                                    TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
+                                    txt_blank.setVisibility(View.VISIBLE);
+                                    txt_blank.setText(msg);
+                                }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

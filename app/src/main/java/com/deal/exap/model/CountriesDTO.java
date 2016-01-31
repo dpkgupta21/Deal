@@ -2,10 +2,19 @@ package com.deal.exap.model;
 
 import java.io.Serializable;
 
-public class ConuntriesDTO implements Serializable {
+public class CountriesDTO implements Serializable {
 
     private String id;
     private String name;
+    private String name_ara;
+
+    public String getName_ara() {
+        return name_ara;
+    }
+
+    public void setName_ara(String name_ara) {
+        this.name_ara = name_ara;
+    }
 
     public String getId() {
         return id;

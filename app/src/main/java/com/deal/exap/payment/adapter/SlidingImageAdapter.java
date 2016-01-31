@@ -20,7 +20,7 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import java.util.List;
 
 /**
- * Created by YusataInfotech on 1/31/2016.
+ * Created by Deepak gupta on 1/31/2016.
  */
 public class SlidingImageAdapter extends PagerAdapter {
 

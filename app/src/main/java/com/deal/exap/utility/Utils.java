@@ -1150,7 +1150,7 @@ public class Utils {
                 inSampleSize = heightRatio;
 
             }
-            Log.d("Sample Size======================", inSampleSize + "");
+           // Log.d("Sample Size======================", inSampleSize + "");
             options.inSampleSize = inSampleSize;
             options.inJustDecodeBounds = false;
             return BitmapFactory.decodeFile(file.getAbsolutePath(), options);

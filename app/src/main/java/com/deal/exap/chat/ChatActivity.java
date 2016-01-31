@@ -2,6 +2,7 @@ package com.deal.exap.chat;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -32,6 +33,7 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import org.json.JSONObject;
 
+import java.net.ConnectException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,20 +41,21 @@ import java.util.Map;
 public class ChatActivity extends BaseActivity {
 
     //private ListView lvChat;
-    private Activity mActivity;
+    private Context mContext;
     private List<MessageDTO> chatList;
     private ChatDTO chatDTO;
     private ChatListAdapter chatAdatper;
     private EditText etMessage;
     private DisplayImageOptions options;
     private String receiverId;
+    private ListView lvChat;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-
-        mActivity=this;
+        lvChat = (ListView) findViewById(R.id.lv_chat);
+        mContext = ChatActivity.this;
         init();
 
         // getMessageList();
@@ -100,11 +103,11 @@ public class ChatActivity extends BaseActivity {
             if (Utils.isOnline(this)) {
                 Map<String, String> params = new HashMap<>();
                 params.put("action", Constant.SEND_MESSAGE);
-                params.put("lang", Utils.getSelectedLanguage(this));
-                params.put("sender_id", Utils.getUserId(this));
+                params.put("lang", Utils.getSelectedLanguage(mContext));
+                params.put("sender_id", Utils.getUserId(mContext));
                 params.put("message", getViewText(R.id.et_message));
                 params.put("receiver_id", receiverId);
-                final ProgressDialog pdialog = Utils.createProgressDialog(mActivity,
+                final ProgressDialog pdialog = Utils.createProgressDialog(mContext,
                         null, false);
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                         new Response.Listener<JSONObject>() {
@@ -123,7 +126,7 @@ public class ChatActivity extends BaseActivity {
                                             chatAdatper.notifyDataSetChanged();
                                         }
                                     } else {
-                                        Utils.showDialog(ChatActivity.this, "Error", Utils.getWebServiceMessage(response));
+                                        Utils.showDialog(mContext, "Message", Utils.getWebServiceMessage(response));
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -135,7 +138,7 @@ public class ChatActivity extends BaseActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         pdialog.dismiss();
-                        Utils.showExceptionDialog(mActivity.getApplicationContext());
+                        Utils.showExceptionDialog(mContext);
                     }
                 });
                 pdialog.show();
@@ -144,7 +147,7 @@ public class ChatActivity extends BaseActivity {
                         30000, 0,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             } else {
-                Utils.showNoNetworkDialog(ChatActivity.this);
+                Utils.showNoNetworkDialog(mContext);
             }
         }
     }
@@ -155,8 +158,8 @@ public class ChatActivity extends BaseActivity {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.LOAD_MESSAGE);
             params.put("receiver_id", receiverId);
-            params.put("sender_id", Utils.getUserId(this));
-            final ProgressDialog pdialog = Utils.createProgressDialog(mActivity,
+            params.put("sender_id", Utils.getUserId(mContext));
+            final ProgressDialog pdialog = Utils.createProgressDialog(mContext,
                     null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
@@ -166,11 +169,13 @@ public class ChatActivity extends BaseActivity {
 
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                 chatDTO = new Gson().fromJson(response.toString(), ChatDTO.class);
-                                if(chatDTO.isStatus()) {
+                                if (chatDTO.isStatus()) {
+                                    lvChat.setVisibility(View.VISIBLE);
                                     setChatList();
-                                }else{
-                                    String msg=response.getString("message");
-                                    TextView txt_blank=(TextView)findViewById(R.id.txt_blank);
+                                } else {
+                                    lvChat.setVisibility(View.GONE);
+                                    String msg = response.getString("message");
+                                    TextView txt_blank = (TextView) findViewById(R.id.txt_blank);
                                     txt_blank.setVisibility(View.VISIBLE);
                                     txt_blank.setText(msg);
                                 }
@@ -184,7 +189,7 @@ public class ChatActivity extends BaseActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     pdialog.dismiss();
-                    Utils.showExceptionDialog(mActivity.getApplicationContext());
+                    Utils.showExceptionDialog(mContext);
                 }
             });
             AppController.getInstance().getRequestQueue().add(postReq);
@@ -210,7 +215,7 @@ public class ChatActivity extends BaseActivity {
                     options);
             ImageLoader.getInstance().displayImage(partner.getImage(), img_company,
                     options);
-            if (Utils.isArabic(mActivity.getApplicationContext())) {
+            if (Utils.isArabic(mContext)) {
                 setTextViewText(R.id.txt_title, partner.getName_ara());
                 setTextViewText(R.id.txt_place_tag, partner.getAddress_ara());
             } else {
@@ -227,8 +232,8 @@ public class ChatActivity extends BaseActivity {
             chatList = chatDTO.getMessageList();
             if (chatList != null && chatList.size() > 0) {
                 if (chatAdatper == null) {
-                    chatAdatper = new ChatListAdapter(mActivity, chatList);
-                    ListView lvChat = (ListView) findViewById(R.id.lv_chat);
+                    chatAdatper = new ChatListAdapter((Activity) mContext, chatList);
+
                     lvChat.setAdapter(chatAdatper);
 
                 } else {

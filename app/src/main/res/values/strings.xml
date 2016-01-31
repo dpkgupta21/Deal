@@ -114,8 +114,10 @@
     <string name="txt_edit_payment_details">Edit Payment Details</string>
     <string name="txt_redefine_exp">REDEFINING YOUR SHOPPING EXPERIENCE</string>
     <string name="txt_english">English</string>
-    <string name="txt_arabic">Arabic</string>
+    <string name="txt_arabic">العربية</string>
     <string name="txt_signout">Sign Out</string>
+    <string name="txt_change_language">Change Language</string>
+
     <!--
         <string name="km_miles">KM / Miles</string>
         <string name="alert">Alerts</string>
@@ -172,6 +174,7 @@
     <string name="txt_end_date">End Date</string>
     <string name="txt_distance">Distance</string>
     <string name="txt_filter_distance_unit_km">KM</string>
+    <string name="txt_slash">/</string>
     <string name="txt_filter_distance_unit_miles">Miles</string>
     <string name="txt_discount">Discount</string>
     <string name="txt_low_to_high">Low To High</string>

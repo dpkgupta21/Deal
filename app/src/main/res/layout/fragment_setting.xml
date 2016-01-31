@@ -41,36 +41,6 @@
 
             </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                android:weightSum="1">
-
-                <com.deal.exap.customviews.MyButtonViewSemi
-                    android:id="@+id/btn_select_km"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".5"
-                    android:background="@color/btn_color"
-                    android:gravity="center"
-                    android:text="@string/txt_filter_distance_unit_km"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-
-                <com.deal.exap.customviews.MyButtonViewSemi
-                    android:id="@+id/btn_select_miles"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".5"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="@string/txt_filter_distance_unit_miles"
-                    android:textSize="16sp" />
-            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -82,6 +52,42 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:text="@string/notification_range" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:weightSum=".2">
+
+                    <com.deal.exap.customviews.MyTextViewReg12
+                        android:id="@+id/btn_select_km"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="3dp"
+                        android:text="@string/txt_filter_distance_unit_km"
+                        android:textColor="@color/black"
+                        android:textSize="10sp" />
+
+                    <com.deal.exap.customviews.MyTextViewReg12
+                        android:id="@+id/btn_slash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_slash"
+                        android:textSize="10sp" />
+
+                    <com.deal.exap.customviews.MyTextViewReg12
+                        android:id="@+id/btn_select_miles"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="3dp"
+                        android:text="@string/txt_filter_distance_unit_miles"
+                        android:textColor="@color/black"
+                        android:textSize="10sp" />
+                </LinearLayout>
 
             </RelativeLayout>
 
@@ -124,12 +130,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                 />
+                android:text="@string/menu_alert" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:background="@color/white">
 
                 <com.deal.exap.customviews.MyTextViewReg16
@@ -139,7 +145,8 @@
                     android:padding="10dp"
                     android:text="@string/push_alert" />
 
-                <Switch android:id="@+id/switch_push"
+                <Switch
+                    android:id="@+id/switch_push"
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -192,14 +199,20 @@
 
             </RelativeLayout>
 
-
+            <com.deal.exap.customviews.MyTextViewReg14
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="20dp"
+                android:text="@string/txt_change_language" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:background="@color/white"
+                android:orientation="horizontal"
                 android:weightSum="1">
 
                 <com.deal.exap.customviews.MyButtonViewSemi
@@ -233,11 +246,11 @@
                 android:background="@color/white">
 
                 <com.deal.exap.customviews.MyTextViewReg16
+                    android:id="@+id/txt_change_currency"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:padding="10dp"
-                    android:id="@+id/txt_change_currency"
                     android:text="@string/txt_change_currency" />
             </LinearLayout>
 
@@ -279,15 +292,13 @@
                 android:background="@color/white">
 
                 <com.deal.exap.customviews.MyTextViewReg16
-                    android:id="@+id/txt_signOut"
+                    android:id="@+id/txt_signout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:padding="10dp"
                     android:text="@string/txt_signout" />
             </LinearLayout>
-
-
 
 
             <ImageView
@@ -299,8 +310,8 @@
 
             <com.deal.exap.customviews.MyTextViewRegCustom
                 style="@style/tv_small"
-                android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
                 android:text="@string/txt_redefine_exp"
                 android:textColor="@color/tv_color" />
 

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -42,6 +44,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.support.v4.widget.SwipeRefreshLayout;
+
 
 public class CategoriesFragment extends Fragment {
 
@@ -52,6 +56,7 @@ public class CategoriesFragment extends Fragment {
     private List<CategoryDTO> categoryList;
     private View view;
     private Dao<CategoryDTO, String> categoryDao;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 //    public static CategoriesFragment newInstance() {
 //        CategoriesFragment fragment = new CategoriesFragment();
 //
@@ -91,6 +96,17 @@ public class CategoriesFragment extends Fragment {
 
         init();
         getCategoryList();
+
+        // Add pull to refresh functionality
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.active_swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+            @Override
+            public void onRefresh() {
+                getCategoryList();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
     }
 
@@ -133,12 +149,14 @@ public class CategoriesFragment extends Fragment {
                         public void onResponse(JSONObject response) {
                             try {
                                 if (response.getBoolean("status")) {
+                                    mRecyclerView.setVisibility(View.VISIBLE);
                                     Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                     Type type = new TypeToken<ArrayList<CategoryDTO>>() {
                                     }.getType();
                                     categoryList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
                                     setCategoryList();
                                 } else {
+                                    mRecyclerView.setVisibility(View.GONE);
                                     String msg = response.getString("message");
                                     TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
                                     txt_blank.setVisibility(View.VISIBLE);

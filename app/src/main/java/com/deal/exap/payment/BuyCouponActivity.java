@@ -3,8 +3,6 @@ package com.deal.exap.payment;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.annotation.TargetApi;
-import android.app.ActionBar;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -17,15 +15,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.view.ViewPager;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
-
 import android.widget.Button;
 import android.widget.ImageView;
-
 import android.widget.RatingBar;
-
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;

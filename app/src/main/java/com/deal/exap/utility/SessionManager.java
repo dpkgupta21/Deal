@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.deal.exap.login.SignInFragment;
+import com.deal.exap.login.SplashScreen;
 
 public class SessionManager {
 
@@ -45,19 +46,19 @@ public class SessionManager {
     /**
      * Clear session details
      */
-    public void logoutUser(Context mContext) {
+    public static void logoutUser(Context mContext) {
         // Clearing all data from Shared Preferences
         DealPreferences.clearAllPreferences(mContext);
         DealPreferences.setLoggedIn(mContext, false);
 
         // After logout redirect user to Loing Activity
-        Intent i = new Intent(_context, SignInFragment.class);
+        Intent i = new Intent(mContext, SplashScreen.class);
         // Closing all the Activities
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
         // Staring Login Activity
-        _context.startActivity(i);
-        Log.d(TAG, "logging out user");
+        mContext.startActivity(i);
+        Utils.ShowLog(TAG, "logging out user");
     }
 
     /**

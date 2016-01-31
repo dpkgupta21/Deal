@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,14 +15,15 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
-import com.deal.exap.deal.CategoryDealListActivity;
 import com.deal.exap.databasemanager.DatabaseHelper;
 import com.deal.exap.databasemanager.DatabaseManager;
+import com.deal.exap.deal.CategoryDealListActivity;
 import com.deal.exap.favorite.adapter.FavoriteListAdapter;
 import com.deal.exap.model.CategoryDTO;
 import com.deal.exap.utility.Constant;
@@ -40,7 +42,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class FavoriteFragment extends Fragment {
 
 
@@ -51,6 +52,7 @@ public class FavoriteFragment extends Fragment {
 
     private List<CategoryDTO> favoriteList;
     private Dao<CategoryDTO, String> favoriteDao;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
 //    public static FavoriteFragment newInstance() {
 //        FavoriteFragment fragment = new FavoriteFragment();
@@ -91,6 +93,17 @@ public class FavoriteFragment extends Fragment {
         init();
         getFavoriteList();
 
+        // Add pull to refresh functionality
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.active_swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+            @Override
+            public void onRefresh() {
+                getFavoriteList();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
 
     }
 
@@ -121,12 +134,14 @@ public class FavoriteFragment extends Fragment {
                         public void onResponse(JSONObject response) {
                             try {
                                 if (response.getBoolean("status")) {
+                                    mRecyclerView.setVisibility(View.VISIBLE);
                                     Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                     Type type = new TypeToken<ArrayList<CategoryDTO>>() {
                                     }.getType();
                                     favoriteList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
                                     setFavoriteList();
                                 } else {
+                                    mRecyclerView.setVisibility(View.GONE);
                                     String msg = response.getString("message");
                                     TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
                                     txt_blank.setVisibility(View.VISIBLE);

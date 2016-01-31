@@ -5,10 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -47,12 +49,12 @@ public class FollowingPartnerDetails extends BaseActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private View view;
     private int partnerID;
     // private ArrayList<DealDTO> dealList;
     private PartnerDTO partnerDTO;
     private DisplayImageOptions options;
     private Activity mActivity;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,19 @@ public class FollowingPartnerDetails extends BaseActivity {
         setContentView(R.layout.activity_following_partner_details);
         mActivity = FollowingPartnerDetails.this;
         init();
+
+        getPartnerDetails();
+
+        // Add pull to refresh functionality
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.active_swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+            @Override
+            public void onRefresh() {
+                getPartnerDetails();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
     }
 
@@ -85,7 +100,7 @@ public class FollowingPartnerDetails extends BaseActivity {
                 .showImageForEmptyUri(R.drawable.slide_img)
                 .build();
 
-        getPartnerDetails();
+
 
     }
 
@@ -136,13 +151,21 @@ public class FollowingPartnerDetails extends BaseActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<DealDTO>>() {
-                                }.getType();
-                                // dealList = new Gson().fromJson(response.getJSONArray("deals").toString(), type);
-                                partnerDTO = new Gson().fromJson(response.getJSONObject("partner").toString(),
-                                        PartnerDTO.class);
-                                setPartnerDetails();
+                                if (response.getBoolean("status")) {
+                                    Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                    Type type = new TypeToken<ArrayList<DealDTO>>() {
+                                    }.getType();
+                                    // dealList = new Gson().fromJson(response.getJSONArray("deals").toString(), type);
+                                    partnerDTO = new Gson().fromJson(response.getJSONObject("partner").toString(),
+                                            PartnerDTO.class);
+                                    setPartnerDetails();
+                                } else {
+                                    mRecyclerView.setVisibility(View.GONE);
+                                    String msg = response.getString("message");
+                                    TextView txt_blank = (TextView) findViewById(R.id.txt_blank);
+                                    txt_blank.setVisibility(View.VISIBLE);
+                                    txt_blank.setText(msg);
+                                }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

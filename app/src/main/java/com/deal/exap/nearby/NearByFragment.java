@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -70,6 +71,7 @@ public class NearByFragment extends BaseFragment {
     private ArrayList<DealDTO> dealList = new ArrayList<DealDTO>();
     private ArrayList<DealDTO> visibleDealList = new ArrayList<DealDTO>();
     RecyclerView.Adapter mAdapter = null;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     //private List<CategoryDTO> categoryList;
     private Dialog dialog;
 //    public static NearByFragment newInstance() {
@@ -144,6 +146,18 @@ public class NearByFragment extends BaseFragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         getDealList();
+
+
+        // Add pull to refresh functionality
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.active_swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+            @Override
+            public void onRefresh() {
+                getDealList();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
     }
 
@@ -257,6 +271,7 @@ public class NearByFragment extends BaseFragment {
                         public void onResponse(JSONObject response) {
                             try {
                                 if (response.getBoolean("status")) {
+                                    mRecyclerView.setVisibility(View.VISIBLE);
                                     Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                     Type type = new TypeToken<ArrayList<DealDTO>>() {
                                     }.getType();
@@ -267,6 +282,7 @@ public class NearByFragment extends BaseFragment {
                                     //visibleDealList = dealList;
                                     setDealList();
                                 } else {
+                                    mRecyclerView.setVisibility(View.GONE);
                                     String msg = response.getString("message");
                                     TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
                                     txt_blank.setVisibility(View.VISIBLE);

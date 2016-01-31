@@ -1,13 +1,15 @@
 package com.deal.exap.navigationdrawer;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -23,12 +25,12 @@ import com.deal.exap.following.FollowingFragment;
 import com.deal.exap.gps.GPSTracker;
 import com.deal.exap.interest.InterestFragment;
 import com.deal.exap.login.BaseActivity;
-import com.deal.exap.login.SplashScreen;
 import com.deal.exap.model.MenuDTO;
 import com.deal.exap.nearby.NearByFragment;
 import com.deal.exap.settings.SettingFragment;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
+import com.deal.exap.utility.SessionManager;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -43,13 +45,14 @@ import java.util.Map;
 public class HomeActivity extends BaseActivity {
 
     public ResideMenuSecond resideMenu;
-    private HomeActivity mContext;
+    private Context mContext;
     private ResideMenuItem itemAlert, itemNearby, itemWallet, itemInterest, itemFavorite, itemFollowing, itemCategory, itemSetting;
     //Boolean isopend = false;
     View topView;
     private String fragmentName;
     private boolean isFromLogin;
     private MenuDTO menuDTO;
+    private boolean backPressedToExitOnce = false;
 
     /**
      * Called when the activity is first created.
@@ -58,19 +61,16 @@ public class HomeActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        mContext = this;
+        mContext = HomeActivity.this;
         fragmentName = getIntent().getStringExtra("fragmentName");
 
         // set latitude and longitude in Deal Preferences
         GPSTracker gpsTracker = new GPSTracker(HomeActivity.this);
         init();
         getMenuCount();
-        // setUpMenu();
-
     }
 
     private void init() {
-
         setHeader(fragmentName);
         setLeftClick(R.drawable.menu_btn);
     }
@@ -182,10 +182,8 @@ public class HomeActivity extends BaseActivity {
         resideMenu.closeMenu();
 
         if (view == itemAlert) {
-            if (Utils.getUserType(this).contains(Constant.NON_REGISTER)) {
-
-                Utils.showDialog(HomeActivity.this, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
-
+            if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
+                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
             } else {
                 changeFragment(new AlertFragment());
                 setHeader(getString(R.string.alert_screen_title));
@@ -194,21 +192,25 @@ public class HomeActivity extends BaseActivity {
             changeFragment(new NearByFragment());
             setHeader(getString(R.string.nearby_screen_title));
         } else if (view == itemWallet) {
-            changeFragment(new WalletFragment());
-            setHeader(getString(R.string.wallet_screen_title));
+            if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
+                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
+            } else {
+                changeFragment(new WalletFragment());
+                setHeader(getString(R.string.wallet_screen_title));
+            }
         } else if (view == itemInterest) {
             changeFragment(new InterestFragment());
             setHeader(getString(R.string.interest_screen_title));
         } else if (view == itemFavorite) {
-            if (Utils.getUserType(this).contains(Constant.NON_REGISTER)) {
-                Utils.showDialog(HomeActivity.this, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
+            if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
+                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
             } else {
                 changeFragment(new FavoriteFragment());
                 setHeader(getString(R.string.favorite_screen_title));
             }
         } else if (view == itemFollowing) {
-            if (Utils.getUserType(this).contains(Constant.NON_REGISTER)) {
-                Utils.showDialog(HomeActivity.this, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
+            if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
+                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
             } else {
                 changeFragment(new FollowingFragment());
                 setHeader(getString(R.string.following_screen_title));
@@ -217,8 +219,8 @@ public class HomeActivity extends BaseActivity {
             changeFragment(new CategoriesFragment());
             setHeader(getString(R.string.categories_title));
         } else if (view == itemSetting) {
-            if (Utils.getUserType(this).contains(Constant.NON_REGISTER)) {
-                Utils.showDialog(HomeActivity.this, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
+            if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
+                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
             } else {
 
                 changeFragment(new SettingFragment());
@@ -277,12 +279,12 @@ public class HomeActivity extends BaseActivity {
 
     private void getMenuCount() {
 
-        if (Utils.isOnline(this)) {
+        if (Utils.isOnline(mContext)) {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.MENU_COUNT);
-            params.put("user_id", Utils.getUserId(this));
+            params.put("user_id", Utils.getUserId(mContext));
 
-            final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(mContext, null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -302,7 +304,7 @@ public class HomeActivity extends BaseActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     pdialog.dismiss();
-                    Utils.showExceptionDialog(HomeActivity.this);
+                    Utils.showExceptionDialog(mContext);
                     //       CustomProgressDialog.hideProgressDialog();
                 }
             });
@@ -314,7 +316,7 @@ public class HomeActivity extends BaseActivity {
         } else {
 
             setUpMenu();
-            Utils.showNoNetworkDialog(this);
+            Utils.showNoNetworkDialog(mContext);
         }
 
 
@@ -324,9 +326,31 @@ public class HomeActivity extends BaseActivity {
     DialogInterface.OnClickListener login = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            startActivity(new Intent(HomeActivity.this, SplashScreen.class));
+            SessionManager.logoutUser(mContext);
+            ;
         }
     };
+
+    @Override
+    public void onBackPressed() {
+//        if (drawerLayout.isDrawerOpen(Gravity.LEFT)) {
+//            Log.d(TAG, "closing the drawer");
+//            drawerLayout.closeDrawer(Gravity.LEFT);
+//        } else {
+        if (backPressedToExitOnce) {
+            super.onBackPressed();
+        } else {
+            this.backPressedToExitOnce = true;
+            Toast.makeText(HomeActivity.this, "Press again to exit", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    backPressedToExitOnce = false;
+                }
+            }, 2000);
+        }
+    }
 
 
 }

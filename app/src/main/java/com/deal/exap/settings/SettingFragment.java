@@ -31,16 +31,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyButtonViewSemi;
+import com.deal.exap.customviews.MyTextViewReg12;
 import com.deal.exap.customviews.MyTextViewReg16;
 import com.deal.exap.login.BaseFragment;
 import com.deal.exap.login.EditProfileActivity;
-import com.deal.exap.login.SplashScreen;
-import com.deal.exap.model.ConuntriesDTO;
+import com.deal.exap.model.CountriesDTO;
 import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.HelpMe;
+import com.deal.exap.utility.SessionManager;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -62,8 +63,8 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
     private View view;
     private MyButtonViewSemi btn_select_english;
     private MyButtonViewSemi btn_select_arabic;
-    private MyButtonViewSemi btn_select_km;
-    private MyButtonViewSemi btn_select_miles;
+    private MyTextViewReg12 btn_select_km;
+    private MyTextViewReg12 btn_select_miles;
 
     private ArrayList<String> months;
     private ArrayList<String> years;
@@ -73,7 +74,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
     private Switch switch_push;
     private Switch switch_message;
     private Switch switch_expiry;
-    private List<ConuntriesDTO> countryList;
+    private List<CountriesDTO> countryList;
     private String currencyName;
 
     private UserDTO userDTO;
@@ -117,8 +118,8 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
         ((MyTextViewReg16) view.findViewById(R.id.txt_payment_details)).setOnClickListener(paymentClick);
         btn_select_english = (MyButtonViewSemi) view.findViewById(R.id.btn_select_english);
         btn_select_arabic = (MyButtonViewSemi) view.findViewById(R.id.btn_select_arabic);
-        btn_select_km = (MyButtonViewSemi) view.findViewById(R.id.btn_select_km);
-        btn_select_miles = (MyButtonViewSemi) view.findViewById(R.id.btn_select_miles);
+        btn_select_km = (MyTextViewReg12) view.findViewById(R.id.btn_select_km);
+        btn_select_miles = (MyTextViewReg12) view.findViewById(R.id.btn_select_miles);
 
         SeekBar seek_bar = (SeekBar) view.findViewById(R.id.seek_bar);
         switch_expiry = (Switch) view.findViewById(R.id.switch_expiry);
@@ -162,7 +163,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
 
 
         setClick(R.id.txt_change_currency, view);
-        setClick(R.id.txt_signOut, view);
+        setClick(R.id.txt_signout, view);
 
     }
 
@@ -174,7 +175,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
                 break;
             case R.id.btn_select_km:
                 DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_KM);
-               selectedKMButton(Constant.DISTANCE_UNIT_KM);
+                selectedKMButton(Constant.DISTANCE_UNIT_KM);
                 break;
             case R.id.btn_select_miles:
                 DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_MILES);
@@ -185,13 +186,12 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
                 getCountry();
                 break;
 
-            case R.id.txt_signOut:
+            case R.id.txt_signout:
 
                 UserDTO userDTO = DealPreferences.getObjectFromPref(getActivity(), Constant.USER_INFO);
                 userDTO = null;
                 DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
-                startActivity(new Intent(getActivity(), SplashScreen.class));
-
+                SessionManager.logoutUser(getActivity().getApplicationContext());
                 break;
         }
     }
@@ -296,19 +296,19 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
     private void selectedKMButton(String STATUS_CODE) {
         if (STATUS_CODE.contains(Constant.DISTANCE_UNIT_KM)) {
 
-            btn_select_km.setBackgroundColor(getResources().getColor(R.color.btn_color));
-            btn_select_miles.setBackgroundColor(getResources().getColor(R.color.white));
+//            btn_select_km.setTextColor(getResources().getColor(R.color.btn_color));
+//            btn_select_miles.setTextColor(getResources().getColor(R.color.white));
 
-            btn_select_km.setTextColor(getResources().getColor(R.color.white));
-            btn_select_miles.setTextColor(getResources().getColor(R.color.black));
+            btn_select_km.setTextColor(getResources().getColor(R.color.app_color));
+            btn_select_miles.setTextColor(getResources().getColor(R.color.btn_dark_gray_color));
 
         } else {
 
-            btn_select_miles.setBackgroundColor(getResources().getColor(R.color.btn_color));
-            btn_select_km.setBackgroundColor(getResources().getColor(R.color.white));
+//            btn_select_miles.setBackgroundColor(getResources().getColor(R.color.btn_color));
+//            btn_select_km.setBackgroundColor(getResources().getColor(R.color.white));
 
-            btn_select_miles.setTextColor(getResources().getColor(R.color.white));
-            btn_select_km.setTextColor(getResources().getColor(R.color.black));
+            btn_select_miles.setTextColor(getResources().getColor(R.color.app_color));
+            btn_select_km.setTextColor(getResources().getColor(R.color.btn_dark_gray_color));
         }
     }
 
@@ -560,7 +560,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
                         public void onResponse(JSONObject response) {
                             try {
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<ConuntriesDTO>>() {
+                                Type type = new TypeToken<ArrayList<CountriesDTO>>() {
                                 }.getType();
                                 countryList = new Gson().fromJson(response.getJSONArray("countries").toString(), type);
                                 openCurrencyDialog();
@@ -602,7 +602,7 @@ public class SettingFragment extends BaseFragment implements GestureDetector.OnG
         CountryListAdapter countryListAdapter = new CountryListAdapter(getActivity(), countryList);
 
 
-        //ArrayAdapter<ConuntriesDTO> adapter = new ArrayAdapter<ConuntriesDTO>(getActivity(), android.R.layout.simple_list_item_single_choice, countryList);
+        //ArrayAdapter<CountriesDTO> adapter = new ArrayAdapter<CountriesDTO>(getActivity(), android.R.layout.simple_list_item_single_choice, countryList);
         listView.setAdapter(countryListAdapter);
         dialog.show();
         listView.setOnItemClickListener(

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,12 +14,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
-import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.CategoryDTO;
 import com.deal.exap.model.DealDTO;
-import com.deal.exap.payment.BuyCouponActivity;
 import com.deal.exap.nearby.adapter.NearByListAdapter;
+import com.deal.exap.partner.FollowingPartnerDetails;
+import com.deal.exap.payment.BuyCouponActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
@@ -41,6 +42,7 @@ public class CategoryDealListActivity extends BaseActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private CategoryDTO categoryDTO;
     private ArrayList<DealDTO> dealList;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
 
     @Override
@@ -61,10 +63,25 @@ public class CategoryDealListActivity extends BaseActivity {
         setLeftClick();
         setHeaderNormal();
 
+
+
+
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_nearby);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+
+        // Add pull to refresh functionality
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.active_swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+            @Override
+            public void onRefresh() {
+                getDealList();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     public void getDealList() {
@@ -87,12 +104,14 @@ public class CategoryDealListActivity extends BaseActivity {
                         public void onResponse(JSONObject response) {
                             try {
                                 if (response.getBoolean("status")) {
+                                    mRecyclerView.setVisibility(View.VISIBLE);
                                     Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                     Type type = new TypeToken<ArrayList<DealDTO>>() {
                                     }.getType();
                                     dealList = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
                                     setDealList();
                                 } else {
+                                    mRecyclerView.setVisibility(View.GONE);
                                     String msg = response.getString("message");
                                     TextView txt_blank = (TextView) findViewById(R.id.txt_blank);
                                     txt_blank.setVisibility(View.VISIBLE);

@@ -20,7 +20,7 @@ import java.sql.SQLException;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
-    private static final String DATABASE_NAME = "exap.sqlite";
+    private static final String DATABASE_NAME = "dealexap.sqlite";
     private static final int DATABASE_VERSION = 1;
 
     private Dao<DealDTO, String> dealDao = null;
@@ -33,13 +33,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
-        DatabaseInitializer initializer = new DatabaseInitializer(context);
-        try {
-            initializer.createDatabase();
-            initializer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        DatabaseInitializer initializer = new DatabaseInitializer(context);
+//        try {
+//            initializer.createDatabase();
+//            initializer.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
     }
 

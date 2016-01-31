@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -53,6 +54,7 @@ public class FollowingFragment extends Fragment {
     private View view;
     private List<FollowingDTO> followingList;
     private Dao<FollowingDTO, String> followingDao;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public FollowingFragment() {
         // Required empty public constructor
@@ -87,6 +89,17 @@ public class FollowingFragment extends Fragment {
         init();
         getFollowingList();
 
+        // Add pull to refresh functionality
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.active_swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+            @Override
+            public void onRefresh() {
+                getFollowingList();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
 
     }
 
@@ -116,11 +129,20 @@ public class FollowingFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<FollowingDTO>>() {
-                                }.getType();
-                                followingList = new Gson().fromJson(response.getJSONArray("following").toString(), type);
-                                setFollowingList();
+                                if (response.getBoolean("status")) {
+                                    mRecyclerView.setVisibility(View.VISIBLE);
+                                    Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                    Type type = new TypeToken<ArrayList<FollowingDTO>>() {
+                                    }.getType();
+                                    followingList = new Gson().fromJson(response.getJSONArray("following").toString(), type);
+                                    setFollowingList();
+                                } else {
+                                    mRecyclerView.setVisibility(View.GONE);
+                                    String msg = response.getString("message");
+                                    TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
+                                    txt_blank.setVisibility(View.VISIBLE);
+                                    txt_blank.setText(msg);
+                                }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -159,7 +181,7 @@ public class FollowingFragment extends Fragment {
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), mRecyclerView, new MyOnClickListener() {
             @Override
             public void onRecyclerClick(View view, int position) {
-                Intent i= new Intent(getActivity(), FollowingPartnerDetails.class);
+                Intent i = new Intent(getActivity(), FollowingPartnerDetails.class);
                 i.putExtra("partnerId", followingList.get(position).getId());
                 startActivity(i);
             }

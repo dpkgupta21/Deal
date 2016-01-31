@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyTextViewReg14;
 import com.deal.exap.model.CategoryDTO;
-import com.deal.exap.model.ConuntriesDTO;
 
 import java.util.List;
 

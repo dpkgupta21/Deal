@@ -3,6 +3,7 @@ package com.deal.exap.customerfeedback;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,11 +34,15 @@ import java.util.Map;
 
 public class CustomerFeedBackActivity extends BaseActivity {
 
+    private ListView listView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_feed_back);
+
+        listView = (ListView) findViewById(R.id.list_view_feedback);
         String dealCode = getIntent().getStringExtra("dealCode");
 
         if (dealCode != null && !dealCode.equalsIgnoreCase("")) {
@@ -46,8 +51,20 @@ public class CustomerFeedBackActivity extends BaseActivity {
             setViewVisibility(R.id.btn_post_comments, View.GONE);
 
         }
-        getReviewList();
         init();
+        getReviewList();
+
+
+        // Add pull to refresh functionality
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.active_swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+            @Override
+            public void onRefresh() {
+                getReviewList();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
     }
 
@@ -88,6 +105,7 @@ public class CustomerFeedBackActivity extends BaseActivity {
                         public void onResponse(JSONObject response) {
                             try {
                                 if (response.getBoolean("status")) {
+                                    listView.setVisibility(View.VISIBLE);
                                     Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                     Type type = new TypeToken<ArrayList<ReviewDTO>>() {
                                     }.getType();
@@ -95,6 +113,7 @@ public class CustomerFeedBackActivity extends BaseActivity {
                                             fromJson(response.getJSONArray("review").toString(), type);
                                     setReviewValues(reviewList);
                                 } else {
+                                    listView.setVisibility(View.GONE);
                                     String msg = response.getString("message");
                                     TextView txt_blank = (TextView) findViewById(R.id.txt_blank);
                                     txt_blank.setVisibility(View.VISIBLE);
@@ -126,7 +145,7 @@ public class CustomerFeedBackActivity extends BaseActivity {
 
 
     private void setReviewValues(List<ReviewDTO> reviewList) {
-        ListView listView = (ListView) findViewById(R.id.list_view_feedback);
+
         listView.setAdapter(new CustomerFeedBackListAdapter(CustomerFeedBackActivity.this, reviewList));
 
 

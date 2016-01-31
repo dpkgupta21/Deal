@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,7 +47,7 @@ public class WalletFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private View view;
     private ArrayList<DealDTO> walletValues;
-
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public WalletFragment() {
         // Required empty public constructor
@@ -79,6 +80,18 @@ public class WalletFragment extends Fragment {
         //setTitleFragment(getString(R.string.wallet_screen_title));
 
         getWalletList();
+
+
+        // Add pull to refresh functionality
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.active_swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+            @Override
+            public void onRefresh() {
+                getWalletList();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
     }
 
