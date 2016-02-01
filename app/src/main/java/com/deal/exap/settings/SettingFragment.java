@@ -30,6 +30,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
+import com.deal.exap.customviews.CustomProgressDialog;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg12;
 import com.deal.exap.customviews.MyTextViewReg16;
@@ -391,7 +392,8 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
             params.put("key", key);
             params.put("value", value);
             params.put("user_id", Utils.getUserId(getActivity()));
-            final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
+            CustomProgressDialog.showProgDialog(getActivity(), null);
+            //final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -399,7 +401,7 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
                             try {
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
 
-                                Toast.makeText(getActivity(), "Update Successfully", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getActivity(), "Update Successfully", Toast.LENGTH_LONG).show();
 
                                 UserDTO userDTO = DealPreferences.getObjectFromPref(getActivity(), Constant.USER_INFO);
 
@@ -412,7 +414,10 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
                                 } else if (key.equalsIgnoreCase("is_push_alert")) {
                                     userDTO.setIs_push_alert(value.equals("0") ? false : true);
                                 } else if (key.equalsIgnoreCase("language_id")) {
-
+                                    Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
+                                    i.putExtra("fragmentName", getActivity().getString(R.string.setting_screen_title));
+                                    startActivity(i);
+                                    getActivity().finish();
                                 } else if (key.equalsIgnoreCase("country_id")) {
                                     userDTO.setCountry_id(value);
                                     syncSetting("currency", currencyName);
@@ -427,21 +432,16 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
                                 DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
 
 
-                                Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
-                                i.putExtra("fragmentName", getActivity().getString(R.string.setting_screen_title));
-                                startActivity(i);
-                                getActivity().finish();
-
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            pdialog.dismiss();
+                            CustomProgressDialog.hideProgressDialog();
                         }
                     }, new Response.ErrorListener() {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    pdialog.dismiss();
+                    CustomProgressDialog.hideProgressDialog();
                     Utils.showExceptionDialog(getActivity());
                     //       CustomProgressDialog.hideProgressDialog();
                 }
@@ -450,8 +450,8 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
             postReq.setRetryPolicy(new DefaultRetryPolicy(
                     30000, 0,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            pdialog.show();
         } else {
+            CustomProgressDialog.hideProgressDialog();
             Utils.showNoNetworkDialog(getActivity());
         }
 

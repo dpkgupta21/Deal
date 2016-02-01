@@ -14,7 +14,7 @@ public class CustomProgressDialog {
     public static void showProgDialog(Activity mActivity, String message) {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(mActivity);
-            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
             if (message == null)
                 progressDialog.setMessage("Loading....");
             else

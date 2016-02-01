@@ -67,6 +67,7 @@ dependencies {
     compile 'ch.acra:acra:4.7.0'
     compile 'com.google.android.gms:play-services:6.1+'
     compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
+    compile 'com.android.support:multidex:1.0.0'
     compile('com.twitter.sdk.android:twitter:1.11.0@aar') {
         transitive = true;
     }
