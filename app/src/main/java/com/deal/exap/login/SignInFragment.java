@@ -1,17 +1,14 @@
 package com.deal.exap.login;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings.Secure;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -42,23 +39,12 @@ import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
-import com.twitter.sdk.android.core.identity.TwitterAuthClient;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import android.content.pm.PackageManager;
-import android.content.pm.PackageInfo;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import android.util.Base64;
-
-import android.widget.Toast;
 
 /**
  * A login screen that offers login via email/password.
@@ -254,10 +240,10 @@ public class SignInFragment extends BaseFragment {
         public void onClick(View v) {
 //            Intent i = new Intent(getContext(), HomeActivity.class);
 //            startActivity(i);
-            while (gpsTracker.canGetLocation()) {
-                doLogin();
-                break;
-            }
+
+            //while (gpsTracker.canGetLocation()) {
+            doLogin();
+            //}
 
         }
     };
@@ -382,7 +368,6 @@ public class SignInFragment extends BaseFragment {
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-
                             }
                         }, new Response.ErrorListener() {
 
@@ -429,7 +414,7 @@ public class SignInFragment extends BaseFragment {
                                     userDTO.setUserType(Constant.REGISTER);
                                     DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
                                     //startActivity(new Intent(getActivity(), HomeActivity.class));
-                                    DealPreferences.setIsShowSurveyAfterLogin(getActivity().getApplicationContext(),true);
+                                    DealPreferences.setIsShowSurveyAfterLogin(getActivity().getApplicationContext(), true);
                                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                                     intent.putExtra("fragmentName",
                                             getActivity().getString(R.string.interest_screen_title));

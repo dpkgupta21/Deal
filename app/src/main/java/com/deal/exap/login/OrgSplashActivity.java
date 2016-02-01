@@ -66,7 +66,6 @@ public class OrgSplashActivity extends FragmentActivity {
             @Override
             public void run() {
                 HelpMe.setLocale(DealPreferences.getAPP_LANG(mContext), mContext);
-
                 UserDTO userDTO = DealPreferences.getObjectFromPref(OrgSplashActivity.this, Constant.USER_INFO);
 
                 Intent i = null;

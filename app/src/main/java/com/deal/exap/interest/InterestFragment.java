@@ -95,10 +95,10 @@ public class InterestFragment extends Fragment {
 
         init();
 
-        //if (DealPreferences.isShowSurveyAfterLogin(getActivity())) {
-        getSurveyForm();
-        //openSurveyDialog();
-        //}
+        if (DealPreferences.isShowSurveyAfterLogin(getActivity())) {
+            getSurveyForm();
+            //openSurveyDialog();
+        }
 
         getInterestList();
 
@@ -139,6 +139,7 @@ public class InterestFragment extends Fragment {
                     //       CustomProgressDialog.hideProgressDialog();
                 }
             });
+
             AppController.getInstance().getRequestQueue().add(postReq);
             postReq.setRetryPolicy(new DefaultRetryPolicy(
                     30000, 0,
@@ -162,6 +163,7 @@ public class InterestFragment extends Fragment {
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webview.addJavascriptInterface(new MyJavaScriptInterface(getActivity()), "Android");
+
         //webview.loadData(getHTMLData(), "text/html", "UTF-8");
         //webview.loadDataWithBaseURL(url, getHTMLData(), "text/html", "UTF-8", null);
 
