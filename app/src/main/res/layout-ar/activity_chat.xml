@@ -64,8 +64,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:drawableLeft="@drawable/place_marker"
-                        android:singleLine="true"
+                        android:drawableRight="@drawable/place_marker"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
 

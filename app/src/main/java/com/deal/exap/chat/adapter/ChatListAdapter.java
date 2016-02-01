@@ -84,7 +84,6 @@ public class ChatListAdapter extends BaseAdapter {
             else
                 mView = (View) li.inflate(R.layout.item_chat_left, parent, false);
 
-
             mHolder=new ViewHolder();
 
             mHolder.tv_msg=(TextView)mView.findViewById(R.id.tv_msg);

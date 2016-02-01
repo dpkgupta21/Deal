@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="5dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="left"
+        android:layout_marginLeft="5dp"
+        android:orientation="vertical">
+
+        <com.deal.exap.customviews.MyTextViewLightCustom
+            android:id="@+id/tv_msg"
+            style="@style/tv_normal"
+            android:background="@color/gray_light"
+            android:padding="10dp"
+            android:text="@string/how_are_you"
+            android:textColor="@color/black" />
+
+        <com.deal.exap.customviews.MyTextViewLightCustom
+            android:id="@+id/tv_date"
+            style="@style/tv_small"
+            android:layout_marginTop="5dp"
+            android:text="23 Sep 11 PM"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_profile"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_img" />
+</LinearLayout>

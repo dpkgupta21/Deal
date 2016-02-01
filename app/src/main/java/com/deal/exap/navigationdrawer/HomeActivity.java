@@ -305,6 +305,7 @@ public class HomeActivity extends BaseActivity {
                 public void onErrorResponse(VolleyError error) {
                     pdialog.dismiss();
                     Utils.showExceptionDialog(mContext);
+                    setUpMenu();
                     //       CustomProgressDialog.hideProgressDialog();
                 }
             });

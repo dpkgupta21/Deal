@@ -174,12 +174,12 @@ public class NearByListAdapter extends RecyclerView
                 options);
         ImageLoader.getInstance().displayImage(mDataset.get(position).getPartner_logo(), holder.ivLogo,
                 options1);
-        holder.tvDiscount.setText(mDataset.get(position).getDiscount() + " % Off");
+        holder.tvDiscount.setText(mDataset.get(position).getDiscount() + " % " + context.getString(R.string.txt_off));
         holder.tvEnddate.setText(mDataset.get(position).getEnd_date());
         if (Utils.isMiles(context))
-            holder.tvDistance.setText(context.getString(R.string.txt_distance)+" " + Utils.convertKMToMiles(mDataset.get(position).getDistance()) +" "+ context.getString(R.string.txt_filter_distance_unit_miles));
+            holder.tvDistance.setText(context.getString(R.string.txt_distance) + " " + Utils.convertKMToMiles(mDataset.get(position).getDistance()) + " " + context.getString(R.string.txt_filter_distance_unit_miles));
         else
-            holder.tvDistance.setText(context.getString(R.string.txt_distance) +" "+ mDataset.get(position).getDistance() +" "+ context.getString(R.string.txt_filter_distance_unit_km));
+            holder.tvDistance.setText(context.getString(R.string.txt_distance) + " " + mDataset.get(position).getDistance() + " " + context.getString(R.string.txt_filter_distance_unit_km));
 
         if (Utils.isArabic(context))
             holder.tvDetail.setText(mDataset.get(position).getName_ara());

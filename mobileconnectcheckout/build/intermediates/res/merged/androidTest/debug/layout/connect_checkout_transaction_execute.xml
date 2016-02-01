@@ -20,4 +20,4 @@
         android:layout_marginTop="15dp"
         android:text="@string/connect_checkout_layout_dummy_transaction_run" />
 
-</RelativeLayout><!-- From: file:/F:/Deal%2031%20jan%202016/Deal/mobileconnectcheckout/src/main/res/layout/connect_checkout_transaction_execute.xml --><!-- From: file:/F:/Deal%2031%20jan%202016/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/layout/connect_checkout_transaction_execute.xml -->
+</RelativeLayout><!-- From: file:/F:/1%20fab%202016/Deal/mobileconnectcheckout/src/main/res/layout/connect_checkout_transaction_execute.xml --><!-- From: file:/F:/1%20fab%202016/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/layout/connect_checkout_transaction_execute.xml -->

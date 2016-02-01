@@ -185,8 +185,9 @@
 
     <string name="all">All</string>
 
+
+    <string name="txt_off">off</string>
     <!--<string name="txt_selcted_category">Food &amp; Dining</string>
-    <string name="txt_off">35% off</string>
     <string name="on_fanta">on Fanta Pride</string>
     <string name="txt_distance_val">1.5 Km</string>
     <string name="txt_filter_food_and_dining_menu">Food and Dinning</string>

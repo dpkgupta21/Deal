@@ -1,0 +1,130 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/screen_bg_color"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp">
+
+                <ImageView
+                    android:id="@+id/profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/avtar" />
+
+                <com.deal.exap.customviews.MyTextViewLightCustom
+                    style="@style/tv_heading"
+                    android:id="@+id/txt_image_change"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="bottom"
+                    android:background="#90000000"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/change_photo"
+                    android:textStyle="bold"
+                    android:textColor="@color/white" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp">
+
+                <com.deal.exap.customviews.MyTextViewRegCustom
+                    style="@style/tv_normal"
+                    android:text="@string/full_name"
+                    android:textColor="@color/black" />
+
+                <com.deal.exap.customviews.MyEditTextViewLight
+                    style="@style/et_style_line"
+                    android:id="@+id/txt_name"
+                    android:layout_marginTop="5dp"
+                    android:hint="@string/enter_here" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.deal.exap.customviews.MyTextViewRegCustom
+                            style="@style/tv_normal"
+                            android:text="@string/dob"
+                            android:textColor="@color/black" />
+
+                        <com.deal.exap.customviews.MyTextViewLight14
+                            android:id="@+id/et_age"
+                            style="@style/et_style_line"
+                            android:layout_marginTop="3dp"
+                            android:focusable="false"
+                            android:hint="@string/select_hint" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.deal.exap.customviews.MyTextViewRegCustom
+                            style="@style/tv_normal"
+                            android:text="@string/gender"
+                            android:textColor="@color/black" />
+
+                        <com.deal.exap.customviews.MyEditTextViewLight
+                            android:id="@+id/et_sex"
+                            style="@style/et_style_line"
+                            android:layout_marginTop="3dp"
+                            android:drawableRight="@drawable/selec_icon"
+                            android:focusable="false"
+                            android:hint="@string/select_hint" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <com.deal.exap.customviews.MyTextViewRegCustom
+                    style="@style/tv_normal"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/location"
+                    android:textColor="@color/black" />
+
+                <com.deal.exap.customviews.CustomAutoCompleteTextView
+                    style="@style/et_style_line"
+                    android:id="@+id/txt_location"
+                    android:layout_marginTop="5dp"
+                    android:hint="@string/enter_here" />
+                <Button
+                    style="@style/btn_style"
+                    android:id="@+id/btn_edit_profile"
+                    android:layout_width="fill_parent"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/save_changes" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/header_transparent" />
+
+</FrameLayout>

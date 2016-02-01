@@ -389,7 +389,7 @@ public class BuyCouponActivity extends BaseActivity {
 //            setViewVisibility(R.id.btn_buy_deal, View.GONE);
 //            setViewVisibility(R.id.btn_redeem, View.VISIBLE);
 //        }
-        setTextViewText(R.id.txt_discount_rate, dealDTO.getDiscount() + "% off");
+        setTextViewText(R.id.txt_discount_rate, dealDTO.getDiscount() + " % " + getString(R.string.txt_off));
         if (Utils.isArabic(this)) {
             setTextViewText(R.id.txt_on_which, dealDTO.getName_ara());
             setTextViewText(R.id.txt_details, dealDTO.getDetail_ara());
@@ -422,7 +422,10 @@ public class BuyCouponActivity extends BaseActivity {
         setTextViewText(R.id.txt_review, dealDTO.getReview() + "");
         setTextViewText(R.id.txt_end_date_val, dealDTO.getEnd_date());
         setTextViewText(R.id.txt_redeemed_val, dealDTO.getRedeemed() + "");
-        setTextViewText(R.id.txt_distance_val, dealDTO.getDistance());
+        if (Utils.isMiles(this))
+            setTextViewText(R.id.txt_distance_val, Utils.convertKMToMiles(dealDTO.getDistance()));
+        else
+            setTextViewText(R.id.txt_distance_val, dealDTO.getDistance());
         setTextViewText(R.id.txt_redeem_option, dealDTO.getRedeem_option());
 
         if (dealDTO.getDeal_code() != null && !dealDTO.getDeal_code().equalsIgnoreCase("")) {

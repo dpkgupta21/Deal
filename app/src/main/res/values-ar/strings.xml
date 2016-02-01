@@ -148,10 +148,11 @@
     <string name="txt_later_to_sooner">فلاحقاً</string>
     <string name="nearby_screen_title">قعروض قريبة</string>
 
+
+        <string name="txt_off">بعيدا</string>
     <!--
         <string name="txt_selcted_category">اغذية و مأكولات</string>
         <string name="menu_filter">فلتر</string>
-        <string name="txt_off">35٪ أقل</string>
         <string name="txt_on_off">على فانتا الكبرياء</string>
         <string name="txt_distance_val">1.5 كم</string>
         <string name="txt_filter_food_and_dining_menu">الغذاء والطعام</string>
