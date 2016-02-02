@@ -82,6 +82,7 @@ public class WalletAdapter extends RecyclerView
 //            });
 
 
+
             Log.i(LOG_TAG, "Adding Listener");
             ivThumnail.setOnClickListener(this);
             ivLogo.setOnClickListener(this);

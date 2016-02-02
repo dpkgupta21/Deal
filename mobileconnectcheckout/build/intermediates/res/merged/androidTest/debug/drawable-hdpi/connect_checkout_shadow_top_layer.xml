@@ -10,4 +10,4 @@
         <nine-patch android:src="@drawable/connect_checkout_shadow_top" android:gravity="top" />
     </item>
 
-</layer-list><!-- From: file:/D:/Android/DealApp_29_Jan/mobileconnectcheckout/src/main/res/drawable-hdpi/connect_checkout_shadow_top_layer.xml --><!-- From: file:/D:/Android/DealApp_29_Jan/mobileconnectcheckout/build/intermediates/bundles/debug/res/drawable-hdpi/connect_checkout_shadow_top_layer.xml -->
+</layer-list><!-- From: file:/Users/DeepakGupta/Workspace1/DealApp_28_Jan/mobileconnectcheckout/src/main/res/drawable-hdpi/connect_checkout_shadow_top_layer.xml --><!-- From: file:/Users/DeepakGupta/Workspace1/DealApp_28_Jan/mobileconnectcheckout/build/intermediates/bundles/debug/res/drawable-hdpi/connect_checkout_shadow_top_layer.xml -->

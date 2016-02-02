@@ -140,7 +140,7 @@ public class SignInFragment extends BaseFragment {
 
                 String username = session.getUserName();
                 //Long userid = session.getUserId();
-                doSocialLogin("twitter", username, session.getId() + "");
+                doSocialLogin("twitter", username, session.getId() + "", username);
                 //getEmailidFromTwitter();
 
             }
@@ -271,7 +271,8 @@ public class SignInFragment extends BaseFragment {
                                     System.out.println("Success");
                                     //String jsonresult = String.valueOf(json);
                                     try {
-                                        doSocialLogin("facebook", json.getString("email"), json.getString("id"));
+                                        doSocialLogin("facebook", json.getString("email"),
+                                                json.getString("id"), json.getString("name"));
                                     } catch (Exception e) {
                                         e.printStackTrace();
 //                                        Utils.sendEmail(getActivity(), "Error", e.getMessage());
@@ -388,7 +389,7 @@ public class SignInFragment extends BaseFragment {
         }
     }
 
-    public void doSocialLogin(String socialType, String username, String socialId) {
+    public void doSocialLogin(String socialType, String username, String socialId, String name) {
         Utils.hideKeyboard(getActivity());
 
         if (Utils.isOnline(getActivity())) {
@@ -396,6 +397,7 @@ public class SignInFragment extends BaseFragment {
 
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.DO_SOCIAL_LOGIN);
+            params.put("name", name);
             params.put("email", username);
             params.put("social_id", socialId);
             params.put("device", "android");

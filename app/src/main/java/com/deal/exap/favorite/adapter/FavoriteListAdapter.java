@@ -52,6 +52,7 @@ public class FavoriteListAdapter extends RecyclerView
 
         @Override
         public void onClick(View v) {
+
             myClickListener.onItemClick(getAdapterPosition(), v);
         }
 

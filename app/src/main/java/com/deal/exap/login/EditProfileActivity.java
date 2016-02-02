@@ -97,12 +97,23 @@ public class EditProfileActivity extends BaseActivity {
         setClick(R.id.et_sex);
         setClick(R.id.txt_image_change);
         setClick(R.id.btn_edit_profile);
-        setTextViewText(R.id.txt_name, userDTO.getName());
-        setTextViewText(R.id.et_age, userDTO.getDob());
-        if (userDTO.getGender().equalsIgnoreCase("M"))
-            setTextViewText(R.id.et_sex, "Male");
+        if (userDTO.getName() != null && !userDTO.getName().equalsIgnoreCase(""))
+            setTextViewText(R.id.txt_name, userDTO.getName());
         else
-            setTextViewText(R.id.et_sex, "Female");
+            setTextViewText(R.id.txt_name, "");
+
+        if (userDTO.getDob() != null && !userDTO.getDob().equalsIgnoreCase(""))
+            setTextViewText(R.id.et_age, userDTO.getDob());
+        else
+            setTextViewText(R.id.et_age, "");
+        if (userDTO.getGender() != null && !userDTO.getGender().equalsIgnoreCase("")) {
+            if (userDTO.getGender().equalsIgnoreCase("M"))
+                setTextViewText(R.id.et_sex, "Male");
+            else
+                setTextViewText(R.id.et_sex, "Female");
+        } else {
+            setTextViewText(R.id.et_sex, "");
+        }
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
                 .cacheOnDisk(true)

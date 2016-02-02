@@ -1,6 +1,7 @@
 package com.deal.exap.nearby.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.model.DealDTO;
+import com.deal.exap.payment.BuyCouponActivity;
 import com.deal.exap.utility.Utils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -33,6 +35,7 @@ public class NearByListAdapter extends RecyclerView
     private static Context context;
     private DisplayImageOptions options;
     private DisplayImageOptions options1;
+    private static boolean pressedTwoTime = false;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder
             implements View
@@ -75,8 +78,11 @@ public class NearByListAdapter extends RecyclerView
             btnBuy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+
                     llBuy.setVisibility(View.VISIBLE);
                     btnBuy.setVisibility(View.GONE);
+
                 }
             });
 
@@ -84,8 +90,13 @@ public class NearByListAdapter extends RecyclerView
             llBuy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    btnBuy.setVisibility(View.VISIBLE);
-                    llBuy.setVisibility(View.GONE);
+                    //if (pressedTwoTime) {
+                    myClickListener.onItemClick(getAdapterPosition(), view);
+                    //}
+//                    else {
+//                        btnBuy.setVisibility(View.VISIBLE);
+//                        llBuy.setVisibility(View.GONE);
+//                    }
                 }
             });
 

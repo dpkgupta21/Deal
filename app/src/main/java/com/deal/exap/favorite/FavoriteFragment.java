@@ -44,12 +44,10 @@ import java.util.Map;
 
 public class FavoriteFragment extends Fragment {
 
-
     private RecyclerView mRecyclerView;
     //private RecyclerView.Adapter mAdapter;
     //private RecyclerView.LayoutManager mLayoutManager;
     private View view;
-
     private List<CategoryDTO> favoriteList;
     private Dao<CategoryDTO, String> favoriteDao;
     private SwipeRefreshLayout mSwipeRefreshLayout;

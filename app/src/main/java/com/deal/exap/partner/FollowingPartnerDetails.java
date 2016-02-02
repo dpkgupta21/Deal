@@ -211,7 +211,11 @@ public class FollowingPartnerDetails extends BaseActivity {
                             i.putExtra("id", partnerDTO.getDeals().get(position).getId());
                             startActivity(i);
                             break;
-
+                        case R.id.ll_buy:
+                            i = new Intent(FollowingPartnerDetails.this, BuyCouponActivity.class);
+                            i.putExtra("id", partnerDTO.getDeals().get(position).getId());
+                            startActivity(i);
+                            break;
 
                     }
 

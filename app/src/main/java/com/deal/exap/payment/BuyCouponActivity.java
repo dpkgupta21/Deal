@@ -87,11 +87,9 @@ public class BuyCouponActivity extends BaseActivity {
     private static final String PROFILETOKEN = "5644a34583fc49da87892843aa8fb27b";
     private double transactionPrice = 0.0;
 
-    private List<String> imageList;
+    private ArrayList<String> imageList;
 
-    private static ViewPager mPager;
-    private static int currentPage = 0;
-    private static int NUM_PAGES = 0;
+
     //private ProgressBar progressBar;
 
     /**
@@ -159,7 +157,7 @@ public class BuyCouponActivity extends BaseActivity {
         String id = getIntent().getStringExtra("id");
 
         imageList = new ArrayList<>();
-        mPager = (ViewPager) findViewById(R.id.pager);
+
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
                 .cacheOnDisk(true)
@@ -179,7 +177,7 @@ public class BuyCouponActivity extends BaseActivity {
 
         setClick(R.id.txt_terms_conditions);
         setClick(R.id.txt_customer_reviews);
-
+        setClick(R.id.thumbnail);
 
         setClick(R.id.img_title);
 
@@ -211,7 +209,7 @@ public class BuyCouponActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.thumbnail:
                 i = new Intent(this, ImageActivity.class);
-                i.putExtra("image", dealDTO.getDeal_image());
+                i.putExtra("images",imageList);
                 startActivity(i);
                 break;
 //            case R.id.iv_chat:
@@ -446,6 +444,11 @@ public class BuyCouponActivity extends BaseActivity {
         ImageView partner = (ImageView) findViewById(R.id.img_title);
         ImageLoader.getInstance().displayImage(dealDTO.getPartner_logo(), partner,
                 options);
+
+        ImageView thumbnail =(ImageView)findViewById(R.id.thumbnail);
+        ImageLoader.getInstance().displayImage(dealDTO.getDeal_image(), thumbnail,
+                options);
+
         // Here we create a deal image url list so we can show image slider
         if (dealDTO.getDeal_image() != null && !dealDTO.getDeal_image().equalsIgnoreCase("")) {
             imageList.add(dealDTO.getDeal_image());
@@ -457,59 +460,7 @@ public class BuyCouponActivity extends BaseActivity {
         }
 
 
-        mPager.setAdapter(new SlidingImageAdapter(BuyCouponActivity.this, imageList));
 
-
-        CirclePageIndicator indicator = (CirclePageIndicator)
-                findViewById(R.id.indicator);
-
-        indicator.setViewPager(mPager);
-
-        final float density = getResources().getDisplayMetrics().density;
-
-//Set circle indicator radius
-        indicator.setRadius(5 * density);
-
-        NUM_PAGES = imageList.size();
-
-        // Auto start of viewpager
-        final Handler handler = new Handler();
-        final Runnable Update = new Runnable() {
-            public void run() {
-                if (currentPage == NUM_PAGES) {
-                    currentPage = 0;
-                }
-                mPager.setCurrentItem(currentPage, true);
-                currentPage++;
-            }
-        };
-        Timer swipeTimer = new Timer();
-        swipeTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(Update);
-            }
-        }, 3000, 3000);
-
-        // Pager listener over indicator
-        indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
-            @Override
-            public void onPageSelected(int position) {
-                currentPage = position;
-
-            }
-
-            @Override
-            public void onPageScrolled(int pos, float arg1, int arg2) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int pos) {
-
-            }
-        });
 
 //        ImageLoader.getInstance().displayImage(dealImageList.get(0), imgThumnail,
 //                options);

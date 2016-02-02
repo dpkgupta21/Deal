@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/Android/DealApp_29_Jan/mobileconnectcheckout/build/intermediates/bundles/debug/res/values-de/values-de.xml -->
+    <!-- From: file:/Users/DeepakGupta/Workspace1/DealApp_28_Jan/mobileconnectcheckout/build/intermediates/bundles/debug/res/values-de/values-de.xml -->
     <eat-comment/>
     <string name="connect_checkout_layout_accessibility_cancel_checkout">Vorgang abbrechen</string>
     <string name="connect_checkout_layout_accessibility_list_disclosure">Bezahlen mit</string>

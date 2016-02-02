@@ -337,7 +337,11 @@ public class NearByFragment extends BaseFragment {
                         i.putExtra("partnerId", dealList.get(position).getPartner_id());
                         startActivity(i);
                         break;
-
+                    case R.id.ll_buy:
+                        i = new Intent(getActivity(), BuyCouponActivity.class);
+                        i.putExtra("id", dealList.get(position).getId());
+                        startActivity(i);
+                        break;
 
                 }
 

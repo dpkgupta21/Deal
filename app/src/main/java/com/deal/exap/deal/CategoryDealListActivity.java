@@ -3,9 +3,9 @@ package com.deal.exap.deal;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.TextView;
 
@@ -62,8 +62,6 @@ public class CategoryDealListActivity extends BaseActivity {
             setHeader(categoryDTO.getName());
         setLeftClick();
         setHeaderNormal();
-
-
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_nearby);
@@ -163,6 +161,12 @@ public class CategoryDealListActivity extends BaseActivity {
                         i = new Intent(CategoryDealListActivity.this, FollowingPartnerDetails.class);
                         i.putExtra("partnerId", dealList.get(position).getPartner_id());
                         startActivity(i);
+                        break;
+                    case R.id.ll_buy:
+                        i = new Intent(CategoryDealListActivity.this, BuyCouponActivity.class);
+                        i.putExtra("id", dealList.get(position).getId());
+                        startActivity(i);
+                        break;
 
                 }
 

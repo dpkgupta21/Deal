@@ -39,4 +39,4 @@
         android:textAppearance="@style/ConnectCheckout.Text.ListItem" >
     </TextView>
 
-</RelativeLayout><!-- From: file:/D:/Android/DealApp_29_Jan/mobileconnectcheckout/src/main/res/layout/connect_checkout_choose_payment_item.xml --><!-- From: file:/D:/Android/DealApp_29_Jan/mobileconnectcheckout/build/intermediates/bundles/debug/res/layout/connect_checkout_choose_payment_item.xml -->
+</RelativeLayout><!-- From: file:/Users/DeepakGupta/Workspace1/DealApp_28_Jan/mobileconnectcheckout/src/main/res/layout/connect_checkout_choose_payment_item.xml --><!-- From: file:/Users/DeepakGupta/Workspace1/DealApp_28_Jan/mobileconnectcheckout/build/intermediates/bundles/debug/res/layout/connect_checkout_choose_payment_item.xml -->

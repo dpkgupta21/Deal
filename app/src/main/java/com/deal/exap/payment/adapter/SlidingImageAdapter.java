@@ -66,14 +66,14 @@ public class SlidingImageAdapter extends PagerAdapter {
         final ImageView imageView = (ImageView) imageLayout
                 .findViewById(R.id.image);
 
-        imageLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(context, ImageActivity.class);
-                i.putExtra("image", imageList.get(position));
-                context.startActivity(i);
-            }
-        });
+//        imageLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(context, ImageActivity.class);
+//                i.putExtra("image", imageList.get(position));
+//                context.startActivity(i);
+//            }
+//        });
 
         ImageLoader.getInstance().displayImage(imageList.get(position), imageView,
                 options);
