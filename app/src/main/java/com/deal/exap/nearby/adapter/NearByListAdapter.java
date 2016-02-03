@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.deal.exap.R;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.payment.BuyCouponActivity;
+import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -199,8 +201,12 @@ public class NearByListAdapter extends RecyclerView
         holder.tvReview.setText("(" + mDataset.get(position).getReview() + ")");
         holder.ratingBar.setRating(mDataset.get(position).getRating());
 
-        holder.txt_final_price.setText(mDataset.get(position).getFinal_price());
-        holder.txt_visible_price.setText(mDataset.get(position).getVisible_price());
+        holder.txt_final_price.setText(mDataset.get(position).getFinal_price() + " " + (DealPreferences.getAPP_LANG(context).
+                equalsIgnoreCase(Constant.LANG_ENGLISH_CODE) ? DealPreferences.getCurrencyEng(context) :
+                DealPreferences.getCurrencyAra(context)));
+        holder.txt_visible_price.setText(mDataset.get(position).getVisible_price()+ " " + (DealPreferences.getAPP_LANG(context).
+                equalsIgnoreCase(Constant.LANG_ENGLISH_CODE) ? DealPreferences.getCurrencyEng(context) :
+                DealPreferences.getCurrencyAra(context)));
         holder.txt_visible_price.setPaintFlags(holder.txt_visible_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     }
 

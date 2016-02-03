@@ -19,9 +19,37 @@ public class DealPreferences {
     public static final String DISTANCE_UNIT = "DISTANCE_UNIT";
     public static final String PUSH_REGISTRATION_ID = "PUSH_REGISTRATION_ID";
     public static final String IS_SHOW_SURVEY_AFTER_LOGIN = "IS_SHOW_SURVEY_AFTER_LOGIN";
+    public static final String CURRENCY_ENG = "CURRENCY_ENG";
+    public static final String CURRENCY_ARA = "CURRENCY_ARA";
+
     // for payment info
     public static final String ACCOUNTS = "ACCOUNTS";
 
+    public static void setCurrencyEng(Context context, String userId) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(CURRENCY_ENG, userId);
+        editor.apply();
+    }
+
+    public static String getCurrencyEng(Context context) {
+        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(CURRENCY_ENG,
+                "SAR");
+    }
+
+    public static void setCurrencyAra(Context context, String userId) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(CURRENCY_ARA, userId);
+        editor.apply();
+    }
+
+    public static String getCurrencyAra(Context context) {
+        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(CURRENCY_ARA,
+                "ر");
+    }
 
     public static void setIsShowSurveyAfterLogin(Context context, Boolean isShowSurveyAfterLogin) {
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,

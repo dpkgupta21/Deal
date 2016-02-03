@@ -69,22 +69,30 @@
                             android:paddingLeft="5dp"
                             android:paddingTop="3dp">
 
-                            <com.deal.exap.customviews.MyTextViewRegCustom
-                                android:id="@+id/txt_discount_rate"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="35% off"
-                                android:textColor="@color/white"
-                                android:textSize="12sp" />
+                                android:orientation="vertical"
+                                android:paddingLeft="10dp">
 
-                            <com.deal.exap.customviews.MyTextViewLightCustom
-                                android:id="@+id/txt_on_which"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/on_fanta_pride"
-                                android:textColor="@color/white"
-                                android:textSize="10sp" />
+                                <com.deal.exap.customviews.MyTextViewRegCustom
+                                    android:id="@+id/txt_discount_rate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="35% off"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp" />
 
+                                <com.deal.exap.customviews.MyTextViewLightCustom
+                                    android:id="@+id/txt_on_which"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/on_fanta_pride"
+                                    android:textColor="@color/white"
+                                    android:textSize="10sp" />
+
+
+                            </LinearLayout>
 
                             <com.deal.exap.customviews.MyTextViewLightCustom
                                 android:id="@+id/txt_address"

@@ -5,9 +5,6 @@ public class Constant {
     public static final String APP_NAME = "Exap";
 
     public static final String USER_INFO = "user_info";
-
-    public static final String PREF_EMAIL_ID = "email_id";
-    public static final String PREF_PASSWORD = "password";
     public static final String LANG_ENGLISH_CODE = "eng";
     public static final String LANG_ARABIC_CODE = "ara";
     public static final String DISTANCE_UNIT_KM= "KM";
@@ -28,9 +25,13 @@ public class Constant {
 
     public static String WRONG_NUMBER_ERROR="Please enter valid number";
 
-    public static String USER_ID = "user_id";
+
     public static String TAG = "Exam";
 
+    // For menu count handler in android
+    public static int MENU_COUNT_HANDLER = 1004;
+
+    // Webservice constants
     public static String SKIP_REGISTRATION ="skipregister";
     public static String DO_LOGIN = "login";
     public static String DO_SIGNUP = "register";
@@ -60,7 +61,6 @@ public class Constant {
     public static String GET_NOTIFICATION ="notifications";
     public static String LOAD_MESSAGE="loadMessage";
     public static String GET_COUNTRY ="countries";
-    //public static String SAVE_CARD_DETAIL ="cardsave";
     public static String GET_SURVEY_FORM ="getform";
 
 

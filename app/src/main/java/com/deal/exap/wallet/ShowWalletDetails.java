@@ -7,8 +7,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -19,11 +17,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.customerfeedback.CustomerFeedBackActivity;
-import com.deal.exap.misc.ImageActivity;
-import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.login.BaseActivity;
+import com.deal.exap.misc.ImageActivity;
 import com.deal.exap.model.DealDTO;
-import com.deal.exap.payment.adapter.SlidingImageAdapter;
+import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.termscondition.TermsConditionActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
@@ -38,16 +35,12 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
-import com.viewpagerindicator.CirclePageIndicator;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class ShowWalletDetails extends BaseActivity {
 
@@ -232,18 +225,22 @@ public class ShowWalletDetails extends BaseActivity {
         setTextViewText(R.id.txt_end_date_val, dealDTO.getEnd_date());
         setTextViewText(R.id.txt_redeemed_val, dealDTO.getRedeemed() + "");
         if (Utils.isMiles(this))
-            setTextViewText(R.id.txt_distance_val, Utils.convertKMToMiles(dealDTO.getDistance()));
+            setTextViewText(R.id.txt_distance_val, Utils.convertKMToMiles(dealDTO.getDistance()) + " " +
+                    DealPreferences.getDistanceUnit(ShowWalletDetails.this));
         else
-            setTextViewText(R.id.txt_distance_val, dealDTO.getDistance());
+            setTextViewText(R.id.txt_distance_val, dealDTO.getDistance() + " " +
+                    DealPreferences.getDistanceUnit(ShowWalletDetails.this));
         setTextViewText(R.id.txt_redeem_option, dealDTO.getRedeem_option());
         setTextViewText(R.id.txt_discount, dealDTO.getDiscount() + "%");
-        setTextViewText(R.id.txt_store_price, dealDTO.getFinal_price());
+        setTextViewText(R.id.txt_store_price, dealDTO.getFinal_price() + " " + (DealPreferences.getAPP_LANG(ShowWalletDetails.this).
+                equalsIgnoreCase(Constant.LANG_ENGLISH_CODE) ? DealPreferences.getCurrencyEng(ShowWalletDetails.this) :
+                DealPreferences.getCurrencyAra(ShowWalletDetails.this)));
 
         ImageView partner = (ImageView) findViewById(R.id.img_title);
         ImageLoader.getInstance().displayImage(dealDTO.getPartner_logo(), partner,
                 options);
 
-        ImageView thumbnail =(ImageView)findViewById(R.id.thumbnail);
+        ImageView thumbnail = (ImageView) findViewById(R.id.thumbnail);
         ImageLoader.getInstance().displayImage(dealDTO.getDeal_image(), thumbnail,
                 options);
 
@@ -256,7 +253,6 @@ public class ShowWalletDetails extends BaseActivity {
                 imageList.add(dealDTO.getDeal_images().get(i));
             }
         }
-
 
 
     }
@@ -275,7 +271,7 @@ public class ShowWalletDetails extends BaseActivity {
 
         FloatingActionButton.LayoutParams params = new FloatingActionButton.LayoutParams(50, 50);
         final FloatingActionButton fabButton;
-        params.setMargins(30, 200, 0, 0);
+        params.setMargins(0, 180, 20, 0);
         fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)
                 .setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
                 .setLayoutParams(params)

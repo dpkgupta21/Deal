@@ -67,25 +67,33 @@
                             android:layout_weight=".8"
                             android:gravity="center_vertical"
                             android:orientation="vertical"
-                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
                             android:paddingTop="3dp">
 
-                            <com.deal.exap.customviews.MyTextViewRegCustom
-                                android:id="@+id/txt_discount_rate"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="35% off"
-                                android:textColor="@color/white"
-                                android:textSize="12sp" />
+                                android:orientation="vertical"
+                                android:paddingRight="10dp">
 
-                            <com.deal.exap.customviews.MyTextViewLightCustom
-                                android:id="@+id/txt_on_which"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/on_fanta_pride"
-                                android:textColor="@color/white"
-                                android:textSize="10sp" />
+                                <com.deal.exap.customviews.MyTextViewRegCustom
+                                    android:id="@+id/txt_discount_rate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="35% off"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp" />
 
+                                <com.deal.exap.customviews.MyTextViewLightCustom
+                                    android:id="@+id/txt_on_which"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/on_fanta_pride"
+                                    android:textColor="@color/white"
+                                    android:textSize="10sp" />
+
+
+                            </LinearLayout>
 
                             <com.deal.exap.customviews.MyTextViewLightCustom
                                 android:id="@+id/txt_address"
@@ -113,11 +121,11 @@
                         <com.deal.exap.customviews.MyButtonViewRegCustom
                             android:id="@+id/btn_buy"
                             style="@style/btn_style_small"
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
                             android:layout_gravity="left"
                             android:background="@drawable/btn_green_bcg_shape"
                             android:text="@string/txt_buy"
-                            android:layout_width="70dp"
-                            android:layout_height="40dp"
                             android:textColor="@color/white" />
 
                         <LinearLayout
@@ -237,7 +245,7 @@
                             android:gravity="center_horizontal"
                             android:text="@string/txt_distance"
                             android:textSize="10sp" />
-                   
+
                         <com.deal.exap.customviews.MyTextViewRegCustom
                             android:id="@+id/txt_distance_val"
                             android:layout_width="match_parent"
@@ -327,8 +335,6 @@
                 </LinearLayout>
 
 
-
-
                 <LinearLayout
                     android:id="@+id/ll_deal_code"
                     android:layout_width="match_parent"
@@ -366,9 +372,6 @@
                 </LinearLayout>
 
 
-
-
-
                 <!--<com.deal.exap.customviews.MyTextViewSemiCustom-->
                 <!--style="@style/tv_normal"-->
                 <!--android:layout_gravity="center_horizontal"-->
@@ -378,9 +381,6 @@
                 <!--android:gravity="center_horizontal"-->
                 <!--android:text="@string/txt_time_left"-->
                 <!--android:textColor="@color/btn_green_color" />-->
-
-
-
 
 
                 <LinearLayout

@@ -4,49 +4,49 @@ import java.io.Serializable;
 
 public class MenuDTO  implements Serializable{
 
-    private String alert;
-    private String nearby;
-    private String wallet;
-    private String favorite;
-    private String following;
+    private int alert;
+    private int nearby;
+    private int wallet;
+    private int favorite;
+    private int following;
 
-    public String getAlert() {
+    public int getAlert() {
         return alert;
     }
 
-    public void setAlert(String alert) {
+    public void setAlert(int alert) {
         this.alert = alert;
     }
 
-    public String getNearby() {
+    public int getNearby() {
         return nearby;
     }
 
-    public void setNearby(String nearby) {
+    public void setNearby(int nearby) {
         this.nearby = nearby;
     }
 
-    public String getWallet() {
+    public int getWallet() {
         return wallet;
     }
 
-    public void setWallet(String wallet) {
+    public void setWallet(int wallet) {
         this.wallet = wallet;
     }
 
-    public String getFavorite() {
+    public int getFavorite() {
         return favorite;
     }
 
-    public void setFavorite(String favorite) {
+    public void setFavorite(int favorite) {
         this.favorite = favorite;
     }
 
-    public String getFollowing() {
+    public int getFollowing() {
         return following;
     }
 
-    public void setFollowing(String following) {
+    public void setFollowing(int following) {
         this.following = following;
     }
 }

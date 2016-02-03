@@ -83,8 +83,8 @@ public class BuyCouponActivity extends BaseActivity {
     //private Dialog dialog;
     private PWProviderBinder _binder;
 
-    private static final String APPLICATIONIDENTIFIER = "payworks.swipeandbuy";
-    private static final String PROFILETOKEN = "5644a34583fc49da87892843aa8fb27b";
+    private static final String APPLICATIONIDENTIFIER = "gate2play.WorldofSS.mcommerce.test";// "payworks.swipeandbuy";
+    private static final String PROFILETOKEN = "930e6e9744154563afc4718ab0352b9a";
     private double transactionPrice = 0.0;
 
     private ArrayList<String> imageList;
@@ -209,7 +209,7 @@ public class BuyCouponActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.thumbnail:
                 i = new Intent(this, ImageActivity.class);
-                i.putExtra("images",imageList);
+                i.putExtra("images", imageList);
                 startActivity(i);
                 break;
 //            case R.id.iv_chat:
@@ -421,9 +421,11 @@ public class BuyCouponActivity extends BaseActivity {
         setTextViewText(R.id.txt_end_date_val, dealDTO.getEnd_date());
         setTextViewText(R.id.txt_redeemed_val, dealDTO.getRedeemed() + "");
         if (Utils.isMiles(this))
-            setTextViewText(R.id.txt_distance_val, Utils.convertKMToMiles(dealDTO.getDistance()));
+            setTextViewText(R.id.txt_distance_val, Utils.convertKMToMiles(dealDTO.getDistance()) + " " +
+                    DealPreferences.getDistanceUnit(BuyCouponActivity.this));
         else
-            setTextViewText(R.id.txt_distance_val, dealDTO.getDistance());
+            setTextViewText(R.id.txt_distance_val, dealDTO.getDistance() + " " +
+                    DealPreferences.getDistanceUnit(BuyCouponActivity.this));
         setTextViewText(R.id.txt_redeem_option, dealDTO.getRedeem_option());
 
         if (dealDTO.getDeal_code() != null && !dealDTO.getDeal_code().equalsIgnoreCase("")) {
@@ -435,7 +437,9 @@ public class BuyCouponActivity extends BaseActivity {
             setViewVisibility(R.id.ll_deal_price, View.VISIBLE);
             setViewVisibility(R.id.ll_deal_code, View.GONE);
             setTextViewText(R.id.txt_discount, dealDTO.getDiscount() + "%");
-            setTextViewText(R.id.txt_store_price, dealDTO.getFinal_price());
+            setTextViewText(R.id.txt_store_price, dealDTO.getFinal_price() + " " + (DealPreferences.getAPP_LANG(BuyCouponActivity.this).
+                    equalsIgnoreCase(Constant.LANG_ENGLISH_CODE) ? DealPreferences.getCurrencyEng(BuyCouponActivity.this) :
+                    DealPreferences.getCurrencyAra(BuyCouponActivity.this)));
 
         }
 
@@ -445,7 +449,7 @@ public class BuyCouponActivity extends BaseActivity {
         ImageLoader.getInstance().displayImage(dealDTO.getPartner_logo(), partner,
                 options);
 
-        ImageView thumbnail =(ImageView)findViewById(R.id.thumbnail);
+        ImageView thumbnail = (ImageView) findViewById(R.id.thumbnail);
         ImageLoader.getInstance().displayImage(dealDTO.getDeal_image(), thumbnail,
                 options);
 
@@ -458,8 +462,6 @@ public class BuyCouponActivity extends BaseActivity {
                 imageList.add(dealDTO.getDeal_images().get(i));
             }
         }
-
-
 
 
 //        ImageLoader.getInstance().displayImage(dealImageList.get(0), imgThumnail,
@@ -481,7 +483,7 @@ public class BuyCouponActivity extends BaseActivity {
 
             // configure amount, currency, and subject of the transaction
             genericParams = _binder.getPaymentParamsFactory().createGenericPaymentParams(transactionPrice,
-                    PWCurrency.EURO,
+                    PWCurrency.SAUDI_ARABIA_RIYAL,
                     "test subject");
             // configure payment params with customer data
 //                genericParams.setCustomerGivenName("Aliza");
@@ -763,7 +765,7 @@ public class BuyCouponActivity extends BaseActivity {
 //                    .build();
 //        } else {
         params = new FloatingActionButton.LayoutParams(50, 50);
-        params.setMargins(30, 180, 0, 0);
+        params.setMargins(0, 180, 20, 0);
         fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)
                 .setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
                 .setLayoutParams(params)

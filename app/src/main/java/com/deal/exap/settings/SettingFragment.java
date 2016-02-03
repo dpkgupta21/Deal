@@ -63,10 +63,10 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
     private MyTextViewReg12 btn_select_km;
     private MyTextViewReg12 btn_select_miles;
 
-    private ArrayList<String> months;
-    private ArrayList<String> years;
-    private TextView txtMonth;
-    private TextView txtYear;
+//    private ArrayList<String> months;
+//    private ArrayList<String> years;
+//    private TextView txtMonth;
+//    private TextView txtYear;
     private Switch switch_location;
     private Switch switch_push;
     private Switch switch_message;
@@ -103,8 +103,8 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
     }
 
     private void init() {
-        months = Utils.getMonths();
-        years = Utils.getYears();
+//        months = Utils.getMonths();
+//        years = Utils.getYears();
         setClick(R.id.tv_editprofile, view);
         userDTO = DealPreferences.getObjectFromPref(getActivity(), Constant.USER_INFO);
     }
@@ -113,7 +113,7 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //setTitleFragment(getString(R.string.setting_screen_title));
-        ((MyTextViewReg16) view.findViewById(R.id.txt_payment_details)).setOnClickListener(paymentClick);
+
         btn_select_english = (MyButtonViewSemi) view.findViewById(R.id.btn_select_english);
         btn_select_arabic = (MyButtonViewSemi) view.findViewById(R.id.btn_select_arabic);
         btn_select_km = (MyTextViewReg12) view.findViewById(R.id.btn_select_km);
@@ -238,42 +238,6 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
     };
 
 
-    View.OnClickListener paymentClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            // CustomAlertDialog.getCustomAlert(SignUp.this).singleButtonAlertDialog(getString(R.string.uname_pwd_not_match), "", "");
-
-            final Dialog dialog = new Dialog(getActivity(), R.style.Theme_Dialog);
-            // Include dialog.xml file
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_payment);
-            getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-            txtMonth = (TextView) dialog.findViewById(R.id.txt_month);
-            txtYear = (TextView) dialog.findViewById(R.id.txt_year);
-
-//            txtMonth.setText(DealPreferences.getCardMonth(getActivity()) != null ?
-//                    DealPreferences.getCardMonth(getActivity()) : months.get(0));
-//            txtYear.setText(DealPreferences.getCardYear(getActivity()) != null ?
-//                    DealPreferences.getCardYear(getActivity()) : years.get(0));
-
-            txtMonth.setOnClickListener(monthDialog);
-
-            txtYear.setOnClickListener(yearDialog);
-
-
-            ImageView ivClose = (ImageView) dialog.findViewById(R.id.iv_close);
-            ivClose.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                }
-            });
-            dialog.show();
-
-        }
-    };
 
 
     protected void setTitleFragment(String strTitle) {
@@ -320,65 +284,65 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
         }
     }
 
-
-    private View.OnClickListener monthDialog = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openMonthDialog();
-
-        }
-    };
-
-    private View.OnClickListener yearDialog = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openYearDialog();
-        }
-    };
-
-
-    public void openMonthDialog() {
-        final Dialog dialog = new Dialog(getActivity());
-        // Include dialog.xml file
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.layout_country_code);
-        getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        ListView listView = (ListView) dialog.findViewById(R.id.list);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_single_choice, months);
-        listView.setAdapter(adapter);
-        dialog.show();
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                txtMonth.setText(months.get(position));
-                dialog.dismiss();
-            }
-        });
-
-
-    }
-
-    public void openYearDialog() {
-        final Dialog dialog = new Dialog(getActivity());
-        // Include dialog.xml file
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.layout_country_code);
-        getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        ListView listView = (ListView) dialog.findViewById(R.id.list);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_single_choice, years);
-        listView.setAdapter(adapter);
-        dialog.show();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                txtYear.setText(years.get(position));
-                dialog.dismiss();
-            }
-        });
-
-
-    }
+//
+//    private View.OnClickListener monthDialog = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            openMonthDialog();
+//
+//        }
+//    };
+//
+//    private View.OnClickListener yearDialog = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            openYearDialog();
+//        }
+//    };
+//
+//
+//    public void openMonthDialog() {
+//        final Dialog dialog = new Dialog(getActivity());
+//        // Include dialog.xml file
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.setContentView(R.layout.layout_country_code);
+//        getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//        ListView listView = (ListView) dialog.findViewById(R.id.list);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_single_choice, months);
+//        listView.setAdapter(adapter);
+//        dialog.show();
+//
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                txtMonth.setText(months.get(position));
+//                dialog.dismiss();
+//            }
+//        });
+//
+//
+//    }
+//
+//    public void openYearDialog() {
+//        final Dialog dialog = new Dialog(getActivity());
+//        // Include dialog.xml file
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.setContentView(R.layout.layout_country_code);
+//        getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//        ListView listView = (ListView) dialog.findViewById(R.id.list);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_single_choice, years);
+//        listView.setAdapter(adapter);
+//        dialog.show();
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                txtYear.setText(years.get(position));
+//                dialog.dismiss();
+//            }
+//        });
+//
+//
+//    }
 
 
     private void syncSetting(final String key, final String value) {
@@ -569,6 +533,8 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
                         if (dialog != null) {
                             dialog = null;
                         }
+                        DealPreferences.setCurrencyEng(getActivity(), countryList.get(position).getName());
+                        DealPreferences.setCurrencyAra(getActivity(), countryList.get(position).getName_ara());
 
                         syncSetting("country_id", countryList.get(position).getId());
                         currencyName = countryList.get(position).getName();

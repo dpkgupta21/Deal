@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MotionEvent;
@@ -25,6 +26,7 @@ import com.deal.exap.following.FollowingFragment;
 import com.deal.exap.gps.GPSTracker;
 import com.deal.exap.interest.InterestFragment;
 import com.deal.exap.login.BaseActivity;
+import com.deal.exap.menucount.MenuCountHandler;
 import com.deal.exap.model.MenuDTO;
 import com.deal.exap.nearby.NearByFragment;
 import com.deal.exap.settings.SettingFragment;
@@ -39,11 +41,13 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
 public class HomeActivity extends BaseActivity {
 
+    private static final String TAG = "HomeActivity";
     public ResideMenuSecond resideMenu;
     private Context mContext;
     private ResideMenuItem itemAlert, itemNearby, itemWallet, itemInterest, itemFavorite, itemFollowing, itemCategory, itemSetting;
@@ -53,6 +57,8 @@ public class HomeActivity extends BaseActivity {
     private boolean isFromLogin;
     private MenuDTO menuDTO;
     private boolean backPressedToExitOnce = false;
+    private final MenuHandler myHandler =
+            new MenuHandler(HomeActivity.this);
 
     /**
      * Called when the activity is first created.
@@ -85,21 +91,23 @@ public class HomeActivity extends BaseActivity {
 
         if (menuDTO != null) {
             // create menu items;
-            itemAlert = new ResideMenuItem(this, R.drawable.nav_bell_icon, getString(R.string.menu_alert) + " (" + menuDTO.getAlert() + ")");
-            itemNearby = new ResideMenuItem(this, R.drawable.nav_nearby_icon, getString(R.string.menu_near_by) + " (" + menuDTO.getNearby() + ")");
-            itemWallet = new ResideMenuItem(this, R.drawable.nav_wallet_icon, getString(R.string.menu_wallet) + " (" + menuDTO.getWallet() + ")");
+
+            itemAlert = new ResideMenuItem(this, R.drawable.nav_bell_icon, getString(R.string.menu_alert) + (menuDTO.getAlert() == 0 ? "" : " (" + menuDTO.getAlert() + ")"));
+
+            itemNearby = new ResideMenuItem(this, R.drawable.nav_nearby_icon, getString(R.string.menu_near_by) + (menuDTO.getNearby() == 0 ? "" : " (" + menuDTO.getNearby() + ")"));
+            itemWallet = new ResideMenuItem(this, R.drawable.nav_wallet_icon, getString(R.string.menu_wallet) + (menuDTO.getWallet() == 0 ? "" : " (" + menuDTO.getWallet() + ")"));
             itemInterest = new ResideMenuItem(this, R.drawable.nav_interest_icon, getString(R.string.menu_interest));
-            itemFavorite = new ResideMenuItem(this, R.drawable.nav_fav_icon, getString(R.string.menu_favorite) + " (" + menuDTO.getFavorite() + ")");
-            itemFollowing = new ResideMenuItem(this, R.drawable.nav_following_icon, getString(R.string.menu_following) + " (" + menuDTO.getFollowing() + ")");
+            itemFavorite = new ResideMenuItem(this, R.drawable.nav_fav_icon, getString(R.string.menu_favorite) + (menuDTO.getFavorite() == 0 ? "" : " (" + menuDTO.getFavorite() + ")"));
+            itemFollowing = new ResideMenuItem(this, R.drawable.nav_following_icon, getString(R.string.menu_following) + (menuDTO.getFollowing() == 0 ? "" : " (" + menuDTO.getFollowing() + ")"));
             itemCategory = new ResideMenuItem(this, R.drawable.nav_categories_icon, getString(R.string.menu_categories));
             itemSetting = new ResideMenuItem(this, R.drawable.nav_settings_icon, getString(R.string.menu_setting));
         } else {
-            itemAlert = new ResideMenuItem(this, R.drawable.nav_bell_icon, getString(R.string.menu_alert) + " (0)");
-            itemNearby = new ResideMenuItem(this, R.drawable.nav_nearby_icon, getString(R.string.menu_near_by) + " (0)");
-            itemWallet = new ResideMenuItem(this, R.drawable.nav_wallet_icon, getString(R.string.menu_wallet) + " (0)");
+            itemAlert = new ResideMenuItem(this, R.drawable.nav_bell_icon, getString(R.string.menu_alert));
+            itemNearby = new ResideMenuItem(this, R.drawable.nav_nearby_icon, getString(R.string.menu_near_by));
+            itemWallet = new ResideMenuItem(this, R.drawable.nav_wallet_icon, getString(R.string.menu_wallet));
             itemInterest = new ResideMenuItem(this, R.drawable.nav_interest_icon, getString(R.string.menu_interest));
-            itemFavorite = new ResideMenuItem(this, R.drawable.nav_fav_icon, getString(R.string.menu_favorite) + " (0)");
-            itemFollowing = new ResideMenuItem(this, R.drawable.nav_following_icon, getString(R.string.menu_following) + " (0)");
+            itemFavorite = new ResideMenuItem(this, R.drawable.nav_fav_icon, getString(R.string.menu_favorite));
+            itemFollowing = new ResideMenuItem(this, R.drawable.nav_following_icon, getString(R.string.menu_following));
             itemCategory = new ResideMenuItem(this, R.drawable.nav_categories_icon, getString(R.string.menu_categories));
             itemSetting = new ResideMenuItem(this, R.drawable.nav_settings_icon, getString(R.string.menu_setting));
         }
@@ -146,6 +154,9 @@ public class HomeActivity extends BaseActivity {
             changeFragment(new FollowingFragment());
         } else if (fragmentName.equalsIgnoreCase(getString(R.string.setting_screen_title))) {
             changeFragment(new SettingFragment());
+        } else if (fragmentName.equalsIgnoreCase(getString(R.string.alert_screen_title))) {
+            boolean isForInbox=getIntent().getBooleanExtra("isForInbox", false);
+            changeFragment(AlertFragment.newInstance(isForInbox));
         } else {
             changeFragment(new InterestFragment());
         }
@@ -172,7 +183,7 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        //Toast.makeText(getApplicationContext(), "i m in Touch"+ev.getAction(),Toast.LENGTH_LONG).show();
+
         return resideMenu.onInterceptTouchEvent(ev) || super.dispatchTouchEvent(ev);
     }
 
@@ -185,7 +196,7 @@ public class HomeActivity extends BaseActivity {
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
                 Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
             } else {
-                changeFragment(new AlertFragment());
+                changeFragment(AlertFragment.newInstance(false));
                 setHeader(getString(R.string.alert_screen_title));
             }
         } else if (view == itemNearby) {
@@ -262,6 +273,12 @@ public class HomeActivity extends BaseActivity {
     };
 
     private void changeFragment(Fragment targetFragment) {
+
+        Utils.ShowLog(TAG, "changeFragment");
+        // call menu count webservice in handler
+        new Thread(new MenuCountHandler(myHandler,
+                HomeActivity.this)).start();
+
         resideMenu.clearIgnoredViewList();
         getSupportFragmentManager()
                 .beginTransaction()
@@ -331,6 +348,36 @@ public class HomeActivity extends BaseActivity {
             ;
         }
     };
+
+
+    public static class MenuHandler extends Handler {
+
+        public final WeakReference<HomeActivity> mActivity;
+
+        MenuHandler(HomeActivity activity) {
+            mActivity = new WeakReference<HomeActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            Utils.ShowLog(TAG, "handleMessage in MenuHandler");
+            HomeActivity activity = mActivity.get();
+            activity.menuDTO = ((MenuDTO) msg.obj);
+            activity.changeMenuTitle();
+
+
+        }
+    }
+
+    private void changeMenuTitle() {
+        itemNearby.setTitle(getString(R.string.menu_near_by) + (menuDTO.getNearby() == 0 ? "" : " (" + menuDTO.getNearby() + ")"));
+        itemWallet.setTitle(getString(R.string.menu_wallet) + (menuDTO.getWallet() == 0 ? "" : " (" + menuDTO.getWallet() + ")"));
+        itemInterest.setTitle(getString(R.string.menu_interest));
+        itemFavorite.setTitle(getString(R.string.menu_favorite) + (menuDTO.getFavorite() == 0 ? "" : " (" + menuDTO.getFavorite() + ")"));
+        itemFollowing.setTitle(getString(R.string.menu_following) + (menuDTO.getFollowing() == 0 ? "" : " (" + menuDTO.getFollowing() + ")"));
+        itemCategory.setTitle(getString(R.string.menu_categories));
+        itemSetting.setTitle(getString(R.string.menu_setting));
+    }
 
     @Override
     public void onBackPressed() {

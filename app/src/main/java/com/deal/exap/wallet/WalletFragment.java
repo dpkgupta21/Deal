@@ -22,8 +22,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
-import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.model.DealDTO;
+import com.deal.exap.navigationdrawer.HomeActivity;
+import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
@@ -114,7 +115,10 @@ public class WalletFragment extends Fragment {
 
         switch (item.getItemId()) {
             case R.id.menu_notification:
-
+                Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
+                i.putExtra("fragmentName", getActivity().getString(R.string.alert_screen_title));
+                i.putExtra("isForInbox", true);
+                startActivity(i);
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -124,7 +128,7 @@ public class WalletFragment extends Fragment {
 
 
     public void getWalletList() {
-        if(Utils.isOnline(getActivity())){
+        if (Utils.isOnline(getActivity())) {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.GET_WALLET);
             params.put("lang", Utils.getSelectedLanguage(getActivity()));
@@ -132,7 +136,7 @@ public class WalletFragment extends Fragment {
                     getApplicationContext())));
             params.put("lng", String.valueOf(DealPreferences.getLongitude(getActivity().
                     getApplicationContext())));
-            params.put("user_id",Utils.getUserId(getActivity()));
+            params.put("user_id", Utils.getUserId(getActivity()));
 
             final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
@@ -141,7 +145,8 @@ public class WalletFragment extends Fragment {
                         public void onResponse(JSONObject response) {
                             try {
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<DealDTO>>(){}.getType();
+                                Type type = new TypeToken<ArrayList<DealDTO>>() {
+                                }.getType();
                                 walletValues = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
                                 setWalletValues();
                             } catch (Exception e) {
@@ -163,8 +168,7 @@ public class WalletFragment extends Fragment {
                     30000, 0,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             pdialog.show();
-        }
-        else{
+        } else {
             Utils.showNoNetworkDialog(getActivity());
         }
     }

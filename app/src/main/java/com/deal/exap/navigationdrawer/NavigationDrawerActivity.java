@@ -171,7 +171,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         switch (position) {
 
             case 0:
-                fragment = new AlertFragment();
+                fragment = AlertFragment.newInstance(false);
                 //title = getString(R.string.alert_screen_title);
                 break;
 

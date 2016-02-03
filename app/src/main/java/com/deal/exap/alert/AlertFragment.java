@@ -51,10 +51,15 @@ public class AlertFragment extends BaseFragment {
     private ArrayList<NotificationDTO> notificationList;
     private ArrayList<ConversionsDTO> messageList;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-//    public static AlertFragment newInstance() {
-//        AlertFragment fragment = new AlertFragment();
-//        return fragment;
-//    }
+
+    public static AlertFragment newInstance(boolean isForInbox) {
+        AlertFragment fragment = new AlertFragment();
+        Bundle args = new Bundle();
+        args.putBoolean("isForInbox", isForInbox);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
 
     public AlertFragment() {
         // Required empty public constructor
@@ -82,12 +87,20 @@ public class AlertFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         lvMessage = (ListView) view.findViewById(R.id.lv_messsage);
         lvNotification = (ListView) view.findViewById(R.id.lv_notification);
+        btnNotification = (Button) view.findViewById(R.id.btn_notification);
+        btnMessage = (Button) view.findViewById(R.id.btn_message);
 
-
-        lvNotification.setVisibility(View.VISIBLE);
-        lvMessage.setVisibility(View.GONE);
-
-        getNotificationList();
+        if (getArguments().getBoolean("isForInbox")) {
+            btnMessage.setSelected(true);
+            lvNotification.setVisibility(View.GONE);
+            lvMessage.setVisibility(View.VISIBLE);
+            getMessageList();
+        } else {
+            btnNotification.setSelected(true);
+            lvNotification.setVisibility(View.VISIBLE);
+            lvMessage.setVisibility(View.GONE);
+            getNotificationList();
+        }
 
 
         // Add pull to refresh functionality
@@ -96,9 +109,9 @@ public class AlertFragment extends BaseFragment {
 
             @Override
             public void onRefresh() {
-                if(btnNotification.isSelected()) {
+                if (btnNotification.isSelected()) {
                     getNotificationList();
-                }else{
+                } else {
                     getMessageList();
                 }
                 mSwipeRefreshLayout.setRefreshing(false);
@@ -111,9 +124,7 @@ public class AlertFragment extends BaseFragment {
     private void init() {
         setTouchNClick(R.id.btn_notification, view);
         setTouchNClick(R.id.btn_message, view);
-        btnNotification = (Button) view.findViewById(R.id.btn_notification);
-        btnNotification.setSelected(true);
-        btnMessage = (Button) view.findViewById(R.id.btn_message);
+
     }
 
     @Override

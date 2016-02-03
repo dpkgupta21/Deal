@@ -28,6 +28,7 @@ import com.deal.exap.databasemanager.DatabaseManager;
 import com.deal.exap.deal.CategoryDealListActivity;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.CategoryDTO;
+import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
@@ -121,7 +122,11 @@ public class CategoriesFragment extends Fragment {
 
         switch (item.getItemId()) {
             case R.id.menu_notification:
-
+                Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
+                i.putExtra("fragmentName", getActivity().getString(R.string.alert_screen_title));
+                i.putExtra("isForInbox",true);
+                startActivity(i);
+                getActivity().finish();
 
             default:
                 return super.onOptionsItemSelected(item);

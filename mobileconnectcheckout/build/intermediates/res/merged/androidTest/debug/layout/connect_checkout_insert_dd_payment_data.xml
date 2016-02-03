@@ -124,4 +124,4 @@
             android:text="@string/connect_checkout_layout_text_review_and_confirm" />
     </RelativeLayout>
 
-</ScrollView><!-- From: file:/Users/DeepakGupta/Workspace1/DealApp_28_Jan/mobileconnectcheckout/src/main/res/layout/connect_checkout_insert_dd_payment_data.xml --><!-- From: file:/Users/DeepakGupta/Workspace1/DealApp_28_Jan/mobileconnectcheckout/build/intermediates/bundles/debug/res/layout/connect_checkout_insert_dd_payment_data.xml -->
+</ScrollView><!-- From: file:/D:/Android/DealApp_2_Feb_2016/mobileconnectcheckout/src/main/res/layout/connect_checkout_insert_dd_payment_data.xml --><!-- From: file:/D:/Android/DealApp_2_Feb_2016/mobileconnectcheckout/build/intermediates/bundles/debug/res/layout/connect_checkout_insert_dd_payment_data.xml -->
