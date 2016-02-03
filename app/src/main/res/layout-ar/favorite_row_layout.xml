@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/transparent_10"
+            android:background="@drawable/coupon_item_bg_black"
             android:padding="10dp">
 
             <LinearLayout
@@ -55,8 +55,8 @@
                     android:id="@+id/txt_follower_number"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
                     android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
                     android:text=""
                     android:textColor="@color/white"
                     android:textSize="16sp" />
@@ -64,8 +64,8 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
                     android:src="@drawable/coupon" />
 
 
@@ -81,10 +81,10 @@
 
                 <ImageView
                     android:id="@+id/img_like"
-                    android:focusable="false"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
+                    android:focusable="false"
                     android:src="@drawable/heart_fill_icon" />
 
             </LinearLayout>

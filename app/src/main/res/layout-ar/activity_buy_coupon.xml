@@ -41,6 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:layout_gravity="bottom"
+                    android:background="@drawable/coupon_item_bg_black"
                     android:gravity="center_vertical"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp">
