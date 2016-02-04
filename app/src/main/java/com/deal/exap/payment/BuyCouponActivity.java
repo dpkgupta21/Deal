@@ -47,6 +47,7 @@ import com.mobile.connect.exception.PWProviderNotInitializedException;
 import com.mobile.connect.payment.PWAccount;
 import com.mobile.connect.payment.PWCurrency;
 import com.mobile.connect.payment.PWPaymentParams;
+import com.mobile.connect.provider.PWTransaction;
 import com.mobile.connect.service.PWConnectService;
 import com.mobile.connect.service.PWProviderBinder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -527,13 +528,16 @@ public class BuyCouponActivity extends BaseActivity {
         } else if (resultCode == RESULT_OK) {
 
             //updateText("Thank you for shopping!");
-            String transactionID = "dee";
 
-            buyDeal(transactionID);
             // if the user added a new account, store it
             if (data.hasExtra(PWConnectCheckoutActivity.CONNECT_CHECKOUT_RESULT_ACCOUNT)) {
                 Utils.ShowLog(TAG, "checkout went through, callback has an account");
+                PWTransaction transaction = data.getExtras().getParcelable(PWConnectCheckoutActivity.CONNECT_CHECKOUT_RESULT_TRANSACTION);
+
+                buyDeal(transaction.getProcessorUniqueIdentifier());
+
                 ArrayList<PWAccount> newAccounts = data.getExtras().getParcelableArrayList(PWConnectCheckoutActivity.CONNECT_CHECKOUT_RESULT_ACCOUNT);
+
                 accounts.addAll(newAccounts);
                 try {
                     sharedSettings.edit().putString(DealPreferences.ACCOUNTS,
