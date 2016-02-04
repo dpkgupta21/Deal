@@ -20,7 +20,9 @@ import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyEditTextViewReg;
+import com.deal.exap.customviews.MyTextViewLight16;
 import com.deal.exap.customviews.MyTextViewReg14;
+import com.deal.exap.customviews.MyTextViewSemi16;
 import com.deal.exap.login.Adapter.CountryCodeAdapter;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
@@ -95,6 +97,9 @@ public class NumberVerificationFragment extends Fragment {
         edtCountryCode.setText(getCountryCodeByCountryName("Saudi Arabia"));
         edtCountryCode.setOnClickListener(openDialogForCountry);
     }
+
+
+
 
     View.OnClickListener goToNumberVerificationStage2 = new View.OnClickListener() {
         @Override

@@ -1060,12 +1060,6 @@ public class Utils {
         return months;
     }
 
-    public static boolean isArabic(Context context) {
-        if (DealPreferences.getAPP_LANG(context).contains(Constant.LANG_ARABIC_CODE)) {
-            return true;
-        } else
-            return false;
-    }
 
 
     public static String secondsToDate(String seconds) {
@@ -1074,24 +1068,5 @@ public class Utils {
         SimpleDateFormat sdf = new SimpleDateFormat("d MMM | h:mm a");
         return sdf.format(date);
     }
-
-
-    public static String convertKMToMiles(String kilometers) {
-
-        DecimalFormat decimalFormat = new DecimalFormat("##.###");
-        int km = Integer.parseInt(kilometers);
-        double miles = 0.621 * km;
-        decimalFormat.format(miles);
-        return miles + "";
-    }
-
-
-    public static boolean isMiles(Context context) {
-        if (DealPreferences.getDistanceUnit(context).equalsIgnoreCase(Constant.DISTANCE_UNIT_MILES)) {
-            return true;
-        } else
-            return false;
-    }
-
 
 }

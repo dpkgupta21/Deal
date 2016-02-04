@@ -11,6 +11,8 @@ public class FollowingDTO implements Serializable {
     @DatabaseField
     private String name;
     @DatabaseField
+    private String name_ara;
+    @DatabaseField
     private String image;
     @DatabaseField
     private String logo;
@@ -32,6 +34,15 @@ public class FollowingDTO implements Serializable {
     private int is_follow;
 
     private int is_featured;
+
+    public String getName_ara() {
+        return name_ara;
+    }
+
+    public void setName_ara(String name_ara) {
+        this.name_ara = name_ara;
+    }
+
 
     public int getIs_featured() {
         return is_featured;

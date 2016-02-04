@@ -22,6 +22,7 @@ import com.deal.exap.model.ChatDTO;
 import com.deal.exap.model.MessageDTO;
 import com.deal.exap.model.Partner;
 import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -214,7 +215,7 @@ public class ChatActivity extends BaseActivity {
                     options);
             ImageLoader.getInstance().displayImage(partner.getImage(), img_company,
                     options);
-            if (Utils.isArabic(mContext)) {
+            if (HelpMe.isArabic(mContext)) {
                 setTextViewText(R.id.txt_title, partner.getName_ara());
                 setTextViewText(R.id.txt_place_tag, partner.getAddress_ara());
             } else {

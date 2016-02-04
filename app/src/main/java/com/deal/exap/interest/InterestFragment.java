@@ -34,6 +34,7 @@ import com.deal.exap.databasemanager.DatabaseManager;
 import com.deal.exap.model.InterestDTO;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
+import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -358,7 +359,7 @@ public class InterestFragment extends Fragment {
     public void setInterestList() {
         final FlowLayout layout = (FlowLayout) view.findViewById(R.id.flowLayout);
 
-        if (Utils.isArabic(getActivity())) {
+        if (HelpMe.isArabic(getActivity())) {
 
         } else {
 

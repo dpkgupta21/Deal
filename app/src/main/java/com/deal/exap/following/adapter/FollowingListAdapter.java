@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.deal.exap.R;
 import com.deal.exap.model.FollowingDTO;
 import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.Utils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -91,19 +92,23 @@ public class FollowingListAdapter extends RecyclerView
         holder.txt_followers_val.setText(followingValues.get(position).getFollower());
 
         if (Utils.getSelectedLanguage(context).equalsIgnoreCase(Constant.LANG_ENGLISH_CODE)) {
-            holder.txt_place_tag.setText(followingValues.get(position).getAddress_eng() + " " + followingValues.get(position).getLocation());
+            holder.txt_place_tag.setText(followingValues.get(position).getAddress_eng() + " " +
+                    followingValues.get(position).getLocation());
 
         } else {
-            holder.txt_place_tag.setText(followingValues.get(position).getAddress_ara() + " " + followingValues.get(position).getLocation());
+            holder.txt_place_tag.setText(followingValues.get(position).getAddress_ara() + " " +
+                    followingValues.get(position).getLocation());
         }
 
-        if(followingValues.get(position).getIs_featured()==1){
+        if (followingValues.get(position).getIs_featured() == 1) {
             holder.img_featured.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             holder.img_featured.setVisibility(View.GONE);
         }
 
-        holder.txt_title.setText(followingValues.get(position).getName());
+        holder.txt_title.setText(HelpMe.getRelatedPreferenceText(context,
+                followingValues.get(position).getName(),
+                followingValues.get(position).getName_ara()));
 
         ImageLoader.getInstance().displayImage(followingValues.get(position).getImage(), holder.thumbnail,
                 options);

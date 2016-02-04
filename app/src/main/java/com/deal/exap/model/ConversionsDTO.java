@@ -7,10 +7,19 @@ public class ConversionsDTO implements Serializable {
 
     private String message;
     private String user;
+    private String user_ara;
     private String user_id;
     private String image;
     private String timestamp;
     private String unread;
+
+    public String getUser_ara() {
+        return user_ara;
+    }
+
+    public void setUser_ara(String user_ara) {
+        this.user_ara = user_ara;
+    }
 
     public String getMessage() {
         return message;

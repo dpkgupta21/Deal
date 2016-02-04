@@ -63,7 +63,7 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
     private MyTextViewReg12 btn_select_km;
     private MyTextViewReg12 btn_select_miles;
 
-//    private ArrayList<String> months;
+    //    private ArrayList<String> months;
 //    private ArrayList<String> years;
 //    private TextView txtMonth;
 //    private TextView txtYear;
@@ -163,7 +163,12 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
 
         selectedButton(DealPreferences.getAPP_LANG(getActivity().getApplicationContext()));
         selectedKMButton(DealPreferences.getDistanceUnit(getActivity().getApplicationContext()));
-
+        setViewText(R.id.btn_select_km,
+                HelpMe.getDistanceUnitSign(Constant.DISTANCE_UNIT_KM_ENG, getActivity().getApplicationContext()),
+                view);
+        setViewText(R.id.btn_select_miles,
+                HelpMe.getDistanceUnitSign(Constant.DISTANCE_UNIT_MILES_ENG, getActivity().getApplicationContext()),
+                view);
         btn_select_english.setOnClickListener(englishLanguageClick);
         btn_select_arabic.setOnClickListener(arabicLanguageClick);
         btn_select_km.setOnClickListener(this);
@@ -182,12 +187,12 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
                 getActivity().startActivity(new Intent(getActivity(), EditProfileActivity.class));
                 break;
             case R.id.btn_select_km:
-                DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_KM);
-                selectedKMButton(Constant.DISTANCE_UNIT_KM);
+                DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_KM_ENG);
+                selectedKMButton(Constant.DISTANCE_UNIT_KM_ENG);
                 break;
             case R.id.btn_select_miles:
-                DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_MILES);
-                selectedKMButton(Constant.DISTANCE_UNIT_MILES);
+                DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_MILES_ENG);
+                selectedKMButton(Constant.DISTANCE_UNIT_MILES_ENG);
                 break;
 
             case R.id.txt_change_currency:
@@ -238,8 +243,6 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
     };
 
 
-
-
     protected void setTitleFragment(String strTitle) {
         Toolbar mToolbar = (Toolbar) ((AppCompatActivity) getActivity()).findViewById(R.id.tool_bar);
         TextView txtTitle = ((TextView) mToolbar.findViewById(R.id.toolbar_title));
@@ -266,7 +269,7 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
     }
 
     private void selectedKMButton(String STATUS_CODE) {
-        if (STATUS_CODE.contains(Constant.DISTANCE_UNIT_KM)) {
+        if (STATUS_CODE.contains(Constant.DISTANCE_UNIT_KM_ENG)) {
 
 //            btn_select_km.setTextColor(getResources().getColor(R.color.btn_color));
 //            btn_select_miles.setTextColor(getResources().getColor(R.color.white));

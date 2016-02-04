@@ -35,9 +35,9 @@ import com.deal.exap.nearby.adapter.CategoryListAdapter;
 import com.deal.exap.nearby.adapter.NearByListAdapter;
 import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.payment.BuyCouponActivity;
-import com.deal.exap.settings.CountryListAdapter;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
+import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -70,7 +70,7 @@ public class NearByFragment extends BaseFragment {
             btnDateStl, btnDateLts;
     private ArrayList<DealDTO> dealList = new ArrayList<DealDTO>();
     private ArrayList<DealDTO> visibleDealList = new ArrayList<DealDTO>();
-    RecyclerView.Adapter mAdapter = null;
+    private RecyclerView.Adapter mAdapter = null;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     //private List<CategoryDTO> categoryList;
     private Dialog dialog;
@@ -111,6 +111,14 @@ public class NearByFragment extends BaseFragment {
         setTouchNClick(R.id.btn_miles, view);
         btnMiles = (Button) view.findViewById(R.id.btn_miles);
         btnKm = (Button) view.findViewById(R.id.btn_km);
+
+        setViewText(R.id.btn_miles, HelpMe.getDistanceUnitSign(Constant.DISTANCE_UNIT_MILES_ENG,
+                        getActivity().getApplicationContext()),
+                view);
+        setViewText(R.id.btn_km,
+                HelpMe.getDistanceUnitSign(Constant.DISTANCE_UNIT_KM_ENG,
+                        getActivity().getApplicationContext()),
+                view);
 
         selectedKMButton(DealPreferences.getDistanceUnit(getActivity().getApplicationContext()));
 
@@ -201,8 +209,8 @@ public class NearByFragment extends BaseFragment {
                 getCategoryList();
                 break;
             case R.id.btn_miles:
-                DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_MILES);
-                selectedKMButton(Constant.DISTANCE_UNIT_MILES);
+                // DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_MILES_ENG);
+                selectedKMButton(Constant.DISTANCE_UNIT_MILES_ENG);
                 mAdapter.notifyDataSetChanged();
 //                btnMiles.setSelected(true);
 //                btnMiles.setTextColor(getResources().getColor(R.color.white));
@@ -211,8 +219,8 @@ public class NearByFragment extends BaseFragment {
                 break;
             case R.id.btn_km:
 
-                DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_KM);
-                selectedKMButton(Constant.DISTANCE_UNIT_KM);
+                //DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_KM_);
+                selectedKMButton(Constant.DISTANCE_UNIT_KM_ENG);
                 mAdapter.notifyDataSetChanged();
 //                btnMiles.setSelected(false);
 //                btnMiles.setTextColor(getResources().getColor(R.color.tv_color));
@@ -493,7 +501,7 @@ public class NearByFragment extends BaseFragment {
                         txtCategory.setText(categoryList.get(position).getName());
 
                         if (categoryList.get(position).getName().equalsIgnoreCase("All")) {
-                            for(DealDTO dealOBJ: dealList) {
+                            for (DealDTO dealOBJ : dealList) {
                                 visibleDealList.add(dealOBJ);
                             }
                         } else {
@@ -512,7 +520,7 @@ public class NearByFragment extends BaseFragment {
 
 
     private void selectedKMButton(String STATUS_CODE) {
-        if (STATUS_CODE.contains(Constant.DISTANCE_UNIT_KM)) {
+        if (STATUS_CODE.contains(Constant.DISTANCE_UNIT_KM_ENG)) {
 
             btnKm.setBackgroundColor(getResources().getColor(R.color.btn_color));
             btnMiles.setBackgroundColor(getResources().getColor(R.color.white));

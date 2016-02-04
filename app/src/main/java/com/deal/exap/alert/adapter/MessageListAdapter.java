@@ -16,6 +16,7 @@ import com.deal.exap.R;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.ConversionsDTO;
 import com.deal.exap.chat.ChatActivity;
+import com.deal.exap.utility.HelpMe;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -87,7 +88,9 @@ public class MessageListAdapter extends BaseAdapter {
 
             holder.txt_date_time.setText(list.get(position).getTimestamp());
             holder.txt_desc.setText(list.get(position).getMessage());
-            holder.txt_title.setText(list.get(position).getUser());
+            holder.txt_title.setText(HelpMe.getRelatedPreferenceText(context,
+                    list.get(position).getUser(),
+                    list.get(position).getUser_ara()));
             ImageLoader.getInstance().displayImage(list.get(position).getImage(), holder.img,
                     options);
             view.setOnClickListener(new View.OnClickListener() {
@@ -96,9 +99,9 @@ public class MessageListAdapter extends BaseAdapter {
                     if (context instanceof BaseActivity) {
                         BaseActivity act = (BaseActivity) context;
                         Intent i;
-                            i = new Intent(act, ChatActivity.class);
-                            i.putExtra("receiverID", list.get(position).getUser_id());
-                            act.startActivity(i);
+                        i = new Intent(act, ChatActivity.class);
+                        i.putExtra("receiverID", list.get(position).getUser_id());
+                        act.startActivity(i);
 
                     }
                 }

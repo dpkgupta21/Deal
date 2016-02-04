@@ -55,6 +55,7 @@
 
     <!-- Number verification screen step1 -->
     <string name="verify_your_phone">Verify your Phone Number</string>
+    <string name="verify_from_mail"><u>Verify from  mail</u></string>
     <!--<string name="country_code_hint">Select</string>
     -->
     <string name="enter_your_phone_number_hint">Enter your Phone Number</string>
@@ -270,6 +271,13 @@
     <string name="please_enter_mobile_number">Please enter mobile number</string>
     <string name="please_enter_valid_mobile_number">Please enter valid mobile number</string>
     <string name="for_access_this_please_login">For access this please login</string>
+
+
+    <!-- verification option screen  -->
+    <string name="register_with_email_address">Register with Email Address</string>
+    <string name="register_with_mobile_number">Register with Mobile Number</string>
+
+
     <!-- Android push notifications -->
 
     <string name="title_activity_main">Push Notifications</string>

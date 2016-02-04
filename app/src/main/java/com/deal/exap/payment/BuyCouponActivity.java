@@ -12,9 +12,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,10 +29,10 @@ import com.deal.exap.misc.ImageActivity;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.partner.FollowingPartnerDetails;
-import com.deal.exap.payment.adapter.SlidingImageAdapter;
 import com.deal.exap.termscondition.TermsConditionActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
+import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -58,7 +56,6 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
-import com.viewpagerindicator.CirclePageIndicator;
 
 import org.json.JSONObject;
 
@@ -66,8 +63,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 //import com.google.android.gms.maps.GoogleMap;
 
 public class BuyCouponActivity extends BaseActivity {
@@ -217,7 +212,7 @@ public class BuyCouponActivity extends BaseActivity {
 //                break;
             case R.id.txt_terms_conditions:
                 i = new Intent(this, TermsConditionActivity.class);
-                if (Utils.isArabic(this))
+                if (HelpMe.isArabic(this))
                     i.putExtra("dealTerm", dealDTO.getTerm_ara());
                 else
                     i.putExtra("dealTerm", dealDTO.getTerm_eng());
@@ -388,7 +383,7 @@ public class BuyCouponActivity extends BaseActivity {
 //            setViewVisibility(R.id.btn_redeem, View.VISIBLE);
 //        }
         setTextViewText(R.id.txt_discount_rate, dealDTO.getDiscount() + " % " + getString(R.string.txt_off));
-        if (Utils.isArabic(this)) {
+        if (HelpMe.isArabic(this)) {
             setTextViewText(R.id.txt_on_which, dealDTO.getName_ara());
             setTextViewText(R.id.txt_details, dealDTO.getDetail_ara());
         } else {
@@ -420,12 +415,12 @@ public class BuyCouponActivity extends BaseActivity {
         setTextViewText(R.id.txt_review, dealDTO.getReview() + "");
         setTextViewText(R.id.txt_end_date_val, dealDTO.getEnd_date());
         setTextViewText(R.id.txt_redeemed_val, dealDTO.getRedeemed() + "");
-        if (Utils.isMiles(this))
-            setTextViewText(R.id.txt_distance_val, Utils.convertKMToMiles(dealDTO.getDistance()) + " " +
-                    DealPreferences.getDistanceUnit(BuyCouponActivity.this));
+        if (HelpMe.isMiles(this))
+            setTextViewText(R.id.txt_distance_val, HelpMe.convertKMToMiles(dealDTO.getDistance()) + " " +
+                    HelpMe.getDistanceUnitSign(Constant.DISTANCE_UNIT_MILES_ENG, BuyCouponActivity.this));
         else
             setTextViewText(R.id.txt_distance_val, dealDTO.getDistance() + " " +
-                    DealPreferences.getDistanceUnit(BuyCouponActivity.this));
+                    HelpMe.getDistanceUnitSign(Constant.DISTANCE_UNIT_KM_ENG, BuyCouponActivity.this));
         setTextViewText(R.id.txt_redeem_option, dealDTO.getRedeem_option());
 
         if (dealDTO.getDeal_code() != null && !dealDTO.getDeal_code().equalsIgnoreCase("")) {
@@ -437,9 +432,8 @@ public class BuyCouponActivity extends BaseActivity {
             setViewVisibility(R.id.ll_deal_price, View.VISIBLE);
             setViewVisibility(R.id.ll_deal_code, View.GONE);
             setTextViewText(R.id.txt_discount, dealDTO.getDiscount() + "%");
-            setTextViewText(R.id.txt_store_price, dealDTO.getFinal_price() + " " + (DealPreferences.getAPP_LANG(BuyCouponActivity.this).
-                    equalsIgnoreCase(Constant.LANG_ENGLISH_CODE) ? DealPreferences.getCurrencyEng(BuyCouponActivity.this) :
-                    DealPreferences.getCurrencyAra(BuyCouponActivity.this)));
+            setTextViewText(R.id.txt_store_price, dealDTO.getFinal_price() + " " +
+                    HelpMe.getCurrencySign(BuyCouponActivity.this));
 
         }
 
@@ -505,8 +499,7 @@ public class BuyCouponActivity extends BaseActivity {
             settings.setPaymentVATAmount(vatAmount);
             settings.setSupportedDirectDebitCountries(new String[]{"DE"});
             settings.setSupportedPaymentMethods(new PWConnectCheckoutPaymentMethod[]{
-                    PWConnectCheckoutPaymentMethod.VISA, PWConnectCheckoutPaymentMethod.MASTERCARD,
-                    PWConnectCheckoutPaymentMethod.DIRECT_DEBIT});
+                    PWConnectCheckoutPaymentMethod.VISA, PWConnectCheckoutPaymentMethod.MASTERCARD});
             // ask the user if she wants to store the account
             settings.setCreateToken(PWConnectCheckoutCreateToken.PROMPT);
 

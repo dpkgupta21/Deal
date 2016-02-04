@@ -1,19 +1,14 @@
 package com.deal.exap.login;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -48,8 +43,6 @@ import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import org.json.JSONObject;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -108,30 +101,30 @@ public class SignInFragment extends BaseFragment {
 
 
         super.onActivityCreated(savedInstanceState);
-        showHashKey(getActivity().getApplicationContext());
+        //showHashKey(getActivity().getApplicationContext());
 
     }
 
 
-    public void showHashKey(Context context) {
-        try {
-            PackageInfo info = context.getPackageManager().getPackageInfo("com.deal.exap",
-                    PackageManager.GET_SIGNATURES);
-            for (android.content.pm.Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-
-                String sign = Base64.encodeToString(md.digest(), Base64.DEFAULT);
-                Log.e("KeyHash:", sign);
-                  Toast.makeText(context, sign, Toast.LENGTH_LONG).show();
-            }
-            Log.d("KeyHash:", "****------------***");
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void showHashKey(Context context) {
+//        try {
+//            PackageInfo info = context.getPackageManager().getPackageInfo("com.deal.exap",
+//                    PackageManager.GET_SIGNATURES);
+//            for (android.content.pm.Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//
+//                String sign = Base64.encodeToString(md.digest(), Base64.DEFAULT);
+//                Log.e("KeyHash:", sign);
+//                  Toast.makeText(context, sign, Toast.LENGTH_LONG).show();
+//            }
+//            Log.d("KeyHash:", "****------------***");
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void init() {
 
@@ -218,11 +211,12 @@ public class SignInFragment extends BaseFragment {
     View.OnClickListener goToNumberVerificationClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            NumberVerificationFragment numberVerificationFragment = NumberVerificationFragment.newInstance();
+           // NumberVerificationFragment numberVerificationFragment = NumberVerificationFragment.newInstance();
+            VerificationOptionFragment verificationOptionFragment = VerificationOptionFragment.newInstance();
             FragmentManager fm = getFragmentManager();
             FragmentTransaction ft = fm
                     .beginTransaction();
-            ft.replace(R.id.frame_lay, numberVerificationFragment);
+            ft.replace(R.id.frame_lay, verificationOptionFragment);
             ft.addToBackStack(null);
             ft.commit();
 

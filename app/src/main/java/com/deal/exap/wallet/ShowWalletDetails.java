@@ -24,6 +24,7 @@ import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.termscondition.TermsConditionActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
+import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -127,7 +128,7 @@ public class ShowWalletDetails extends BaseActivity {
 //                break;
             case R.id.txt_terms_conditions:
                 i = new Intent(this, TermsConditionActivity.class);
-                if (Utils.isArabic(this))
+                if (HelpMe.isArabic(this))
                     i.putExtra("dealTerm", dealDTO.getTerm_ara());
                 else
                     i.putExtra("dealTerm", dealDTO.getTerm_eng());
@@ -209,7 +210,7 @@ public class ShowWalletDetails extends BaseActivity {
     private void setData() {
         setDealCode(dealDTO.getDeal_code());
         setTextViewText(R.id.txt_discount_rate, dealDTO.getDiscount() + " % " + getString(R.string.txt_off));
-        if (Utils.isArabic(this)) {
+        if (HelpMe.isArabic(this)) {
             setTextViewText(R.id.txt_on_which, dealDTO.getName_ara());
             setTextViewText(R.id.txt_details, dealDTO.getDetail_ara());
         } else {
@@ -224,17 +225,16 @@ public class ShowWalletDetails extends BaseActivity {
         setTextViewText(R.id.txt_review, dealDTO.getReview() + "");
         setTextViewText(R.id.txt_end_date_val, dealDTO.getEnd_date());
         setTextViewText(R.id.txt_redeemed_val, dealDTO.getRedeemed() + "");
-        if (Utils.isMiles(this))
-            setTextViewText(R.id.txt_distance_val, Utils.convertKMToMiles(dealDTO.getDistance()) + " " +
-                    DealPreferences.getDistanceUnit(ShowWalletDetails.this));
+        if (HelpMe.isMiles(this))
+            setTextViewText(R.id.txt_distance_val, HelpMe.convertKMToMiles(dealDTO.getDistance()) + " " +
+                    HelpMe.getDistanceUnitSign(Constant.DISTANCE_UNIT_MILES_ENG, ShowWalletDetails.this));
         else
             setTextViewText(R.id.txt_distance_val, dealDTO.getDistance() + " " +
-                    DealPreferences.getDistanceUnit(ShowWalletDetails.this));
+                    HelpMe.getDistanceUnitSign(Constant.DISTANCE_UNIT_MILES_ENG, ShowWalletDetails.this));
         setTextViewText(R.id.txt_redeem_option, dealDTO.getRedeem_option());
         setTextViewText(R.id.txt_discount, dealDTO.getDiscount() + "%");
-        setTextViewText(R.id.txt_store_price, dealDTO.getFinal_price() + " " + (DealPreferences.getAPP_LANG(ShowWalletDetails.this).
-                equalsIgnoreCase(Constant.LANG_ENGLISH_CODE) ? DealPreferences.getCurrencyEng(ShowWalletDetails.this) :
-                DealPreferences.getCurrencyAra(ShowWalletDetails.this)));
+        setTextViewText(R.id.txt_store_price, dealDTO.getFinal_price() + " " +
+                HelpMe.getCurrencySign(ShowWalletDetails.this));
 
         ImageView partner = (ImageView) findViewById(R.id.img_title);
         ImageLoader.getInstance().displayImage(dealDTO.getPartner_logo(), partner,

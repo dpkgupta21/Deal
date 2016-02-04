@@ -26,6 +26,7 @@ import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.nearby.adapter.NearByListAdapter;
 import com.deal.exap.payment.BuyCouponActivity;
 import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -86,7 +87,7 @@ public class FollowingPartnerDetails extends BaseActivity {
         setClick(R.id.btn_follow_this_partner);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_nearby);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(FollowingPartnerDetails.this);
+        mLayoutManager = new LinearLayoutManager(mActivity);
         mRecyclerView.setLayoutManager(mLayoutManager);
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
@@ -112,7 +113,7 @@ public class FollowingPartnerDetails extends BaseActivity {
 
             case R.id.iv_chat:
 
-                Intent i = new Intent(FollowingPartnerDetails.this, ChatActivity.class);
+                Intent i = new Intent(mActivity, ChatActivity.class);
                 i.putExtra("receiverID", partnerDTO.getId());
                 startActivity(i);
 
@@ -137,12 +138,12 @@ public class FollowingPartnerDetails extends BaseActivity {
     }
 
     private void getPartnerDetails() {
-        if (Utils.isOnline(this)) {
+        if (Utils.isOnline(mActivity)) {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.GET_PARTNER);
             params.put("partner_id", partnerID + "");
-            params.put("lang", Utils.getSelectedLanguage(this));
-            params.put("user_id", Utils.getUserId(this));
+            params.put("lang", Utils.getSelectedLanguage(mActivity));
+            params.put("user_id", Utils.getUserId(mActivity));
 
 
             //  final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
@@ -178,7 +179,7 @@ public class FollowingPartnerDetails extends BaseActivity {
                 public void onErrorResponse(VolleyError error) {
                     //pdialog.dismiss();
                     CustomProgressDialog.hideProgressDialog();
-                    Utils.showExceptionDialog(FollowingPartnerDetails.this);
+                    Utils.showExceptionDialog(mActivity);
                     //       CustomProgressDialog.hideProgressDialog();
                 }
             });
@@ -198,7 +199,7 @@ public class FollowingPartnerDetails extends BaseActivity {
 
 
         if (partnerDTO.getDeals() != null) {
-            mAdapter = new NearByListAdapter(partnerDTO.getDeals(), FollowingPartnerDetails.this);
+            mAdapter = new NearByListAdapter(partnerDTO.getDeals(), mActivity);
             mRecyclerView.setAdapter(mAdapter);
             ((NearByListAdapter) mAdapter).setOnItemClickListener(new NearByListAdapter.MyClickListener() {
                 @Override
@@ -207,12 +208,12 @@ public class FollowingPartnerDetails extends BaseActivity {
                     Intent i;
                     switch (v.getId()) {
                         case R.id.thumbnail:
-                            i = new Intent(FollowingPartnerDetails.this, BuyCouponActivity.class);
+                            i = new Intent(mActivity, BuyCouponActivity.class);
                             i.putExtra("id", partnerDTO.getDeals().get(position).getId());
                             startActivity(i);
                             break;
                         case R.id.ll_buy:
-                            i = new Intent(FollowingPartnerDetails.this, BuyCouponActivity.class);
+                            i = new Intent(mActivity, BuyCouponActivity.class);
                             i.putExtra("id", partnerDTO.getDeals().get(position).getId());
                             startActivity(i);
                             break;
@@ -233,7 +234,7 @@ public class FollowingPartnerDetails extends BaseActivity {
                 options);
 
 
-        if (Utils.isArabic(FollowingPartnerDetails.this)) {
+        if (HelpMe.isArabic(mActivity)) {
             setTextViewText(R.id.txt_place_tag, partnerDTO.getAddress_ara());
             setTextViewText(R.id.txt_title, partnerDTO.getName_ara());
         } else {
@@ -320,7 +321,7 @@ public class FollowingPartnerDetails extends BaseActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     pdialog.dismiss();
-                    Utils.showExceptionDialog(FollowingPartnerDetails.this);
+                    Utils.showExceptionDialog(mActivity);
                     //       CustomProgressDialog.hideProgressDialog();
                 }
             });

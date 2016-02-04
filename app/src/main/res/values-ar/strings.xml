@@ -30,6 +30,7 @@
 
     <!-- Number verification screen arabic step1 -->
     <string name="verify_your_phone">التوثيق وربط رقم الجوال</string>
+    <string name="verify_from_mail">Verify from  mail</string>
     <string name="country_code_hint">المتحدة الدولة +1</string>
     <string name="enter_your_phone_number_hint">أدخل رقم الجوال</string>
     <string name="send_confirmation_code">أرسل رمز التحقق</string>
@@ -227,6 +228,11 @@
     <string name="select_hint">اختار</string>
     <string name="save_changes">حفظ التغيرات</string>
     <string name="location">موقع</string>
+
+
+    <!-- verification option screen  -->
+    <string name="register_with_email_address">سجل باستخدام عنوان البريد الإلكتروني</string>
+    <string name="register_with_mobile_number">سجل باستخدام رقم الجوال</string>
 
     <string name="open_helper_classname">com.deal.exap.databasemanager.DatabaseHelper</string>
 </resources>

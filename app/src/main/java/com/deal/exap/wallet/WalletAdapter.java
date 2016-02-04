@@ -18,6 +18,7 @@ import com.deal.exap.R;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
+import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.Utils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -84,7 +85,6 @@ public class WalletAdapter extends RecyclerView
 //            });
 
 
-
             Log.i(LOG_TAG, "Adding Listener");
             ivThumnail.setOnClickListener(this);
             ivLogo.setOnClickListener(this);
@@ -148,25 +148,30 @@ public class WalletAdapter extends RecyclerView
                 options);
         ImageLoader.getInstance().displayImage(mDataset.get(position).getPartner_logo(), holder.ivLogo,
                 options1);
-        holder.tvDiscount.setText(mDataset.get(position).getDiscount() + " % "+context.getString(R.string.txt_off));
+        holder.tvDiscount.setText(mDataset.get(position).getDiscount() + " % " + context.getString(R.string.txt_off));
         holder.tvEnddate.setText(mDataset.get(position).getEnd_date());
-        if (Utils.isMiles(context))
-            holder.tvDistance.setText(context.getString(R.string.txt_distance) + " " + Utils.convertKMToMiles(mDataset.get(position).getDistance()) + " " + context.getString(R.string.txt_filter_distance_unit_miles));
+
+        if (HelpMe.isMiles(context))
+            holder.tvDistance.setText(context.getString(R.string.txt_distance) + " " + HelpMe.convertKMToMiles(mDataset.get(position).getDistance()) +
+                    " " + HelpMe.getDistanceUnitSign(Constant.DISTANCE_UNIT_MILES_ENG, context));
         else
-            holder.tvDistance.setText(context.getString(R.string.txt_distance) + " " + mDataset.get(position).getDistance() + " " + context.getString(R.string.txt_filter_distance_unit_km));
-        if (Utils.isArabic(context))
+            holder.tvDistance.setText(context.getString(R.string.txt_distance) + " " + mDataset.get(position).getDistance()
+                    + " " + HelpMe.getDistanceUnitSign(Constant.DISTANCE_UNIT_KM_ENG, context));
+
+        if (HelpMe.isArabic(context))
             holder.tvDetail.setText(mDataset.get(position).getName_ara());
         else
             holder.tvDetail.setText(mDataset.get(position).getName_eng());
+
         holder.tvReview.setText("(" + mDataset.get(position).getReview() + ")");
         holder.ratingBar.setRating(mDataset.get(position).getRating());
 
-        holder.txt_final_price.setText(mDataset.get(position).getFinal_price()+ " " + (DealPreferences.getAPP_LANG(context).
-                equalsIgnoreCase(Constant.LANG_ENGLISH_CODE) ? DealPreferences.getCurrencyEng(context) :
-                DealPreferences.getCurrencyAra(context)));
-        holder.txt_visible_price.setText(mDataset.get(position).getVisible_price()+ " " + (DealPreferences.getAPP_LANG(context).
-                equalsIgnoreCase(Constant.LANG_ENGLISH_CODE) ? DealPreferences.getCurrencyEng(context) :
-                DealPreferences.getCurrencyAra(context)));
+        holder.txt_final_price.setText(mDataset.get(position).getFinal_price() + " " +
+                HelpMe.getCurrencySign(context));
+
+        holder.txt_visible_price.setText(mDataset.get(position).getVisible_price() + " " +
+                HelpMe.getCurrencySign(context));
+
         holder.txt_visible_price.setPaintFlags(holder.txt_visible_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     }
 

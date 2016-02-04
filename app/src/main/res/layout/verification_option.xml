@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.deal.exap.customviews.MyButtonViewSemi
+        android:id="@+id/btn_register_from_email_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/btn_color"
+        android:text="@string/register_with_email_address"
+        android:textColor="@color/white" />
+
+    <com.deal.exap.customviews.MyButtonViewSemi
+        android:id="@+id/btn_register_from_mob_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/register_with_mobile_number"
+        android:background="@color/btn_color"
+        android:textColor="@color/white" />
+</LinearLayout>
