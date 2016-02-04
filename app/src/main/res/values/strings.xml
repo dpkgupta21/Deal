@@ -50,7 +50,8 @@
     <string name="not_yet_registered">Not yet Registered?</string>
     <string name="register_now">Register Now!</string>
     <string name="forgot_password">Forgot Password?</string>
-    <string name="terms_and_conditions">By using EXAP, You are agree to EXAP’s Terms of Use &amp; Privacy Policy</string>
+    <string name="terms_and_conditions">By using EXAP, You are agree to EXAP’s Terms of
+        Use &amp; Privacy Policy</string>
 
 
     <!-- Number verification screen step1 -->
@@ -276,6 +277,8 @@
     <!-- verification option screen  -->
     <string name="register_with_email_address">Register with Email Address</string>
     <string name="register_with_mobile_number">Register with Mobile Number</string>
+    <string name="verification_note">Exap will send a confirmation code to your mobile number if you choose to register through mobile.
+    With this registration process hereby you agree to our terms of services and privacy policy.</string>
 
 
     <!-- Android push notifications -->

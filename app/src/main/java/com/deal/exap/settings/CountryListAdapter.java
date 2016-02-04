@@ -7,12 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyTextViewReg14;
 import com.deal.exap.model.CountriesDTO;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
+import com.deal.exap.utility.HelpMe;
 
 import java.util.List;
 
@@ -53,22 +55,31 @@ public class CountryListAdapter extends BaseAdapter {
                     parent, false);
             holder = new ViewHolder();
             holder.txtCountryCode = (MyTextViewReg14) mView.findViewById(R.id.txt_currency);
-
+            holder.img_check = (ImageView) mView.findViewById(R.id.img_check);
             mView.setTag(holder);
         } else {
             holder = (ViewHolder) mView.getTag();
         }
+
+
         if (DealPreferences.getAPP_LANG(context).equalsIgnoreCase(Constant.LANG_ENGLISH_CODE)) {
             holder.txtCountryCode.setText(countriesList.get(position).getName());
         } else if (DealPreferences.getAPP_LANG(context).equalsIgnoreCase(Constant.LANG_ARABIC_CODE)) {
             holder.txtCountryCode.setText(countriesList.get(position).getName_ara());
 
         }
+
+        if(HelpMe.isCurrencyCheck(context,countriesList.get(position).getName())){
+            holder.img_check.setVisibility(View.VISIBLE);
+        }else{
+            holder.img_check.setVisibility(View.GONE);
+        }
         return mView;
     }
 
     private static class ViewHolder {
         private MyTextViewReg14 txtCountryCode;
+        private ImageView img_check;
     }
 
 

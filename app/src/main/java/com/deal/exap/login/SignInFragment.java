@@ -211,14 +211,16 @@ public class SignInFragment extends BaseFragment {
     View.OnClickListener goToNumberVerificationClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            Intent intent=new Intent(getActivity(),NumberVerificationActivity.class);
+            startActivity(intent);
            // NumberVerificationFragment numberVerificationFragment = NumberVerificationFragment.newInstance();
-            VerificationOptionFragment verificationOptionFragment = VerificationOptionFragment.newInstance();
-            FragmentManager fm = getFragmentManager();
-            FragmentTransaction ft = fm
-                    .beginTransaction();
-            ft.replace(R.id.frame_lay, verificationOptionFragment);
-            ft.addToBackStack(null);
-            ft.commit();
+//            VerificationOptionFragment verificationOptionFragment = VerificationOptionFragment.newInstance();
+//            FragmentManager fm = getFragmentManager();
+//            FragmentTransaction ft = fm
+//                    .beginTransaction();
+//            ft.replace(R.id.frame_lay, verificationOptionFragment);
+//            ft.addToBackStack(null);
+//            ft.commit();
 
         }
     };

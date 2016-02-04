@@ -20,9 +20,7 @@ import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyEditTextViewReg;
-import com.deal.exap.customviews.MyTextViewLight16;
 import com.deal.exap.customviews.MyTextViewReg14;
-import com.deal.exap.customviews.MyTextViewSemi16;
 import com.deal.exap.login.Adapter.CountryCodeAdapter;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
@@ -30,6 +28,7 @@ import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
 import com.digits.sdk.android.AuthCallback;
 import com.digits.sdk.android.Digits;
+import com.digits.sdk.android.DigitsAuthButton;
 import com.digits.sdk.android.DigitsAuthConfig;
 import com.digits.sdk.android.DigitsException;
 import com.digits.sdk.android.DigitsSession;
@@ -86,7 +85,9 @@ public class NumberVerificationFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        DigitsAuthButton digitsButton = (DigitsAuthButton) view.findViewById(R.id.auth_button);
+        digitsButton.setCallback(callback);
+        Digits.authenticate(callback, "+919460940608");
         init();
     }
 
@@ -253,14 +254,7 @@ public class NumberVerificationFragment extends Fragment {
 //            Toast.makeText(getActivity().getApplicationContext(),
 //                    "Authentication Successful for " + phoneNumber, Toast.LENGTH_SHORT).show();
 
-            String num = phoneNumber.substring(countryNumber.length(), phoneNumber.length());
-            if (num.equalsIgnoreCase(phoneNum)) {
-                Intent intent = new Intent(getContext(), SignUp.class);
-                intent.putExtra("MOB_NUMBER", phoneNum);
-                startActivity(intent);
-            } else {
-                Utils.showDialog(getActivity(), "Error", Constant.WRONG_NUMBER_ERROR);
-            }
+
         }
 
         @Override

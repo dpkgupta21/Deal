@@ -74,7 +74,12 @@ public class HelpMe {
         } else
             return false;
     }
-
+    public static boolean isCurrencyCheck(Context mContext, String currencyNameEng) {
+        if (DealPreferences.getCurrencyEng(mContext).equalsIgnoreCase(currencyNameEng)) {
+            return true;
+        } else
+            return false;
+    }
     public static double convertKMToMiles(String kilometers) {
 
         DecimalFormat decimalFormat = new DecimalFormat("#");

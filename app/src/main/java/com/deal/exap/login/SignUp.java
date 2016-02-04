@@ -352,7 +352,7 @@ public class SignUp extends BaseActivity {
         Utils.hideKeyboard(SignUp.this);
         if (validateForm()) {
             if (Utils.isOnline(SignUp.this)) {
-
+                String mobNumber = getIntent().getStringExtra("MOB_NUMBER");
                 Map<String, String> params = new HashMap<>();
                 params.put("action", Constant.DO_SIGNUP);
                 params.put("email", getViewText(R.id.edt_email_id));
@@ -363,7 +363,7 @@ public class SignUp extends BaseActivity {
                 params.put("gender", getViewText(R.id.edt_gender).equals("Male") ? "M" : "F");
                 params.put("dob", getViewText(R.id.edt_dob));
                 params.put("confirm_password", getViewText(R.id.edt_confirm_password));
-                params.put("mobile", getIntent().getStringExtra("MOB_NUMBER"));
+                params.put("mobile", mobNumber != null ? mobNumber : "");
 
                 final ProgressDialog pdialog = Utils.createProgressDialog(SignUp.this, null, false);
                 CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST,
@@ -422,14 +422,10 @@ public class SignUp extends BaseActivity {
         } else if (getViewText(R.id.edt_dob).equals("")) {
             Utils.showDialog(SignUp.this, "Message", "Please enter DOB");
             return false;
-        }
-        else if(Utils.isFromDateGreater(Utils.getCurrentDate(),getViewText(R.id.edt_dob)))
-        {
+        } else if (Utils.isFromDateGreater(Utils.getCurrentDate(), getViewText(R.id.edt_dob))) {
             Utils.showDialog(SignUp.this, "Message", "Please enter valid DOB");
             return false;
-        }
-
-        else if (getViewText(R.id.edt_gender).equals("")) {
+        } else if (getViewText(R.id.edt_gender).equals("")) {
             Utils.showDialog(SignUp.this, "Message", "Please enter gender");
             return false;
         } else if (getViewText(R.id.edt_email_id).equals("")) {
@@ -468,7 +464,7 @@ public class SignUp extends BaseActivity {
         final String regId = GCMRegistrar
                 .getRegistrationId(SignUp.this);
 
-        DealPreferences.setPushRegistrationId(SignUp.this,regId);
+        DealPreferences.setPushRegistrationId(SignUp.this, regId);
         Log.i("info", "RegId :" + regId);
         // Check if regid already presents
         if (regId.equals("")) {

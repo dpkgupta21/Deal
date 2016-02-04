@@ -4,21 +4,50 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <com.deal.exap.customviews.MyButtonViewSemi
         android:id="@+id/btn_register_from_email_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="15dp"
         android:layout_marginTop="10dp"
-        android:background="@color/btn_color"
+        android:background="@drawable/btn_red_bcg_shape"
         android:text="@string/register_with_email_address"
         android:textColor="@color/white" />
+
+    <com.deal.exap.customviews.MyTextViewReg16
+        android:id="@+id/txt_or_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/or"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
     <com.deal.exap.customviews.MyButtonViewSemi
         android:id="@+id/btn_register_from_mob_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="15dp"
         android:layout_marginTop="10dp"
+        android:background="@drawable/btn_red_bcg_shape"
         android:text="@string/register_with_mobile_number"
-        android:background="@color/btn_color"
         android:textColor="@color/white" />
+
+
+    <com.deal.exap.customviews.MyTextViewReg16
+        android:id="@+id/txt_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/verification_note"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+
 </LinearLayout>
