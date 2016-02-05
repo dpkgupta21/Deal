@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -32,12 +31,15 @@ import com.deal.exap.WakeLocker;
 import com.deal.exap.camera.CameraChooseDialogFragment;
 import com.deal.exap.camera.CameraSelectInterface;
 import com.deal.exap.camera.GallerySelectInterface;
+import com.deal.exap.model.UserDTO;
+import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonImageRequest;
 import com.google.android.gcm.GCMRegistrar;
+import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONObject;
@@ -50,7 +52,6 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
 
 import static com.deal.exap.CommonUtilities.DISPLAY_MESSAGE_ACTION;
 import static com.deal.exap.CommonUtilities.EXTRA_MESSAGE;
@@ -67,6 +68,7 @@ public class SignUp extends BaseActivity {
     private File f = null;
     private byte[] bitmapdata;
     private AsyncTask<Void, Void, Void> mRegisterTask;
+    private Context mContext;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -78,6 +80,7 @@ public class SignUp extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
+        mContext = SignUp.this;
         init();
         ((Button) findViewById(R.id.btn_signup)).setOnClickListener(signUpClick);
         ((ImageView) findViewById(R.id.img_add_photo)).setOnClickListener(addImageClick);
@@ -374,13 +377,23 @@ public class SignUp extends BaseActivity {
                                 Utils.ShowLog(TAG, "Response -> " + response.toString());
                                 pdialog.dismiss();
                                 try {
-                                    if (Utils.getWebServiceStatus(response)) {
+                                    if (response.getString("status").equalsIgnoreCase("2")) {
                                         Log.i("info", "" + response);
                                         finish();
                                         Intent intent = new Intent(SignUp.this, SplashScreen.class);
                                         startActivity(intent);
-                                    } else {
-                                        Utils.showDialog(SignUp.this, "Error", Utils.getWebServiceMessage(response));
+                                    } else if (Utils.getWebServiceStatus(response)) {
+                                        UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").
+                                                toString(), UserDTO.class);
+                                        userDTO.setUserType(Constant.REGISTER);
+                                        DealPreferences.putObjectIntoPref(mContext, userDTO, Constant.USER_INFO);
+
+                                        DealPreferences.setIsShowSurveyAfterLogin(
+                                                mContext, true);
+
+                                        Intent intent = new Intent(mContext, HomeActivity.class);
+                                        intent.putExtra("fragmentName", mContext.getString(R.string.interest_screen_title));
+                                        startActivity(intent);
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();

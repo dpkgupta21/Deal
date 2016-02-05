@@ -10,13 +10,13 @@ public final class CommonUtilities {
     // "http://192.168.0.105/gcm/gcm.php?shareRegId=1";
 
     // Google project id
-    public static final String SENDER_ID = "439747291761";
+    public static final String SENDER_ID = "97179905293";
     //Api KEY
-    public static final String API_KEY = "AIzaSyCgbu0b5QoNNPOm7iR9XJbrmSRRvj15Xqo";
+    public static final String API_KEY = "AIzaSyBK4eEcZ1-KAnE4f6gYM2saXpGEiTSBsNo";
     /**
      * Tag used on log messages.
      */
-    static final String TAG = "EXAP GCM";
+    public static final String TAG = "EXAP GCM";
 
     public static final String DISPLAY_MESSAGE_ACTION = "com.deal.exap.DISPLAY_MESSAGE";
 
