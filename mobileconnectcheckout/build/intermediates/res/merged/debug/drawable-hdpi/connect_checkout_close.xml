@@ -5,4 +5,4 @@
     <item android:drawable="@drawable/connect_checkout_header_close" android:state_focused="true"/>
     <item android:drawable="@drawable/connect_checkout_header_close"/>
 
-</selector><!-- From: file:/D:/Android/DealApp_4_Feb/mobileconnectcheckout/src/main/res/drawable-hdpi/connect_checkout_close.xml -->
+</selector><!-- From: file:/F:/Deal%206%20fab%202016/Deal/mobileconnectcheckout/src/main/res/drawable-hdpi/connect_checkout_close.xml -->

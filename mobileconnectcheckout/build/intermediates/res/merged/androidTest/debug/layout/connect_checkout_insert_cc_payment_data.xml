@@ -117,4 +117,4 @@
             android:text="@string/connect_checkout_layout_text_review_and_confirm" />
     </RelativeLayout>
 
-</ScrollView><!-- From: file:/D:/Android/DealApp_4_Feb/mobileconnectcheckout/src/main/res/layout/connect_checkout_insert_cc_payment_data.xml --><!-- From: file:/D:/Android/DealApp_4_Feb/mobileconnectcheckout/build/intermediates/bundles/debug/res/layout/connect_checkout_insert_cc_payment_data.xml -->
+</ScrollView><!-- From: file:/F:/Deal%206%20fab%202016/Deal/mobileconnectcheckout/src/main/res/layout/connect_checkout_insert_cc_payment_data.xml --><!-- From: file:/F:/Deal%206%20fab%202016/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/layout/connect_checkout_insert_cc_payment_data.xml -->

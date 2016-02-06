@@ -26,6 +26,7 @@ import com.deal.exap.R;
 import com.deal.exap.customerfeedback.CustomerFeedBackActivity;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.misc.ImageActivity;
+import com.deal.exap.misc.MapSupport;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.partner.FollowingPartnerDetails;
@@ -36,6 +37,9 @@ import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.gson.Gson;
 import com.mobile.connect.PWConnect;
 import com.mobile.connect.checkout.dialog.PWConnectCheckoutActivity;
@@ -64,9 +68,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-//import com.google.android.gms.maps.GoogleMap;
 
-public class BuyCouponActivity extends BaseActivity {
+public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallback {
 
     private static final String TAG = "BuyCouponActivity";
     //private GoogleMap mMap;
@@ -84,6 +87,7 @@ public class BuyCouponActivity extends BaseActivity {
     private double transactionPrice = 0.0;
 
     private ArrayList<String> imageList;
+    private GoogleMap mMap;
 
 
     //private ProgressBar progressBar;
@@ -461,6 +465,12 @@ public class BuyCouponActivity extends BaseActivity {
 
 //        ImageLoader.getInstance().displayImage(dealImageList.get(0), imgThumnail,
 //                options);
+
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
 
 
     }
@@ -960,6 +970,21 @@ public class BuyCouponActivity extends BaseActivity {
 //
 //
 //    }
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        MapSupport.createMarker(mMap, DealPreferences.getLatitude(this.
+                getApplicationContext()), DealPreferences.getLongitude(this.
+                getApplicationContext()), "current", this, "");
+        MapSupport.createMarker(mMap, dealDTO.getLat(), dealDTO.getLng(), "position", this, dealDTO.getDiscount() + "%");
+
+        new MapSupport().drawPath(DealPreferences.getLatitude(this.
+                getApplicationContext()), DealPreferences.getLongitude(this.
+                getApplicationContext()), dealDTO.getLat(), dealDTO.getLng(), mMap);
+
+    }
 
 
 }
