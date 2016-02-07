@@ -220,7 +220,6 @@
         <service android:name=".GCMIntentService" />
 
         <!-- End Push Notification -->
-
     </application>
 
 </manifest>
