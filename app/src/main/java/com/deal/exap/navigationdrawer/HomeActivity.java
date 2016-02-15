@@ -50,7 +50,9 @@ public class HomeActivity extends BaseActivity {
     private static final String TAG = "HomeActivity";
     public ResideMenuSecond resideMenu;
     private Context mContext;
-    private ResideMenuItem itemAlert, itemNearby, itemWallet, itemInterest, itemFavorite, itemFollowing, itemCategory, itemSetting;
+    private ResideMenuItem itemAlert, itemNearby, itemWallet,
+            itemInterest, itemFavorite, itemFollowing,
+            itemCategory, itemSetting;
     //Boolean isopend = false;
     View topView;
     private String fragmentName;

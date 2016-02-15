@@ -1,6 +1,7 @@
 package com.deal.exap.login;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -45,6 +46,16 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import android.util.Base64;
+import android.widget.Toast;
+
 
 /**
  * A login screen that offers login via email/password.
@@ -116,7 +127,7 @@ public class SignInFragment extends BaseFragment {
 //
 //                String sign = Base64.encodeToString(md.digest(), Base64.DEFAULT);
 //                Log.e("KeyHash:", sign);
-//                  Toast.makeText(context, sign, Toast.LENGTH_LONG).show();
+//                Toast.makeText(context, sign, Toast.LENGTH_LONG).show();
 //            }
 //            Log.d("KeyHash:", "****------------***");
 //        } catch (PackageManager.NameNotFoundException e) {
@@ -211,9 +222,9 @@ public class SignInFragment extends BaseFragment {
     View.OnClickListener goToNumberVerificationClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent=new Intent(getActivity(),NumberVerificationActivity.class);
+            Intent intent = new Intent(getActivity(), NumberVerificationActivity.class);
             startActivity(intent);
-           // NumberVerificationFragment numberVerificationFragment = NumberVerificationFragment.newInstance();
+            // NumberVerificationFragment numberVerificationFragment = NumberVerificationFragment.newInstance();
 //            VerificationOptionFragment verificationOptionFragment = VerificationOptionFragment.newInstance();
 //            FragmentManager fm = getFragmentManager();
 //            FragmentTransaction ft = fm

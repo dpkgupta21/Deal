@@ -35,7 +35,7 @@ public class MapSupport {
     private GoogleMap map;
 
     public static void createMarker(GoogleMap map, double lat, double lng, String markerType, Context context, String discount) {
-
+        map = map;
         try {
             LatLng latLng = new LatLng(lat, lng);
             if (markerType.equalsIgnoreCase("current")) {
@@ -67,7 +67,7 @@ public class MapSupport {
 
     public void drawPath(double startLat, double startLng, double endLat, double endLng, GoogleMap map) {
         StringBuilder urlString = new StringBuilder();
-        map = map;
+        this.map = map;
         try {
             urlString
                     .append("http://maps.googleapis.com/maps/api/directions/json");

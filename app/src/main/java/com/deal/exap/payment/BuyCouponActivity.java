@@ -472,7 +472,6 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
 
-
     }
 
 
@@ -983,6 +982,10 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         new MapSupport().drawPath(DealPreferences.getLatitude(this.
                 getApplicationContext()), DealPreferences.getLongitude(this.
                 getApplicationContext()), dealDTO.getLat(), dealDTO.getLng(), mMap);
+//        new MapSupport().drawPath(DealPreferences.getLatitude(this.
+//                getApplicationContext()), DealPreferences.getLongitude(this.
+//                getApplicationContext()), 27.221721, 77.488052, mMap);
+
 
     }
 

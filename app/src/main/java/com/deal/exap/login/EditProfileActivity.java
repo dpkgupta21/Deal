@@ -377,16 +377,19 @@ public class EditProfileActivity extends BaseActivity {
                                 if (Utils.getWebServiceStatus(response)) {
                                     Log.i("info", "" + response);
 
-                                    UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
+                                    UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").
+                                            toString(), UserDTO.class);
                                     userDTO.setUserType(Constant.REGISTER);
                                     DealPreferences.putObjectIntoPref(EditProfileActivity.this,
                                             userDTO, Constant.USER_INFO);
-                                    Intent intent = new Intent(EditProfileActivity.this, HomeActivity.class);
+                                    Intent intent = new Intent(EditProfileActivity.this,
+                                            HomeActivity.class);
                                     intent.putExtra("fragmentName", EditProfileActivity.this.getString(R.string.setting_screen_title));
                                     startActivity(intent);
 
                                 } else {
-                                    Utils.showDialog(EditProfileActivity.this, "Error", Utils.getWebServiceMessage(response));
+                                    Utils.showDialog(EditProfileActivity.this, "Error",
+                                            Utils.getWebServiceMessage(response));
                                 }
                             } catch (Exception e) {
                                 e.printStackTrace();
