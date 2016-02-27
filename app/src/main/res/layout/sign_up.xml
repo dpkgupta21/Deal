@@ -73,6 +73,7 @@
                 android:background="@drawable/edt_txt_white_bcg_shape"
                 android:drawableLeft="@drawable/user_icon_light"
                 android:hint="@string/name_hint"
+                android:singleLine="true"
                 android:textSize="@dimen/edit_text_color" />
 
             <LinearLayout
@@ -94,6 +95,7 @@
                     android:drawableLeft="@drawable/dob_icon"
                     android:focusable="false"
                     android:hint="@string/dob_hint"
+                    android:singleLine="true"
                     android:textSize="@dimen/edit_text_color" />
 
                 <com.deal.exap.customviews.MyEditTextViewLight
@@ -107,6 +109,7 @@
                     android:drawableLeft="@drawable/gender_icon"
                     android:focusable="false"
                     android:hint="@string/gender_hint"
+                    android:singleLine="true"
                     android:textSize="@dimen/edit_text_color" />
             </LinearLayout>
 
@@ -119,6 +122,7 @@
                 android:background="@drawable/edt_txt_white_bcg_shape"
                 android:drawableLeft="@drawable/email_icon"
                 android:hint="@string/email_id_hint"
+                android:singleLine="true"
                 android:textSize="@dimen/edit_text_color" />
 
             <com.deal.exap.customviews.MyEditTextViewLight
@@ -143,6 +147,7 @@
                 android:drawableLeft="@drawable/lock_icon_light"
                 android:hint="@string/confirm_password_hint"
                 android:inputType="textPassword"
+                android:singleLine="true"
                 android:textSize="@dimen/edit_text_color" />
 
             <com.deal.exap.customviews.MyButtonViewSemi

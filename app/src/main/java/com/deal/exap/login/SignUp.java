@@ -382,7 +382,7 @@ public class SignUp extends BaseActivity {
                                         finish();
                                         Intent intent = new Intent(SignUp.this, SplashScreen.class);
                                         startActivity(intent);
-                                    } else if (Utils.getWebServiceStatus(response)) {
+                                    } else if (response.getString("status").equalsIgnoreCase("1")) {
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").
                                                 toString(), UserDTO.class);
                                         userDTO.setUserType(Constant.REGISTER);

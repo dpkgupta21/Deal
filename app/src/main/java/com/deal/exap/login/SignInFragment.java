@@ -1,7 +1,6 @@
 package com.deal.exap.login;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -46,15 +45,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import android.util.Base64;
-import android.widget.Toast;
 
 
 /**

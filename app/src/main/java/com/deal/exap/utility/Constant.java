@@ -22,14 +22,14 @@ public class Constant {
     public static final int RESULT_EXCEPTION = 1002;
     public static final int RESULT_TIMEOUT = 1003;
 
-    public static final String SERVICE_BASE_URL = "http://128.199.234.133/exap/webservices";
-
+    //public static final String SERVICE_BASE_URL = "http://128.199.234.133/exap/webservices";
+    public static final String SERVICE_BASE_URL ="http://exap.sa/beta/webservices";
 
 
     public static String WRONG_NUMBER_ERROR="Please enter valid number";
 
 
-    public static String TAG = "Exam";
+    public static String TAG = "Exap";
 
     // For menu count handler in android
     public static int MENU_COUNT_HANDLER = 1004;
