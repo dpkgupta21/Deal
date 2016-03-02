@@ -35,6 +35,15 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/back_btn" />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:padding="5dp"
+                    android:id="@+id/img_chat"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="right"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/chat_btn"/>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"

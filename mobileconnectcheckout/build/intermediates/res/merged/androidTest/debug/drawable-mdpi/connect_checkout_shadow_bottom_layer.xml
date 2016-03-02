@@ -10,4 +10,4 @@
         <nine-patch android:src="@drawable/connect_checkout_shadow_bottom" android:gravity="bottom" />
     </item>
 
-</layer-list><!-- From: file:/Users/DeepakGupta/Workspace1/DealApp_18_Feb/mobileconnectcheckout/src/main/res/drawable-mdpi/connect_checkout_shadow_bottom_layer.xml --><!-- From: file:/Users/DeepakGupta/Workspace1/DealApp_18_Feb/mobileconnectcheckout/build/intermediates/bundles/debug/res/drawable-mdpi/connect_checkout_shadow_bottom_layer.xml -->
+</layer-list><!-- From: file:/F:/deal/Deal/mobileconnectcheckout/src/main/res/drawable-mdpi/connect_checkout_shadow_bottom_layer.xml --><!-- From: file:/F:/deal/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/drawable-mdpi/connect_checkout_shadow_bottom_layer.xml -->

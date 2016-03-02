@@ -23,6 +23,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
+import com.deal.exap.chat.ChatActivity;
 import com.deal.exap.customerfeedback.CustomerFeedBackActivity;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.misc.ImageActivity;
@@ -179,6 +180,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         setClick(R.id.txt_customer_reviews);
         setClick(R.id.thumbnail);
 
+        setClick(R.id.img_chat);
         setClick(R.id.img_title);
 
 
@@ -252,6 +254,12 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 i.putExtra("partnerId", dealDTO.getPartner_id());
                 startActivity(i);
                 break;
+
+            case R.id.img_chat:
+
+                i = new Intent(this, ChatActivity.class);
+                i.putExtra("receiverID", dealDTO.getPartner_id() + "");
+                startActivity(i);
 
         }
     }
