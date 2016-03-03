@@ -180,7 +180,8 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         setClick(R.id.txt_customer_reviews);
         setClick(R.id.thumbnail);
 
-        setClick(R.id.img_chat);
+
+
         setClick(R.id.img_title);
 
 
@@ -259,6 +260,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 
                 i = new Intent(this, ChatActivity.class);
                 i.putExtra("receiverID", dealDTO.getPartner_id() + "");
+                i.putExtra("dealId", dealDTO.getId());
                 startActivity(i);
 
         }
@@ -449,6 +451,18 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                     HelpMe.getCurrencySign(BuyCouponActivity.this));
 
         }
+
+
+        if (dealDTO.getIs_chat_on().equalsIgnoreCase("1")) {
+            setViewVisibility(R.id.img_chat, View.VISIBLE);
+
+            // set chat listener
+            setClick(R.id.img_chat);
+        } else {
+            setViewVisibility(R.id.img_chat, View.GONE);
+        }
+
+
 
 
         // ImageView imgThumnail = (ImageView) findViewById(R.id.thumbnail);

@@ -58,8 +58,6 @@ public class ChatActivity extends BaseActivity {
         mContext = ChatActivity.this;
         init();
 
-        // getMessageList();
-
         loadMessageList();
 
 
@@ -67,6 +65,7 @@ public class ChatActivity extends BaseActivity {
 
     private void init() {
         receiverId = getIntent().getStringExtra("receiverID");
+
         setHeader(getString(R.string.discussion_title));
 
         setLeftClick();
@@ -101,12 +100,16 @@ public class ChatActivity extends BaseActivity {
         Utils.hideKeyboard(this);
         if (!getViewText(R.id.et_message).equals("")) {
             if (Utils.isOnline(this)) {
+                String dealId = getIntent().getStringExtra("dealId");
                 Map<String, String> params = new HashMap<>();
                 params.put("action", Constant.SEND_MESSAGE);
                 params.put("lang", Utils.getSelectedLanguage(mContext));
                 params.put("sender_id", Utils.getUserId(mContext));
                 params.put("message", getViewText(R.id.et_message));
                 params.put("receiver_id", receiverId);
+                if (dealId != null && !dealId.equalsIgnoreCase("")) {
+                    params.put("deal_id", dealId);
+                }
                 final ProgressDialog pdialog = Utils.createProgressDialog(mContext,
                         null, false);
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,

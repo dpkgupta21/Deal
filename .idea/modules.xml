@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Deal.iml" filepath="$PROJECT_DIR$/Deal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DealApp_18_Feb.iml" filepath="$PROJECT_DIR$/DealApp_18_Feb.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/mobileconnectcheckout/mobileconnectcheckout.iml" filepath="$PROJECT_DIR$/mobileconnectcheckout/mobileconnectcheckout.iml" />
     </modules>

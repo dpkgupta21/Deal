@@ -68,7 +68,18 @@ public class DealDTO implements Serializable {
 
     private double lng;
 
+    private String is_chat_on;
+
+
     private List<String> deal_images;
+
+    public String getIs_chat_on() {
+        return is_chat_on;
+    }
+
+    public void setIs_chat_on(String is_chat_on) {
+        this.is_chat_on = is_chat_on;
+    }
 
     public double getLat() {
         return lat;
