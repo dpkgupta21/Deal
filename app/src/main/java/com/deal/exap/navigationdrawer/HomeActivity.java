@@ -379,6 +379,7 @@ public class HomeActivity extends BaseActivity {
         itemFollowing.setTitle(getString(R.string.menu_following) + (menuDTO.getFollowing() == 0 ? "" : " (" + menuDTO.getFollowing() + ")"));
         itemCategory.setTitle(getString(R.string.menu_categories));
         itemSetting.setTitle(getString(R.string.menu_setting));
+        itemAlert.setTitle(getString(R.string.menu_alert) + (menuDTO.getAlert() == 0 ? "" : " (" + menuDTO.getAlert() + ")"));
     }
 
     @Override

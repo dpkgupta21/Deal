@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -41,6 +42,7 @@ import com.deal.exap.volley.CustomJsonRequest;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.mobile.connect.PWConnect;
 import com.mobile.connect.checkout.dialog.PWConnectCheckoutActivity;
@@ -89,7 +91,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 
     private ArrayList<String> imageList;
     private GoogleMap mMap;
-
+    private StringBuffer shareStr = new StringBuffer();
 
     //private ProgressBar progressBar;
 
@@ -453,7 +455,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         }
 
 
-        if (dealDTO.getIs_chat_on().equalsIgnoreCase("1")) {
+        if (dealDTO.getIs_chat_on()!=null && dealDTO.getIs_chat_on().equalsIgnoreCase("1")) {
             setViewVisibility(R.id.img_chat, View.VISIBLE);
 
             // set chat listener
@@ -492,7 +494,8 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
+        shareStr.append(dealDTO.getName_eng()).append("\n").append("Price "+dealDTO.getFinal_price()).append("\n")
+                .append(dealDTO.getDiscount()).append(" % Off");
 
     }
 
@@ -860,7 +863,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 Intent facebookIntent = new Intent(Intent.ACTION_SEND);
                 facebookIntent.setType("text/plain");
                 facebookIntent.setPackage("com.facebook.katana");
-                facebookIntent.putExtra(Intent.EXTRA_TEXT, "Hello");
+                facebookIntent.putExtra(Intent.EXTRA_TEXT, shareStr.toString());
                 startActivity(facebookIntent);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -876,7 +879,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 Intent instagramIntent = new Intent(Intent.ACTION_SEND);
                 instagramIntent.setType("image/*");
                 instagramIntent.setPackage("com.instagram.android");
-                instagramIntent.putExtra(Intent.EXTRA_TEXT, "Hello");
+                instagramIntent.putExtra(Intent.EXTRA_TEXT, shareStr.toString());
                 startActivity(instagramIntent);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -891,7 +894,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 Intent twitterIntent = new Intent(Intent.ACTION_SEND);
                 twitterIntent.setType("text/plain");
                 twitterIntent.setPackage("com.twitter.android");
-                twitterIntent.putExtra(Intent.EXTRA_TEXT, "Hello");
+                twitterIntent.putExtra(Intent.EXTRA_TEXT, shareStr.toString());
                 startActivity(twitterIntent);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -907,7 +910,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
                 whatsappIntent.setType("text/plain");
                 whatsappIntent.setPackage("com.whatsapp");
-                whatsappIntent.putExtra(Intent.EXTRA_TEXT, "Hello");
+                whatsappIntent.putExtra(Intent.EXTRA_TEXT, shareStr.toString());
                 startActivity(whatsappIntent);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1008,6 +1011,18 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 //                getApplicationContext()), DealPreferences.getLongitude(this.
 //                getApplicationContext()), 27.221721, 77.488052, mMap);
 
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+
+            @Override
+            public void onMapClick(LatLng point) {
+
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?saddr=" + DealPreferences.getLatitude(BuyCouponActivity.this) + ","
+                                + DealPreferences.getLongitude(BuyCouponActivity.this) + "&daddr=" +
+                                dealDTO.getLat() + "," + dealDTO.getLng() + ""));
+                startActivity(intent);
+            }
+        });
 
     }
 

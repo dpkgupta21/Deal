@@ -109,7 +109,7 @@
                                 android:id="@+id/txt_address"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:drawableRight="@drawable/nav_nearby_icon"
+
                                 android:gravity="center_vertical"
                                 android:text="@string/street_berlin"
                                 android:textColor="@color/white"
