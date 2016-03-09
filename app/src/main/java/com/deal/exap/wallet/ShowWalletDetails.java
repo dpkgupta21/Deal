@@ -219,7 +219,7 @@ public class ShowWalletDetails extends BaseActivity {
         }
 
 
-        setTextViewText(R.id.txt_address, dealDTO.getLocation());
+        //setTextViewText(R.id.txt_address, dealDTO.getLocation());
         ((RatingBar) findViewById(R.id.rating_bar)).setRating(dealDTO.getRating());
 
         setTextViewText(R.id.txt_review, dealDTO.getReview() + "");

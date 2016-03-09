@@ -426,7 +426,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         }
 
 
-        setTextViewText(R.id.txt_address, dealDTO.getLocation());
+        //setTextViewText(R.id.txt_address, dealDTO.getLocation());
         ((RatingBar) findViewById(R.id.rating_bar)).setRating(dealDTO.getRating());
 
         setTextViewText(R.id.txt_review, dealDTO.getReview() + "");
@@ -534,7 +534,9 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
             settings.setPaymentVATAmount(vatAmount);
             settings.setSupportedDirectDebitCountries(new String[]{"DE"});
             settings.setSupportedPaymentMethods(new PWConnectCheckoutPaymentMethod[]{
-                    PWConnectCheckoutPaymentMethod.VISA, PWConnectCheckoutPaymentMethod.MASTERCARD});
+                    PWConnectCheckoutPaymentMethod.VISA,
+                    PWConnectCheckoutPaymentMethod.MASTERCARD,
+                    PWConnectCheckoutPaymentMethod.AMERICAN_EXPRESS});
             // ask the user if she wants to store the account
             settings.setCreateToken(PWConnectCheckoutCreateToken.PROMPT);
 
@@ -580,6 +582,10 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                     e.printStackTrace();
                 }
             } else {
+                PWTransaction transaction = data.getExtras().getParcelable(PWConnectCheckoutActivity.CONNECT_CHECKOUT_RESULT_TRANSACTION);
+
+                buyDeal(transaction.getProcessorUniqueIdentifier());
+
                 Utils.ShowLog(TAG, "checkout went through, callback has transaction result");
             }
         }
@@ -796,12 +802,15 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 //                    .build();
 //        } else {
         params = new FloatingActionButton.LayoutParams(50, 50);
-        params.setMargins(0, 180, 20, 0);
+        params.setMargins(0, 120, 20, 0);
+
         fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)
                 .setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
                 .setLayoutParams(params)
                 .build();
+
 //        }
+
         SubActionButton.Builder subButton = new SubActionButton.Builder(this);
         ImageView icon1 = new ImageView(this);
         ImageView icon2 = new ImageView(this);

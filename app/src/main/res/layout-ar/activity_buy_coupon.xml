@@ -105,15 +105,15 @@
 
                             </LinearLayout>
 
-                            <com.deal.exap.customviews.MyTextViewLightCustom
-                                android:id="@+id/txt_address"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-
-                                android:gravity="center_vertical"
-                                android:text="@string/street_berlin"
-                                android:textColor="@color/white"
-                                android:textSize="10sp" />
+                            <!--<com.deal.exap.customviews.MyTextViewLightCustom-->
+                                <!--android:id="@+id/txt_address"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:drawableRight="@drawable/nav_nearby_icon"-->
+                                <!--android:gravity="center_vertical"-->
+                                <!--android:text="@string/street_berlin"-->
+                                <!--android:textColor="@color/white"-->
+                                <!--android:textSize="10sp" />-->
 
 
                         </LinearLayout>
