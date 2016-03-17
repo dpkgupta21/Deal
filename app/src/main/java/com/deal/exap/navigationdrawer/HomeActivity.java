@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -37,7 +38,10 @@ import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
 import com.deal.exap.wallet.WalletFragment;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
 import org.json.JSONObject;
 
@@ -62,15 +66,30 @@ public class HomeActivity extends BaseActivity {
     private final MenuHandler myHandler =
             new MenuHandler(HomeActivity.this);
 
+    private Tracker mTracker;
+
+
     /**
      * Called when the activity is first created.
      */
     @Override
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         mContext = HomeActivity.this;
         fragmentName = getIntent().getStringExtra("fragmentName");
+
+        // Google analytics
+
+        AppController application = (AppController) getApplication();
+        mTracker = application.getDefaultTracker();
+
+
+        //mixpannal
+
+        String projectToken = "de8b3e7f77ee97d7eb8f44f96cc45cd0"; // e.g.: "1ef7e30d2a58d27f4b90c42e31d6d7ad"
+        MixpanelAPI mixpanel = MixpanelAPI.getInstance(this, projectToken);
 
         // set latitude and longitude in Deal Preferences
         GPSTracker gpsTracker = new GPSTracker(HomeActivity.this);
@@ -81,6 +100,14 @@ public class HomeActivity extends BaseActivity {
     private void init() {
         setHeader(fragmentName);
         setLeftClick(R.drawable.menu_btn);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG, "Setting screen name: " + TAG);
+        mTracker.setScreenName("Image~" + TAG);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     private void setUpMenu() {
@@ -157,7 +184,7 @@ public class HomeActivity extends BaseActivity {
         } else if (fragmentName.equalsIgnoreCase(getString(R.string.setting_screen_title))) {
             changeFragment(new SettingFragment());
         } else if (fragmentName.equalsIgnoreCase(getString(R.string.alert_screen_title))) {
-            boolean isForInbox=getIntent().getBooleanExtra("isForInbox", false);
+            boolean isForInbox = getIntent().getBooleanExtra("isForInbox", false);
             changeFragment(AlertFragment.newInstance(isForInbox));
         } else {
             changeFragment(new InterestFragment());
