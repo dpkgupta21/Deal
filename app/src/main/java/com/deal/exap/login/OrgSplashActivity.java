@@ -72,6 +72,8 @@ public class OrgSplashActivity extends FragmentActivity {
                 if (userDTO == null) {
                     i = new Intent(OrgSplashActivity.this, SplashScreen.class);
                 } else {
+                    DealPreferences.setIsShowSurveyAfterLogin(
+                            mContext, true);
                     i = new Intent(OrgSplashActivity.this, HomeActivity.class);
                     i.putExtra("fragmentName", getString(R.string.interest_screen_title));
                 }

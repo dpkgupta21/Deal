@@ -144,11 +144,24 @@ public class WalletFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<DealDTO>>() {
-                                }.getType();
-                                walletValues = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
-                                setWalletValues();
+                                TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
+                                if(Utils.getWebServiceStatus(response)) {
+                                    Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                    Type type = new TypeToken<ArrayList<DealDTO>>() {
+                                    }.getType();
+                                    walletValues = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
+                                    if(walletValues.size()!=0) {
+                                        setWalletValues();
+                                    }else{
+                                        mRecyclerView.setVisibility(View.GONE);
+                                        txt_blank.setVisibility(View.VISIBLE);
+                                    }
+                                }else{
+                                    mRecyclerView.setVisibility(View.GONE);
+                                    String msg = response.getString("message");
+                                    txt_blank.setVisibility(View.VISIBLE);
+                                    txt_blank.setText(msg);
+                                }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

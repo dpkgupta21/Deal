@@ -1,5 +1,6 @@
 package com.deal.exap.navigationdrawer;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -29,6 +30,7 @@ import com.deal.exap.interest.InterestFragment;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.menucount.MenuCountHandler;
 import com.deal.exap.model.MenuDTO;
+import com.deal.exap.model.UserDTO;
 import com.deal.exap.nearby.NearByFragment;
 import com.deal.exap.settings.SettingFragment;
 import com.deal.exap.utility.Constant;
@@ -189,6 +191,7 @@ public class HomeActivity extends BaseActivity {
         } else {
             changeFragment(new InterestFragment());
         }
+
 /*}
         findViewById(R.id.title_bar_menu).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,15 +216,15 @@ public class HomeActivity extends BaseActivity {
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
 
-        return resideMenu.onInterceptTouchEvent(ev) || super.dispatchTouchEvent(ev);
+        return resideMenu.dispatchTouchEvent(ev);
     }
 
     @Override
     public void onClick(View view) {
 
-        resideMenu.closeMenu();
 
         if (view == itemAlert) {
+            resideMenu.closeMenu();
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
                 Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
             } else {
@@ -229,9 +232,11 @@ public class HomeActivity extends BaseActivity {
                 setHeader(getString(R.string.alert_screen_title));
             }
         } else if (view == itemNearby) {
+            resideMenu.closeMenu();
             changeFragment(new NearByFragment());
             setHeader(getString(R.string.nearby_screen_title));
         } else if (view == itemWallet) {
+            resideMenu.closeMenu();
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
                 Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
             } else {
@@ -239,9 +244,11 @@ public class HomeActivity extends BaseActivity {
                 setHeader(getString(R.string.wallet_screen_title));
             }
         } else if (view == itemInterest) {
+            resideMenu.closeMenu();
             changeFragment(new InterestFragment());
             setHeader(getString(R.string.interest_screen_title));
         } else if (view == itemFavorite) {
+            resideMenu.closeMenu();
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
                 Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
             } else {
@@ -249,6 +256,7 @@ public class HomeActivity extends BaseActivity {
                 setHeader(getString(R.string.favorite_screen_title));
             }
         } else if (view == itemFollowing) {
+            resideMenu.closeMenu();
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
                 Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
             } else {
@@ -256,9 +264,11 @@ public class HomeActivity extends BaseActivity {
                 setHeader(getString(R.string.following_screen_title));
             }
         } else if (view == itemCategory) {
+            resideMenu.closeMenu();
             changeFragment(new CategoriesFragment());
             setHeader(getString(R.string.categories_title));
         } else if (view == itemSetting) {
+            resideMenu.closeMenu();
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
                 Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
             } else {
@@ -273,7 +283,7 @@ public class HomeActivity extends BaseActivity {
                 //if (isopend == false) {
                 ///  isopend = true;
                 if (resideMenu.isOpened() == false) {
-                    resideMenu.setOpened(true);
+
                     if (DealPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ENGLISH_CODE)) {
                         resideMenu.openMenu(ResideMenuSecond.DIRECTION_LEFT);
                     } else if (DealPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ARABIC_CODE)) {
@@ -416,6 +426,14 @@ public class HomeActivity extends BaseActivity {
 //            drawerLayout.closeDrawer(Gravity.LEFT);
 //        } else {
         if (backPressedToExitOnce) {
+            UserDTO userDTO = DealPreferences.getObjectFromPref(mContext, Constant.USER_INFO);
+            if (userDTO.getUserType().equalsIgnoreCase(Constant.NON_REGISTER)) {
+                userDTO = null;
+                DealPreferences.putObjectIntoPref(mContext, userDTO, Constant.USER_INFO);
+                SessionManager.logoutUser(mContext);
+            }
+
+
             super.onBackPressed();
         } else {
             this.backPressedToExitOnce = true;

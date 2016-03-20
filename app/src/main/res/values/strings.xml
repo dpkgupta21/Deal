@@ -10,7 +10,7 @@
     <string name="title">Lorem ipsum</string>
     <string name="title_separator">|</string>
     <string name="title_left">EXAP</string>
-    <string name="title_right">صفقة</string>
+    <string name="title_right">اكسب</string>
 
 
     <!-- Strings related to login -->
@@ -182,7 +182,7 @@
     <string name="txt_high_to_low">High To Low</string>
     <string name="txt_sooner_to_later">Sooner To Later</string>
     <string name="txt_later_to_sooner">Later To Sooner</string>
-    <string name="nearby_screen_title">NearBy</string>
+    <string name="nearby_screen_title">Near By</string>
 
     <string name="all">All</string>
 
@@ -233,8 +233,10 @@
 
 
     <!-- Welcome screen -->
+
     <string name="skip_right">Skip</string>
-    <string name="skip_left">تخطي</string>
+    <string name="skip_left">ع</string>
+
 
     <!-- add photo screen-->
 

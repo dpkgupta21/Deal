@@ -13,8 +13,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
+import com.deal.exap.customviews.CustomAlert;
 import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
+import com.deal.exap.navigationdrawer.NavigationDrawerActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
@@ -98,8 +100,11 @@ public class ForgetPasswordFragment extends BaseFragment {
                                pdialog.dismiss();
                                try {
                                    if (Utils.getWebServiceStatus(response)) {
-                                       Utils.showDialog(getActivity(), "Message", Utils.getWebServiceMessage(response));
-                                       startActivity(new Intent(getActivity(), SplashScreen.class));
+                                       new CustomAlert(getActivity().getApplicationContext(), ForgetPasswordFragment.this)
+                                               .singleButtonAlertDialog(
+                                                       response.getString("message"),
+                                                       getString(R.string.btn_text), "singleBtnCallbackResponse", 1000);
+                                       //Utils.showDialog(getActivity(), "Message", Utils.getWebServiceMessage(response));
 
                                    } else {
                                        Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));
@@ -126,6 +131,17 @@ public class ForgetPasswordFragment extends BaseFragment {
            }
        }
    }
+
+
+
+
+    public void singleBtnCallbackResponse(Boolean flag, int code) {
+        if (flag) {
+            startActivity(new Intent(getActivity(), SplashScreen.class));
+
+        }
+
+    }
 
 
     public boolean validateForm() {

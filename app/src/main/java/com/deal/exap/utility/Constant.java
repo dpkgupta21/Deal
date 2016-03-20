@@ -7,14 +7,14 @@ public class Constant {
     public static final String USER_INFO = "user_info";
     public static final String LANG_ENGLISH_CODE = "eng";
     public static final String LANG_ARABIC_CODE = "ara";
-    public static final String DISTANCE_UNIT_KM_ENG= "KM";
-    public static final String DISTANCE_UNIT_KM_ARA= "كم";
+    public static final String DISTANCE_UNIT_KM_ENG = "KM";
+    public static final String DISTANCE_UNIT_KM_ARA = "كم";
 
     public static final String DISTANCE_UNIT_MILES_ENG = "MILES";
     public static final String DISTANCE_UNIT_MILES_ARA = "ميل";
 
     public static String NON_REGISTER = "NON_REGISTER";
-    public static String REGISTER ="REGISTER";
+    public static String REGISTER = "REGISTER";
 
 
     // STATUS CODE
@@ -22,11 +22,11 @@ public class Constant {
     public static final int RESULT_EXCEPTION = 1002;
     public static final int RESULT_TIMEOUT = 1003;
 
-    public static final String SERVICE_BASE_URL = "http://128.199.234.133/exap/webservices/";
-   // public static final String SERVICE_BASE_URL ="http://exap.sa/beta/webservices";
+    //public static final String SERVICE_BASE_URL = "http://128.199.234.133/exap/webservices/";
+    public static final String SERVICE_BASE_URL = "http://exap.sa/beta/webservices";
 
 
-    public static String WRONG_NUMBER_ERROR="Please enter valid number";
+    public static String WRONG_NUMBER_ERROR = "Please enter valid number";
 
 
     public static String TAG = "Exap";
@@ -35,7 +35,7 @@ public class Constant {
     public static int MENU_COUNT_HANDLER = 1004;
 
     // Webservice constants
-    public static String SKIP_REGISTRATION ="skipregister";
+    public static String SKIP_REGISTRATION = "skipregister";
     public static String DO_LOGIN = "login";
     public static String DO_SIGNUP = "register";
     public static String GET_INTEREST = "interests";
@@ -56,16 +56,16 @@ public class Constant {
     public static String SETTING = "setting";
     public static String GET_REVIEW = "reviewlist";
     public static String GET_DEAL_DETAIL = "dealdetail";
-    public static String READ_REDEEM ="redeem";
-    public static String MENU_COUNT ="menucounter";
-    public static String GET_PARTNER="partner";
-    public static String ADD_FOLLOWER="addfollower";
-    public static String EDIT_PROFILE="editprofile";
-    public static String GET_NOTIFICATION ="notifications";
-    public static String LOAD_MESSAGE="loadMessage";
-    public static String GET_COUNTRY ="countries";
-    public static String GET_SURVEY_FORM ="getform";
-
+    public static String READ_REDEEM = "redeem";
+    public static String MENU_COUNT = "menucounter";
+    public static String GET_PARTNER = "partner";
+    public static String ADD_FOLLOWER = "addfollower";
+    public static String EDIT_PROFILE = "editprofile";
+    public static String GET_NOTIFICATION = "notifications";
+    public static String LOAD_MESSAGE = "loadMessage";
+    public static String GET_COUNTRY = "countries";
+    public static String GET_SURVEY_FORM = "getform";
+    public static String DEAL_CHECK = "dealcheck";
 
 
 }

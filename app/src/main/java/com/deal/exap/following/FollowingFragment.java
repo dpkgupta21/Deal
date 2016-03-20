@@ -129,17 +129,25 @@ public class FollowingFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
+                                TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
                                 if (response.getBoolean("status")) {
                                     mRecyclerView.setVisibility(View.VISIBLE);
+
+                                    txt_blank.setVisibility(View.GONE);
                                     Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                     Type type = new TypeToken<ArrayList<FollowingDTO>>() {
                                     }.getType();
                                     followingList = new Gson().fromJson(response.getJSONArray("following").toString(), type);
-                                    setFollowingList();
+                                    if (followingList.size() != 0) {
+                                        setFollowingList();
+                                    } else {
+                                        mRecyclerView.setVisibility(View.GONE);
+                                        txt_blank.setVisibility(View.VISIBLE);
+                                    }
+
                                 } else {
                                     mRecyclerView.setVisibility(View.GONE);
                                     String msg = response.getString("message");
-                                    TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
                                     txt_blank.setVisibility(View.VISIBLE);
                                     txt_blank.setText(msg);
                                 }

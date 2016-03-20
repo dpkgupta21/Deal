@@ -1,5 +1,6 @@
 package com.deal.exap.login;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -23,6 +24,7 @@ import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
+import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.SessionManager;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
@@ -48,21 +50,23 @@ public class SplashScreen extends BaseActivity {
     // List of Ids of radio buttons for displaying the dot of currently displayed picture
     private List<Integer> mRadioButtonIds;
     private GPSTracker gpsTracker;
+    private Activity mActivity;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
+        mActivity = SplashScreen.this;
 
-        String language = DealPreferences.getAPP_LANG(SplashScreen.this);
+        //String language = DealPreferences.getAPP_LANG(SplashScreen.this);
         // setUpToolbar();
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         FrameLayout frame_lay = (FrameLayout) findViewById(R.id.frame_lay);
         populateRadioButtonIds();
         populateEnglishSplashBackgrounds();
 
-        setClick(R.id.tv_skip_arb);
+        setClick(R.id.tv_lang_change);
         setClick(R.id.tv_skip_eng);
 
         mAdapter = new SplashScreenPagerAdapter(this, mPictures, mPictureIdsList);
@@ -122,9 +126,16 @@ public class SplashScreen extends BaseActivity {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.tv_skip_arb:
-                skipRegistration();
-                //startActivity(new Intent(this, HomeActivity.class));
+            case R.id.tv_lang_change:
+                if (DealPreferences.getAPP_LANG(mActivity).contains(Constant.LANG_ARABIC_CODE)) {
+                    HelpMe.setLocale(Constant.LANG_ENGLISH_CODE, mActivity);
+                    DealPreferences.setAPP_LANG(mActivity, Constant.LANG_ENGLISH_CODE);
+
+                } else if (DealPreferences.getAPP_LANG(mActivity).contains(Constant.LANG_ENGLISH_CODE)) {
+                    HelpMe.setLocale(Constant.LANG_ARABIC_CODE, mActivity);
+                    DealPreferences.setAPP_LANG(mActivity, Constant.LANG_ARABIC_CODE);
+                }
+                startActivity(new Intent(mActivity, SplashScreen.class));
                 break;
             case R.id.tv_skip_eng:
                 skipRegistration();

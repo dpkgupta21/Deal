@@ -19,6 +19,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.deal.exap.R;
+import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
@@ -92,9 +94,11 @@ public class ResideMenuSecond extends FrameLayout {
     //valid scale factor is between 0.0f and 1.0f.
     private float mScaleValue = 0.5f;
     private DisplayImageOptions options;
+    private Context mContext;
 
     public ResideMenuSecond(Context context) {
         super(context);
+        mContext = context;
         initViews(context);
     }
 
@@ -127,7 +131,7 @@ public class ResideMenuSecond extends FrameLayout {
                 .showImageForEmptyUri(R.drawable.default_img)
                 .build();
 
-        ImageView profile = (ImageView)viewHeader.findViewById(R.id.img_user_image);
+        ImageView profile = (ImageView) viewHeader.findViewById(R.id.img_user_image);
 
         ImageLoader.getInstance().displayImage(Utils.getUserImage(context), profile,
                 options);
@@ -539,10 +543,22 @@ public class ResideMenuSecond extends FrameLayout {
     }
 
     private void setScaleDirectionByRawX(float currentRawX) {
-        if (currentRawX < lastRawX)
-            setScaleDirection(DIRECTION_RIGHT);
-        else
-            setScaleDirection(DIRECTION_LEFT);
+        if (currentRawX < lastRawX) {
+            if (DealPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ENGLISH_CODE)) {
+
+            } else if (DealPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ARABIC_CODE)) {
+                setScaleDirection(DIRECTION_RIGHT);
+            }
+
+        } else {
+            if (DealPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ENGLISH_CODE)) {
+                setScaleDirection(DIRECTION_LEFT);
+            } else if (DealPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ARABIC_CODE)) {
+
+            }
+
+
+        }
     }
 
     private float getTargetScale(float currentRawX) {
@@ -592,17 +608,22 @@ public class ResideMenuSecond extends FrameLayout {
                         ev.setAction(MotionEvent.ACTION_CANCEL);
                     }
                 } else if (pressedState == PRESSED_MOVE_HORIZANTAL) {
-                    if (currentActivityScaleX < 0.95)
-                        showScrollViewMenu();
 
-                    float targetScale = getTargetScale(ev.getRawX());
-                    ViewHelper.setScaleX(viewActivity, targetScale);
-                    ViewHelper.setScaleY(viewActivity, targetScale);
-                    ViewHelper.setScaleX(imageViewShadow, targetScale + shadowAdjustScaleX);
-                    ViewHelper.setScaleY(imageViewShadow, targetScale + shadowAdjustScaleY);
-                    ViewHelper.setAlpha(scrollViewMenu, (1 - targetScale) * 2.0f);
+                    try {
+                        if (currentActivityScaleX < 0.95)
+                            showScrollViewMenu();
 
-                    lastRawX = ev.getRawX();
+                        float targetScale = getTargetScale(ev.getRawX());
+                        ViewHelper.setScaleX(viewActivity, targetScale);
+                        ViewHelper.setScaleY(viewActivity, targetScale);
+                        ViewHelper.setScaleX(imageViewShadow, targetScale + shadowAdjustScaleX);
+                        ViewHelper.setScaleY(imageViewShadow, targetScale + shadowAdjustScaleY);
+                        ViewHelper.setAlpha(scrollViewMenu, (1 - targetScale) * 2.0f);
+
+                        lastRawX = ev.getRawX();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     return true;
                 }
 

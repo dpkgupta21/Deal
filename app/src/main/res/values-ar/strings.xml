@@ -49,16 +49,16 @@
     <string name="name">MD الرزاق</string>
     <string name="age_city">29F | دبي</string>
     <string name="menu_alert">التنبيهات و الرسائل</string>
-    <string name="menu_near_by">قريب</string>
-    <string name="menu_wallet">مالمحفظة</string>
-    <string name="menu_interest">اهتمام</string>
+    <string name="menu_near_by">العروض القريبة</string>
+    <string name="menu_wallet">المحفظة</string>
+    <string name="menu_interest">الاهتمامات</string>
     <string name="menu_favorite">المفضل</string>
     <string name="menu_following">التالي</string>
     <string name="menu_categories">الفئات</string>
     <string name="menu_setting">إعدادات</string>
 
     <!--Interest screen-->
-    <string name="interest_screen_title">ااهتمامات</string>
+    <string name="interest_screen_title">الاهتمامات</string>
     <string name="select_interest">اختر الإهتمامات</string>
     <string name="menu_check">الاختيار</string>
 
@@ -69,7 +69,7 @@
     <!--<string name="burger_king">برغر كينغ</string>
     <string name="alert_detail">عرض نهاية الأسبوع الحصول على خصم 50٪ في شراء متجر</string>
     <string name="alert_date_time">23 سبتمبر | 11:00 PM</string>-->
-    <string name="alert_screen_title">تنبيهات</string>
+    <string name="alert_screen_title">التنبيهات</string>
     <string name="uname_pwd_not_match">اسم المستخدم وكلمة المرور غير متطابقة.</string>
     <string name="sms_verification_error">رمز التحقق SMS الذي أدخلته غير صحيح</string>
 
@@ -147,7 +147,7 @@
     <string name="txt_high_to_low">االبعيدة أولاً</string>
     <string name="txt_sooner_to_later">عقريباً</string>
     <string name="txt_later_to_sooner">فلاحقاً</string>
-    <string name="nearby_screen_title">قعروض قريبة</string>
+    <string name="nearby_screen_title">العروض القريبة</string>
 
 
         <string name="txt_off">بعيدا</string>
@@ -202,8 +202,9 @@
 
 
     <!-- Welcome screen -->
-    <string name="skip_right">Skip</string>
-    <string name="skip_left">تخطى</string>
+
+    <string name="skip_right">تخطى</string>
+    <string name="skip_left">E</string>
 
     <string name="choose_camera">كاميرا</string>
     <string name="choose_gallery">صالة عرض</string>
@@ -211,7 +212,7 @@
 
 
     <!--Wallet Screen-->
-    <string name="wallet_screen_title">مالمحفظة</string>
+    <string name="wallet_screen_title">المحفظة</string>
     <string name="wallet_percentage_off">خصم  X %</string>
 
     <!--Discussion or Chat Screen-->

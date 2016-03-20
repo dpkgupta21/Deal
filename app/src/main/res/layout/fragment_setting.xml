@@ -240,26 +240,13 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
+
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="@color/white">
-
-                <com.deal.exap.customviews.MyTextViewReg16
-                    android:id="@+id/txt_change_currency"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:padding="10dp"
-                    android:text="@string/txt_change_currency" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:background="@color/white">
 
                 <com.deal.exap.customviews.MyTextViewReg16

@@ -363,7 +363,7 @@ public class SignInFragment extends BaseFragment {
 
                                         DealPreferences.setIsShowSurveyAfterLogin(
                                                 getActivity().getApplicationContext(), true);
-
+                                        getActivity().finish();
                                         Intent intent = new Intent(getActivity(), HomeActivity.class);
                                         intent.putExtra("fragmentName", getActivity().getString(R.string.interest_screen_title));
                                         startActivity(intent);
@@ -420,6 +420,7 @@ public class SignInFragment extends BaseFragment {
                                     userDTO.setUserType(Constant.REGISTER);
                                     DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
                                     //startActivity(new Intent(getActivity(), HomeActivity.class));
+                                    getActivity().finish();
                                     DealPreferences.setIsShowSurveyAfterLogin(getActivity().getApplicationContext(), true);
                                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                                     intent.putExtra("fragmentName",

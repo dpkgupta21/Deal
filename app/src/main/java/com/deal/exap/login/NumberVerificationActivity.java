@@ -26,7 +26,7 @@ public class NumberVerificationActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         toolbar.setBackgroundColor(getResources().getColor(R.color.app_color));
         setSupportActionBar(toolbar);
-        MyTextViewRegCustom tv_skip_arb = (MyTextViewRegCustom) toolbar.findViewById(R.id.tv_skip_arb);
+        MyTextViewRegCustom tv_skip_arb = (MyTextViewRegCustom) toolbar.findViewById(R.id.tv_lang_change);
         tv_skip_arb.setVisibility(View.GONE);
         MyTextViewRegCustom tv_skip_eng = (MyTextViewRegCustom) toolbar.findViewById(R.id.tv_skip_eng);
         tv_skip_eng.setVisibility(View.GONE);

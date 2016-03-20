@@ -238,13 +238,11 @@ public class DealPreferences {
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(DISTANCE_UNIT, Constant.DISTANCE_UNIT_KM_ENG);
         editor.putString(KEY_PHONE, null);
-        editor.putString(APP_LANG, Constant.LANG_ENGLISH_CODE);
         editor.putString(LATITUDE, "0.0");
         editor.putString(LONGITUDE, "0.0");
         editor.putBoolean(IS_LOGGED_IN, false);
-
+        editor.putBoolean(IS_SHOW_SURVEY_AFTER_LOGIN, false);
         editor.apply();
 
     }

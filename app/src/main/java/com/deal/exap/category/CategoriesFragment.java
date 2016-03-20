@@ -45,15 +45,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.support.v4.widget.SwipeRefreshLayout;
-
 
 public class CategoriesFragment extends Fragment {
 
 
     private RecyclerView mRecyclerView;
-    //private RecyclerView.Adapter mAdapter;
-    //private RecyclerView.LayoutManager mLayoutManager;
     private List<CategoryDTO> categoryList;
     private View view;
     private Dao<CategoryDTO, String> categoryDao;
@@ -124,7 +120,7 @@ public class CategoriesFragment extends Fragment {
             case R.id.menu_notification:
                 Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
                 i.putExtra("fragmentName", getActivity().getString(R.string.alert_screen_title));
-                i.putExtra("isForInbox",true);
+                i.putExtra("isForInbox", true);
                 startActivity(i);
                 getActivity().finish();
 
@@ -153,17 +149,23 @@ public class CategoriesFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
+                                TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
                                 if (response.getBoolean("status")) {
                                     mRecyclerView.setVisibility(View.VISIBLE);
+                                    txt_blank.setVisibility(View.GONE);
                                     Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                     Type type = new TypeToken<ArrayList<CategoryDTO>>() {
                                     }.getType();
                                     categoryList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
-                                    setCategoryList();
+                                    if (categoryList.size() != 0) {
+                                        setCategoryList();
+                                    } else {
+                                        mRecyclerView.setVisibility(View.GONE);
+                                        txt_blank.setVisibility(View.VISIBLE);
+                                    }
                                 } else {
                                     mRecyclerView.setVisibility(View.GONE);
                                     String msg = response.getString("message");
-                                    TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
                                     txt_blank.setVisibility(View.VISIBLE);
                                     txt_blank.setText(msg);
                                 }

@@ -49,7 +49,6 @@ public class SessionManager {
     public static void logoutUser(Context mContext) {
         // Clearing all data from Shared Preferences
         DealPreferences.clearAllPreferences(mContext);
-        DealPreferences.setLoggedIn(mContext, false);
 
         // After logout redirect user to Loing Activity
         Intent i = new Intent(mContext, SplashScreen.class);

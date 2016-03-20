@@ -3,6 +3,7 @@ package com.deal.exap.payment;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -30,7 +31,6 @@ import com.deal.exap.login.BaseActivity;
 import com.deal.exap.misc.ImageActivity;
 import com.deal.exap.misc.MapSupport;
 import com.deal.exap.model.DealDTO;
-import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.termscondition.TermsConditionActivity;
 import com.deal.exap.utility.Constant;
@@ -75,14 +75,9 @@ import java.util.Map;
 public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallback {
 
     private static final String TAG = "BuyCouponActivity";
-    //private GoogleMap mMap;
-    //private TextView txtMonth;
-    //private TextView txtYear;
-    //private ArrayList<String> months;
-    //private ArrayList<String> years;
     private DealDTO dealDTO;
+    private String orderId;  // It is custom Identifier
     private DisplayImageOptions options;
-    //private Dialog dialog;
     private PWProviderBinder _binder;
 
     private static final String APPLICATIONIDENTIFIER = "gate2play.WorldofSS.mcommerce.test";// "payworks.swipeandbuy";
@@ -92,8 +87,8 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
     private ArrayList<String> imageList;
     private GoogleMap mMap;
     private StringBuffer shareStr = new StringBuffer();
+    private Activity mActivity;
 
-    //private ProgressBar progressBar;
 
     /**
      * A list of the stored accounts
@@ -131,6 +126,8 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_coupon);
 
+        mActivity = BuyCouponActivity.this;
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         /*SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -157,7 +154,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 
     private void init() {
 
-        String id = getIntent().getStringExtra("id");
+        String dealId = getIntent().getStringExtra("id");
 
         imageList = new ArrayList<>();
 
@@ -172,7 +169,9 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 .showImageOnFail(R.drawable.default_img)
                 .showImageForEmptyUri(R.drawable.default_img)
                 .build();
-        getDealDetails(id);
+
+        // call Deal Detail Webservice
+        getDealDetails(dealId);
 
 
         setClick(R.id.btn_buy);
@@ -181,7 +180,6 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         setClick(R.id.txt_terms_conditions);
         setClick(R.id.txt_customer_reviews);
         setClick(R.id.thumbnail);
-
 
 
         setClick(R.id.img_title);
@@ -240,7 +238,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 finish();
                 break;
             case R.id.btn_buy:
-
+                callDealCheckWebservice();
                 if (dealDTO.getType().equalsIgnoreCase("Paid")) {
                     buyFromCheckoutScreen(dealDTO.getFinal_price());
                     //openPaymentDialog(dealDTO.getFinal_price());
@@ -248,7 +246,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 //                    intent.putExtra("BUY_PRICE",5.0);
 //                    startActivity(intent);
                 } else {
-                    redeemDeal();
+                    buyDeal(null);
                 }
                 break;
 
@@ -268,74 +266,54 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         }
     }
 
-//    private View.OnClickListener monthDialog = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            openMonthDialog();
-//
-//        }
-//    };
-//
-//    private View.OnClickListener yearDialog = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            openYearDialog();
-//        }
-//    };
+    private void callDealCheckWebservice() {
+        if (Utils.isOnline(this)) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.DEAL_CHECK);
+            params.put("user_id", Utils.getUserId(this));
+            params.put("deal_id", dealDTO.getId());
 
-//    private View.OnClickListener redeemDeal = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            redeemDeal();
-//        }
-//    };
+            final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
+                    Constant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                if (Utils.getWebServiceStatus(response)) {
+                                    orderId = response.getString("order_id");
+                                } else {
+                                    Utils.showDialog(mActivity, "Error", response.getString("message"));
+                                }
 
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            pdialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
 
-//    public void openMonthDialog() {
-//        final Dialog dialog = new Dialog(BuyCouponActivity.this);
-//        // Include dialog.xml file
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog.setContentView(R.layout.layout_country_code);
-//        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//        ListView listView = (ListView) dialog.findViewById(R.id.list);
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_single_choice, months);
-//        listView.setAdapter(adapter);
-//        dialog.show();
-//
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                txtMonth.setText(months.get(position));
-//                dialog.dismiss();
-//            }
-//        });
-//
-//
-//    }
-//
-//    public void openYearDialog() {
-//        final Dialog dialog = new Dialog(BuyCouponActivity.this);
-//        // Include dialog.xml file
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog.setContentView(R.layout.layout_country_code);
-//        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//        ListView listView = (ListView) dialog.findViewById(R.id.list);
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_single_choice, years);
-//        listView.setAdapter(adapter);
-//        dialog.show();
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                txtYear.setText(years.get(position));
-//                dialog.dismiss();
-//            }
-//        });
-//
-//
-//    }
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(BuyCouponActivity.this);
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            pdialog.show();
+        } else {
+            Utils.showNoNetworkDialog(this);
+        }
+
+    }
 
 
-    private void getDealDetails(String id) {
+    private void getDealDetails(String dealId) {
 
 
         if (Utils.isOnline(this)) {
@@ -347,7 +325,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
             params.put("lng", String.valueOf(DealPreferences.getLongitude(this.
                     getApplicationContext())));
             params.put("user_id", Utils.getUserId(this));
-            params.put("deal_id", id);
+            params.put("deal_id", dealId);
 
             final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
@@ -356,10 +334,14 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                         public void onResponse(JSONObject response) {
                             try {
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                if (Utils.getWebServiceStatus(response)) {
+                                    dealDTO = new Gson().fromJson(response.getJSONObject("deal").toString(), DealDTO.class);
 
-                                dealDTO = new Gson().fromJson(response.getJSONObject("deal").toString(), DealDTO.class);
-
-                                setData();
+                                    setData();
+                                } else {
+                                    Utils.showDialog(mActivity, "Error",
+                                            response.getString("message"));
+                                }
 
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -455,7 +437,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         }
 
 
-        if (dealDTO.getIs_chat_on()!=null && dealDTO.getIs_chat_on().equalsIgnoreCase("1")) {
+        if (dealDTO.getIs_chat_on() != null && dealDTO.getIs_chat_on().equalsIgnoreCase("1")) {
             setViewVisibility(R.id.img_chat, View.VISIBLE);
 
             // set chat listener
@@ -463,8 +445,6 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         } else {
             setViewVisibility(R.id.img_chat, View.GONE);
         }
-
-
 
 
         // ImageView imgThumnail = (ImageView) findViewById(R.id.thumbnail);
@@ -494,7 +474,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        shareStr.append(dealDTO.getName_eng()).append("\n").append("Price "+dealDTO.getFinal_price()).append("\n")
+        shareStr.append(dealDTO.getName_eng()).append("\n").append("Price " + dealDTO.getFinal_price()).append("\n")
                 .append(dealDTO.getDiscount()).append(" % Off");
 
     }
@@ -504,7 +484,6 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 
         try {
             transactionPrice = Double.parseDouble(price);
-            double vatAmount = 4.5;
             Intent i = new Intent(BuyCouponActivity.this, PWConnectCheckoutActivity.class);
             PWConnectCheckoutSettings settings = null;
             PWPaymentParams genericParams = null;
@@ -526,12 +505,11 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 //                genericParams.setCustomerIP("255.0.255.0");
 //                genericParams.setCustomIdentifier("myCustomIdentifier");
 
-
+            genericParams.setCustomIdentifier(orderId);
             // create the settings for the payment screens
             settings = new PWConnectCheckoutSettings();
             settings.setHeaderDescription("mobile.connect");
             settings.setHeaderIconResource(R.mipmap.ic_launcher);
-            settings.setPaymentVATAmount(vatAmount);
             settings.setSupportedDirectDebitCountries(new String[]{"DE"});
             settings.setSupportedPaymentMethods(new PWConnectCheckoutPaymentMethod[]{
                     PWConnectCheckoutPaymentMethod.VISA,
@@ -591,127 +569,6 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         }
     }
 
-
-//    private void buyTransaction(String cardHolderName,
-//                                String cardNumber,
-//                                String month,
-//                                String year,
-//                                String cvv,
-//                                double transactionPrice) {
-//
-//        PWPaymentParams paymentParams = null;
-//        try {
-//
-//
-//            paymentParams = _binder
-//                    .getPaymentParamsFactory()
-//                    .createCreditCardPaymentParams(transactionPrice,
-//                            PWCurrency.EURO,
-//                            "A test charge",
-//                            cardHolderName,
-//                            PWCreditCardType.VISA,
-//                            cardNumber, year, month, cvv);
-//
-//        } catch (PWProviderNotInitializedException e) {
-//            progressBarOnUi(View.GONE);
-//            setStatusText("Error: Provider not initialized!");
-//            e.printStackTrace();
-//            return;
-//        } catch (PWException e) {
-//            progressBarOnUi(View.GONE);
-//            setStatusText("Error: Invalid Parameters!");
-//            e.printStackTrace();
-//            return;
-//        }
-//
-//        setStatusText("Preparing...");
-//
-//        try {
-//            _binder.createAndRegisterDebitTransaction(paymentParams);
-//        } catch (PWException e) {
-//            progressBarOnUi(View.GONE);
-//            setStatusText("Error: Could not contact Gateway!");
-//            e.printStackTrace();
-//        }
-//    }
-//
-
-    private void redeemDeal() {
-
-        if (Utils.isOnline(this)) {
-            Map<String, String> params = new HashMap<>();
-            params.put("action", Constant.READ_REDEEM);
-            params.put("deal_id", dealDTO.getId());
-            params.put("partner_id", dealDTO.getPartner_id() + "");
-            params.put("user_id", Utils.getUserId(this));
-            params.put("category_id", dealDTO.getCategory_id() + "");
-
-            final ProgressDialog pdialog = Utils.createProgressDialog(BuyCouponActivity.this, null, false);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-
-                                if (Utils.getWebServiceStatus(response)) {
-                                    //  finish();
-                                    //callWalletFragment();
-
-                                    String dealCode = response.getString("dealcode");
-                                    setDealCode(dealCode);
-
-                                } else {
-                                    Utils.showDialog(BuyCouponActivity.this, "Message", Utils.getWebServiceMessage(response));
-                                }
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            pdialog.dismiss();
-                        }
-                    }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    pdialog.dismiss();
-                    Utils.showExceptionDialog(BuyCouponActivity.this);
-                    //       CustomProgressDialog.hideProgressDialog();
-                }
-            });
-            AppController.getInstance().getRequestQueue().add(postReq);
-            postReq.setRetryPolicy(new DefaultRetryPolicy(
-                    30000, 0,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            pdialog.show();
-        } else {
-            Utils.showNoNetworkDialog(this);
-        }
-
-
-    }
-
-
-    private void setDealCode(String dealCode) {
-        if (dealCode != null) {
-            setViewVisibility(R.id.ll_deal_price, View.GONE);
-            setViewVisibility(R.id.ll_deal_code, View.VISIBLE);
-            setTextViewText(R.id.deal_code, dealCode);
-        }
-    }
-
-
-    private void callWalletFragment() {
-//        unbindService(_serviceConnection);
-//        stopService(new Intent(this,
-//                com.mobile.connect.service.PWConnectService.class));
-        finish();
-        Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtra("fragmentName", getString(R.string.wallet_screen_title));
-        startActivity(intent);
-    }
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -719,14 +576,6 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         unbindService(serviceConnection);
         stopService(new Intent(this, PWConnectService.class));
     }
-
-
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        unbindService(serviceConnection);
-//        stopService(new Intent(this, PWConnectService.class));
-//    }
 
 
     private void buyDeal(String transactionID) {
@@ -738,8 +587,11 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
             params.put("partner_id", dealDTO.getPartner_id() + "");
             params.put("user_id", Utils.getUserId(this));
             params.put("category_id", dealDTO.getCategory_id() + "");
-            params.put("redeem_amount", "" + transactionPrice);
-            params.put("transaction_id", transactionID);
+            params.put("order_id", orderId);
+            if (transactionID != null && !transactionID.equalsIgnoreCase("")) {
+                params.put("redeem_amount", "" + transactionPrice);
+                params.put("transaction_id", transactionID);
+            }
             final ProgressDialog pdialog = Utils.createProgressDialog(BuyCouponActivity.this, null, false);
 
 
@@ -784,6 +636,14 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         }
 
 
+    }
+
+    private void setDealCode(String dealCode) {
+        if (dealCode != null) {
+            setViewVisibility(R.id.ll_deal_price, View.GONE);
+            setViewVisibility(R.id.ll_deal_code, View.VISIBLE);
+            setTextViewText(R.id.deal_code, dealCode);
+        }
     }
 
 
@@ -869,10 +729,14 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         @Override
         public void onClick(View v) {
             try {
+
+                String fbShareContent="https://www.facebook.com/sharer/sharer.php?"+
+                        "u="+dealDTO.getDeal_image()+"&title="+getViewText(R.id.txt_on_which)+
+                        "&description="+getViewText(R.id.txt_details);
                 Intent facebookIntent = new Intent(Intent.ACTION_SEND);
-                facebookIntent.setType("text/plain");
+                facebookIntent.setType("text/html");
                 facebookIntent.setPackage("com.facebook.katana");
-                facebookIntent.putExtra(Intent.EXTRA_TEXT, shareStr.toString());
+                facebookIntent.putExtra(Intent.EXTRA_TEXT,  shareStr.toString());
                 startActivity(facebookIntent);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -926,83 +790,6 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
             }
         }
     };
-
-
-//    private void updateText(final String string) {
-//        runOnUiThread(new Runnable() {
-//            public void run() {
-//                ((TextView) findViewById(R.id.status)).setText(string);
-//            }
-//        });
-//    }
-
-//    private void openPaymentDialog(String price) {
-//        dialog = new Dialog(BuyCouponActivity.this, R.style.Theme_Dialog);
-//        // Include dialog.xml file
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog.setContentView(R.layout.dialog_payment);
-//        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT,
-//                WindowManager.LayoutParams.WRAP_CONTENT);
-//
-//        ImageView ivClose = (ImageView) dialog.findViewById(R.id.iv_close);
-//        txtMonth = (TextView) dialog.findViewById(R.id.txt_month);
-//        txtYear = (TextView) dialog.findViewById(R.id.txt_year);
-//        transactionPrice = Double.parseDouble(price);
-//        progressBar = (ProgressBar) dialog.findViewById(R.id.progress_bar);
-//        Button btn_pay = (Button) dialog.findViewById(R.id.btn_pay);
-//
-//        btn_pay.setText("Pay " + transactionPrice);
-//        txtMonth.setText(months.get(0));
-//        txtYear.setText(years.get(0));
-//
-//        txtMonth.setOnClickListener(monthDialog);
-//
-//        txtYear.setOnClickListener(yearDialog);
-//        ivClose.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        btn_pay.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                progressBar.setVisibility(View.VISIBLE);
-//                String cardHolderName = ((EditText) dialog.findViewById(R.id.edt_card_holder_name)).
-//                        getText().toString().trim();
-//                String cardNumber = ((EditText) dialog.findViewById(R.id.edt_card_number)).
-//                        getText().toString().trim();//"4005550000000001";
-//                String cvv = ((EditText) dialog.findViewById(R.id.edt_cvv)).
-//                        getText().toString().trim();//123
-//                String month = txtMonth.
-//                        getText().toString().trim();//05
-//                String year = txtYear.
-//                        getText().toString().trim();//"2017";
-//                CheckBox chkRememberMe = (CheckBox) dialog.findViewById(R.id.chk_remember_me);
-//                if (!cardHolderName.equalsIgnoreCase("") &&
-//                        !cardNumber.equalsIgnoreCase("") &&
-//                        !cvv.equalsIgnoreCase("") &&
-//                        !month.equalsIgnoreCase("") &&
-//                        !year.equalsIgnoreCase("")) {
-//                    if (chkRememberMe.isChecked()) {
-//                        DealPreferences.setCardholderName(getApplicationContext(), cardHolderName);
-//                        DealPreferences.setCardNumber(getApplicationContext(), cardNumber);
-//                        //DealPreferences.setCardCVV(getApplicationContext(), cvv);
-//                        DealPreferences.setCardMonth(getApplicationContext(), month);
-//                        DealPreferences.setCardYear(getApplicationContext(), year);
-//
-//                    }
-//                    buyTransaction(cardHolderName, cardNumber, month, year, cvv, transactionPrice);
-//                } else {
-//                    progressBar.setVisibility(View.GONE);
-//                }
-//            }
-//        });
-//        dialog.show();
-//
-//
-//    }
 
 
     @Override

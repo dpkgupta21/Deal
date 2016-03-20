@@ -183,6 +183,8 @@ public class AlertFragment extends BaseFragment {
                             try {
                                 if (response.getBoolean("status")) {
                                     lvNotification.setVisibility(View.VISIBLE);
+                                    TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
+                                    txt_blank.setVisibility(View.GONE);
                                     Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                     Type type = new TypeToken<ArrayList<NotificationDTO>>() {
                                     }.getType();

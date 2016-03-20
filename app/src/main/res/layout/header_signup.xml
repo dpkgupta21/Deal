@@ -40,16 +40,19 @@
         </LinearLayout>
 
         <com.deal.exap.customviews.MyTextViewRegCustom
+            android:id="@+id/tv_lang_change"
             style="@style/tv_header"
-            android:id="@+id/tv_skip_arb"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
             android:text="@string/skip_left" />
 
         <com.deal.exap.customviews.MyTextViewRegCustom
-            style="@style/tv_normal"
-            android:textColor="@color/white"
             android:id="@+id/tv_skip_eng"
+            style="@style/tv_normal"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:text="@string/skip_right" />
+            android:text="@string/skip_right"
+            android:textColor="@color/white" />
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

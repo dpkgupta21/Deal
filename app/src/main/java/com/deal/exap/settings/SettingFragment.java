@@ -175,7 +175,7 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
         btn_select_miles.setOnClickListener(this);
 
 
-        setClick(R.id.txt_change_currency, view);
+        //setClick(R.id.txt_change_currency, view);
         setClick(R.id.txt_signout, view);
 
     }
@@ -195,9 +195,9 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
                 selectedKMButton(Constant.DISTANCE_UNIT_MILES_ENG);
                 break;
 
-            case R.id.txt_change_currency:
-                getCountry();
-                break;
+//            case R.id.txt_change_currency:
+//                getCountry();
+//                break;
 
             case R.id.txt_signout:
 
@@ -469,84 +469,84 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
     }
 
 
-    private void getCountry() {
-
-        if (Utils.isOnline(getActivity())) {
-            Map<String, String> params = new HashMap<>();
-            params.put("action", Constant.GET_COUNTRY);
-
-            final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<CountriesDTO>>() {
-                                }.getType();
-                                countryList = new Gson().fromJson(response.getJSONArray("countries").toString(), type);
-                                openCurrencyDialog();
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            pdialog.dismiss();
-                        }
-                    }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    pdialog.dismiss();
-                    Utils.showExceptionDialog(getActivity());
-                    //       CustomProgressDialog.hideProgressDialog();
-                }
-            });
-            AppController.getInstance().getRequestQueue().add(postReq);
-            postReq.setRetryPolicy(new DefaultRetryPolicy(
-                    30000, 0,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            pdialog.show();
-        } else {
-            Utils.showNoNetworkDialog(getActivity());
-        }
-
-    }
-
-
-    private void openCurrencyDialog() {
-
-        dialog = new Dialog(getActivity());
-        // Include dialog.xml file
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.layout_country_code);
-        getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        ListView listView = (ListView) dialog.findViewById(R.id.list);
-        CountryListAdapter countryListAdapter = new CountryListAdapter(getActivity(), countryList);
+//    private void getCountry() {
+//
+//        if (Utils.isOnline(getActivity())) {
+//            Map<String, String> params = new HashMap<>();
+//            params.put("action", Constant.GET_COUNTRY);
+//
+//            final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
+//            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+//                    new Response.Listener<JSONObject>() {
+//                        @Override
+//                        public void onResponse(JSONObject response) {
+//                            try {
+//                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+//                                Type type = new TypeToken<ArrayList<CountriesDTO>>() {
+//                                }.getType();
+//                                countryList = new Gson().fromJson(response.getJSONArray("countries").toString(), type);
+//                                openCurrencyDialog();
+//
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                            pdialog.dismiss();
+//                        }
+//                    }, new Response.ErrorListener() {
+//
+//                @Override
+//                public void onErrorResponse(VolleyError error) {
+//                    pdialog.dismiss();
+//                    Utils.showExceptionDialog(getActivity());
+//                    //       CustomProgressDialog.hideProgressDialog();
+//                }
+//            });
+//            AppController.getInstance().getRequestQueue().add(postReq);
+//            postReq.setRetryPolicy(new DefaultRetryPolicy(
+//                    30000, 0,
+//                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//            pdialog.show();
+//        } else {
+//            Utils.showNoNetworkDialog(getActivity());
+//        }
+//
+//    }
 
 
-        //ArrayAdapter<CountriesDTO> adapter = new ArrayAdapter<CountriesDTO>(getActivity(), android.R.layout.simple_list_item_single_choice, countryList);
-        listView.setAdapter(countryListAdapter);
-        dialog.show();
-        listView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        dialog.dismiss();
-                        if (dialog != null) {
-                            dialog = null;
-                        }
-                        DealPreferences.setCurrencyEng(getActivity(), countryList.get(position).getName());
-                        DealPreferences.setCurrencyAra(getActivity(), countryList.get(position).getName_ara());
-
-                        syncSetting("country_id", countryList.get(position).getId());
-                        currencyName = countryList.get(position).getName();
-
-
-                    }
-                }
-        );
-    }
+//    private void openCurrencyDialog() {
+//
+//        dialog = new Dialog(getActivity());
+//        // Include dialog.xml file
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.setContentView(R.layout.layout_country_code);
+//        getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//        ListView listView = (ListView) dialog.findViewById(R.id.list);
+//        CountryListAdapter countryListAdapter = new CountryListAdapter(getActivity(), countryList);
+//
+//
+//        //ArrayAdapter<CountriesDTO> adapter = new ArrayAdapter<CountriesDTO>(getActivity(), android.R.layout.simple_list_item_single_choice, countryList);
+//        listView.setAdapter(countryListAdapter);
+//        dialog.show();
+//        listView.setOnItemClickListener(
+//                new AdapterView.OnItemClickListener() {
+//
+//                    @Override
+//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                        dialog.dismiss();
+//                        if (dialog != null) {
+//                            dialog = null;
+//                        }
+//                        DealPreferences.setCurrencyEng(getActivity(), countryList.get(position).getName());
+//                        DealPreferences.setCurrencyAra(getActivity(), countryList.get(position).getName_ara());
+//
+//                        syncSetting("country_id", countryList.get(position).getId());
+//                        currencyName = countryList.get(position).getName();
+//
+//
+//                    }
+//                }
+//        );
+//    }
 
 
     SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {

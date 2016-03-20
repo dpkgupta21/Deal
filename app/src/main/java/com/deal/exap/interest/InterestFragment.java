@@ -96,6 +96,7 @@ public class InterestFragment extends Fragment {
 
         init();
 
+
         if (DealPreferences.isShowSurveyAfterLogin(getActivity())) {
             getSurveyForm();
             //openSurveyDialog();

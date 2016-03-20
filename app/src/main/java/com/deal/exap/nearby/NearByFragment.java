@@ -280,6 +280,8 @@ public class NearByFragment extends BaseFragment {
                             try {
                                 if (response.getBoolean("status")) {
                                     mRecyclerView.setVisibility(View.VISIBLE);
+                                    TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
+                                    txt_blank.setVisibility(View.GONE);
                                     Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                     Type type = new TypeToken<ArrayList<DealDTO>>() {
                                     }.getType();
