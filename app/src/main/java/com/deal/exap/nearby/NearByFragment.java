@@ -74,11 +74,12 @@ public class NearByFragment extends BaseFragment {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     //private List<CategoryDTO> categoryList;
     private Dialog dialog;
-//    public static NearByFragment newInstance() {
-//        NearByFragment fragment = new NearByFragment();
-//
-//        return fragment;
-//    }
+
+    public static NearByFragment newInstance() {
+        NearByFragment fragment = new NearByFragment();
+
+        return fragment;
+    }
 
     public NearByFragment() {
         // Required empty public constructor

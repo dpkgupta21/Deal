@@ -365,7 +365,12 @@ public class SignInFragment extends BaseFragment {
                                                 getActivity().getApplicationContext(), true);
                                         getActivity().finish();
                                         Intent intent = new Intent(getActivity(), HomeActivity.class);
-                                        intent.putExtra("fragmentName", getActivity().getString(R.string.interest_screen_title));
+                                        if (userDTO.getInterest().equalsIgnoreCase("0")) {
+                                            intent.putExtra("fragmentName", getActivity().getString(R.string.interest_screen_title));
+                                        } else if (userDTO.getInterest().equalsIgnoreCase("1")) {
+                                            intent.putExtra("fragmentName", getActivity().getString(R.string.nearby_screen_title));
+                                        }
+
                                         startActivity(intent);
                                     } else {
                                         Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));

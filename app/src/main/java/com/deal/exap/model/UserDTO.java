@@ -21,10 +21,20 @@ public class UserDTO implements Serializable{
     public boolean is_message_alert;
     public boolean is_deal_expiry_alert;
     public String name;
+    public String interest;
     public CountryDTO Country;
     public LanguageDTO Language;
     public String userType;
     public String notificationRange;
+
+
+    public String getInterest() {
+        return interest;
+    }
+
+    public void setInterest(String interest) {
+        this.interest = interest;
+    }
 
     public String getId() {
         return id;

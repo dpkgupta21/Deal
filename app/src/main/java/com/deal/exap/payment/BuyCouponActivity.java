@@ -239,15 +239,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 break;
             case R.id.btn_buy:
                 callDealCheckWebservice();
-                if (dealDTO.getType().equalsIgnoreCase("Paid")) {
-                    buyFromCheckoutScreen(dealDTO.getFinal_price());
-                    //openPaymentDialog(dealDTO.getFinal_price());
-//                    Intent intent = new Intent(getApplicationContext(), BuyPaymentDialogActivity.class);
-//                    intent.putExtra("BUY_PRICE",5.0);
-//                    startActivity(intent);
-                } else {
-                    buyDeal(null);
-                }
+
                 break;
 
             case R.id.img_title:
@@ -283,6 +275,12 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                 if (Utils.getWebServiceStatus(response)) {
                                     orderId = response.getString("order_id");
+
+                                    if (dealDTO.getType().equalsIgnoreCase("Paid")) {
+                                        buyFromCheckoutScreen(dealDTO.getFinal_price());
+                                    } else {
+                                        buyDeal(null);
+                                    }
                                 } else {
                                     Utils.showDialog(mActivity, "Error", response.getString("message"));
                                 }
@@ -730,13 +728,13 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         public void onClick(View v) {
             try {
 
-                String fbShareContent="https://www.facebook.com/sharer/sharer.php?"+
-                        "u="+dealDTO.getDeal_image()+"&title="+getViewText(R.id.txt_on_which)+
-                        "&description="+getViewText(R.id.txt_details);
+                String fbShareContent = "https://www.facebook.com/sharer/sharer.php?" +
+                        "u=" + dealDTO.getDeal_image() + "&title=" + getViewText(R.id.txt_on_which) +
+                        "&description=" + getViewText(R.id.txt_details);
                 Intent facebookIntent = new Intent(Intent.ACTION_SEND);
                 facebookIntent.setType("text/html");
                 facebookIntent.setPackage("com.facebook.katana");
-                facebookIntent.putExtra(Intent.EXTRA_TEXT,  shareStr.toString());
+                facebookIntent.putExtra(Intent.EXTRA_TEXT, shareStr.toString());
                 startActivity(facebookIntent);
             } catch (Exception e) {
                 e.printStackTrace();

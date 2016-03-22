@@ -100,7 +100,7 @@ public class ForgetPasswordFragment extends BaseFragment {
                                pdialog.dismiss();
                                try {
                                    if (Utils.getWebServiceStatus(response)) {
-                                       new CustomAlert(getActivity().getApplicationContext(), ForgetPasswordFragment.this)
+                                       new CustomAlert(getActivity(), ForgetPasswordFragment.this)
                                                .singleButtonAlertDialog(
                                                        response.getString("message"),
                                                        getString(R.string.btn_text), "singleBtnCallbackResponse", 1000);

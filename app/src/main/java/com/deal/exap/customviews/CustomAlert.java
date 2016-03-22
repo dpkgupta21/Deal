@@ -25,9 +25,6 @@ public class CustomAlert {
         this.mObj=mObj;
     }
 
-    public CustomAlert(Context context) {
-        this.context = context;
-    }
 
 
     public void singleContextButtonAlertDialog(String msg,

@@ -188,6 +188,8 @@ public class HomeActivity extends BaseActivity {
         } else if (fragmentName.equalsIgnoreCase(getString(R.string.alert_screen_title))) {
             boolean isForInbox = getIntent().getBooleanExtra("isForInbox", false);
             changeFragment(AlertFragment.newInstance(isForInbox));
+        } else if (fragmentName.equalsIgnoreCase(getString(R.string.nearby_screen_title))) {
+            changeFragment(NearByFragment.newInstance());
         } else {
             changeFragment(new InterestFragment());
         }
