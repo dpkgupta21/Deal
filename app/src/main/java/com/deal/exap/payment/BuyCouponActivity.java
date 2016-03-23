@@ -11,6 +11,9 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -88,6 +91,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private StringBuffer shareStr = new StringBuffer();
     private Activity mActivity;
+    //private int topHeight=0;
 
 
     /**
@@ -141,6 +145,18 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         init();
 
         addShareView();
+
+//        final Button btn_buy=(Button)findViewById(R.id.btn_buy);
+//        btn_buy.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                topHeight = btn_buy.getheTop();
+//                addShareView();
+//            }
+//        });
+
+
+
     }
 
 
@@ -407,8 +423,15 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 
 
         //setTextViewText(R.id.txt_address, dealDTO.getLocation());
-        ((RatingBar) findViewById(R.id.rating_bar)).setRating(dealDTO.getRating());
-
+        RatingBar ratingbar = (RatingBar) findViewById(R.id.rating_bar);
+        if (Build.VERSION.SDK_INT >= 23) {
+            LayerDrawable drawable = (LayerDrawable) ratingbar.getProgressDrawable();
+            drawable.getDrawable(0).setColorFilter(Color.parseColor("#FFFFFFFF"),
+                    PorterDuff.Mode.SRC_ATOP);
+            ratingbar.setRating(dealDTO.getRating());
+        } else {
+            ratingbar.setRating(dealDTO.getRating());
+        }
         setTextViewText(R.id.txt_review, dealDTO.getReview() + "");
         setTextViewText(R.id.txt_end_date_val, dealDTO.getEnd_date());
         setTextViewText(R.id.txt_redeemed_val, dealDTO.getRedeemed() + "");
@@ -536,6 +559,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_CANCELED) {
             Utils.ShowLog(TAG, "user canceled the checkout process/error");
+            Utils.showDialog(this, getString(R.string.alert_screen_title), "Checkout cancelled or an error occurred.");
             //updateText("Checkout cancelled or an error occurred.");
         } else if (resultCode == RESULT_OK) {
 
@@ -646,6 +670,8 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 
 
     private void addShareView() {
+
+
         final ImageView icon = new ImageView(this);
         icon.setImageDrawable(getResources().getDrawable(R.drawable.share_icon));
 
@@ -660,7 +686,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 //                    .build();
 //        } else {
         params = new FloatingActionButton.LayoutParams(50, 50);
-        params.setMargins(0, 120, 20, 0);
+        params.setMargins(0, 120 , 30, 0);
 
         fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)
                 .setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
@@ -728,11 +754,9 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         public void onClick(View v) {
             try {
 
-                String fbShareContent = "https://www.facebook.com/sharer/sharer.php?" +
-                        "u=" + dealDTO.getDeal_image() + "&title=" + getViewText(R.id.txt_on_which) +
-                        "&description=" + getViewText(R.id.txt_details);
+
                 Intent facebookIntent = new Intent(Intent.ACTION_SEND);
-                facebookIntent.setType("text/html");
+                facebookIntent.setType("text/plain");
                 facebookIntent.setPackage("com.facebook.katana");
                 facebookIntent.putExtra(Intent.EXTRA_TEXT, shareStr.toString());
                 startActivity(facebookIntent);
@@ -781,7 +805,12 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
                 whatsappIntent.setType("text/plain");
                 whatsappIntent.setPackage("com.whatsapp");
-                whatsappIntent.putExtra(Intent.EXTRA_TEXT, shareStr.toString());
+                whatsappIntent.setType("text/plain");
+                if (dealDTO.getDeal_image() == null) {
+                    whatsappIntent.putExtra(Intent.EXTRA_TEXT, shareStr.toString());
+                } else {
+                    whatsappIntent.putExtra(Intent.EXTRA_TEXT, dealDTO.getDeal_image());
+                }
                 startActivity(whatsappIntent);
             } catch (Exception e) {
                 e.printStackTrace();

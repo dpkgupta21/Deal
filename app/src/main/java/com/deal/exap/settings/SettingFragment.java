@@ -3,6 +3,7 @@ package com.deal.exap.settings;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -177,6 +178,8 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
 
         //setClick(R.id.txt_change_currency, view);
         setClick(R.id.txt_signout, view);
+        setClick(R.id.img_twitter_icon, view);
+        setClick(R.id.img_instagram_icon, view);
 
     }
 
@@ -205,6 +208,14 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
                 userDTO = null;
                 DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
                 SessionManager.logoutUser(getActivity().getApplicationContext());
+                break;
+
+            case R.id.img_twitter_icon:
+                redirectToTwitter();
+                break;
+
+            case R.id.img_instagram_icon:
+                redirectToInstagram();
                 break;
         }
     }
@@ -278,13 +289,24 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
             btn_select_miles.setTextColor(getResources().getColor(R.color.btn_dark_gray_color));
 
         } else {
-
 //            btn_select_miles.setBackgroundColor(getResources().getColor(R.color.btn_color));
 //            btn_select_km.setBackgroundColor(getResources().getColor(R.color.white));
 
             btn_select_miles.setTextColor(getResources().getColor(R.color.app_color));
             btn_select_km.setTextColor(getResources().getColor(R.color.btn_dark_gray_color));
         }
+    }
+
+    private void redirectToTwitter() {
+        Uri uri = Uri.parse("https://twitter.com/exap");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
+
+    private void redirectToInstagram() {
+        Uri uri = Uri.parse("https://www.instagram.com/exapsa/");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 
 //

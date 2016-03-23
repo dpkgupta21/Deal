@@ -3,7 +3,7 @@
     package="com.deal.exap">
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="15"
         android:targetSdkVersion="23" />
 
     <permission
