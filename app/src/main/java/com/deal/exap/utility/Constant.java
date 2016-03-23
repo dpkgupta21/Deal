@@ -23,7 +23,7 @@ public class Constant {
     public static final int RESULT_TIMEOUT = 1003;
 
     //public static final String SERVICE_BASE_URL = "http://128.199.234.133/exap/webservices/";
-    public static final String SERVICE_BASE_URL = "https://exap.sa/beta/webservices";
+    public static final String SERVICE_BASE_URL = "https://www.exap.sa/beta/webservices";
 
 
     public static String WRONG_NUMBER_ERROR = "Please enter valid number";

@@ -44,6 +44,7 @@
             android:id="@+id/tv_lang_change"
             style="@style/tv_header"
             android:layout_marginLeft="10dp"
+            android:padding="10dp"
             android:layout_alignParentLeft="true"
             android:text="@string/skip_left" />
 

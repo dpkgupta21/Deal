@@ -45,6 +45,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dp"
             android:gravity="center"
+            android:padding="10dp"
             android:text="@string/skip_left" />
 
         <com.deal.exap.customviews.MyTextViewRegCustom
