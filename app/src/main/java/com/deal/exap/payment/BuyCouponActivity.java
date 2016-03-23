@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -154,7 +155,6 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 //                addShareView();
 //            }
 //        });
-
 
 
     }
@@ -686,7 +686,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 //                    .build();
 //        } else {
         params = new FloatingActionButton.LayoutParams(50, 50);
-        params.setMargins(0, 120 , 30, 0);
+        params.setMargins(0, 120, 30, 0);
 
         fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)
                 .setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
@@ -762,6 +762,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 startActivity(facebookIntent);
             } catch (Exception e) {
                 e.printStackTrace();
+                Toast.makeText(mActivity, "Facebook app is not in you phone.", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -777,6 +778,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 instagramIntent.putExtra(Intent.EXTRA_TEXT, shareStr.toString());
                 startActivity(instagramIntent);
             } catch (Exception e) {
+                Toast.makeText(mActivity, "Instagram app is not in you phone.", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
         }
@@ -789,10 +791,16 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 Intent twitterIntent = new Intent(Intent.ACTION_SEND);
                 twitterIntent.setType("text/plain");
                 twitterIntent.setPackage("com.twitter.android");
-                twitterIntent.putExtra(Intent.EXTRA_TEXT, shareStr.toString());
+                if (dealDTO.getDeal_image() == null) {
+                    twitterIntent.putExtra(Intent.EXTRA_TEXT, shareStr.toString());
+                } else {
+                    twitterIntent.putExtra(Intent.EXTRA_TEXT, dealDTO.getDeal_image() + "\n" + shareStr.toString());
+                }
+
                 startActivity(twitterIntent);
             } catch (Exception e) {
                 e.printStackTrace();
+                Toast.makeText(mActivity, "Twitter app is not in you phone.", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -809,11 +817,12 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 if (dealDTO.getDeal_image() == null) {
                     whatsappIntent.putExtra(Intent.EXTRA_TEXT, shareStr.toString());
                 } else {
-                    whatsappIntent.putExtra(Intent.EXTRA_TEXT, dealDTO.getDeal_image());
+                    whatsappIntent.putExtra(Intent.EXTRA_TEXT, dealDTO.getDeal_image() + "\n" + shareStr.toString());
                 }
                 startActivity(whatsappIntent);
             } catch (Exception e) {
                 e.printStackTrace();
+                Toast.makeText(mActivity, "Whats app is not in you phone.", Toast.LENGTH_SHORT).show();
             }
         }
     };
