@@ -127,4 +127,4 @@
             android:background="@drawable/connect_checkout_shadow_bottom_layer" />
     </RelativeLayout>
 
-</LinearLayout><!-- From: file:/F:/deal/Deal/mobileconnectcheckout/src/main/res/layout/connect_checkout_template.xml --><!-- From: file:/F:/deal/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/layout/connect_checkout_template.xml -->
+</LinearLayout><!-- From: file:/F:/mProjects/Deal/mobileconnectcheckout/src/main/res/layout/connect_checkout_template.xml --><!-- From: file:/F:/mProjects/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/layout/connect_checkout_template.xml -->

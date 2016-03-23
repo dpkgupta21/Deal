@@ -1,1 +1,1 @@
-include ':mobileconnectcheckout', ':app'
+include ':app', ':mobileconnectcheckout'

@@ -17,7 +17,10 @@ import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.IBinder;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -28,6 +31,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.deal.exap.R;
 import com.deal.exap.chat.ChatActivity;
 import com.deal.exap.customerfeedback.CustomerFeedBackActivity;
@@ -71,7 +75,14 @@ import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,6 +103,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private StringBuffer shareStr = new StringBuffer();
     private Activity mActivity;
+    private String imageName;
     //private int topHeight=0;
 
 
@@ -350,7 +362,9 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                 if (Utils.getWebServiceStatus(response)) {
                                     dealDTO = new Gson().fromJson(response.getJSONObject("deal").toString(), DealDTO.class);
-
+                                    if (!TextUtils.isEmpty(dealDTO.getDeal_image())) {
+                                        requestForImage();
+                                    }
                                     setData();
                                 } else {
                                     Utils.showDialog(mActivity, "Error",
@@ -381,6 +395,60 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         }
 
     }
+
+    /**
+     * this method fetches the bitmap from the given url, and save it to the internal storage.
+     */
+    private void requestForImage() {
+        ImageRequest imageRequest = new ImageRequest(
+                dealDTO.getDeal_image(),
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap response) {
+                        Bitmap mBitmap = response;
+                        imageName = (new SimpleDateFormat("yyyMMdd_HHmmss")
+                                .format(new Date())) + ".jpeg";
+                        OutputStream outputStream = null;
+                        String directory = Environment.getExternalStorageDirectory() + "/"
+                                + "Deal";
+                        File path = new File(directory);
+                        if (!path.exists()) {
+                            path.mkdir();
+                        }
+                        File imageFile = new File(directory, imageName);
+                        if (imageFile.exists()) {
+                            imageFile.delete();
+                        } else {
+                            try {
+                                imageFile.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        try {
+                            outputStream = new FileOutputStream(imageFile);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        mBitmap.compress(Bitmap.CompressFormat.JPEG, 70, outputStream);
+                        try {
+                            outputStream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, 0, 0, null,
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("Deal Info", "Error occured while downloading image..."
+                                + error.toString());
+                    }
+                }
+        );
+        AppController.getInstance().addToRequestQueue(imageRequest);
+    }
+
 
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -754,8 +822,6 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         @Override
         public void onClick(View v) {
             try {
-
-
                 Intent facebookIntent = new Intent(Intent.ACTION_SEND);
                 facebookIntent.setType("text/plain");
                 facebookIntent.setPackage("com.facebook.katana");
@@ -763,7 +829,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 startActivity(facebookIntent);
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(mActivity, "Facebook app is not in you phone.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, "Facebook app is not in your phone.", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -776,10 +842,12 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 Intent instagramIntent = new Intent(Intent.ACTION_SEND);
                 instagramIntent.setType("image/*");
                 instagramIntent.setPackage("com.instagram.android");
-                instagramIntent.putExtra(Intent.EXTRA_TEXT, shareStr.toString());
+                instagramIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(
+                        Environment.getExternalStorageDirectory() +"/" + "Deal" +
+                                "/" + imageName)));
                 startActivity(instagramIntent);
             } catch (Exception e) {
-                Toast.makeText(mActivity, "Instagram app is not in you phone.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, "Instagram app is not in your phone.", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
         }
@@ -801,7 +869,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 startActivity(twitterIntent);
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(mActivity, "Twitter app is not in you phone.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, "Twitter app is not in your phone.", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -812,21 +880,27 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         public void onClick(View v) {
             try {
                 Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
-                whatsappIntent.setType("text/plain");
                 whatsappIntent.setPackage("com.whatsapp");
-                whatsappIntent.setType("text/plain");
                 if (dealDTO.getDeal_image() == null) {
+                    whatsappIntent.setType("text/plain");
                     whatsappIntent.putExtra(Intent.EXTRA_TEXT, shareStr.toString());
                 } else {
-                    whatsappIntent.putExtra(Intent.EXTRA_TEXT, dealDTO.getDeal_image() + "\n" + shareStr.toString());
+                    whatsappIntent.setType("text/plain");
+                    whatsappIntent.putExtra(Intent.EXTRA_TEXT, shareStr.toString());
+                    whatsappIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(
+                            Environment.getExternalStorageDirectory() +"/" + "Deal" +
+                                    "/" + imageName
+                    )));
+                    whatsappIntent.setType("image/*");
                 }
                 startActivity(whatsappIntent);
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(mActivity, "Whats app is not in you phone.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, "Whats app is not in your phone.", Toast.LENGTH_SHORT).show();
             }
         }
     };
+
 
 
     @Override

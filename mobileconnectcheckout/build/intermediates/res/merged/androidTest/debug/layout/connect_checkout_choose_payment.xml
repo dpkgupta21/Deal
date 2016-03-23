@@ -10,4 +10,4 @@
         android:layout_height="match_parent" >
     </ListView>
 
-</RelativeLayout><!-- From: file:/F:/deal/Deal/mobileconnectcheckout/src/main/res/layout/connect_checkout_choose_payment.xml --><!-- From: file:/F:/deal/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/layout/connect_checkout_choose_payment.xml -->
+</RelativeLayout><!-- From: file:/F:/mProjects/Deal/mobileconnectcheckout/src/main/res/layout/connect_checkout_choose_payment.xml --><!-- From: file:/F:/mProjects/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/layout/connect_checkout_choose_payment.xml -->

@@ -3,7 +3,11 @@ package com.deal.exap.nearby.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -204,7 +208,14 @@ public class NearByListAdapter extends RecyclerView
 
 
         holder.tvReview.setText("(" + mDataset.get(position).getReview() + ")");
-        holder.ratingBar.setRating(mDataset.get(position).getRating());
+        if (Build.VERSION.SDK_INT >= 23) {
+            LayerDrawable drawable = (LayerDrawable)  holder.ratingBar.getProgressDrawable();
+            drawable.getDrawable(0).setColorFilter(Color.parseColor("#FFFFFFFF"),
+                    PorterDuff.Mode.SRC_ATOP);
+            holder.ratingBar.setRating(mDataset.get(position).getRating());
+        } else {
+            holder.ratingBar.setRating(mDataset.get(position).getRating());
+        }
 
         holder.txt_final_price.setText(mDataset.get(position).getFinal_price() + " " + HelpMe.getCurrencySign(context));
         holder.txt_visible_price.setText(mDataset.get(position).getVisible_price() + " " + HelpMe.getCurrencySign(context));

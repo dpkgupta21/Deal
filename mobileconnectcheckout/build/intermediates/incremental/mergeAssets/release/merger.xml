@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/DeepakGupta/Workspace1/DealApp_18_Feb/mobileconnectcheckout/src/main/assets"/></dataSet><dataSet config="release"><source path="/Users/DeepakGupta/Workspace1/DealApp_18_Feb/mobileconnectcheckout/src/release/assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="F:\mProjects\Deal\mobileconnectcheckout\src\main\assets"/></dataSet><dataSet config="release"><source path="F:\mProjects\Deal\mobileconnectcheckout\src\release\assets"/></dataSet></merger>

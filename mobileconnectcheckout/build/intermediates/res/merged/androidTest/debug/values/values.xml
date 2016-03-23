@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/F:/deal/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/values/values.xml -->
+    <!-- From: file:/F:/mProjects/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment/>
     <bool name="connect_checkout_show_toasts">false</bool>
     <string name="connect_checkout_layout_accessibility_cancel_checkout">cancel checkout</string>
