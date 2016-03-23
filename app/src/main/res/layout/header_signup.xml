@@ -11,13 +11,14 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="center">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <com.deal.exap.customviews.MyTextViewRegCustom
@@ -43,16 +44,21 @@
             android:id="@+id/tv_lang_change"
             style="@style/tv_header"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:padding="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
+            android:layout_centerVertical="true"
+            android:paddingTop="10dp"
             android:text="@string/skip_left" />
 
         <com.deal.exap.customviews.MyTextViewRegCustom
             android:id="@+id/tv_skip_eng"
             style="@style/tv_normal"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_centerVertical="true"
             android:text="@string/skip_right"
             android:textColor="@color/white" />
     </RelativeLayout>

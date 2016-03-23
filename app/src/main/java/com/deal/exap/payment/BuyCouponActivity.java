@@ -535,7 +535,8 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
             settings.setSupportedPaymentMethods(new PWConnectCheckoutPaymentMethod[]{
                     PWConnectCheckoutPaymentMethod.VISA,
                     PWConnectCheckoutPaymentMethod.MASTERCARD,
-                    PWConnectCheckoutPaymentMethod.AMERICAN_EXPRESS});
+                    PWConnectCheckoutPaymentMethod.AMERICAN_EXPRESS,
+                    PWConnectCheckoutPaymentMethod.DIRECT_DEBIT});
             // ask the user if she wants to store the account
             settings.setCreateToken(PWConnectCheckoutCreateToken.PROMPT);
 
@@ -685,7 +686,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 //                    .setLayoutParams(params)
 //                    .build();
 //        } else {
-        params = new FloatingActionButton.LayoutParams(50, 50);
+        params = new FloatingActionButton.LayoutParams(70, 70);
         params.setMargins(0, 120, 30, 0);
 
         fabButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.share_icon)

@@ -57,6 +57,7 @@ public class AppController extends Application {
         return mInstance;
     }
 
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -148,4 +149,13 @@ public class AppController extends Application {
         }
         return mTracker;
     }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        Toast.makeText(AppController.this, "onTerminate", Toast.LENGTH_SHORT).show();
+    }
+
+
+
 }

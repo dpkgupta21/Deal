@@ -43,8 +43,10 @@
         <com.deal.exap.customviews.MyTextViewRegCustom
             android:id="@+id/tv_lang_change"
             style="@style/tv_header"
-            android:layout_marginLeft="10dp"
-            android:padding="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:layout_alignParentLeft="true"
             android:text="@string/skip_left" />
 
@@ -52,7 +54,8 @@
             android:id="@+id/tv_skip_eng"
             style="@style/tv_normal"
             android:layout_alignParentRight="true"
-            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:layout_centerVertical="true"
             android:text="@string/skip_right"
             android:textColor="@color/white" />
     </RelativeLayout>

@@ -32,6 +32,7 @@ import com.deal.exap.customviews.MyTextViewReg16;
 import com.deal.exap.databasemanager.DatabaseHelper;
 import com.deal.exap.databasemanager.DatabaseManager;
 import com.deal.exap.model.InterestDTO;
+import com.deal.exap.model.UserDTO;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.HelpMe;
@@ -63,6 +64,7 @@ public class InterestFragment extends Fragment {
     private List<String> interestValuesSelected;
     private Dao<InterestDTO, String> interestDao;
     private Dialog dialog;
+    private Activity mActivity;
 //    public static InterestFragment newInstance() {
 //        InterestFragment fragment = new InterestFragment();
 //        return fragment;
@@ -98,8 +100,8 @@ public class InterestFragment extends Fragment {
 
 
         if (DealPreferences.isShowSurveyAfterLogin(getActivity())) {
+
             getSurveyForm();
-            //openSurveyDialog();
         }
 
         getInterestList();

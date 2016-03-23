@@ -27,6 +27,7 @@ import java.util.TimerTask;
 
 import com.deal.exap.utility.Utils;
 import com.google.android.gcm.GCMRegistrar;
+
 import static com.deal.exap.CommonUtilities.DISPLAY_MESSAGE_ACTION;
 import static com.deal.exap.CommonUtilities.EXTRA_MESSAGE;
 import static com.deal.exap.CommonUtilities.SENDER_ID;
@@ -58,7 +59,7 @@ public class OrgSplashActivity extends FragmentActivity {
 
         String pushRegistrationId = DealPreferences.getPushRegistrationId(mContext);
         if (pushRegistrationId == null || pushRegistrationId.equalsIgnoreCase("")) {
-           registrationPushNotification();
+            registrationPushNotification();
         }
 
 
@@ -67,13 +68,15 @@ public class OrgSplashActivity extends FragmentActivity {
             public void run() {
                 HelpMe.setLocale(DealPreferences.getAPP_LANG(mContext), mContext);
                 UserDTO userDTO = DealPreferences.getObjectFromPref(OrgSplashActivity.this, Constant.USER_INFO);
-
+                if (userDTO != null && !userDTO.getUserType().equalsIgnoreCase(Constant.NON_REGISTER)) {
+                    DealPreferences.setIsShowSurveyAfterLogin(
+                            mContext, true);
+                }
                 Intent i = null;
                 if (userDTO == null) {
                     i = new Intent(OrgSplashActivity.this, SplashScreen.class);
                 } else {
-                    DealPreferences.setIsShowSurveyAfterLogin(
-                            mContext, true);
+
                     i = new Intent(OrgSplashActivity.this, HomeActivity.class);
                     i.putExtra("fragmentName", getString(R.string.interest_screen_title));
                 }
@@ -187,4 +190,6 @@ public class OrgSplashActivity extends FragmentActivity {
 
 
     }
+
+
 }
