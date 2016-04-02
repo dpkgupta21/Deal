@@ -78,8 +78,12 @@ public class EditProfileActivity extends BaseActivity {
 
         init();
         gpsTracker = new GPSTracker(mActivity);
-        currentAddress = Utils.getAddress(gpsTracker.getLatitude(), gpsTracker.getLongitude(),
-                mActivity);
+        try {
+            currentAddress = Utils.getAddress(gpsTracker.getLatitude(), gpsTracker.getLongitude(),
+                    mActivity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (getIntent().getStringExtra("address") != null) {
             setEditText(R.id.txt_location, getIntent().getStringExtra("address"));
         }
@@ -164,14 +168,18 @@ public class EditProfileActivity extends BaseActivity {
      * @see LocationSelectionActivity
      */
     private void openLocationActivity() {
-        if (TextUtils.isEmpty(currentAddress)) {
-            currentAddress = Utils.getAddress(gpsTracker.getLatitude(), gpsTracker.getLongitude(),
-                    mActivity);
-            Toast.makeText(mActivity, "Getting current address..", Toast.LENGTH_SHORT).show();
-        } else {
-            Intent intent = new Intent(mActivity, LocationSelectionActivity.class);
-            intent.putExtra("currentAddress", currentAddress);
-            startActivity(intent);
+        try {
+            if (TextUtils.isEmpty(currentAddress)) {
+                currentAddress = Utils.getAddress(gpsTracker.getLatitude(), gpsTracker.getLongitude(),
+                        mActivity);
+                Toast.makeText(mActivity, "Getting current address..", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent(mActivity, LocationSelectionActivity.class);
+                intent.putExtra("currentAddress", currentAddress);
+                startActivity(intent);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
 
