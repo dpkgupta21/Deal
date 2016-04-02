@@ -22,6 +22,8 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.location.Address;
+import android.location.Geocoder;
 import android.media.ExifInterface;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -36,6 +38,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.deal.exap.model.UserDTO;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,6 +63,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
@@ -1067,6 +1072,53 @@ public class Utils {
         Date date = new Date(second * 1000);
         SimpleDateFormat sdf = new SimpleDateFormat("d MMM | h:mm a");
         return sdf.format(date);
+    }
+
+
+
+    /**
+     * this method fetches the latlng from the address
+     *
+     * @param address is an address string.
+     * @return LatLng
+     */
+    public static LatLng getLocationFromAddress(String address, Context context) {
+        Geocoder geocoder = new Geocoder(context);
+        List<Address> addresses;
+        LatLng latLng = null;
+
+        try {
+            addresses = geocoder.getFromLocationName(address, 5);
+            if (addresses == null) {
+                return null;
+            }
+            Address location = addresses.get(0);
+            latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return latLng;
+    }
+
+
+    /**
+     * this method fetches the address from the lat and lng.
+     *
+     * @param lat is latitude of location.
+     * @param lng is longitude of location
+     * @return address string
+     */
+    public static String getAddress(double lat, double lng, Context context) {
+        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+        String address = "";
+        try {
+            List<Address> addresses = geocoder.getFromLocation(lat, lng, 5);
+            address = addresses.get(0).getAddressLine(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return address;
     }
 
 }

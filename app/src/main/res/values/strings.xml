@@ -305,6 +305,7 @@
     <string name="title_no_internet">Internet Connection Error!</string>
     <string name="msg_no_internet">Please connect to working Internet connection.</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_location_selection">Map</string>
 
 
 </resources>
