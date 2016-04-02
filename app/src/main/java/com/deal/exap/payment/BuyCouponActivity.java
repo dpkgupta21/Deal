@@ -95,8 +95,8 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
     private DisplayImageOptions options;
     private PWProviderBinder _binder;
 
-    private static final String APPLICATIONIDENTIFIER = "gate2play.WorldofSS.mcommerce.test";// "payworks.swipeandbuy";
-    private static final String PROFILETOKEN = "930e6e9744154563afc4718ab0352b9a";
+    private static final String APPLICATIONIDENTIFIER = "Hyperpay.6085WorldOfSS.mcommerce";// "payworks.swipeandbuy";
+    private static final String PROFILETOKEN = "44a2f1d0f1a711e5a7dc11fc67275b56";
     private double transactionPrice = 0.0;
 
     private ArrayList<String> imageList;
@@ -124,7 +124,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
             _binder = (PWProviderBinder) service;
             try {
                 // replace by custom sandbox access
-                _binder.initializeProvider(PWConnect.PWProviderMode.TEST, APPLICATIONIDENTIFIER, PROFILETOKEN);
+                _binder.initializeProvider(PWConnect.PWProviderMode.LIVE, APPLICATIONIDENTIFIER, PROFILETOKEN);
             } catch (PWException ee) {
                 ee.printStackTrace();
             }
@@ -448,7 +448,6 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         );
         AppController.getInstance().addToRequestQueue(imageRequest);
     }
-
 
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -843,7 +842,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 instagramIntent.setType("image/*");
                 instagramIntent.setPackage("com.instagram.android");
                 instagramIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(
-                        Environment.getExternalStorageDirectory() +"/" + "Deal" +
+                        Environment.getExternalStorageDirectory() + "/" + "Deal" +
                                 "/" + imageName)));
                 startActivity(instagramIntent);
             } catch (Exception e) {
@@ -888,7 +887,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                     whatsappIntent.setType("text/plain");
                     whatsappIntent.putExtra(Intent.EXTRA_TEXT, shareStr.toString());
                     whatsappIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(
-                            Environment.getExternalStorageDirectory() +"/" + "Deal" +
+                            Environment.getExternalStorageDirectory() + "/" + "Deal" +
                                     "/" + imageName
                     )));
                     whatsappIntent.setType("image/*");
@@ -900,7 +899,6 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
             }
         }
     };
-
 
 
     @Override
