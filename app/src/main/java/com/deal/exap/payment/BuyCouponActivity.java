@@ -86,6 +86,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.lang.String;
 
 public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallback {
 
@@ -95,8 +96,8 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
     private DisplayImageOptions options;
     private PWProviderBinder _binder;
 
-    private static final String APPLICATIONIDENTIFIER = "Hyperpay.6085WorldOfSS.mcommerce";// "payworks.swipeandbuy";
-    private static final String PROFILETOKEN = "44a2f1d0f1a711e5a7dc11fc67275b56";
+    private static final String APPLICATIONIDENTIFIER = "Hyperpay.6085WorldOfSS.mcommerce";//"gate2play.WorldofSS.mcommerce.test";
+    private static final String PROFILETOKEN = "44a2f1d0f1a711e5a7dc11fc67275b56"; //"930e6e9744154563afc4718ab0352b9a";
     private double transactionPrice = 0.0;
 
     private ArrayList<String> imageList;
@@ -450,6 +451,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
     }
 
 
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setData() {
         String dealCode = dealDTO.getDeal_code();
@@ -601,9 +603,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
             settings.setSupportedDirectDebitCountries(new String[]{"DE"});
             settings.setSupportedPaymentMethods(new PWConnectCheckoutPaymentMethod[]{
                     PWConnectCheckoutPaymentMethod.VISA,
-                    PWConnectCheckoutPaymentMethod.MASTERCARD,
-                    PWConnectCheckoutPaymentMethod.AMERICAN_EXPRESS,
-                    PWConnectCheckoutPaymentMethod.DIRECT_DEBIT});
+                    PWConnectCheckoutPaymentMethod.MASTERCARD});
             // ask the user if she wants to store the account
             settings.setCreateToken(PWConnectCheckoutCreateToken.PROMPT);
 
@@ -899,6 +899,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
             }
         }
     };
+
 
 
     @Override

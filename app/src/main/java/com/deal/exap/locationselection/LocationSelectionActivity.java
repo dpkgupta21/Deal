@@ -4,13 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
@@ -18,8 +19,8 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.deal.exap.R;
+import com.deal.exap.gps.GPSTracker;
 import com.deal.exap.login.BaseActivity;
-import com.deal.exap.login.EditProfileActivity;
 import com.deal.exap.misc.PlaceJSONParser;
 import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
@@ -48,7 +49,7 @@ public class LocationSelectionActivity extends BaseActivity implements OnMapRead
 
     private GoogleMap mMap;
     private Activity mActivity;
-    private AutoCompleteTextView editText;
+    private AutoCompleteTextView edtSearch;
     private PlacesTask placesTask;
     private ParserTask parserTask;
 
@@ -58,12 +59,13 @@ public class LocationSelectionActivity extends BaseActivity implements OnMapRead
         setContentView(R.layout.activity_location_selection);
         mActivity = LocationSelectionActivity.this;
 
-        setHeader("Location");
+        setHeader("");
         setLeftClick();
+        setClick(R.id.btn_current_loc);
 
-        editText = (AutoCompleteTextView) findViewById(R.id.edt_location_box);
+        edtSearch = (AutoCompleteTextView) findViewById(R.id.edt_location_box);
 
-        editText.addTextChangedListener(new TextWatcher() {
+        edtSearch.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -83,11 +85,11 @@ public class LocationSelectionActivity extends BaseActivity implements OnMapRead
             }
         });
 
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    LatLng latLng = Utils.getLocationFromAddress(editText.getText().toString(),
+                    LatLng latLng = Utils.getLocationFromAddress(edtSearch.getText().toString(),
                             mActivity);
                     animateCamera(latLng.latitude, latLng.longitude);
                     return true;
@@ -95,12 +97,51 @@ public class LocationSelectionActivity extends BaseActivity implements OnMapRead
                 return false;
             }
         });
-
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         setUpMap();
+
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+
+        edtSearch.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (edtSearch.getRight() -
+                            edtSearch.getCompoundDrawables()[DRAWABLE_RIGHT].
+                                    getBounds().width())) {
+
+                        LatLng latLng = Utils.getLocationFromAddress(edtSearch.getText().toString(),
+                                mActivity);
+                        try {
+                            mMap.setMyLocationEnabled(false);
+                        } catch (SecurityException e) {
+                            e.printStackTrace();
+                        }
+
+                        mMap.clear();
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(latLng.latitude, latLng.longitude)));
+
+                        animateCamera(latLng.latitude, latLng.longitude);
+                        return true;
+                    }
+
+                }
+                return false;
+            }
+        });
+    }
 
     private void setUpMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -114,12 +155,33 @@ public class LocationSelectionActivity extends BaseActivity implements OnMapRead
             case R.id.iv_back:
                 onBackPressed();
                 break;
+            case R.id.btn_current_loc:
+                GPSTracker gpsTracker = new GPSTracker(mActivity);
+                double lat = DealPreferences.getLatitude(mActivity);
+                double lng = DealPreferences.getLongitude(mActivity);
+                try {
+                    mMap.clear();
+                    mMap.setMyLocationEnabled(true);
+                } catch (SecurityException e) {
+                    e.printStackTrace();
+                }
+                animateCamera(lat, lng);
+                break;
         }
     }
 
     @Override
     public void onBackPressed() {
-        this.finish();
+        Intent intent = new Intent();
+        String val = edtSearch.getText().toString();
+        //Intent intent = new Intent(mActivity, EditProfileActivity.class);
+        intent.putExtra("address", val);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //startActivity(intent);
+        //mActivity.finish();
+        setResult(1003, intent);
+        finish();
+
     }
 
     @Override
@@ -129,15 +191,33 @@ public class LocationSelectionActivity extends BaseActivity implements OnMapRead
         double lng = DealPreferences.getLongitude(mActivity);
         String address = Utils.getAddress(lat, lng, mActivity);
 
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        try {
+            mMap.setMyLocationEnabled(true);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
         animateCamera(lat, lng);
 
-        editText.setText(address);
+        edtSearch.setText(address);
 
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
-            public void onMapLongClick(LatLng latLng) {
-                editText.setText(Utils.getAddress(latLng.latitude, latLng.longitude, mActivity));
+            public void onMapLongClick(final LatLng latLng) {
+                try {
+                    mMap.setMyLocationEnabled(false);
+                } catch (SecurityException e) {
+                    e.printStackTrace();
+                }
+
+                mMap.clear();
+                mMap.addMarker(new MarkerOptions().position(new LatLng(latLng.latitude, latLng.longitude)));
+
                 animateCamera(latLng.latitude, latLng.longitude);
+
+
+
+
             }
         });
     }
@@ -148,20 +228,26 @@ public class LocationSelectionActivity extends BaseActivity implements OnMapRead
      * @param lat is latitude of location.
      * @param lng is longitude of location.
      */
-    private void animateCamera(double lat, double lng) {
-        mMap.clear();
+    private void animateCamera(final double lat,final double lng) {
+
         LatLng latLng = new LatLng(lat, lng);
-        mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)));
+        //mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)));
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(latLng).zoom(11f).build();
+                .target(latLng).zoom(14f).build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        if (TextUtils.isEmpty(getIntent().getStringExtra("currentAddress"))) {
-            editText.setText(Utils.getAddress(lat, lng, mActivity));
-        } else {
-            while (TextUtils.isEmpty(editText.getText().toString())) {
-                editText.setText(Utils.getAddress(lat, lng, mActivity));
+
+        Handler handler = new Handler();
+        Runnable r = new Runnable() {
+            public void run() {
+                String address = Utils.getAddress(lat,
+                        lng,
+                        mActivity);
+                edtSearch.setText(address);
+
             }
-        }
+        };
+        handler.post(r);
+
     }
 
 
@@ -175,11 +261,7 @@ public class LocationSelectionActivity extends BaseActivity implements OnMapRead
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.choose_location:
-                Intent intent = new Intent(mActivity, EditProfileActivity.class);
-                intent.putExtra("address", editText.getText().toString());
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                mActivity.finish();
+                onBackPressed();
                 break;
 
         }
@@ -277,7 +359,7 @@ public class LocationSelectionActivity extends BaseActivity implements OnMapRead
             SimpleAdapter adapter = new SimpleAdapter(getBaseContext(), result, android.R.layout.simple_list_item_1, from, to);
 
             // Setting the adapter
-            editText.setAdapter(adapter);
+            edtSearch.setAdapter(adapter);
         }
     }
 

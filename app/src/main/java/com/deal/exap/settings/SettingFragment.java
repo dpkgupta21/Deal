@@ -1,7 +1,6 @@
 package com.deal.exap.settings;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,12 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -31,7 +25,6 @@ import com.deal.exap.R;
 import com.deal.exap.customviews.CustomProgressDialog;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg12;
-import com.deal.exap.customviews.MyTextViewReg16;
 import com.deal.exap.login.BaseFragment;
 import com.deal.exap.login.EditProfileActivity;
 import com.deal.exap.model.CountriesDTO;
@@ -44,13 +37,9 @@ import com.deal.exap.utility.SessionManager;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

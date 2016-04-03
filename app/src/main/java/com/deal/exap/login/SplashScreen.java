@@ -18,6 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
+import com.deal.exap.customviews.CustomProgressDialog;
 import com.deal.exap.gps.GPSTracker;
 import com.deal.exap.login.Adapter.SplashScreenPagerAdapter;
 import com.deal.exap.model.UserDTO;
@@ -104,6 +105,7 @@ public class SplashScreen extends BaseActivity {
         ft.commit();
 
         gpsTracker = new GPSTracker(this);
+        CustomProgressDialog.hideProgressDialog();
     }
 
     @Override
@@ -127,15 +129,18 @@ public class SplashScreen extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_lang_change:
+                CustomProgressDialog.showProgDialog(mActivity,null);
                 if (DealPreferences.getAPP_LANG(mActivity).contains(Constant.LANG_ARABIC_CODE)) {
-                    HelpMe.setLocale(Constant.LANG_ENGLISH_CODE, mActivity);
+                    HelpMe.setLocale(Constant.LANG_ENGLISH_CODE, mActivity.getApplicationContext());
                     DealPreferences.setAPP_LANG(mActivity, Constant.LANG_ENGLISH_CODE);
 
                 } else if (DealPreferences.getAPP_LANG(mActivity).contains(Constant.LANG_ENGLISH_CODE)) {
-                    HelpMe.setLocale(Constant.LANG_ARABIC_CODE, mActivity);
+                    HelpMe.setLocale(Constant.LANG_ARABIC_CODE, mActivity.getApplicationContext());
                     DealPreferences.setAPP_LANG(mActivity, Constant.LANG_ARABIC_CODE);
                 }
+
                 startActivity(new Intent(mActivity, SplashScreen.class));
+                finish();
                 break;
             case R.id.tv_skip_eng:
                 skipRegistration();

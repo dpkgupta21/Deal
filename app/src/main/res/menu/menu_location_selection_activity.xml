@@ -4,6 +4,6 @@
     <item
         android:id="@+id/choose_location"
         android:orderInCategory="100"
-        android:title="Choose"
+        android:title="Done"
         app:showAsAction="always" />
 </menu>

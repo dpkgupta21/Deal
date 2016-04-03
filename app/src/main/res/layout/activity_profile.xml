@@ -110,12 +110,12 @@
                     android:text="@string/location"
                     android:textColor="@color/black" />
 
-                <com.deal.exap.customviews.CustomAutoCompleteTextView
+                <com.deal.exap.customviews.MyTextViewLightCustom
                     style="@style/et_style_line"
                     android:id="@+id/txt_location"
                     android:layout_marginTop="5dp"
                     android:hint="@string/enter_here" />
-                <Button
+                <com.deal.exap.customviews.MyButtonViewRegCustom
                     style="@style/btn_style"
                     android:id="@+id/btn_edit_profile"
                     android:layout_width="fill_parent"

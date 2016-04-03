@@ -203,7 +203,7 @@
 
     <!-- Welcome screen -->
 
-    <string name="skip_right">تخطى</string>
+    <string name="skip_right">تجاوز</string>
     <string name="skip_left">E</string>
 
     <string name="choose_camera">كاميرا</string>

@@ -7,8 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
@@ -21,21 +19,15 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.media.ExifInterface;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Vibrator;
-import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.URLUtil;
-import android.widget.Button;
-import android.widget.EditText;
 
 import com.deal.exap.model.UserDTO;
 import com.google.android.gms.maps.model.LatLng;
@@ -46,13 +38,8 @@ import org.json.JSONObject;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -172,7 +159,6 @@ public class Utils {
     }
 
 
-
     public static boolean isValidEmail(String email) {
 
         String emailExp = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,10}$";
@@ -233,9 +219,6 @@ public class Utils {
         }
         return null;
     }
-
-
-
 
 
     public static String getCurrentDateTime() {
@@ -562,8 +545,8 @@ public class Utils {
             String datestr = fromFormat.format(d);
             final DateFormat formatter = DateFormat.getDateTimeInstance();
             formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-				/*final Date timezone = formatter.parse(datestr);
-				formatter.setTimeZone(TimeZone.getDefault());
+                /*final Date timezone = formatter.parse(datestr);
+                formatter.setTimeZone(TimeZone.getDefault());
 				System.out.println(formatter.format(timezone));*/
 
             return datestr;
@@ -758,7 +741,7 @@ public class Utils {
                 inSampleSize = heightRatio;
 
             }
-           // Log.d("Sample Size======================", inSampleSize + "");
+            // Log.d("Sample Size======================", inSampleSize + "");
             options.inSampleSize = inSampleSize;
             options.inJustDecodeBounds = false;
             return BitmapFactory.decodeFile(file.getAbsolutePath(), options);
@@ -1066,14 +1049,12 @@ public class Utils {
     }
 
 
-
     public static String secondsToDate(String seconds) {
         int second = Integer.parseInt(seconds);
         Date date = new Date(second * 1000);
         SimpleDateFormat sdf = new SimpleDateFormat("d MMM | h:mm a");
         return sdf.format(date);
     }
-
 
 
     /**
@@ -1083,6 +1064,8 @@ public class Utils {
      * @return LatLng
      */
     public static LatLng getLocationFromAddress(String address, Context context) {
+
+
         Geocoder geocoder = new Geocoder(context);
         List<Address> addresses;
         LatLng latLng = null;
@@ -1110,15 +1093,27 @@ public class Utils {
      * @return address string
      */
     public static String getAddress(double lat, double lng, Context context) {
+
+
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
-        String address = "";
+        StringBuilder sb = new StringBuilder();
         try {
-            List<Address> addresses = geocoder.getFromLocation(lat, lng, 5);
-            address = addresses.get(0).getAddressLine(0);
+            List<Address> addressList = geocoder.getFromLocation(lat, lng, 1);
+            if (addressList != null && addressList.size() > 0) {
+                Address address = addressList.get(0);
+                for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
+                    sb.append(address.getAddressLine(i)).append(", ");
+                }
+
+                sb.append(address.getLocality()).append(", ");
+                sb.append(address.getCountryName());
+
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return address;
+        return sb.toString();
     }
 
 }

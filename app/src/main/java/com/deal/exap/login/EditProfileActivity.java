@@ -61,12 +61,13 @@ public class EditProfileActivity extends BaseActivity {
 
     private int CAMERA_REQUEST = 1001;
     private int GALLERY_REQUEST = 1002;
+    private int LOCATION_RESULT_REQUEST = 1003;
     private ImageLoader image_loader;
     private CameraChooseDialogFragment dFragment;
     private File f;
     private byte[] bitmapdata;
     private ImageView profile;
-    private String currentAddress;
+    //private String currentAddress;
     private GPSTracker gpsTracker;
     private Activity mActivity;
 
@@ -78,15 +79,15 @@ public class EditProfileActivity extends BaseActivity {
 
         init();
         gpsTracker = new GPSTracker(mActivity);
-        try {
-            currentAddress = Utils.getAddress(gpsTracker.getLatitude(), gpsTracker.getLongitude(),
-                    mActivity);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (getIntent().getStringExtra("address") != null) {
-            setEditText(R.id.txt_location, getIntent().getStringExtra("address"));
-        }
+//        try {
+//            currentAddress = Utils.getAddress(gpsTracker.getLatitude(), gpsTracker.getLongitude(),
+//                    mActivity);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        if (getIntent().getStringExtra("address") != null) {
+//            setEditText(R.id.txt_location, getIntent().getStringExtra("address"));
+//        }
     }
 
 
@@ -169,19 +170,20 @@ public class EditProfileActivity extends BaseActivity {
      */
     private void openLocationActivity() {
         try {
-            if (TextUtils.isEmpty(currentAddress)) {
-                currentAddress = Utils.getAddress(gpsTracker.getLatitude(), gpsTracker.getLongitude(),
-                        mActivity);
-                Toast.makeText(mActivity, "Getting current address..", Toast.LENGTH_SHORT).show();
-            } else {
-                Intent intent = new Intent(mActivity, LocationSelectionActivity.class);
-                intent.putExtra("currentAddress", currentAddress);
-                startActivity(intent);
-            }
-        } catch(Exception e) {
+//            if (TextUtils.isEmpty(currentAddress)) {
+//                currentAddress = Utils.getAddress(gpsTracker.getLatitude(), gpsTracker.getLongitude(),
+//                        mActivity);
+//                Toast.makeText(mActivity, "Getting current address..", Toast.LENGTH_SHORT).show();
+//            } else {
+            Intent intent = new Intent(mActivity, LocationSelectionActivity.class);
+            //intent.putExtra("currentAddress", currentAddress);
+            startActivityForResult(intent, LOCATION_RESULT_REQUEST);
+            //}
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     public void showCalendarDialog() {
 
@@ -286,7 +288,12 @@ public class EditProfileActivity extends BaseActivity {
         try {
             super.onActivityResult(requestCode, resultCode, data);
             byte[] hash = null;
-            if (requestCode == GALLERY_REQUEST && resultCode == Activity.RESULT_OK
+
+
+            if (requestCode == LOCATION_RESULT_REQUEST && null != data) {
+                String val=data.getStringExtra("address");
+                setViewText(R.id.txt_location, val );
+            } else if (requestCode == GALLERY_REQUEST && resultCode == Activity.RESULT_OK
                     && null != data) {
                 if (dFragment != null) {
                     dFragment.dismiss();

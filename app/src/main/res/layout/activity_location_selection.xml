@@ -18,12 +18,23 @@
             tools:context="com.deal.exap.locationselection.LocationSelectionActivity" />
 
         <com.deal.exap.customviews.CustomAutoCompleteTextView
-            style="@style/et_style_line"
             android:id="@+id/edt_location_box"
-            android:padding="@dimen/activity_horizontal_margin"
-            android:hint="Search location..." />
+            style="@style/et_style_line"
+            android:drawableRight="@android:drawable/ic_menu_search"
+            android:hint="Search location..."
+            android:paddingLeft="10dp"
+            android:singleLine="true" />
 
-
+        <com.deal.exap.customviews.MyButtonViewRegCustom
+            android:id="@+id/btn_current_loc"
+            style="@style/btn_style"
+            android:layout_width="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:hint="Use Current location"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/white"
+            android:singleLine="true" />
     </RelativeLayout>
 
 </LinearLayout>
