@@ -27,6 +27,7 @@ import com.deal.exap.R;
 import com.deal.exap.camera.CameraChooseDialogFragment;
 import com.deal.exap.camera.CameraSelectInterface;
 import com.deal.exap.camera.GallerySelectInterface;
+import com.deal.exap.customviews.CustomProgressDialog;
 import com.deal.exap.gps.GPSTracker;
 import com.deal.exap.locationselection.LocationSelectionActivity;
 import com.deal.exap.model.UserDTO;
@@ -291,8 +292,8 @@ public class EditProfileActivity extends BaseActivity {
 
 
             if (requestCode == LOCATION_RESULT_REQUEST && null != data) {
-                String val=data.getStringExtra("address");
-                setViewText(R.id.txt_location, val );
+                String val = data.getStringExtra("address");
+                setViewText(R.id.txt_location, val);
             } else if (requestCode == GALLERY_REQUEST && resultCode == Activity.RESULT_OK
                     && null != data) {
                 if (dFragment != null) {
@@ -354,6 +355,7 @@ public class EditProfileActivity extends BaseActivity {
                 //write the bytes in file
                 FileOutputStream fos = new FileOutputStream(f);
                 fos.write(bitmapdata);
+
                 fos.flush();
                 fos.close();
             }

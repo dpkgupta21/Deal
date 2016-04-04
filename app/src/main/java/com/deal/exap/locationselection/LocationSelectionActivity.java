@@ -17,8 +17,10 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.deal.exap.R;
+import com.deal.exap.customviews.CustomProgressDialog;
 import com.deal.exap.gps.GPSTracker;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.misc.PlaceJSONParser;
@@ -30,6 +32,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONObject;
@@ -45,13 +48,16 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
-public class LocationSelectionActivity extends BaseActivity implements OnMapReadyCallback {
+public class LocationSelectionActivity extends BaseActivity implements
+        OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
     private Activity mActivity;
     private AutoCompleteTextView edtSearch;
     private PlacesTask placesTask;
     private ParserTask parserTask;
+    private MarkerOptions marketOptions;
+    private Marker marker;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +65,7 @@ public class LocationSelectionActivity extends BaseActivity implements OnMapRead
         setContentView(R.layout.activity_location_selection);
         mActivity = LocationSelectionActivity.this;
 
+        CustomProgressDialog.showProgDialog(mActivity, null);
         setHeader("");
         setLeftClick();
         setClick(R.id.btn_current_loc);
@@ -108,7 +115,6 @@ public class LocationSelectionActivity extends BaseActivity implements OnMapRead
         super.onStart();
 
 
-
         edtSearch.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -121,19 +127,26 @@ public class LocationSelectionActivity extends BaseActivity implements OnMapRead
                     if (event.getRawX() >= (edtSearch.getRight() -
                             edtSearch.getCompoundDrawables()[DRAWABLE_RIGHT].
                                     getBounds().width())) {
+                        String edtAddressVal = edtSearch.getText().toString();
+                        if (edtAddressVal != null && !edtAddressVal.equalsIgnoreCase("")) {
+                            LatLng latLng = Utils.getLocationFromAddress(edtSearch.getText().toString(),
+                                    mActivity);
+                            if (latLng != null) {
+                                try {
+                                    mMap.setMyLocationEnabled(false);
+                                } catch (SecurityException e) {
+                                    e.printStackTrace();
+                                }
 
-                        LatLng latLng = Utils.getLocationFromAddress(edtSearch.getText().toString(),
-                                mActivity);
-                        try {
-                            mMap.setMyLocationEnabled(false);
-                        } catch (SecurityException e) {
-                            e.printStackTrace();
+                                mMap.clear();
+
+                                marketOptions = new MarkerOptions().position(new LatLng(latLng.latitude,
+                                        latLng.longitude));
+                                marker = mMap.addMarker(marketOptions);
+                                marker.showInfoWindow();
+                                animateCamera(latLng.latitude, latLng.longitude);
+                            }
                         }
-
-                        mMap.clear();
-                        mMap.addMarker(new MarkerOptions().position(new LatLng(latLng.latitude, latLng.longitude)));
-
-                        animateCamera(latLng.latitude, latLng.longitude);
                         return true;
                     }
 
@@ -156,11 +169,14 @@ public class LocationSelectionActivity extends BaseActivity implements OnMapRead
                 onBackPressed();
                 break;
             case R.id.btn_current_loc:
+                CustomProgressDialog.showProgDialog(mActivity, null);
                 GPSTracker gpsTracker = new GPSTracker(mActivity);
                 double lat = DealPreferences.getLatitude(mActivity);
                 double lng = DealPreferences.getLongitude(mActivity);
                 try {
                     mMap.clear();
+                    marketOptions = null;
+                    marker = null;
                     mMap.setMyLocationEnabled(true);
                 } catch (SecurityException e) {
                     e.printStackTrace();
@@ -189,17 +205,15 @@ public class LocationSelectionActivity extends BaseActivity implements OnMapRead
         mMap = googleMap;
         double lat = DealPreferences.getLatitude(mActivity);
         double lng = DealPreferences.getLongitude(mActivity);
-        String address = Utils.getAddress(lat, lng, mActivity);
 
-        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
         try {
             mMap.setMyLocationEnabled(true);
         } catch (SecurityException e) {
             e.printStackTrace();
         }
         animateCamera(lat, lng);
-
-        edtSearch.setText(address);
 
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
@@ -211,11 +225,10 @@ public class LocationSelectionActivity extends BaseActivity implements OnMapRead
                 }
 
                 mMap.clear();
-                mMap.addMarker(new MarkerOptions().position(new LatLng(latLng.latitude, latLng.longitude)));
-
+                marketOptions = new MarkerOptions().position(new LatLng(latLng.latitude,
+                        latLng.longitude));
+                marker = mMap.addMarker(marketOptions);
                 animateCamera(latLng.latitude, latLng.longitude);
-
-
 
 
             }
@@ -228,26 +241,16 @@ public class LocationSelectionActivity extends BaseActivity implements OnMapRead
      * @param lat is latitude of location.
      * @param lng is longitude of location.
      */
-    private void animateCamera(final double lat,final double lng) {
+    private void animateCamera(final double lat, final double lng) {
 
         LatLng latLng = new LatLng(lat, lng);
-        //mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)));
+
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng).zoom(14f).build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-        Handler handler = new Handler();
-        Runnable r = new Runnable() {
-            public void run() {
-                String address = Utils.getAddress(lat,
-                        lng,
-                        mActivity);
-                edtSearch.setText(address);
-
-            }
-        };
-        handler.post(r);
-
+        retrieveAddress(lat, lng);
+        CustomProgressDialog.hideProgressDialog();
     }
 
 
@@ -266,6 +269,38 @@ public class LocationSelectionActivity extends BaseActivity implements OnMapRead
 
         }
         return true;
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        if (marker != null) {
+            if (marker.isInfoWindowShown()) {
+                marker.hideInfoWindow();
+            } else {
+                marker.showInfoWindow();
+            }
+        }
+        return false;
+    }
+
+    private void retrieveAddress(final double lat, final double lng) {
+        Handler handler = new Handler();
+        Runnable r = new Runnable() {
+            public void run() {
+                String address = Utils.getAddress(lat, lng,
+                        mActivity);
+                if (address != null) {
+                    edtSearch.setText(address);
+                    if (marketOptions != null) {
+                        marketOptions = marketOptions.title(address).snippet("");
+                        marker = mMap.addMarker(marketOptions);
+                    }
+                }
+
+            }
+        };
+        handler.post(r);
+
     }
 
     // Fetches all places from GooglePlaces AutoComplete Web Service

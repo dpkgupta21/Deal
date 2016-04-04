@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -45,8 +47,8 @@ public class SplashScreen extends BaseActivity {
     private SessionManager session;
     private ViewPager mViewPager;
     private SplashScreenPagerAdapter mAdapter;
-    private Map<Integer, String> mPictures;
-    private List<Integer> mPictureIdsList;
+    //private Map<Integer, String> mPictures;
+    private String[] mPictureIdsList;
     private RadioGroup mSwipeIndicator;
     // List of Ids of radio buttons for displaying the dot of currently displayed picture
     private List<Integer> mRadioButtonIds;
@@ -70,7 +72,7 @@ public class SplashScreen extends BaseActivity {
         setClick(R.id.tv_lang_change);
         setClick(R.id.tv_skip_eng);
 
-        mAdapter = new SplashScreenPagerAdapter(this, mPictures, mPictureIdsList);
+        mAdapter = new SplashScreenPagerAdapter(this, mPictureIdsList);
         mViewPager.setAdapter(mAdapter);
 
         mSwipeIndicator = (RadioGroup) findViewById(R.id.swipe_indicator_radio_group);
@@ -129,7 +131,7 @@ public class SplashScreen extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_lang_change:
-                CustomProgressDialog.showProgDialog(mActivity,null);
+                CustomProgressDialog.showProgDialog(mActivity, null);
                 if (DealPreferences.getAPP_LANG(mActivity).contains(Constant.LANG_ARABIC_CODE)) {
                     HelpMe.setLocale(Constant.LANG_ENGLISH_CODE, mActivity.getApplicationContext());
                     DealPreferences.setAPP_LANG(mActivity, Constant.LANG_ENGLISH_CODE);
@@ -151,7 +153,7 @@ public class SplashScreen extends BaseActivity {
     }
 
     private void populateEnglishSplashBackgrounds() {
-        mPictures = new HashMap<>();
+
 
 //        List<String> mPictureTextList = new ArrayList<>();
 //        mPictureTextList.add("Capture all type of memories. Not just photos. Travel Jar can take anything");
@@ -159,17 +161,12 @@ public class SplashScreen extends BaseActivity {
 //        mPictureTextList.add("No need to chase people for pictures anymore. Travel Jar automatically syncs everything");
 //        mPictureTextList.add("No need to chase people for pictures anymore. Travel Jar automatically syncs everything");
 
-        mPictureIdsList = new ArrayList<>();
-        mPictureIdsList.add(R.drawable.slide_img);
-        mPictureIdsList.add(R.drawable.slide_img);
-        mPictureIdsList.add(R.drawable.slide_img);
-        mPictureIdsList.add(R.drawable.slide_img);
 
-        int i = 0;
-        for (Integer a : mPictureIdsList) {
-            mPictures.put(a, "");
-            i++;
-        }
+        mPictureIdsList = new String[]{
+                "slide_img", "slide_img", "slide_img", "slide_img"
+        };
+
+
     }
 
     /*private void setUpToolbar() {
@@ -274,8 +271,20 @@ public class SplashScreen extends BaseActivity {
                     30000, 0,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         }
+
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.gc();
+    }
 
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
+
+    }
 }
 

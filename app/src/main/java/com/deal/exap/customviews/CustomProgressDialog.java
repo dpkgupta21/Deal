@@ -2,6 +2,7 @@ package com.deal.exap.customviews;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 
 /**
  * Created by deepak.gupta on 29-01-2016.
@@ -22,6 +23,8 @@ public class CustomProgressDialog {
             progressDialog.show();
         }
     }
+
+
 
     public static void hideProgressDialog() {
         if (progressDialog != null) {
