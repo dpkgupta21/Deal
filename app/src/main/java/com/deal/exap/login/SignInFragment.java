@@ -343,7 +343,7 @@ public class SignInFragment extends BaseFragment {
                 params.put("email", getViewText(R.id.edt_username, view));
                 params.put("password", getViewText(R.id.edt_password, view));
                 params.put("device", "android");
-                params.put("device_id", DealPreferences.getPushRegistrationId(getActivity().getApplicationContext()));
+             //   params.put("device_id", DealPreferences.getPushRegistrationId(getActivity().getApplicationContext()));
                 params.put("lat", "" + gpsTracker.getLatitude());
                 params.put("lng", "" + gpsTracker.getLongitude());
                 params.put("address", "");
@@ -410,7 +410,7 @@ public class SignInFragment extends BaseFragment {
             params.put("email", username);
             params.put("social_id", socialId);
             params.put("device", "android");
-            params.put("device_id", DealPreferences.getPushRegistrationId(getActivity().getApplicationContext()));
+           // params.put("device_id", DealPreferences.getPushRegistrationId(getActivity().getApplicationContext()));
             params.put("social_type", socialType);
             final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,

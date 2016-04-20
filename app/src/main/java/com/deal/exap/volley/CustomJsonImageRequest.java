@@ -10,6 +10,7 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.deal.exap.utility.DealPreferences;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.mime.MultipartEntity;
@@ -38,6 +39,7 @@ public class CustomJsonImageRequest extends Request<JSONObject> {
                                   Listener<JSONObject> reponseListener, ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
         this.listener = reponseListener;
+        params.put("device_id", DealPreferences.getPushRegistrationId(AppController.getAppContext()));
         this.params = params;
 
     }
@@ -46,6 +48,7 @@ public class CustomJsonImageRequest extends Request<JSONObject> {
                                   Listener<JSONObject> reponseListener, ErrorListener errorListener) {
         super(method, url, errorListener);
         this.listener = reponseListener;
+        params.put("device_id",DealPreferences.getPushRegistrationId(AppController.getAppContext()));
         this.params = params;
 
     }
@@ -58,6 +61,7 @@ public class CustomJsonImageRequest extends Request<JSONObject> {
                                   ErrorListener errorListener) {
         super(method, url, errorListener);
         this.listener = reponseListener;
+        params.put("device_id",DealPreferences.getPushRegistrationId(AppController.getAppContext()));
         this.params = params;
         this.file = file;
         mHttpEntity = buildMultipartEntity(file);

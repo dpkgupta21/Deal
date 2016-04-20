@@ -361,7 +361,7 @@ public class SignUp extends BaseActivity {
                 params.put("email", getViewText(R.id.edt_email_id));
                 params.put("password", getViewText(R.id.edt_password));
                 params.put("device", "android");
-                params.put("device_id", DealPreferences.getPushRegistrationId(SignUp.this));
+              //  params.put("device_id", DealPreferences.getPushRegistrationId(SignUp.this));
                 params.put("name", getViewText(R.id.edt_name));
                 params.put("gender", getViewText(R.id.edt_gender).equals("Male") ? "M" : "F");
                 params.put("dob", getViewText(R.id.edt_dob));

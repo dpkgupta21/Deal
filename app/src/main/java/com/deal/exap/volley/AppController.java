@@ -52,6 +52,8 @@ public class AppController extends Application {
     private ImageLoader mImageLoader;
     private Tracker mTracker;
 
+    private static Context context;
+
 
     public static synchronized AppController getInstance() {
         return mInstance;
@@ -79,6 +81,8 @@ public class AppController extends Application {
         //  lapsList = new ArrayList<>();
 
 //        LeakCanary.install(this);
+
+        AppController.context = getApplicationContext();
 
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .cacheOnDisc(true)
@@ -157,5 +161,8 @@ public class AppController extends Application {
     }
 
 
+    public static Context getAppContext() {
+        return AppController.context;
+    }
 
 }

@@ -7,6 +7,7 @@ import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.deal.exap.utility.DealPreferences;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +26,7 @@ public class CustomJsonRequest extends Request<JSONObject> {
                              Listener<JSONObject> reponseListener, ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
         this.listener = reponseListener;
+        params.put("device_id",DealPreferences.getPushRegistrationId(AppController.getAppContext()));
         this.params = params;
     }
 
@@ -32,6 +34,7 @@ public class CustomJsonRequest extends Request<JSONObject> {
                              Listener<JSONObject> reponseListener, ErrorListener errorListener) {
         super(method, url, errorListener);
         this.listener = reponseListener;
+        params.put("device_id",DealPreferences.getPushRegistrationId(AppController.getAppContext()));
         this.params = params;
     }
 
