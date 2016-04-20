@@ -627,7 +627,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_CANCELED) {
             Utils.ShowLog(TAG, "user canceled the checkout process/error");
-            Utils.showDialog(this, getString(R.string.alert_screen_title), "Checkout cancelled or an error occurred.");
+            Utils.showDialog(this, getString(R.string.alert_screen_title), "The request has been canceled, No transaction has been performed.");
             //updateText("Checkout cancelled or an error occurred.");
         } else if (resultCode == RESULT_OK) {
 
