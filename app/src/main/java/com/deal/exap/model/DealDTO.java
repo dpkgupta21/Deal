@@ -70,8 +70,11 @@ public class DealDTO implements Serializable {
 
     private String is_chat_on;
 
-
     private List<String> deal_images;
+
+    private String url;
+
+
 
     public String getIs_chat_on() {
         return is_chat_on;
@@ -298,6 +301,14 @@ public class DealDTO implements Serializable {
 
     public void setDeal_code(String deal_code) {
         this.deal_code = deal_code;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
 

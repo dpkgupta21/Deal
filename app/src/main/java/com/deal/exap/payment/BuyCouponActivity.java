@@ -210,8 +210,8 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         setClick(R.id.txt_customer_reviews);
         setClick(R.id.thumbnail);
 
-
         setClick(R.id.img_title);
+        setClick(R.id.txt_on_which);
 
 
     }
@@ -283,6 +283,17 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 i.putExtra("receiverID", dealDTO.getPartner_id() + "");
                 i.putExtra("dealId", dealDTO.getId());
                 startActivity(i);
+
+                break;
+            case R.id.txt_on_which:
+                try {
+                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(dealDTO.getUrl()));
+                    startActivity(myIntent);
+                } catch (Exception e) {
+                    Toast.makeText(this, "No application can handle this request."
+                            + " Please install a web browser", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }
 
         }
     }
@@ -449,7 +460,6 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         );
         AppController.getInstance().addToRequestQueue(imageRequest);
     }
-
 
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -899,7 +909,6 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
             }
         }
     };
-
 
 
     @Override

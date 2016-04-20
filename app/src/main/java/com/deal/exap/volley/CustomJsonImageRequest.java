@@ -10,7 +10,10 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.deal.exap.model.UserDTO;
+import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
+import com.deal.exap.utility.SessionManager;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.mime.MultipartEntity;
@@ -132,7 +135,22 @@ public class CustomJsonImageRequest extends Request<JSONObject> {
     @Override
     protected void deliverResponse(JSONObject response) {
         // TODO Auto-generated method stub
-        listener.onResponse(response);
+        try {
+            if (response.has("another")) {
+//                if (!response.getString("another").equals("1")) {
+//                    listener.onResponse(response);
+//                }
+                UserDTO userDTO = DealPreferences.getObjectFromPref(AppController.getAppContext(), Constant.USER_INFO);
+                userDTO = null;
+                DealPreferences.putObjectIntoPref(AppController.getAppContext(), userDTO, Constant.USER_INFO);
+                SessionManager.logoutUser(AppController.getAppContext());
+
+            } else {
+                listener.onResponse(response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

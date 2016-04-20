@@ -7,7 +7,10 @@ import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.deal.exap.model.UserDTO;
+import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
+import com.deal.exap.utility.SessionManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +29,7 @@ public class CustomJsonRequest extends Request<JSONObject> {
                              Listener<JSONObject> reponseListener, ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
         this.listener = reponseListener;
-        params.put("device_id",DealPreferences.getPushRegistrationId(AppController.getAppContext()));
+        params.put("device_id", DealPreferences.getPushRegistrationId(AppController.getAppContext()));
         this.params = params;
     }
 
@@ -34,7 +37,7 @@ public class CustomJsonRequest extends Request<JSONObject> {
                              Listener<JSONObject> reponseListener, ErrorListener errorListener) {
         super(method, url, errorListener);
         this.listener = reponseListener;
-        params.put("device_id",DealPreferences.getPushRegistrationId(AppController.getAppContext()));
+        params.put("device_id", DealPreferences.getPushRegistrationId(AppController.getAppContext()));
         this.params = params;
     }
 
@@ -62,6 +65,23 @@ public class CustomJsonRequest extends Request<JSONObject> {
     @Override
     protected void deliverResponse(JSONObject response) {
         // TODO Auto-generated method stub
-        listener.onResponse(response);
+
+
+        try {
+            if (response.has("another")) {
+//                if (!response.getString("another").equals("1")) {
+//                    listener.onResponse(response);
+//                }
+                UserDTO userDTO = DealPreferences.getObjectFromPref(AppController.getAppContext(), Constant.USER_INFO);
+                userDTO = null;
+                DealPreferences.putObjectIntoPref(AppController.getAppContext(), userDTO, Constant.USER_INFO);
+                SessionManager.logoutUser(AppController.getAppContext());
+
+            } else {
+                listener.onResponse(response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
