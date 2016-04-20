@@ -211,6 +211,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         setClick(R.id.thumbnail);
 
         setClick(R.id.img_title);
+
         setClick(R.id.txt_on_which);
 
 
@@ -287,8 +288,11 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 break;
             case R.id.txt_on_which:
                 try {
-                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(dealDTO.getUrl()));
-                    startActivity(myIntent);
+
+                    if (dealDTO.getWebsite() != null && !dealDTO.equals("")) {
+                        Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(dealDTO.getWebsite()));
+                        startActivity(myIntent);
+                    }
                 } catch (Exception e) {
                     Toast.makeText(this, "No application can handle this request."
                             + " Please install a web browser", Toast.LENGTH_LONG).show();

@@ -72,7 +72,7 @@ public class DealDTO implements Serializable {
 
     private List<String> deal_images;
 
-    private String url;
+    private String website;
 
 
 
@@ -303,12 +303,13 @@ public class DealDTO implements Serializable {
         this.deal_code = deal_code;
     }
 
-    public String getUrl() {
-        return url;
+
+    public String getWebsite() {
+        return website;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setWebsite(String website) {
+        this.website = website;
     }
 }
 
