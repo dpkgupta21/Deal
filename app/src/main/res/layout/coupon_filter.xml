@@ -17,13 +17,13 @@
             android:id="@+id/et_category"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="6"
+            android:layout_weight="8"
             android:background="@drawable/white_bg_border"
             android:drawableLeft="@drawable/notification_btn"
             android:focusable="false"
             android:focusableInTouchMode="true"
-            android:padding="5dp"
             android:gravity="center_vertical"
+            android:padding="5dp"
             android:singleLine="true"
             android:textSize="10sp" />
 
@@ -31,8 +31,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_weight="4"
-            android:weightSum="2">
+            android:layout_weight="2"
+            android:weightSum="1">
 
             <com.deal.exap.customviews.MyButtonViewSemi
                 android:id="@+id/btn_km"
@@ -49,20 +49,20 @@
                 android:textAllCaps="false"
                 android:textSize="10sp" />
 
-            <com.deal.exap.customviews.MyButtonViewSemi
-                android:id="@+id/btn_miles"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/btn_bg_filter"
-                android:focusable="false"
-                android:focusableInTouchMode="true"
-                android:minHeight="40dp"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:text="@string/txt_filter_distance_unit_miles"
-                android:textAllCaps="false"
-                android:textSize="10sp" />
+            <!--<com.deal.exap.customviews.MyButtonViewSemi-->
+            <!--android:id="@+id/btn_miles"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/btn_bg_filter"-->
+            <!--android:focusable="false"-->
+            <!--android:focusableInTouchMode="true"-->
+            <!--android:minHeight="40dp"-->
+            <!--android:padding="5dp"-->
+            <!--android:singleLine="true"-->
+            <!--android:text="@string/txt_filter_distance_unit_miles"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:textSize="10sp" />-->
         </LinearLayout>
     </LinearLayout>
 
@@ -81,8 +81,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="@string/txt_distance"
-            android:textColor="@color/black"
-             />
+            android:textColor="@color/black" />
 
         <LinearLayout
             android:layout_width="0dp"

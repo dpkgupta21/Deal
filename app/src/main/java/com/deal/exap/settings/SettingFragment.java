@@ -51,7 +51,7 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
     private MyButtonViewSemi btn_select_english;
     private MyButtonViewSemi btn_select_arabic;
     private MyTextViewReg12 btn_select_km;
-    private MyTextViewReg12 btn_select_miles;
+    //private MyTextViewReg12 btn_select_miles;
 
     //    private ArrayList<String> months;
 //    private ArrayList<String> years;
@@ -107,7 +107,7 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
         btn_select_english = (MyButtonViewSemi) view.findViewById(R.id.btn_select_english);
         btn_select_arabic = (MyButtonViewSemi) view.findViewById(R.id.btn_select_arabic);
         btn_select_km = (MyTextViewReg12) view.findViewById(R.id.btn_select_km);
-        btn_select_miles = (MyTextViewReg12) view.findViewById(R.id.btn_select_miles);
+        //btn_select_miles = (MyTextViewReg12) view.findViewById(R.id.btn_select_miles);
 
         switch_expiry = (Switch) view.findViewById(R.id.switch_expiry);
         switch_push = (Switch) view.findViewById(R.id.switch_push);
@@ -156,13 +156,13 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
         setViewText(R.id.btn_select_km,
                 HelpMe.getDistanceUnitSign(Constant.DISTANCE_UNIT_KM_ENG, getActivity().getApplicationContext()),
                 view);
-        setViewText(R.id.btn_select_miles,
-                HelpMe.getDistanceUnitSign(Constant.DISTANCE_UNIT_MILES_ENG, getActivity().getApplicationContext()),
-                view);
+//        setViewText(R.id.btn_select_miles,
+//                HelpMe.getDistanceUnitSign(Constant.DISTANCE_UNIT_MILES_ENG, getActivity().getApplicationContext()),
+//                view);
         btn_select_english.setOnClickListener(englishLanguageClick);
         btn_select_arabic.setOnClickListener(arabicLanguageClick);
-        btn_select_km.setOnClickListener(this);
-        btn_select_miles.setOnClickListener(this);
+        //btn_select_km.setOnClickListener(this);
+        //btn_select_miles.setOnClickListener(this);
 
 
         //setClick(R.id.txt_change_currency, view);
@@ -178,14 +178,14 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
             case R.id.tv_editprofile:
                 getActivity().startActivity(new Intent(getActivity(), EditProfileActivity.class));
                 break;
-            case R.id.btn_select_km:
-                DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_KM_ENG);
-                selectedKMButton(Constant.DISTANCE_UNIT_KM_ENG);
-                break;
-            case R.id.btn_select_miles:
-                DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_MILES_ENG);
-                selectedKMButton(Constant.DISTANCE_UNIT_MILES_ENG);
-                break;
+//            case R.id.btn_select_km:
+//                DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_KM_ENG);
+//                selectedKMButton(Constant.DISTANCE_UNIT_KM_ENG);
+//                break;
+//            case R.id.btn_select_miles:
+//                DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_MILES_ENG);
+//                selectedKMButton(Constant.DISTANCE_UNIT_MILES_ENG);
+//                break;
 
 //            case R.id.txt_change_currency:
 //                getCountry();
@@ -275,13 +275,13 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
 //            btn_select_miles.setTextColor(getResources().getColor(R.color.white));
 
             btn_select_km.setTextColor(getResources().getColor(R.color.app_color));
-            btn_select_miles.setTextColor(getResources().getColor(R.color.btn_dark_gray_color));
+            //btn_select_miles.setTextColor(getResources().getColor(R.color.btn_dark_gray_color));
 
         } else {
 //            btn_select_miles.setBackgroundColor(getResources().getColor(R.color.btn_color));
 //            btn_select_km.setBackgroundColor(getResources().getColor(R.color.white));
 
-            btn_select_miles.setTextColor(getResources().getColor(R.color.app_color));
+            //btn_select_miles.setTextColor(getResources().getColor(R.color.app_color));
             btn_select_km.setTextColor(getResources().getColor(R.color.btn_dark_gray_color));
         }
     }

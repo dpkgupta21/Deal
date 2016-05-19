@@ -65,7 +65,7 @@ public class NearByFragment extends BaseFragment {
     private View view;
     private LinearLayout llFilter;
     private TextView txtCategory;
-    private Button btnKm, btnMiles, btnDistantLth,
+    private Button btnKm, btnDistantLth,
             btnDistantHtl, btnDiscountLth, btnDiscountHtl,
             btnDateStl, btnDateLts;
     private ArrayList<DealDTO> dealList = new ArrayList<DealDTO>();
@@ -109,13 +109,14 @@ public class NearByFragment extends BaseFragment {
         txtCategory = (TextView) view.findViewById(R.id.et_category);
         txtCategory.setText(getActivity().getString(R.string.all));
         setTouchNClick(R.id.btn_km, view);
-        setTouchNClick(R.id.btn_miles, view);
-        btnMiles = (Button) view.findViewById(R.id.btn_miles);
+        //setTouchNClick(R.id.btn_miles, view);
+        //btnMiles = (Button) view.findViewById(R.id.btn_miles);
         btnKm = (Button) view.findViewById(R.id.btn_km);
 
-        setViewText(R.id.btn_miles, HelpMe.getDistanceUnitSign(Constant.DISTANCE_UNIT_MILES_ENG,
-                        getActivity().getApplicationContext()),
-                view);
+//        setViewText(R.id.btn_miles, HelpMe.getDistanceUnitSign(Constant.DISTANCE_UNIT_MILES_ENG,
+//                        getActivity().getApplicationContext()),
+//                view);
+
         setViewText(R.id.btn_km,
                 HelpMe.getDistanceUnitSign(Constant.DISTANCE_UNIT_KM_ENG,
                         getActivity().getApplicationContext()),
@@ -209,15 +210,15 @@ public class NearByFragment extends BaseFragment {
 //                visibleDealList=dealList;
                 getCategoryList();
                 break;
-            case R.id.btn_miles:
-                // DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_MILES_ENG);
-                selectedKMButton(Constant.DISTANCE_UNIT_MILES_ENG);
-                mAdapter.notifyDataSetChanged();
-//                btnMiles.setSelected(true);
-//                btnMiles.setTextColor(getResources().getColor(R.color.white));
-//                btnKm.setSelected(false);
-//                btnKm.setTextColor(getResources().getColor(R.color.tv_color));
-                break;
+//            case R.id.btn_miles:
+//                // DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_MILES_ENG);
+//                selectedKMButton(Constant.DISTANCE_UNIT_MILES_ENG);
+//                mAdapter.notifyDataSetChanged();
+////                btnMiles.setSelected(true);
+////                btnMiles.setTextColor(getResources().getColor(R.color.white));
+////                btnKm.setSelected(false);
+////                btnKm.setTextColor(getResources().getColor(R.color.tv_color));
+//                break;
             case R.id.btn_km:
 
                 //DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_KM_);
@@ -526,17 +527,17 @@ public class NearByFragment extends BaseFragment {
         if (STATUS_CODE.contains(Constant.DISTANCE_UNIT_KM_ENG)) {
 
             btnKm.setBackgroundColor(getResources().getColor(R.color.btn_color));
-            btnMiles.setBackgroundColor(getResources().getColor(R.color.white));
+            //btnMiles.setBackgroundColor(getResources().getColor(R.color.white));
 
             btnKm.setTextColor(getResources().getColor(R.color.white));
-            btnMiles.setTextColor(getResources().getColor(R.color.black));
+            //btnMiles.setTextColor(getResources().getColor(R.color.black));
 
         } else {
 
-            btnMiles.setBackgroundColor(getResources().getColor(R.color.btn_color));
+            //btnMiles.setBackgroundColor(getResources().getColor(R.color.btn_color));
             btnKm.setBackgroundColor(getResources().getColor(R.color.white));
 
-            btnMiles.setTextColor(getResources().getColor(R.color.white));
+            //btnMiles.setTextColor(getResources().getColor(R.color.white));
             btnKm.setTextColor(getResources().getColor(R.color.black));
         }
     }

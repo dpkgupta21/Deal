@@ -79,7 +79,7 @@
     <string name="menu_interest">Interest</string>
     <string name="menu_favorite">Favorite</string>
     <string name="menu_following">Following</string>
-    <string name="menu_categories">Categories</string>
+    <string name="menu_categories">Home</string>
     <string name="menu_setting">Settings</string>
 
 
@@ -259,6 +259,7 @@
     <string name="full_name">Full Name</string>
     <string name="enter_here">Enter Here...</string>
     <string name="dob">DOB</string>
+    <string name="age">AGE</string>
     <string name="gender">Gender</string>
     <string name="select_hint">Select</string>
     <string name="save_changes">Save Changes</string>

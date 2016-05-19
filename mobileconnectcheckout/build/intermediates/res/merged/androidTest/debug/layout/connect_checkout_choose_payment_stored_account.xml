@@ -52,4 +52,4 @@
         android:layout_below="@+id/connect_checkout_choose_payment_stored_account_title"
       />
 
-</RelativeLayout><!-- From: file:/F:/mProjects/Deal/mobileconnectcheckout/src/main/res/layout/connect_checkout_choose_payment_stored_account.xml --><!-- From: file:/F:/mProjects/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/layout/connect_checkout_choose_payment_stored_account.xml -->
+</RelativeLayout><!-- From: file:/Users/DeepakGupta/Workspace1/Deal/mobileconnectcheckout/src/main/res/layout/connect_checkout_choose_payment_stored_account.xml --><!-- From: file:/Users/DeepakGupta/Workspace1/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/layout/connect_checkout_choose_payment_stored_account.xml -->

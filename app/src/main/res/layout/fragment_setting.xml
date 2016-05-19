@@ -71,22 +71,22 @@
                         android:textColor="@color/black"
                         android:textSize="10sp" />
 
-                    <com.deal.exap.customviews.MyTextViewReg12
-                        android:id="@+id/btn_slash"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/txt_slash"
-                        android:textSize="10sp" />
+                    <!--<com.deal.exap.customviews.MyTextViewReg12-->
+                        <!--android:id="@+id/btn_slash"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/txt_slash"-->
+                        <!--android:textSize="10sp" />-->
 
-                    <com.deal.exap.customviews.MyTextViewReg12
-                        android:id="@+id/btn_select_miles"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="3dp"
-                        android:text="@string/txt_filter_distance_unit_miles"
-                        android:textColor="@color/black"
-                        android:textSize="10sp" />
+                    <!--<com.deal.exap.customviews.MyTextViewReg12-->
+                        <!--android:id="@+id/btn_select_miles"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:gravity="center"-->
+                        <!--android:padding="3dp"-->
+                        <!--android:text="@string/txt_filter_distance_unit_miles"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:textSize="10sp" />-->
                 </LinearLayout>
 
             </RelativeLayout>

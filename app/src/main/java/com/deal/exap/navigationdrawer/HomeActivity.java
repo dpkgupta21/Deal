@@ -153,25 +153,25 @@ public class HomeActivity extends BaseActivity {
 
         if (DealPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ENGLISH_CODE)) {
 
+            resideMenu.addMenuItem(itemCategory, ResideMenuSecond.DIRECTION_LEFT);
             resideMenu.addMenuItem(itemAlert, ResideMenuSecond.DIRECTION_LEFT);
             resideMenu.addMenuItem(itemNearby, ResideMenuSecond.DIRECTION_LEFT);
             resideMenu.addMenuItem(itemWallet, ResideMenuSecond.DIRECTION_LEFT);
             resideMenu.addMenuItem(itemInterest, ResideMenuSecond.DIRECTION_LEFT);
             resideMenu.addMenuItem(itemFavorite, ResideMenuSecond.DIRECTION_LEFT);
             resideMenu.addMenuItem(itemFollowing, ResideMenuSecond.DIRECTION_LEFT);
-            resideMenu.addMenuItem(itemCategory, ResideMenuSecond.DIRECTION_LEFT);
             resideMenu.addMenuItem(itemSetting, ResideMenuSecond.DIRECTION_LEFT);
             // resideMenu.setSwipeDirectionDisable(ResideMenuSecond.DIRECTION_LEFT);
 
         } else if (DealPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ARABIC_CODE)) {
 
+            resideMenu.addMenuItem(itemCategory, ResideMenuSecond.DIRECTION_RIGHT);
             resideMenu.addMenuItem(itemAlert, ResideMenuSecond.DIRECTION_RIGHT);
             resideMenu.addMenuItem(itemNearby, ResideMenuSecond.DIRECTION_RIGHT);
             resideMenu.addMenuItem(itemWallet, ResideMenuSecond.DIRECTION_RIGHT);
             resideMenu.addMenuItem(itemInterest, ResideMenuSecond.DIRECTION_RIGHT);
             resideMenu.addMenuItem(itemFavorite, ResideMenuSecond.DIRECTION_RIGHT);
             resideMenu.addMenuItem(itemFollowing, ResideMenuSecond.DIRECTION_RIGHT);
-            resideMenu.addMenuItem(itemCategory, ResideMenuSecond.DIRECTION_RIGHT);
             resideMenu.addMenuItem(itemSetting, ResideMenuSecond.DIRECTION_RIGHT);
 
             // resideMenu.setSwipeDirectionDisable(ResideMenuSecond.DIRECTION_RIGHT);
@@ -268,7 +268,7 @@ public class HomeActivity extends BaseActivity {
         } else if (view == itemCategory) {
             resideMenu.closeMenu();
             changeFragment(new CategoriesFragment());
-            setHeader(getString(R.string.categories_title));
+            setHeader(getString(R.string.menu_categories));
         } else if (view == itemSetting) {
             resideMenu.closeMenu();
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {

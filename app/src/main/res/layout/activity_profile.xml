@@ -71,7 +71,7 @@
 
                         <com.deal.exap.customviews.MyTextViewRegCustom
                             style="@style/tv_normal"
-                            android:text="@string/dob"
+                            android:text="@string/age"
                             android:textColor="@color/black" />
 
                         <com.deal.exap.customviews.MyTextViewLight14

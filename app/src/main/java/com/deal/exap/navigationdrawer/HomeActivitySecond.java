@@ -53,31 +53,31 @@ public class HomeActivitySecond extends BaseActivity {
         resideMenu.setMenuListener(menuListener);
 
         // create menu items;
+        itemCategory     = new ResideMenuItem(this, R.drawable.nav_categories_icon, getString(R.string.menu_categories));
         itemAlert     = new ResideMenuItem(this, R.drawable.nav_bell_icon, getString(R.string.menu_alert));
         itemNearby     = new ResideMenuItem(this, R.drawable.nav_nearby_icon, getString(R.string.menu_near_by));
         itemWallet     = new ResideMenuItem(this, R.drawable.nav_wallet_icon, getString(R.string.menu_wallet));
         itemInterest     = new ResideMenuItem(this, R.drawable.nav_interest_icon, getString(R.string.menu_interest));
         itemFavorite     = new ResideMenuItem(this, R.drawable.nav_fav_icon, getString(R.string.menu_favorite));
         itemFollowing     = new ResideMenuItem(this, R.drawable.nav_following_icon, getString(R.string.menu_following));
-        itemCategory     = new ResideMenuItem(this, R.drawable.nav_categories_icon, getString(R.string.menu_categories));
         itemSetting     = new ResideMenuItem(this, R.drawable.nav_settings_icon, getString(R.string.menu_setting));
 
+        itemCategory.setOnClickListener(this);
         itemAlert.setOnClickListener(this);
         itemNearby.setOnClickListener(this);
         itemWallet.setOnClickListener(this);
         itemInterest.setOnClickListener(this);
         itemFavorite.setOnClickListener(this);
         itemFollowing.setOnClickListener(this);
-        itemCategory.setOnClickListener(this);
         itemSetting.setOnClickListener(this);
 
+        resideMenu.addMenuItem(itemCategory);
         resideMenu.addMenuItem(itemAlert);
         resideMenu.addMenuItem(itemNearby);
         resideMenu.addMenuItem(itemWallet);
         resideMenu.addMenuItem(itemInterest);
         resideMenu.addMenuItem(itemFavorite);
         resideMenu.addMenuItem(itemFollowing);
-        resideMenu.addMenuItem(itemCategory);
         resideMenu.addMenuItem(itemSetting);
 
         changeFragment(new InterestFragment());
