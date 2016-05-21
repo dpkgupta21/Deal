@@ -17,6 +17,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.deal.exap.R;
@@ -47,8 +49,13 @@ public class BuyPaymentDialogActivity extends BaseActivity implements PWTransact
     private TextView txtMonth;
     private TextView txtYear;
     private PWProviderBinder _binder;
-    private static final String APPLICATIONIDENTIFIER = "payworks.sandbox";
-    private static final String PROFILETOKEN = "20d5a0d5ce1d4501a4826a8b7e159d19";
+    // For development
+    private static final String APPLICATIONIDENTIFIER = "Hyperpay.6085WorldOfSS.mcommerce";//"gate2play.WorldofSS.mcommerce.test";
+    private static final String PROFILETOKEN = "44a2f1d0f1a711e5a7dc11fc67275b56"; //"930e6e9744154563afc4718ab0352b9a";
+
+    // For test
+//    private static final String APPLICATIONIDENTIFIER = "payworks.sandbox";
+//    private static final String PROFILETOKEN = "20d5a0d5ce1d4501a4826a8b7e159d19";
 
     private ServiceConnection _serviceConnection = new ServiceConnection() {
         @Override
@@ -56,7 +63,7 @@ public class BuyPaymentDialogActivity extends BaseActivity implements PWTransact
             _binder = (PWProviderBinder) service;
             // we have a connection to the service
             try {
-                _binder.initializeProvider(PWConnect.PWProviderMode.TEST,
+                _binder.initializeProvider(PWConnect.PWProviderMode.LIVE,
                         APPLICATIONIDENTIFIER, PROFILETOKEN);
                 _binder.addTransactionListener(BuyPaymentDialogActivity.this);
             } catch (PWException ee) {
@@ -97,8 +104,11 @@ public class BuyPaymentDialogActivity extends BaseActivity implements PWTransact
         txtYear.setText(years.get(0));
         Button btn_pay = (Button) findViewById(R.id.btn_pay);
         btn_pay.setText("Pay " + transactionPrice);
+        //RadioGroup radio_grp = (RadioGroup) findViewById(R.id.radio_grp);
+        final RadioButton radio_btn_visa = (RadioButton) findViewById(R.id.radio_btn_visa);
+        final RadioButton radio_btn_master_card = (RadioButton) findViewById(R.id.radio_btn_master_card);
 
-
+        radio_btn_visa.setChecked(true);
         txtMonth.setOnClickListener(monthDialog);
         txtYear.setOnClickListener(yearDialog);
 
@@ -124,10 +134,16 @@ public class BuyPaymentDialogActivity extends BaseActivity implements PWTransact
                             getText().toString().trim();//05
                     String year = txtYear.
                             getText().toString().trim();//"2017";
-                    CheckBox chkRememberMe = (CheckBox) findViewById(R.id.chk_remember_me);
+                    PWCreditCardType creditCardType = null;
+                    //CheckBox chkRememberMe = (CheckBox) findViewById(R.id.chk_remember_me);
+                    if (radio_btn_master_card.isChecked()) {
+                        creditCardType = PWCreditCardType.MASTERCARD;
+                    } else if (radio_btn_visa.isChecked()) {
+                        creditCardType = PWCreditCardType.VISA;
+                    }
 
-
-                    callTransaction(cardHolderName, cardNumber, month, year, cvv, transactionPrice);
+                    callTransaction(cardHolderName, cardNumber, month, year, cvv,
+                            transactionPrice, creditCardType);
                 }
             }
 
@@ -151,7 +167,6 @@ public class BuyPaymentDialogActivity extends BaseActivity implements PWTransact
     };
 
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -167,13 +182,16 @@ public class BuyPaymentDialogActivity extends BaseActivity implements PWTransact
                                  String month,
                                  String year,
                                  String cvv,
-                                 double transactionPrice) {
+                                 double transactionPrice,
+                                 PWCreditCardType creditCardType) {
         PWPaymentParams paymentParams = null;
         try {
             paymentParams = _binder
                     .getPaymentParamsFactory()
-                    .createCreditCardPaymentParams(5.0, PWCurrency.EURO, "A test charge", cardHolderName,
-                            PWCreditCardType.VISA, cardNumber, year, month, cvv);
+                    .createCreditCardPaymentParams(transactionPrice, PWCurrency.SAUDI_ARABIA_RIYAL,
+                            "A test charge",
+                            cardHolderName,
+                            creditCardType, cardNumber, year, month, cvv);
 
         } catch (PWProviderNotInitializedException e) {
             setStatusText("Error: Provider not initialized!");
@@ -194,7 +212,6 @@ public class BuyPaymentDialogActivity extends BaseActivity implements PWTransact
             e.printStackTrace();
         }
     }
-
 
 
     @Override
@@ -261,16 +278,16 @@ public class BuyPaymentDialogActivity extends BaseActivity implements PWTransact
         if (getViewText(R.id.edt_card_number).equals("")) {
             Utils.showDialog(BuyPaymentDialogActivity.this, "Message", "Please enter card number");
             return false;
-        }else if (getViewText(R.id.edt_card_holder_name).equals("")) {
+        } else if (getViewText(R.id.edt_card_holder_name).equals("")) {
             Utils.showDialog(BuyPaymentDialogActivity.this, "Message", "Please enter cardholder name.");
             return false;
-        }else if (getViewText(R.id.txt_month).equals("")) {
+        } else if (getViewText(R.id.txt_month).equals("")) {
             Utils.showDialog(BuyPaymentDialogActivity.this, "Message", "Please enter month");
             return false;
-        }else if (getViewText(R.id.txt_year).equals("")) {
+        } else if (getViewText(R.id.txt_year).equals("")) {
             Utils.showDialog(BuyPaymentDialogActivity.this, "Message", "Please enter year");
             return false;
-        }  else  if (getViewText(R.id.edt_cvv).equals("")) {
+        } else if (getViewText(R.id.edt_cvv).equals("")) {
             Utils.showDialog(BuyPaymentDialogActivity.this, "Message", "Please enter cvv");
             return false;
         }
@@ -312,7 +329,12 @@ public class BuyPaymentDialogActivity extends BaseActivity implements PWTransact
     @Override
     public void transactionSucceeded(PWTransaction transaction) {
         // our debit succeeded
-        setStatusText("Charged "+transactionPrice+"!");
+        setStatusText("Charged " + transactionPrice + "!");
+        String processUniqueIdentifier = transaction.getProcessorUniqueIdentifier();
 
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("processUniqeIdentifier", processUniqueIdentifier);
+        setResult(RESULT_OK, resultIntent);
+        finish();
     }
 }

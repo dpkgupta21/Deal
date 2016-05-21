@@ -45,6 +45,7 @@
             android:layout_below="@id/txt_name"
             android:layout_centerHorizontal="true"
             android:text="@string/age_city"
+            android:visibility="invisible"
             android:textColor="@color/white"
             android:textSize="14sp" />
 

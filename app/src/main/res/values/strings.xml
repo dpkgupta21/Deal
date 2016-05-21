@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Exap</string>
+    <string name="app_name">Exap | اكسب</string>
     <!--
     <string name="facebook_app_id">1510998382534846</string>
 -->
@@ -134,6 +134,8 @@
     <string name="btn_pay_usd">Pay USD 20</string>
     <string name="btn_save">Save</string>
     <string name="chk_remember_me">Remember Me</string>
+    <string name="visa">Visa</string>
+    <string name="master_card">Master Card</string>
     <string name="title_payment_pop_up">Payment Details</string>
 
 

@@ -51,6 +51,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.gson.Gson;
 import com.mobile.connect.PWConnect;
 import com.mobile.connect.checkout.dialog.PWConnectCheckoutActivity;
@@ -96,8 +97,13 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
     private DisplayImageOptions options;
     private PWProviderBinder _binder;
 
+    // For production
     private static final String APPLICATIONIDENTIFIER = "Hyperpay.6085WorldOfSS.mcommerce";//"gate2play.WorldofSS.mcommerce.test";
     private static final String PROFILETOKEN = "44a2f1d0f1a711e5a7dc11fc67275b56"; //"930e6e9744154563afc4718ab0352b9a";
+
+    // For test
+//    private static final String APPLICATIONIDENTIFIER = "gate2play.WorldofSS.mcommerce.test";
+//    private static final String PROFILETOKEN = "930e6e9744154563afc4718ab0352b9a";
     private double transactionPrice = 0.0;
 
     private ArrayList<String> imageList;
@@ -151,8 +157,8 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);*/
 
-        startService(new Intent(this, PWConnectService.class));
-        bindService(new Intent(this, PWConnectService.class), serviceConnection, Context.BIND_AUTO_CREATE);
+        //startService(new Intent(this, PWConnectService.class));
+        //bindService(new Intent(this, PWConnectService.class), serviceConnection, Context.BIND_AUTO_CREATE);
 
         sharedSettings = getSharedPreferences(DealPreferences.PREF_NAME, 0);
 
@@ -321,7 +327,9 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                                     orderId = response.getString("order_id");
 
                                     if (dealDTO.getType().equalsIgnoreCase("Paid")) {
-                                        buyFromCheckoutScreen(dealDTO.getFinal_price());
+
+                                        buyPaymentDialog(dealDTO.getFinal_price());
+                                        //buyFromCheckoutScreen(dealDTO.getFinal_price());
                                     } else {
                                         buyDeal(null);
                                     }
@@ -583,102 +591,118 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 
     }
 
+    private void buyPaymentDialog(String price) {
 
-    private void buyFromCheckoutScreen(String price) {
+        Intent intent = new Intent(BuyCouponActivity.this, BuyPaymentDialogActivity.class);
+        intent.putExtra("BUY_PRICE", price);
+        startActivityForResult(intent, 10001);
 
-        try {
-            transactionPrice = Double.parseDouble(price);
-            Intent i = new Intent(BuyCouponActivity.this, PWConnectCheckoutActivity.class);
-            PWConnectCheckoutSettings settings = null;
-            PWPaymentParams genericParams = null;
-
-
-            // configure amount, currency, and subject of the transaction
-            genericParams = _binder.getPaymentParamsFactory().createGenericPaymentParams(transactionPrice,
-                    PWCurrency.SAUDI_ARABIA_RIYAL,
-                    "test subject");
-            // configure payment params with customer data
-//                genericParams.setCustomerGivenName("Aliza");
-//                genericParams.setCustomerFamilyName("Foo");
-//                genericParams.setCustomerAddressCity("Sampletown");
-//                genericParams.setCustomerAddressCountryCode("US");
-//                genericParams.setCustomerAddressState("PA");
-//                genericParams.setCustomerAddressStreet("123 Grande St");
-//                genericParams.setCustomerAddressZip("1234");
-//                genericParams.setCustomerEmail("aliza.foo@foomail.com");
-//                genericParams.setCustomerIP("255.0.255.0");
-//                genericParams.setCustomIdentifier("myCustomIdentifier");
-
-            genericParams.setCustomIdentifier(orderId);
-            // create the settings for the payment screens
-            settings = new PWConnectCheckoutSettings();
-            settings.setHeaderDescription("mobile.connect");
-            settings.setHeaderIconResource(R.mipmap.ic_launcher);
-            settings.setSupportedDirectDebitCountries(new String[]{"DE"});
-            settings.setSupportedPaymentMethods(new PWConnectCheckoutPaymentMethod[]{
-                    PWConnectCheckoutPaymentMethod.VISA,
-                    PWConnectCheckoutPaymentMethod.MASTERCARD});
-            // ask the user if she wants to store the account
-            settings.setCreateToken(PWConnectCheckoutCreateToken.PROMPT);
-
-            // retrieve the stored accounts from the settings
-            accounts = _binder.getAccountFactory().deserializeAccountList(sharedSettings.getString(DealPreferences.ACCOUNTS,
-                    _binder.getAccountFactory().serializeAccountList(new ArrayList<PWAccount>())));
-            settings.setStoredAccounts(accounts);
-
-            i.putExtra(PWConnectCheckoutActivity.CONNECT_CHECKOUT_SETTINGS, settings);
-            i.putExtra(PWConnectCheckoutActivity.CONNECT_CHECKOUT_GENERIC_PAYMENT_PARAMS, genericParams);
-            startActivityForResult(i, PWConnectCheckoutActivity.CONNECT_CHECKOUT_ACTIVITY);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        } catch (PWException e) {
-            Utils.ShowLog(TAG, "error creating the payment page");
-        }
     }
 
-    @SuppressWarnings("unchecked")
+//    private void buyFromCheckoutScreen(String price) {
+//
+//        try {
+//            transactionPrice = Double.parseDouble(price);
+//            Intent i = new Intent(BuyCouponActivity.this, PWConnectCheckoutActivity.class);
+//            PWConnectCheckoutSettings settings = null;
+//            PWPaymentParams genericParams = null;
+//
+//
+//            // configure amount, currency, and subject of the transaction
+//            genericParams = _binder.getPaymentParamsFactory().createGenericPaymentParams(transactionPrice,
+//                    PWCurrency.SAUDI_ARABIA_RIYAL,
+//                    "test subject");
+//            // configure payment params with customer data
+////                genericParams.setCustomerGivenName("Aliza");
+////                genericParams.setCustomerFamilyName("Foo");
+////                genericParams.setCustomerAddressCity("Sampletown");
+////                genericParams.setCustomerAddressCountryCode("US");
+////                genericParams.setCustomerAddressState("PA");
+////                genericParams.setCustomerAddressStreet("123 Grande St");
+////                genericParams.setCustomerAddressZip("1234");
+////                genericParams.setCustomerEmail("aliza.foo@foomail.com");
+////                genericParams.setCustomerIP("255.0.255.0");
+////                genericParams.setCustomIdentifier("myCustomIdentifier");
+//
+//            genericParams.setCustomIdentifier(orderId);
+//            // create the settings for the payment screens
+//            settings = new PWConnectCheckoutSettings();
+//            settings.setHeaderDescription("mobile.connect");
+//            settings.setHeaderIconResource(R.mipmap.ic_launcher);
+//            settings.setSupportedDirectDebitCountries(new String[]{"DE"});
+//            settings.setSupportedPaymentMethods(new PWConnectCheckoutPaymentMethod[]{
+//                    PWConnectCheckoutPaymentMethod.VISA,
+//                    PWConnectCheckoutPaymentMethod.MASTERCARD});
+//            // ask the user if she wants to store the account
+//            settings.setCreateToken(PWConnectCheckoutCreateToken.PROMPT);
+//
+//            // retrieve the stored accounts from the settings
+//            accounts = _binder.getAccountFactory().deserializeAccountList(sharedSettings.getString(DealPreferences.ACCOUNTS,
+//                    _binder.getAccountFactory().serializeAccountList(new ArrayList<PWAccount>())));
+//            settings.setStoredAccounts(accounts);
+//
+//            i.putExtra(PWConnectCheckoutActivity.CONNECT_CHECKOUT_SETTINGS, settings);
+//            i.putExtra(PWConnectCheckoutActivity.CONNECT_CHECKOUT_GENERIC_PAYMENT_PARAMS, genericParams);
+//            startActivityForResult(i, PWConnectCheckoutActivity.CONNECT_CHECKOUT_ACTIVITY);
+//        } catch (NumberFormatException e) {
+//            e.printStackTrace();
+//        } catch (PWException e) {
+//            Utils.ShowLog(TAG, "error creating the payment page");
+//        }
+//    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_CANCELED) {
-            Utils.ShowLog(TAG, "user canceled the checkout process/error");
-            Utils.showDialog(this, getString(R.string.alert_screen_title), "The request has been canceled, No transaction has been performed.");
-            //updateText("Checkout cancelled or an error occurred.");
-        } else if (resultCode == RESULT_OK) {
-
-            //updateText("Thank you for shopping!");
-
-            // if the user added a new account, store it
-            if (data.hasExtra(PWConnectCheckoutActivity.CONNECT_CHECKOUT_RESULT_ACCOUNT)) {
-                Utils.ShowLog(TAG, "checkout went through, callback has an account");
-                PWTransaction transaction = data.getExtras().getParcelable(PWConnectCheckoutActivity.CONNECT_CHECKOUT_RESULT_TRANSACTION);
-
-                buyDeal(transaction.getProcessorUniqueIdentifier());
-
-                ArrayList<PWAccount> newAccounts = data.getExtras().getParcelableArrayList(PWConnectCheckoutActivity.CONNECT_CHECKOUT_RESULT_ACCOUNT);
-
-                accounts.addAll(newAccounts);
-                try {
-                    sharedSettings.edit().putString(DealPreferences.ACCOUNTS,
-                            _binder.getAccountFactory().serializeAccountList(accounts)).commit();
-                } catch (PWProviderNotInitializedException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                PWTransaction transaction = data.getExtras().getParcelable(PWConnectCheckoutActivity.CONNECT_CHECKOUT_RESULT_TRANSACTION);
-
-                buyDeal(transaction.getProcessorUniqueIdentifier());
-
-                Utils.ShowLog(TAG, "checkout went through, callback has transaction result");
-            }
+        if (resultCode == RESULT_OK) {
+            String processUniqueIdentifier = data.getStringExtra("processUniqueIdentifier");
+            buyDeal(processUniqueIdentifier);
         }
+        //super.onActivityResult(requestCode, resultCode, data);
     }
+
+    //    @SuppressWarnings("unchecked")
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (resultCode == RESULT_CANCELED) {
+//            Utils.ShowLog(TAG, "user canceled the checkout process/error");
+//            Utils.showDialog(this, getString(R.string.alert_screen_title), "The request has been canceled, No transaction has been performed.");
+//            //updateText("Checkout cancelled or an error occurred.");
+//        } else if (resultCode == RESULT_OK) {
+//
+//            //updateText("Thank you for shopping!");
+//
+//            // if the user added a new account, store it
+//            if (data.hasExtra(PWConnectCheckoutActivity.CONNECT_CHECKOUT_RESULT_ACCOUNT)) {
+//                Utils.ShowLog(TAG, "checkout went through, callback has an account");
+//                PWTransaction transaction = data.getExtras().getParcelable(PWConnectCheckoutActivity.CONNECT_CHECKOUT_RESULT_TRANSACTION);
+//
+//                buyDeal(transaction.getProcessorUniqueIdentifier());
+//
+//                ArrayList<PWAccount> newAccounts = data.getExtras().getParcelableArrayList(PWConnectCheckoutActivity.CONNECT_CHECKOUT_RESULT_ACCOUNT);
+//
+//                accounts.addAll(newAccounts);
+//                try {
+//                    sharedSettings.edit().putString(DealPreferences.ACCOUNTS,
+//                            _binder.getAccountFactory().serializeAccountList(accounts)).commit();
+//                } catch (PWProviderNotInitializedException e) {
+//                    e.printStackTrace();
+//                }
+//            } else {
+//                PWTransaction transaction = data.getExtras().getParcelable(PWConnectCheckoutActivity.CONNECT_CHECKOUT_RESULT_TRANSACTION);
+//
+//                buyDeal(transaction.getProcessorUniqueIdentifier());
+//
+//                Utils.ShowLog(TAG, "checkout went through, callback has transaction result");
+//            }
+//        }
+//    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        unbindService(serviceConnection);
-        stopService(new Intent(this, PWConnectService.class));
+//        unbindService(serviceConnection);
+//        stopService(new Intent(this, PWConnectService.class));
     }
 
 
@@ -921,8 +945,26 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         MapSupport.createMarker(mMap, DealPreferences.getLatitude(this.
                 getApplicationContext()), DealPreferences.getLongitude(this.
                 getApplicationContext()), "current", this, "");
-        MapSupport.createMarker(mMap, dealDTO.getLat(), dealDTO.getLng(), "position", this, dealDTO.getDiscount() + "%");
+        MapSupport.createMarker(mMap, dealDTO.getLat(), dealDTO.getLng(),
+                "position", this, dealDTO.getDiscount() + "%");
 
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                try {
+
+                    if (dealDTO.getWebsite() != null && !dealDTO.equals("")) {
+                        Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(dealDTO.getWebsite()));
+                        startActivity(myIntent);
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(mActivity, "No application can handle this request."
+                            + " Please install a web browser", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }
+                return true;
+            }
+        });
         new MapSupport().drawPath(DealPreferences.getLatitude(this.
                 getApplicationContext()), DealPreferences.getLongitude(this.
                 getApplicationContext()), dealDTO.getLat(), dealDTO.getLng(), mMap);
