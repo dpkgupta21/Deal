@@ -54,6 +54,8 @@ public class CategoriesFragment extends Fragment {
     private View view;
     private Dao<CategoryDTO, String> categoryDao;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+
+
 //    public static CategoriesFragment newInstance() {
 //        CategoriesFragment fragment = new CategoriesFragment();
 //
