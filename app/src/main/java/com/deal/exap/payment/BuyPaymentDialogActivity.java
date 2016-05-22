@@ -93,7 +93,7 @@ public class BuyPaymentDialogActivity extends BaseActivity implements PWTransact
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_payment);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        transactionPrice = getIntent().getDoubleExtra("BUY_PRICE", 0.0);
+        transactionPrice = Double.parseDouble(getIntent().getStringExtra("BUY_PRICE"));
 
         months = Utils.getMonths();
         years = Utils.getYears();
