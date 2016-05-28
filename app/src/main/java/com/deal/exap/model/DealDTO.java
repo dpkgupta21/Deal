@@ -18,6 +18,10 @@ public class DealDTO implements Serializable {
     @DatabaseField
     private String name_ara;
     @DatabaseField
+    private String parner_name_eng;
+    @DatabaseField
+    private String parner_name_ara;
+    @DatabaseField
     private String detail_eng;
     @DatabaseField
     private String detail_ara;
@@ -74,7 +78,21 @@ public class DealDTO implements Serializable {
 
     private String website;
 
+    public String getParner_name_eng() {
+        return parner_name_eng;
+    }
 
+    public void setParner_name_eng(String parner_name_eng) {
+        this.parner_name_eng = parner_name_eng;
+    }
+
+    public String getParner_name_ara() {
+        return parner_name_ara;
+    }
+
+    public void setParner_name_ara(String parner_name_ara) {
+        this.parner_name_ara = parner_name_ara;
+    }
 
     public String getIs_chat_on() {
         return is_chat_on;
@@ -100,11 +118,11 @@ public class DealDTO implements Serializable {
         this.lng = lng;
     }
 
-    public List<String>  getDeal_images() {
+    public List<String> getDeal_images() {
         return deal_images;
     }
 
-    public void setDeal_images(List<String>  deal_images) {
+    public void setDeal_images(List<String> deal_images) {
         this.deal_images = deal_images;
     }
 

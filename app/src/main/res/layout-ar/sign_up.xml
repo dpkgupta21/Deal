@@ -80,7 +80,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/edt_txt_white_bcg_shape"
                     android:drawableRight="@drawable/dob_icon"
-                    android:hint="@string/dob_hint"
+                    android:hint="@string/age"
                     android:textSize="@dimen/edit_text_color" />
 
                 <com.deal.exap.customviews.MyEditTextViewLight

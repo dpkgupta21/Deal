@@ -1,140 +1,232 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:layout_height="match_parent"
+    android:background="@color/gray_light1"
     android:orientation="vertical">
 
-    <LinearLayout
+    <include layout="@layout/header_transparent" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray_light">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical">
-
-            <ImageView
-                android:id="@+id/iv_close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:padding="10dp"
-                android:src="@drawable/close_pop_icon" />
-
-            <com.deal.exap.customviews.MyTextViewReg16
-                android:id="@+id/txt_payment_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:gravity="center_vertical"
-                android:text="@string/title_payment_pop_up"
-                android:textColor="@color/tv_color" />
-
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="10dp">
-
-        <com.deal.exap.customviews.MyEditTextViewReg
-            android:id="@+id/edt_card_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/edt_txt_gray_bcg_shape"
-            android:drawableLeft="@drawable/user_icon_dark"
-            android:drawablePadding="10dp"
-            android:hint="@string/hint_card_no"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:minEms="10"
-
-            android:singleLine="true"
-            android:textColor="@color/black" />
-
-        <com.deal.exap.customviews.MyEditTextViewReg
-            android:id="@+id/edt_card_holder_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/edt_txt_gray_bcg_shape"
-            android:drawableLeft="@drawable/user_icon_dark"
-            android:drawablePadding="10dp"
-            android:hint="@string/hint_name_on_card"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:minEms="10"
-            android:singleLine="true"
-            android:textColor="@color/black" />
-
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
 
+            <com.deal.exap.customviews.MyTextViewRegCustom
+                android:id="@+id/txt_order_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:minEms="10"
+                android:singleLine="true"
+                android:text="@string/hint_card_no"
+                android:textColor="@color/app_color"
+                android:textSize="18sp" />
+
+            <com.deal.exap.customviews.MyTextViewRegCustom
+                android:id="@+id/txt_order_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:minEms="10"
+                android:singleLine="true"
+                android:text="@string/hint_card_no"
+                android:textColor="@color/btn_dark_gray_color"
+                android:textSize="14sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edt_txt_white_bcg_shape">
+
+                <com.deal.exap.customviews.MyTextViewRegCustom
+                    android:id="@+id/txt_order_total_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:text="@string/lbl_order_total"
+                    android:textColor="@color/btn_dark_gray_color" />
+
+                <com.deal.exap.customviews.MyTextViewRegCustom
+                    android:id="@+id/txt_order_total_val"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:text="100 SAR"
+                    android:textColor="@color/app_color" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/radio_grp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <RadioButton
+                        android:id="@+id/radio_btn_master_card"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1.5"
+                        android:checked="true"
+                        android:drawablePadding="20dp"
+                        android:drawableRight="@drawable/master" />
+
+
+                    <!--<RadioButton-->
+                    <!--android:id="@+id/radio_btn_amex"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginRight="10dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:background="@drawable/master"-->
+                    <!--android:button="@android:color/transparent" />-->
+
+                    <RadioButton
+                        android:id="@+id/radio_btn_visa"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1.5"
+                        android:drawablePadding="20dp"
+                        android:drawableRight="@drawable/visa" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <com.deal.exap.customviews.MyEditTextViewReg
+                android:id="@+id/edt_card_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edt_txt_white_bcg_shape"
+                android:hint="@string/hint_card_no"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:minEms="10"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+
+            <com.deal.exap.customviews.MyEditTextViewReg
+                android:id="@+id/edt_card_holder_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edt_txt_white_bcg_shape"
+                android:hint="@string/hint_name_on_card"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:minEms="10"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+
+                <com.deal.exap.customviews.MyEditTextViewReg
+                    android:id="@+id/txt_month"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".5"
+                    android:background="@drawable/edt_txt_white_bcg_shape"
+                    android:hint="@string/hint_mm"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black" />
+
+
+                <com.deal.exap.customviews.MyEditTextViewReg
+                    android:id="@+id/txt_year"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight=".5"
+                    android:background="@drawable/edt_txt_white_bcg_shape"
+                    android:hint="@string/hint_yy"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <com.deal.exap.customviews.MyEditTextViewReg
+                android:id="@+id/edt_card_cvv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edt_txt_white_bcg_shape"
+                android:hint="@string/hint_ccv"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:minEms="10"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+
+            <com.deal.exap.customviews.MyButtonViewSemi
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:background="@color/btn_color"
+                android:text="@string/btn_pay_now"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/chk_terms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/terms_and_condition" />
 
             <TextView
-                android:id="@+id/txt_month"
-                style="@style/et_style1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".3"></TextView>
-
-
-            <TextView
-                android:id="@+id/txt_year"
-                style="@style/et_style1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:id="@+id/txt_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
-                android:layout_weight=".7"></TextView>
+                android:layout_weight=".7"
+                android:padding="10dp"
+                android:textColor="#000000"></TextView>
+
+
         </LinearLayout>
 
-        <com.deal.exap.customviews.MyButtonViewSemi
-            android:id="@+id/btn_save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
-            android:background="@color/btn_color"
-            android:text="@string/btn_save"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/txt_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:textColor="#000000"
-            android:padding="10dp"
-            android:layout_weight=".7"></TextView>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/payment_type_icon" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:padding="15dp"
-        android:src="@drawable/payment_icons" />
-
+    </ScrollView>
 </LinearLayout>

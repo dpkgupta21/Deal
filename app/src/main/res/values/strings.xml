@@ -130,13 +130,18 @@
     <string name="hint_card_no">Card No.</string>
     <string name="hint_name_on_card">Name On Card</string>
     <string name="hint_mm_yy">MM / YY</string>
+    <string name="hint_mm">MM</string>
+    <string name="hint_yy">YY</string>
     <string name="hint_ccv">CVV</string>
     <string name="btn_pay_usd">Pay USD 20</string>
     <string name="btn_save">Save</string>
+    <string name="btn_pay_now">PAY NOW</string>
     <string name="chk_remember_me">Remember Me</string>
     <string name="visa">Visa</string>
     <string name="master_card">Master Card</string>
     <string name="title_payment_pop_up">Payment Details</string>
+    <string name="lbl_order_total">Order Total</string>
+    <string name="terms_and_condition">I am agree to the terms @amp; condition</string>
 
 
     <!--Favorite Screen-->
@@ -261,7 +266,7 @@
     <string name="full_name">Full Name</string>
     <string name="enter_here">Enter Here...</string>
     <string name="dob">DOB</string>
-    <string name="age">AGE</string>
+    <string name="age">Age</string>
     <string name="gender">Gender</string>
     <string name="select_hint">Select</string>
     <string name="save_changes">Save Changes</string>

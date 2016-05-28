@@ -107,9 +107,7 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
         </activity>
-        <activity
-            android:name=".payment.PaymentDetailsActivity"
-            android:theme="@style/Base.Theme.AppCompat.Light.Dialog" />
+        <activity android:name=".payment.PaymentDetailsActivity" />
         <activity
             android:name=".payment.BuyPaymentDialogActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.Dialog" />

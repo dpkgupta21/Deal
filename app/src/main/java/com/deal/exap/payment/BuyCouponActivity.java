@@ -593,7 +593,17 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 
     private void buyPaymentDialog(String price) {
 
-        Intent intent = new Intent(BuyCouponActivity.this, BuyPaymentDialogActivity.class);
+        String dealName = "";
+        String partnerName = "";
+        Intent intent = new Intent(BuyCouponActivity.this, PaymentDetailsActivity.class);
+        if (HelpMe.isArabic(mActivity)) {
+            dealName = dealDTO.getName_ara();
+            partnerName=dealDTO.getParner_name_eng();
+        } else {
+            dealName = dealDTO.getName_eng();
+            partnerName=dealDTO.getParner_name_eng();
+        }
+        intent.putExtra("dealName", dealName+" @ "+partnerName);
         intent.putExtra("BUY_PRICE", price);
         startActivityForResult(intent, 10001);
 

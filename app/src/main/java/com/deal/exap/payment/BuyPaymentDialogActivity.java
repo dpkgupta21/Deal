@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.View;
@@ -91,8 +92,10 @@ public class BuyPaymentDialogActivity extends BaseActivity implements PWTransact
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_payment);
-        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        //getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         transactionPrice = Double.parseDouble(getIntent().getStringExtra("BUY_PRICE"));
 
         months = Utils.getMonths();
@@ -103,7 +106,7 @@ public class BuyPaymentDialogActivity extends BaseActivity implements PWTransact
         txtMonth.setText(months.get(0));
         txtYear.setText(years.get(0));
         Button btn_pay = (Button) findViewById(R.id.btn_pay);
-        btn_pay.setText("Pay " + transactionPrice);
+        btn_pay.setText("Pay " + transactionPrice+" SAR");
         //RadioGroup radio_grp = (RadioGroup) findViewById(R.id.radio_grp);
         final RadioButton radio_btn_visa = (RadioButton) findViewById(R.id.radio_btn_visa);
         final RadioButton radio_btn_master_card = (RadioButton) findViewById(R.id.radio_btn_master_card);

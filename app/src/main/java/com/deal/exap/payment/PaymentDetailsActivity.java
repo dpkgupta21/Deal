@@ -7,12 +7,17 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.deal.exap.R;
@@ -38,8 +43,16 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
     private ArrayList<String> years;
     private double price;
     private PWProviderBinder _binder;
-    private static final String APPLICATIONIDENTIFIER = "payworks.sandbox";
-    private static final String PROFILETOKEN = "20d5a0d5ce1d4501a4826a8b7e159d19";
+    private double transactionPrice;
+    private String dealName;
+
+
+    // For production
+    private static final String APPLICATIONIDENTIFIER = "Hyperpay.6085WorldOfSS.mcommerce";//"gate2play.WorldofSS.mcommerce.test";
+    private static final String PROFILETOKEN = "44a2f1d0f1a711e5a7dc11fc67275b56"; //"930e6e9744154563afc4718ab0352b9a";
+
+//    private static final String APPLICATIONIDENTIFIER = "gate2play.WorldofSS.mcommerce.test";
+//      private static final String PROFILETOKEN = "930e6e9744154563afc4718ab0352b9a";
 
     private ServiceConnection _serviceConnection = new ServiceConnection() {
         @Override
@@ -47,7 +60,7 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
             _binder = (PWProviderBinder) service;
             // we have a connection to the service
             try {
-                _binder.initializeProvider(PWConnect.PWProviderMode.TEST,
+                _binder.initializeProvider(PWConnect.PWProviderMode.LIVE,
                         APPLICATIONIDENTIFIER, PROFILETOKEN);
                 _binder.addTransactionListener(PaymentDetailsActivity.this);
             } catch (PWException ee) {
@@ -77,6 +90,16 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_details);
 
+        transactionPrice = Double.parseDouble(getIntent().getStringExtra("BUY_PRICE"));
+        dealName = getIntent().getStringExtra("dealName");
+
+        EditText edt_card_number = (EditText) findViewById(R.id.edt_card_number);
+        edt_card_number.addTextChangedListener(new FourDigitCardFormatWatcher());
+
+        setViewText(R.id.txt_order_name, dealName);
+        setViewText(R.id.txt_order_quantity, "Quantity 1");
+        setViewText(R.id.txt_order_total_val, transactionPrice + " SAR");
+
         startService(new Intent(this,
                 com.mobile.connect.service.PWConnectService.class));
         bindService(new Intent(this,
@@ -86,36 +109,39 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
 
         init();
 
-        findViewById(R.id.btn_save).setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                if (validateForm()) {
-                    callTransaction();
-                }
-            }
-        });
     }
 
     private void callTransaction() {
         PWPaymentParams paymentParams = null;
         try {
+            final RadioButton radio_btn_visa = (RadioButton) findViewById(R.id.radio_btn_visa);
+            final RadioButton radio_btn_master_card = (RadioButton)
+                    findViewById(R.id.radio_btn_master_card);
 
-            String holder = ((MyEditTextViewReg) findViewById(R.id.edt_card_number)).
+            PWCreditCardType creditCardType = null;
+
+            String holder = ((MyEditTextViewReg) findViewById(R.id.edt_card_holder_name)).
                     getText().toString().trim();
             String cardNumber = ((MyEditTextViewReg) findViewById(R.id.edt_card_number)).
                     getText().toString().trim();//"4005550000000001";
-            String cvv = ((MyEditTextViewReg) findViewById(R.id.edt_card_number)).
+            String cvv = ((MyEditTextViewReg) findViewById(R.id.edt_card_cvv)).
                     getText().toString().trim();//123
             String month = ((TextView) findViewById(R.id.txt_month)).
                     getText().toString().trim();//05
             String year = ((TextView) findViewById(R.id.txt_year)).
                     getText().toString().trim();//"2017";
 
+            if (radio_btn_master_card.isChecked()) {
+                creditCardType = PWCreditCardType.MASTERCARD;
+            } else if (radio_btn_visa.isChecked()) {
+                creditCardType = PWCreditCardType.VISA;
+            }
             paymentParams = _binder
                     .getPaymentParamsFactory()
-                    .createCreditCardPaymentParams(5.0, PWCurrency.EURO, "A test charge", holder,
-                            PWCreditCardType.VISA, cardNumber, year, month, cvv);
+                    .createCreditCardPaymentParams(transactionPrice,
+                            PWCurrency.SAUDI_ARABIA_RIYAL, "A test charge", holder,
+                            creditCardType, cardNumber, year, month, cvv);
 
         } catch (PWProviderNotInitializedException e) {
             setStatusText("Error: Provider not initialized!");
@@ -138,10 +164,13 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
     }
 
     private void init() {
+        setHeader("Payment");
+        setLeftClick();
+
         months = Utils.getMonths();
         years = Utils.getYears();
-        setClick(R.id.txt_month);
-        setClick(R.id.txt_year);
+//        setClick(R.id.txt_month);
+//        setClick(R.id.txt_year);
         setViewText(R.id.txt_month, months.get(0));
         setViewText(R.id.txt_year, years.get(0));
     }
@@ -149,13 +178,20 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.iv_back:
+                finish();
+                break;
             case R.id.txt_month:
-                openMonthDialog();
+                //openMonthDialog();
                 break;
             case R.id.txt_year:
-                openYearDialog();
+                //openYearDialog();
                 break;
-
+            case R.id.btn_save:
+                if (validateForm()) {
+                    callTransaction();
+                }
+                break;
         }
     }
 
@@ -217,7 +253,11 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
         } else if (getViewText(R.id.edt_card_number).equals("")) {
             Utils.showDialog(PaymentDetailsActivity.this, "Message", "Please enter card number");
             return false;
+        } else if (!isCheckboxChecked(R.id.chk_terms)) {
+            Utils.showDialog(PaymentDetailsActivity.this, "Message", "Please select terms & conditions");
+            return false;
         }
+
         return true;
     }
 
@@ -258,6 +298,51 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
     @Override
     public void transactionSucceeded(PWTransaction transaction) {
         // our debit succeeded
-        setStatusText("Charged 5 EUR!");
+        setStatusText("Charged " + transactionPrice);
+
+        String processUniqueIdentifier = transaction.getProcessorUniqueIdentifier();
+
+
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("processUniqeIdentifier", processUniqueIdentifier);
+        setResult(RESULT_OK, resultIntent);
+        finish();
     }
+
+    public static class FourDigitCardFormatWatcher implements TextWatcher {
+
+        // Change this to what you want... ' ', '-' etc..
+        final char space = ' ';
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            // Remove spacing char
+            if (s.length() > 0 && (s.length() % 5) == 0) {
+                final char c = s.charAt(s.length() - 1);
+                if (space == c) {
+                    s.delete(s.length() - 1, s.length());
+                }
+            }
+            // Insert char where needed.
+            if (s.length() > 0 && (s.length() % 5) == 0) {
+                char c = s.charAt(s.length() - 1);
+                // Only if its a digit where there should be a space we insert a space
+                if (Character.isDigit(c) && TextUtils.split(s.toString(),
+                        String.valueOf(space)).length <= 3) {
+                    s.insert(s.length() - 1, String.valueOf(space));
+                }
+            }
+        }
+
+
+    }
+
 }

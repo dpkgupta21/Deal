@@ -94,7 +94,7 @@
                     android:background="@drawable/edt_txt_white_bcg_shape"
                     android:drawableLeft="@drawable/dob_icon"
                     android:focusable="false"
-                    android:hint="@string/dob_hint"
+                    android:hint="@string/age"
                     android:singleLine="true"
                     android:textSize="@dimen/edit_text_color" />
 

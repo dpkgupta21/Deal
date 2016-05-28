@@ -96,6 +96,7 @@ public class EditProfileActivity extends BaseActivity {
         userDTO = DealPreferences.getObjectFromPref(this, Constant.USER_INFO);
         setHeader("Edit Profile");
         setLeftClick();
+
         setClick(R.id.et_age);
         setClick(R.id.et_sex);
         setClick(R.id.txt_image_change);
