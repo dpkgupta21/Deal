@@ -18,9 +18,9 @@ public class DealDTO implements Serializable {
     @DatabaseField
     private String name_ara;
     @DatabaseField
-    private String parner_name_eng;
+    private String partner_name_eng;
     @DatabaseField
-    private String parner_name_ara;
+    private String partner_name_ara;
     @DatabaseField
     private String detail_eng;
     @DatabaseField
@@ -78,20 +78,20 @@ public class DealDTO implements Serializable {
 
     private String website;
 
-    public String getParner_name_eng() {
-        return parner_name_eng;
+    public String getPartner_name_eng() {
+        return partner_name_eng;
     }
 
-    public void setParner_name_eng(String parner_name_eng) {
-        this.parner_name_eng = parner_name_eng;
+    public void setPartner_name_eng(String partner_name_eng) {
+        this.partner_name_eng = partner_name_eng;
     }
 
-    public String getParner_name_ara() {
-        return parner_name_ara;
+    public String getPartner_name_ara() {
+        return partner_name_ara;
     }
 
-    public void setParner_name_ara(String parner_name_ara) {
-        this.parner_name_ara = parner_name_ara;
+    public void setPartner_name_ara(String partner_name_ara) {
+        this.partner_name_ara = partner_name_ara;
     }
 
     public String getIs_chat_on() {

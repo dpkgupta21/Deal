@@ -102,7 +102,6 @@ public class FollowingPartnerDetails extends BaseActivity {
                 .build();
 
 
-
     }
 
 
@@ -114,6 +113,7 @@ public class FollowingPartnerDetails extends BaseActivity {
             case R.id.iv_chat:
 
                 Intent i = new Intent(mActivity, ChatActivity.class);
+                // i.putExtra("partnerDTO", partnerDTO);
                 i.putExtra("receiverID", partnerDTO.getId());
                 startActivity(i);
 

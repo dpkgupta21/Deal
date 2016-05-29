@@ -1,15 +1,18 @@
 package com.deal.exap.gps;
 
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.content.ContextCompat;
 
 import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
@@ -178,8 +181,14 @@ public class GPSTracker implements ConnectionCallbacks,
     protected void startLocationUpdates() {
         // The final argument to {@code requestLocationUpdates()} is a LocationListener
         // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
-        LocationServices.FusedLocationApi.requestLocationUpdates(
-                mGoogleApiClient, mLocationRequest, this);
+        int permissionCheck = ContextCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_FINE_LOCATION);
+
+        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+            //Execute location service call if user has explicitly granted ACCESS_FINE_LOCATION..
+            LocationServices.FusedLocationApi.requestLocationUpdates(
+                    mGoogleApiClient, mLocationRequest, this);
+        }
+
     }
 
 
@@ -198,7 +207,12 @@ public class GPSTracker implements ConnectionCallbacks,
     @Override
     public void onConnected(Bundle bundle) {
         if (mCurrentLocation == null) {
-            mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            int permissionCheck = ContextCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_FINE_LOCATION);
+
+            if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+
+                mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            }
             if (mCurrentLocation != null) {
                 canGetLocation = true;
                 DealPreferences.setLatitude(mActivity, mCurrentLocation.getLatitude());

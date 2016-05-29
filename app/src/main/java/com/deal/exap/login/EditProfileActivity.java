@@ -12,12 +12,10 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -27,7 +25,6 @@ import com.deal.exap.R;
 import com.deal.exap.camera.CameraChooseDialogFragment;
 import com.deal.exap.camera.CameraSelectInterface;
 import com.deal.exap.camera.GallerySelectInterface;
-import com.deal.exap.customviews.CustomProgressDialog;
 import com.deal.exap.gps.GPSTracker;
 import com.deal.exap.locationselection.LocationSelectionActivity;
 import com.deal.exap.model.UserDTO;
@@ -94,10 +91,10 @@ public class EditProfileActivity extends BaseActivity {
 
     private void init() {
         userDTO = DealPreferences.getObjectFromPref(this, Constant.USER_INFO);
-        setHeader("Edit Profile");
+        setHeader(getString(R.string.edit_profile_header));
         setLeftClick();
 
-        setClick(R.id.et_age);
+        //setClick(R.id.et_age);
         setClick(R.id.et_sex);
         setClick(R.id.txt_image_change);
         setClick(R.id.btn_edit_profile);
@@ -107,8 +104,8 @@ public class EditProfileActivity extends BaseActivity {
         else
             setTextViewText(R.id.txt_name, "");
 
-        if (userDTO.getDob() != null && !userDTO.getDob().equalsIgnoreCase(""))
-            setTextViewText(R.id.et_age, userDTO.getDob());
+        if (userDTO.getAge() != null && !userDTO.getAge().equalsIgnoreCase(""))
+            setTextViewText(R.id.et_age, userDTO.getAge());
         else
             setTextViewText(R.id.et_age, "");
         if (userDTO.getGender() != null && !userDTO.getGender().equalsIgnoreCase("")) {
@@ -119,6 +116,14 @@ public class EditProfileActivity extends BaseActivity {
         } else {
             setTextViewText(R.id.et_sex, "");
         }
+
+
+        if (userDTO.getLocation() != null && !userDTO.getLocation().equalsIgnoreCase(""))
+            setTextViewText(R.id.txt_location, userDTO.getLocation());
+        else
+            setTextViewText(R.id.txt_location, "");
+
+
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
                 .cacheOnDisk(true)
@@ -147,7 +152,7 @@ public class EditProfileActivity extends BaseActivity {
                 showSexDialog();
                 break;
             case R.id.et_age:
-                showCalendarDialog();
+                //showCalendarDialog();
                 break;
 
             case R.id.btn_edit_profile:
@@ -374,7 +379,7 @@ public class EditProfileActivity extends BaseActivity {
             params.put("user_id", Utils.getUserId(this));
             params.put("name", getViewText(R.id.txt_name));
             params.put("gender", getViewText(R.id.et_sex).equals("Male") ? "M" : "F");
-            params.put("dob", getViewText(R.id.et_age));
+            params.put("age", getViewText(R.id.et_age));
             params.put("location", getViewText(R.id.txt_location));
 
             final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);

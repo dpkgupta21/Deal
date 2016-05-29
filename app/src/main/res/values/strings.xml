@@ -25,6 +25,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="please_enter_username">Please enter username</string>
+    <string name="please_enter_password">Please enter password</string>
 
 
     <!-- Sign up screen-->
@@ -37,6 +39,17 @@
     <string name="password_hint">Password</string>
     <string name="confirm_password_hint">Confirm Password</string>
     <string name="save_btn">Save</string>
+
+    <string name="alert_please_enter_name">Please enter name</string>
+    <string name="alert_please_enter_age">Please enter age</string>
+    <string name="alert_please_enter_valid_age">Please enter valid age</string>
+    <string name="alert_please_enter_gender">Please enter gender</string>
+    <string name="alert_please_enter_email_id">Please enter email id</string>
+    <string name="alert_please_valid_email_id">Please enter valid email id</string>
+    <string name="alert_please_enter_password">Please enter password</string>
+    <string name="alert_please_confirm_password">Please enter confirm password</string>
+    <string name="alert_password_not_match">password not match</string>
+
 
     <!-- Sign in screen-->
     <string name="connect_with_facebook_btn">Facebook</string>
@@ -79,7 +92,7 @@
     <string name="menu_interest">Interest</string>
     <string name="menu_favorite">Favorite</string>
     <string name="menu_following">Following</string>
-    <string name="menu_categories">Home</string>
+    <string name="menu_home">Home</string>
     <string name="menu_setting">Settings</string>
 
 
@@ -127,21 +140,40 @@
 
 
     <!--Payment Details Screen-->
+    <string name="payment">Payment</string>
     <string name="hint_card_no">Card No.</string>
     <string name="hint_name_on_card">Name On Card</string>
     <string name="hint_mm_yy">MM / YY</string>
     <string name="hint_mm">MM</string>
-    <string name="hint_yy">YY</string>
+    <string name="hint_yy">YYYY</string>
     <string name="hint_ccv">CVV</string>
     <string name="btn_pay_usd">Pay USD 20</string>
     <string name="btn_save">Save</string>
-    <string name="btn_pay_now">PAY NOW</string>
     <string name="chk_remember_me">Remember Me</string>
     <string name="visa">Visa</string>
     <string name="master_card">Master Card</string>
     <string name="title_payment_pop_up">Payment Details</string>
     <string name="lbl_order_total">Order Total</string>
-    <string name="terms_and_condition">I am agree to the terms @amp; condition</string>
+    <string name="lbl_quantity">1 Quantity</string>
+    <string name="btn_pay_now">PAY NOW</string>
+    <string name="terms_and_condition">I am agree to the terms &amp; conditions</string>
+
+    <string name="alert_please_select_credit_card">Please select credit card</string>
+    <string name="alert_please_enter_card_number">Please enter card number</string>
+    <string name="alert_please_enter_cardholder_name">Please enter cardholder name</string>
+    <string name="alert_please_enter_month">Please enter month</string>
+    <string name="alert_please_enter_year">Please enter year</string>
+    <string name="alert_please_enter_cvv">Please enter CVV</string>
+    <string name="alert_please_select_terms_and_condition">Please select terms &amp; conditions</string>
+
+
+    <string name="alert_please_try_again_transaction">Please try again transaction.</string>
+    <string name="alert_processing">Processing...</string>
+    <string name="alert_invalid_transaction">Invalid Transaction.</string>
+    <string name="alert_transaction_failed">Transaction failed</string>
+    <string name="alert_charged">Charged</string>
+    <string name="alert_preparing">Preparing...</string>
+    <string name="alert_please_enter_valid_details">Please enter valid details</string>
 
 
     <!--Favorite Screen-->
@@ -268,9 +300,16 @@
     <string name="dob">DOB</string>
     <string name="age">Age</string>
     <string name="gender">Gender</string>
+    <string name="years">Years</string>
     <string name="select_hint">Select</string>
     <string name="save_changes">Save Changes</string>
     <string name="location">Location</string>
+    <string name="done">Done</string>
+    <string name="edit_profile_header">Edit Profile</string>
+
+    <!-- Location screen -->
+    <string name="use_current_location">Use Current location</string>
+
 
     <string name="open_helper_classname">com.deal.exap.databasemanager.DatabaseHelper</string>
     <!-- Menu -->

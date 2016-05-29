@@ -78,7 +78,7 @@ public class WalletFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        //setTitleFragment(getString(R.string.wallet_screen_title));
+        //setTitleFragment(getString(R.string.menu_wallet));
 
         getWalletList();
 

@@ -73,14 +73,15 @@
 
                 <com.deal.exap.customviews.MyEditTextViewLight
                     android:id="@+id/edt_dob"
-                    android:focusable="false"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="6dp"
                     android:layout_weight="1"
                     android:background="@drawable/edt_txt_white_bcg_shape"
                     android:drawableRight="@drawable/dob_icon"
-                    android:hint="@string/age"
+                    android:hint="@string/years"
+                    android:inputType="number"
+                    android:maxLength="2"
                     android:textSize="@dimen/edit_text_color" />
 
                 <com.deal.exap.customviews.MyEditTextViewLight
@@ -113,15 +114,14 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="6dp"
                 android:layout_weight="1"
-                android:inputType="textPassword"
                 android:background="@drawable/edt_txt_white_bcg_shape"
                 android:drawableRight="@drawable/lock_icon_light"
                 android:hint="@string/password_hint"
+                android:inputType="textPassword"
                 android:textSize="@dimen/edit_text_color" />
 
             <com.deal.exap.customviews.MyEditTextViewLight
                 android:id="@+id/edt_confirm_password"
-                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="6dp"
@@ -129,6 +129,7 @@
                 android:background="@drawable/edt_txt_white_bcg_shape"
                 android:drawableRight="@drawable/lock_icon_light"
                 android:hint="@string/confirm_password_hint"
+                android:inputType="textPassword"
                 android:textSize="@dimen/edit_text_color" />
 
             <com.deal.exap.customviews.MyButtonViewSemi

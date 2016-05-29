@@ -12,6 +12,17 @@
     <string name="confirm_password_hint">تأكيد كلمة المرور</string>
     <string name="save_btn">حفظ</string>
 
+    <string name="alert_please_enter_name">الرجاء إدخال اسم</string>
+    <string name="alert_please_enter_age">الرجاء إدخال السن</string>
+    <string name="alert_please_enter_valid_age">الرجاء إدخال عمر ساري المفعول</string>
+    <string name="alert_please_enter_gender">الرجاء إدخال الجنسين</string>
+    <string name="alert_please_enter_email_id">الرجاء إدخال اسم المستخدم البريد</string>
+    <string name="alert_please_valid_email_id">الرجاء إدخال معرف بريد إلكتروني صحيح</string>
+    <string name="alert_please_enter_password">الرجاء إدخال كلمة المرور</string>
+    <string name="alert_please_confirm_password">الرجاء إدخال تأكيد كلمة</string>
+    <string name="alert_password_not_match">كلمة المرور لا تتطابق</string>
+
+
 
     <!--Sign in screen arabic-->
 
@@ -26,6 +37,9 @@
     <string name="register_now">سجل الان!</string>
     <string name="forgot_password">هل نسيت كلمة المرور؟</string>
     <string name="terms_and_conditions">استخدامك لتطبيق إكسب يعني موافقتك على الشروط والأحكام وسياسة الخصوصية الخاصة بالخدمة</string>
+
+    <string name="please_enter_username">الرجاء إدخال اسم المستخدم</string>
+    <string name="please_enter_password">الرجاء إدخال كلمة المرورs</string>
 
 
     <!-- Number verification screen arabic step1 -->
@@ -48,14 +62,15 @@
     <string name="drawer_close">إغلاق</string>
     <string name="name">MD الرزاق</string>
     <string name="age_city">29F | دبي</string>
-    <string name="menu_alert">التنبيهات و الرسائل</string>
-    <string name="menu_near_by">العروض القريبة</string>
+
+    <string name="menu_home">الرئيسية</string>
+    <string name="menu_alert">الرسائل والاعلانات</string>
+    <string name="menu_near_by">عروض قريبة</string>
     <string name="menu_wallet">المحفظة</string>
     <string name="menu_interest">الاهتمامات</string>
-    <string name="menu_favorite">المفضل</string>
-    <string name="menu_following">التالي</string>
-    <string name="menu_categories">الصفحة الرئيسية</string>
-    <string name="menu_setting">إعدادات</string>
+    <string name="menu_favorite">المفضلة</string>
+    <string name="menu_following">المتابَعون</string>
+    <string name="menu_setting">الإعدادات</string>
 
     <!--Interest screen-->
     <string name="interest_screen_title">الاهتمامات</string>
@@ -97,16 +112,39 @@
     -->
 
     <!--Payment Details Screen-->
+    <string name="payment">دفع</string>
     <string name="hint_card_no">بطاقة رقم</string>
     <string name="hint_name_on_card">الاسم على البطاقة</string>
     <string name="hint_mm_yy">MM / YY</string>
-    <string name="hint_ccv">CCV</string>
+    <string name="hint_ccv">CVV</string>
     <string name="btn_pay_usd">Pay USD 20</string>
     <string name="btn_save">حفظ</string>
     <string name="chk_remember_me">تذكرنى</string>
     <string name="title_payment_pop_up">تفاصيل الدفع</string>
     <string name="visa">Visa</string>
     <string name="master_card">Master Card</string>
+    <string name="lbl_order_total">الطلب الكلي</string>
+    <string name="lbl_quantity">1 الكمية</string>
+    <string name="btn_pay_now">ادفع الآن</string>
+    <string name="terms_and_condition">أنا أوافق على الشروط والأحكام</string>
+
+    <string name="alert_please_select_credit_card">الرجاء اختيار بطاقة الائتمان</string>
+    <string name="alert_please_enter_card_number">الرجاء إدخال رقم بطاقة</string>
+    <string name="alert_please_enter_cardholder_name">الرجاء إدخال اسم حامل البطاقة</string>
+    <string name="alert_please_enter_month">الرجاء إدخال الشهر</string>
+    <string name="alert_please_enter_year">الرجاء إدخال السنة</string>
+    <string name="alert_please_enter_cvv">الرجاء إدخال CVV</string>
+    <string name="alert_please_select_terms_and_condition">يرجى تحديد الأحكام والشروط</string>
+
+    <string name="alert_please_try_again_transaction">يرجى المحاولة مرة أخرى المعاملة</string>
+    <string name="alert_processing">معالجة...</string>
+    <string name="alert_invalid_transaction">المعاملة غير صالحة</string>
+    <string name="alert_transaction_failed">فشل الاجراء</string>
+    <string name="alert_charged">متهم</string>
+    <string name="alert_preparing">إعداد ...</string>
+    <string name="alert_please_enter_valid_details">يرجى إدخال تفاصيل صالحة</string>
+
+
 
     <!--Favorite Screen-->
     <string name="favorite_screen_title">الالمفضلة</string>
@@ -228,9 +266,17 @@
     <string name="enter_here">أدخل هنا</string>
     <string name="age">سن</string>
     <string name="gender">جنس</string>
+    <string name="years">سنوات</string>
     <string name="select_hint">اختار</string>
     <string name="save_changes">حفظ التغيرات</string>
     <string name="location">موقع</string>
+    <string name="done">فعله</string>
+    <string name="edit_profile_header">تعديل الملف الشخصي</string>
+
+
+    <!-- Location screen -->
+    <string name="use_current_location">استخدام الموقع الحالي</string>
+
 
 
     <!-- verification option screen  -->

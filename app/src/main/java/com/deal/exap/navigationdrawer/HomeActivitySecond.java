@@ -53,7 +53,7 @@ public class HomeActivitySecond extends BaseActivity {
         resideMenu.setMenuListener(menuListener);
 
         // create menu items;
-        itemCategory     = new ResideMenuItem(this, R.drawable.nav_categories_icon, getString(R.string.menu_categories));
+        itemCategory     = new ResideMenuItem(this, R.drawable.nav_categories_icon, getString(R.string.menu_home));
         itemAlert     = new ResideMenuItem(this, R.drawable.nav_bell_icon, getString(R.string.menu_alert));
         itemNearby     = new ResideMenuItem(this, R.drawable.nav_nearby_icon, getString(R.string.menu_near_by));
         itemWallet     = new ResideMenuItem(this, R.drawable.nav_wallet_icon, getString(R.string.menu_wallet));

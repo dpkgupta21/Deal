@@ -1,10 +1,12 @@
 package com.deal.exap.payment;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.Editable;
@@ -18,9 +20,12 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.deal.exap.R;
+import com.deal.exap.customviews.CustomProgressDialog;
 import com.deal.exap.customviews.MyEditTextViewReg;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.utility.Utils;
@@ -43,16 +48,18 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
     private ArrayList<String> years;
     private double price;
     private PWProviderBinder _binder;
-    private double transactionPrice;
+    private Activity mActivity;
     private String dealName;
+    private PWCreditCardType creditCardType = null;
+    private double transactionPrice;
 
 
     // For production
     private static final String APPLICATIONIDENTIFIER = "Hyperpay.6085WorldOfSS.mcommerce";//"gate2play.WorldofSS.mcommerce.test";
     private static final String PROFILETOKEN = "44a2f1d0f1a711e5a7dc11fc67275b56"; //"930e6e9744154563afc4718ab0352b9a";
 
-//    private static final String APPLICATIONIDENTIFIER = "gate2play.WorldofSS.mcommerce.test";
-//      private static final String PROFILETOKEN = "930e6e9744154563afc4718ab0352b9a";
+//    private static final String APPLICATIONIDENTIFIER = "payworks.sandbox";
+//    private static final String PROFILETOKEN = "20d5a0d5ce1d4501a4826a8b7e159d19";
 
     private ServiceConnection _serviceConnection = new ServiceConnection() {
         @Override
@@ -64,7 +71,7 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
                         APPLICATIONIDENTIFIER, PROFILETOKEN);
                 _binder.addTransactionListener(PaymentDetailsActivity.this);
             } catch (PWException ee) {
-                setStatusText("Error initializing the provider.");
+                setStatusText("Please try again transaction.");
                 // error initializing the provider
                 ee.printStackTrace();
             }
@@ -90,6 +97,8 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_details);
 
+        mActivity = PaymentDetailsActivity.this;
+
         transactionPrice = Double.parseDouble(getIntent().getStringExtra("BUY_PRICE"));
         dealName = getIntent().getStringExtra("dealName");
 
@@ -97,7 +106,6 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
         edt_card_number.addTextChangedListener(new FourDigitCardFormatWatcher());
 
         setViewText(R.id.txt_order_name, dealName);
-        setViewText(R.id.txt_order_quantity, "Quantity 1");
         setViewText(R.id.txt_order_total_val, transactionPrice + " SAR");
 
         startService(new Intent(this,
@@ -119,12 +127,12 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
             final RadioButton radio_btn_master_card = (RadioButton)
                     findViewById(R.id.radio_btn_master_card);
 
-            PWCreditCardType creditCardType = null;
 
             String holder = ((MyEditTextViewReg) findViewById(R.id.edt_card_holder_name)).
                     getText().toString().trim();
             String cardNumber = ((MyEditTextViewReg) findViewById(R.id.edt_card_number)).
-                    getText().toString().trim();//"4005550000000001";
+                    getText().toString().trim().replace(" ", "");//"4005550000000001";
+
             String cvv = ((MyEditTextViewReg) findViewById(R.id.edt_card_cvv)).
                     getText().toString().trim();//123
             String month = ((TextView) findViewById(R.id.txt_month)).
@@ -132,11 +140,7 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
             String year = ((TextView) findViewById(R.id.txt_year)).
                     getText().toString().trim();//"2017";
 
-            if (radio_btn_master_card.isChecked()) {
-                creditCardType = PWCreditCardType.MASTERCARD;
-            } else if (radio_btn_visa.isChecked()) {
-                creditCardType = PWCreditCardType.VISA;
-            }
+
             paymentParams = _binder
                     .getPaymentParamsFactory()
                     .createCreditCardPaymentParams(transactionPrice,
@@ -144,35 +148,40 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
                             creditCardType, cardNumber, year, month, cvv);
 
         } catch (PWProviderNotInitializedException e) {
-            setStatusText("Error: Provider not initialized!");
+            CustomProgressDialog.hideProgressDialog();
+            setStatusText(getString(R.string.alert_please_enter_valid_details));
             e.printStackTrace();
             return;
         } catch (PWException e) {
-            setStatusText("Error: Invalid Parameters!");
+            CustomProgressDialog.hideProgressDialog();
+            setStatusText(getString(R.string.alert_please_enter_valid_details));
             e.printStackTrace();
             return;
         }
 
-        setStatusText("Preparing...");
+        setStatusText(getString(R.string.alert_preparing));
 
         try {
             _binder.createAndRegisterDebitTransaction(paymentParams);
         } catch (PWException e) {
-            setStatusText("Error: Could not contact Gateway!");
+            CustomProgressDialog.hideProgressDialog();
+            setStatusText(getString(R.string.alert_please_enter_valid_details));
             e.printStackTrace();
         }
     }
 
     private void init() {
-        setHeader("Payment");
+        setHeader(getString(R.string.payment));
         setLeftClick();
-
+        setClick(R.id.btn_save);
+        setClick(R.id.img_master_card);
+        setClick(R.id.img_visa);
         months = Utils.getMonths();
         years = Utils.getYears();
 //        setClick(R.id.txt_month);
 //        setClick(R.id.txt_year);
-        setViewText(R.id.txt_month, months.get(0));
-        setViewText(R.id.txt_year, years.get(0));
+        //setViewText(R.id.txt_month, months.get(0));
+        //setViewText(R.id.txt_year, years.get(0));
     }
 
     @Override
@@ -189,8 +198,19 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
                 break;
             case R.id.btn_save:
                 if (validateForm()) {
+                    CustomProgressDialog.showProgDialog(mActivity, "Processing..");
                     callTransaction();
                 }
+                break;
+            case R.id.img_visa:
+                creditCardType = PWCreditCardType.VISA;
+                setImageResourseBackground(R.id.img_visa, R.drawable.visa);
+                setImageResourseBackground(R.id.img_master_card, R.drawable.mastercard_grey);
+                break;
+            case R.id.img_master_card:
+                creditCardType = PWCreditCardType.MASTERCARD;
+                setImageResourseBackground(R.id.img_visa, R.drawable.visa_grey);
+                setImageResourseBackground(R.id.img_master_card, R.drawable.mastercard);
                 break;
         }
     }
@@ -240,21 +260,26 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
     }
 
     public boolean validateForm() {
-
-        if (getViewText(R.id.edt_card_holder_name).equals("")) {
-            Utils.showDialog(PaymentDetailsActivity.this, "Message", "Please enter cardholder name.");
-            return false;
-        } else if (getViewText(R.id.txt_month).equals("")) {
-            Utils.showDialog(PaymentDetailsActivity.this, "Message", "Please enter month");
-            return false;
-        } else if (getViewText(R.id.txt_year).equals("")) {
-            Utils.showDialog(PaymentDetailsActivity.this, "Message", "Please enter year");
+        if (creditCardType == null) {
+            Utils.showDialog(PaymentDetailsActivity.this, getString(R.string.message), getString(R.string.alert_please_select_credit_card));
             return false;
         } else if (getViewText(R.id.edt_card_number).equals("")) {
-            Utils.showDialog(PaymentDetailsActivity.this, "Message", "Please enter card number");
+            Utils.showDialog(PaymentDetailsActivity.this, getString(R.string.message), getString(R.string.alert_please_enter_card_number));
+            return false;
+        } else if (getViewText(R.id.edt_card_holder_name).equals("")) {
+            Utils.showDialog(PaymentDetailsActivity.this, getString(R.string.message), getString(R.string.alert_please_enter_cardholder_name));
+            return false;
+        } else if (getViewText(R.id.txt_month).equals("")) {
+            Utils.showDialog(PaymentDetailsActivity.this, getString(R.string.message), getString(R.string.alert_please_enter_month));
+            return false;
+        } else if (getViewText(R.id.txt_year).equals("")) {
+            Utils.showDialog(PaymentDetailsActivity.this, getString(R.string.message), getString(R.string.alert_please_enter_year));
+            return false;
+        } else if (getViewText(R.id.edt_card_cvv).equals("")) {
+            Utils.showDialog(PaymentDetailsActivity.this, getString(R.string.message), getString(R.string.alert_please_enter_cvv));
             return false;
         } else if (!isCheckboxChecked(R.id.chk_terms)) {
-            Utils.showDialog(PaymentDetailsActivity.this, "Message", "Please select terms & conditions");
+            Utils.showDialog(PaymentDetailsActivity.this, getString(R.string.message), getString(R.string.alert_please_select_terms_and_condition));
             return false;
         }
 
@@ -274,37 +299,42 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
 
     @Override
     public void creationAndRegistrationFailed(PWTransaction transaction, PWError error) {
-        setStatusText("Error contacting the gateway.");
+        CustomProgressDialog.hideProgressDialog();
+        setStatusText(getString(R.string.alert_please_try_again_transaction));
         //Log.e("com.payworks.customtokenization.TokenizationActivity", error.getErrorMessage());
     }
 
     @Override
     public void creationAndRegistrationSucceeded(PWTransaction transaction) {
-        setStatusText("Processing...");
+        CustomProgressDialog.hideProgressDialog();
+        setStatusText(getString(R.string.alert_processing));
         try {
             _binder.debitTransaction(transaction);
         } catch (PWException e) {
-            setStatusText("Invalid Transaction.");
+            setStatusText(getString(R.string.alert_invalid_transaction));
             e.printStackTrace();
         }
     }
 
     @Override
     public void transactionFailed(PWTransaction arg0, PWError error) {
-        setStatusText("Error contacting the gateway.");
+        CustomProgressDialog.hideProgressDialog();
+        setStatusText(getString(R.string.alert_transaction_failed));
         // Log.e("com.payworks.customtokenization.TokenizationActivity", error.getErrorMessage());
     }
 
     @Override
     public void transactionSucceeded(PWTransaction transaction) {
         // our debit succeeded
-        setStatusText("Charged " + transactionPrice);
+        CustomProgressDialog.hideProgressDialog();
+        setStatusText(getString(R.string.alert_charged) + " " + transactionPrice);
 
         String processUniqueIdentifier = transaction.getProcessorUniqueIdentifier();
 
-
+        transactionPrice = Double.parseDouble(getIntent().getStringExtra("BUY_PRICE"));
         Intent resultIntent = new Intent();
-        resultIntent.putExtra("processUniqeIdentifier", processUniqueIdentifier);
+        resultIntent.putExtra("processUniqueIdentifier", processUniqueIdentifier);
+        resultIntent.putExtra("transactionPrice", transactionPrice);
         setResult(RESULT_OK, resultIntent);
         finish();
     }

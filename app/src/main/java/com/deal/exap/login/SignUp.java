@@ -96,7 +96,7 @@ public class SignUp extends BaseActivity {
         setHeader(getString(R.string.profile_header));
         ivProfile = (ImageView) findViewById(R.id.iv_profile);
         setClick(R.id.edt_gender);
-        setClick(R.id.edt_dob);
+        //setClick(R.id.edt_dob);
 
 
         String pushRegistrationId = DealPreferences.getPushRegistrationId(SignUp.this);
@@ -133,7 +133,7 @@ public class SignUp extends BaseActivity {
                 showSexDialog();
                 break;
             case R.id.edt_dob:
-                showCalendarDialog();
+                //showCalendarDialog();
                 break;
         }
     }
@@ -361,10 +361,11 @@ public class SignUp extends BaseActivity {
                 params.put("email", getViewText(R.id.edt_email_id));
                 params.put("password", getViewText(R.id.edt_password));
                 params.put("device", "android");
-              //  params.put("device_id", DealPreferences.getPushRegistrationId(SignUp.this));
+                //  params.put("device_id", DealPreferences.getPushRegistrationId(SignUp.this));
                 params.put("name", getViewText(R.id.edt_name));
                 params.put("gender", getViewText(R.id.edt_gender).equals("Male") ? "M" : "F");
-                params.put("dob", getViewText(R.id.edt_dob));
+                //params.put("dob", getViewText(R.id.edt_dob));
+                params.put("age", getViewText(R.id.edt_dob));
                 params.put("confirm_password", getViewText(R.id.edt_confirm_password));
                 params.put("mobile", mobNumber != null ? mobNumber : "");
 
@@ -394,6 +395,8 @@ public class SignUp extends BaseActivity {
                                         Intent intent = new Intent(mContext, HomeActivity.class);
                                         intent.putExtra("fragmentName", mContext.getString(R.string.interest_screen_title));
                                         startActivity(intent);
+                                    } else {
+                                        Utils.showDialog(mContext, getString(R.string.message), Utils.getWebServiceMessage(response));
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -428,36 +431,42 @@ public class SignUp extends BaseActivity {
 //            Utils.showDialog(SignUp.this, "Message", "Please enter image");
 //        }
 //        else
-
-        if (getViewText(R.id.edt_name).equals("")) {
-            Utils.showDialog(SignUp.this, "Message", "Please enter name");
-            return false;
-        } else if (getViewText(R.id.edt_dob).equals("")) {
-            Utils.showDialog(SignUp.this, "Message", "Please enter DOB");
-            return false;
-        } else if (Utils.isFromDateGreater(Utils.getCurrentDate(), getViewText(R.id.edt_dob))) {
-            Utils.showDialog(SignUp.this, "Message", "Please enter valid DOB");
-            return false;
-        } else if (getViewText(R.id.edt_gender).equals("")) {
-            Utils.showDialog(SignUp.this, "Message", "Please enter gender");
-            return false;
-        } else if (getViewText(R.id.edt_email_id).equals("")) {
-            Utils.showDialog(SignUp.this, "Message", "Please enter email id");
-            return false;
-        } else if (!Utils.isValidEmail(getViewText(R.id.edt_email_id))) {
-            Utils.showDialog(SignUp.this, "Message", "Please enter valid email id");
-            return false;
-        } else if (getViewText(R.id.edt_password).equals("")) {
-            Utils.showDialog(SignUp.this, "Message", "Please enter password");
-            return false;
-        } else if (getViewText(R.id.edt_confirm_password).equals("")) {
-            Utils.showDialog(SignUp.this, "Message", "Please enter confirm password");
-            return false;
-        } else if (!getViewText(R.id.edt_password).equals(getViewText(R.id.edt_confirm_password))) {
-            Utils.showDialog(SignUp.this, "Message", "password not match");
-            return false;
+        try {
+            if (getViewText(R.id.edt_name).equals("")) {
+                Utils.showDialog(SignUp.this, getString(R.string.message), getString(R.string.alert_please_enter_name));
+                return false;
+            } else if (getViewText(R.id.edt_dob).equals("")) {
+                Utils.showDialog(SignUp.this, getString(R.string.message), getString(R.string.alert_please_enter_age));
+                return false;
+            } else if (Utils.isValidAge(getViewText(R.id.edt_dob)) == null ||
+                    Utils.isValidAge(getViewText(R.id.edt_dob)).equalsIgnoreCase("")) {
+                Utils.showDialog(SignUp.this, getString(R.string.message), getString(R.string.alert_please_enter_valid_age));
+                return false;
+            } else if (getViewText(R.id.edt_gender).equals("")) {
+                Utils.showDialog(SignUp.this, getString(R.string.message), getString(R.string.alert_please_enter_gender));
+                return false;
+            } else if (getViewText(R.id.edt_email_id).equals("")) {
+                Utils.showDialog(SignUp.this, getString(R.string.message), getString(R.string.alert_please_enter_email_id));
+                return false;
+            } else if (!Utils.isValidEmail(getViewText(R.id.edt_email_id))) {
+                Utils.showDialog(SignUp.this, getString(R.string.message), getString(R.string.alert_please_valid_email_id));
+                return false;
+            } else if (getViewText(R.id.edt_password).equals("")) {
+                Utils.showDialog(SignUp.this, getString(R.string.message), getString(R.string.please_enter_password));
+                return false;
+            } else if (getViewText(R.id.edt_confirm_password).equals("")) {
+                Utils.showDialog(SignUp.this, getString(R.string.message), getString(R.string.alert_please_confirm_password));
+                return false;
+            } else if (!getViewText(R.id.edt_password).equals(getViewText(R.id.edt_confirm_password))) {
+                Utils.showDialog(SignUp.this, getString(R.string.message), getString(R.string.alert_password_not_match));
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return true;
+
+        return false;
     }
 
 

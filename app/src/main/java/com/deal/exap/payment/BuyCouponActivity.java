@@ -331,7 +331,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                                         buyPaymentDialog(dealDTO.getFinal_price());
                                         //buyFromCheckoutScreen(dealDTO.getFinal_price());
                                     } else {
-                                        buyDeal(null);
+                                        buyDeal(null, null);
                                     }
                                 } else {
                                     Utils.showDialog(mActivity, "Error", response.getString("message"));
@@ -429,35 +429,39 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                 new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap response) {
-                        Bitmap mBitmap = response;
-                        imageName = (new SimpleDateFormat("yyyMMdd_HHmmss")
-                                .format(new Date())) + ".jpeg";
-                        OutputStream outputStream = null;
-                        String directory = Environment.getExternalStorageDirectory() + "/"
-                                + "Deal";
-                        File path = new File(directory);
-                        if (!path.exists()) {
-                            path.mkdir();
-                        }
-                        File imageFile = new File(directory, imageName);
-                        if (imageFile.exists()) {
-                            imageFile.delete();
-                        } else {
+                        try {
+                            Bitmap mBitmap = response;
+                            imageName = (new SimpleDateFormat("yyyMMdd_HHmmss")
+                                    .format(new Date())) + ".jpeg";
+                            OutputStream outputStream = null;
+                            String directory = Environment.getExternalStorageDirectory() + "/"
+                                    + "Deal";
+                            File path = new File(directory);
+                            if (!path.exists()) {
+                                path.mkdir();
+                            }
+                            File imageFile = new File(directory, imageName);
+                            if (imageFile.exists()) {
+                                imageFile.delete();
+                            } else {
+                                try {
+                                    imageFile.createNewFile();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                             try {
-                                imageFile.createNewFile();
+                                outputStream = new FileOutputStream(imageFile);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                            mBitmap.compress(Bitmap.CompressFormat.JPEG, 70, outputStream);
+                            try {
+                                outputStream.close();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                        }
-                        try {
-                            outputStream = new FileOutputStream(imageFile);
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                        mBitmap.compress(Bitmap.CompressFormat.JPEG, 70, outputStream);
-                        try {
-                            outputStream.close();
-                        } catch (IOException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -593,17 +597,23 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 
     private void buyPaymentDialog(String price) {
 
+        String merge = "";
         String dealName = "";
         String partnerName = "";
         Intent intent = new Intent(BuyCouponActivity.this, PaymentDetailsActivity.class);
         if (HelpMe.isArabic(mActivity)) {
             dealName = dealDTO.getName_ara();
-            partnerName=dealDTO.getParner_name_eng();
+            partnerName = dealDTO.getPartner_name_eng();
+
         } else {
             dealName = dealDTO.getName_eng();
-            partnerName=dealDTO.getParner_name_eng();
+            partnerName = (dealDTO.getPartner_name_ara() != null &&
+                    !dealDTO.getPartner_name_ara().equalsIgnoreCase("")) ? dealDTO.getPartner_name_ara() :
+                    dealDTO.getPartner_name_eng();
         }
-        intent.putExtra("dealName", dealName+" @ "+partnerName);
+        merge = dealName + "" + ((partnerName == null || partnerName.equalsIgnoreCase("")) ?
+                "" : " @ " + partnerName);
+        intent.putExtra("dealName", merge);
         intent.putExtra("BUY_PRICE", price);
         startActivityForResult(intent, 10001);
 
@@ -665,7 +675,8 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             String processUniqueIdentifier = data.getStringExtra("processUniqueIdentifier");
-            buyDeal(processUniqueIdentifier);
+            String transactionPrice = String.valueOf(data.getDoubleExtra("transactionPrice", 0.0));
+            buyDeal(processUniqueIdentifier, transactionPrice);
         }
         //super.onActivityResult(requestCode, resultCode, data);
     }
@@ -716,7 +727,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
     }
 
 
-    private void buyDeal(String transactionID) {
+    private void buyDeal(String transactionID, String transactionPrice) {
 
         if (Utils.isOnline(this)) {
             Map<String, String> params = new HashMap<>();

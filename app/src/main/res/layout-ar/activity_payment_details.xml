@@ -67,6 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:padding="10dp"
+
                     android:singleLine="true"
                     android:textColor="@color/app_color" />
             </RelativeLayout>
@@ -76,31 +77,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <ImageView
-                    android:id="@+id/img_visa"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:src="@drawable/visa_grey" />
 
                 <ImageView
                     android:id="@+id/img_master_card"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
                     android:src="@drawable/mastercard_grey" />
 
                 <ImageView
-                    android:id="@+id/img_master"
+                    android:id="@+id/img_visa"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:src="@drawable/mastercard_grey"
-                    android:visibility="invisible" />
+                    android:src="@drawable/visa_grey" />
 
             </LinearLayout>
 
@@ -159,7 +154,7 @@
                     android:id="@+id/txt_year"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_weight=".5"
                     android:background="@drawable/edt_txt_white_bcg_shape"
                     android:hint="@string/hint_yy"

@@ -261,6 +261,17 @@ public class Utils {
         return false;
     }
 
+    public static String isValidAge(String age) {
+        int ageValue = 0;
+        try {
+            ageValue = Integer.parseInt(age);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return ageValue + "";
+    }
+
     public static String getTime(int hr, int min) {
         Time tme = new Time(hr, min, 0);//seconds by default set to zero
         Format formatter;
@@ -555,9 +566,9 @@ public class Utils {
         }
         return "";
     }
-		
+
 	/*public static double distance(double lat1, double lon1, double lat2,
-			double lon2, char unit) {
+            double lon2, char unit) {
 		double theta = lon1 - lon2;
 		double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2))
 				+ Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2))
@@ -593,7 +604,7 @@ public class Utils {
         p.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
 
         c.drawBitmap(bitmap, 4, 4, p);
-		/*p.setXfermode(null);                                                
+        /*p.setXfermode(null);
 		p.setStyle(Style.STROKE);                                           
 		p.setColor(Color.WHITE);                                            
 		p.setStrokeWidth(3);                                                

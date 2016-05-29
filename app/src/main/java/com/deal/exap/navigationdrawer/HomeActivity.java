@@ -130,7 +130,7 @@ public class HomeActivity extends BaseActivity {
             itemInterest = new ResideMenuItem(this, R.drawable.nav_interest_icon, getString(R.string.menu_interest));
             itemFavorite = new ResideMenuItem(this, R.drawable.nav_fav_icon, getString(R.string.menu_favorite) + (menuDTO.getFavorite() == 0 ? "" : " (" + menuDTO.getFavorite() + ")"));
             itemFollowing = new ResideMenuItem(this, R.drawable.nav_following_icon, getString(R.string.menu_following) + (menuDTO.getFollowing() == 0 ? "" : " (" + menuDTO.getFollowing() + ")"));
-            itemCategory = new ResideMenuItem(this, R.drawable.nav_categories_icon, getString(R.string.menu_categories));
+            itemCategory = new ResideMenuItem(this, R.drawable.nav_categories_icon, getString(R.string.menu_home));
             itemSetting = new ResideMenuItem(this, R.drawable.nav_settings_icon, getString(R.string.menu_setting));
         } else {
             itemAlert = new ResideMenuItem(this, R.drawable.nav_bell_icon, getString(R.string.menu_alert));
@@ -139,7 +139,7 @@ public class HomeActivity extends BaseActivity {
             itemInterest = new ResideMenuItem(this, R.drawable.nav_interest_icon, getString(R.string.menu_interest));
             itemFavorite = new ResideMenuItem(this, R.drawable.nav_fav_icon, getString(R.string.menu_favorite));
             itemFollowing = new ResideMenuItem(this, R.drawable.nav_following_icon, getString(R.string.menu_following));
-            itemCategory = new ResideMenuItem(this, R.drawable.nav_categories_icon, getString(R.string.menu_categories));
+            itemCategory = new ResideMenuItem(this, R.drawable.nav_categories_icon, getString(R.string.menu_home));
             itemSetting = new ResideMenuItem(this, R.drawable.nav_settings_icon, getString(R.string.menu_setting));
         }
         itemAlert.setOnClickListener(this);
@@ -231,31 +231,31 @@ public class HomeActivity extends BaseActivity {
                 Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
             } else {
                 changeFragment(AlertFragment.newInstance(false));
-                setHeader(getString(R.string.alert_screen_title));
+                setHeader(getString(R.string.menu_alert));
             }
         } else if (view == itemNearby) {
             resideMenu.closeMenu();
             changeFragment(new NearByFragment());
-            setHeader(getString(R.string.nearby_screen_title));
+            setHeader(getString(R.string.menu_near_by));
         } else if (view == itemWallet) {
             resideMenu.closeMenu();
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
                 Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
             } else {
                 changeFragment(new WalletFragment());
-                setHeader(getString(R.string.wallet_screen_title));
+                setHeader(getString(R.string.menu_wallet));
             }
         } else if (view == itemInterest) {
             resideMenu.closeMenu();
             changeFragment(new InterestFragment());
-            setHeader(getString(R.string.interest_screen_title));
+            setHeader(getString(R.string.menu_interest));
         } else if (view == itemFavorite) {
             resideMenu.closeMenu();
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
                 Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
             } else {
                 changeFragment(new FavoriteFragment());
-                setHeader(getString(R.string.favorite_screen_title));
+                setHeader(getString(R.string.menu_favorite));
             }
         } else if (view == itemFollowing) {
             resideMenu.closeMenu();
@@ -263,12 +263,12 @@ public class HomeActivity extends BaseActivity {
                 Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
             } else {
                 changeFragment(new FollowingFragment());
-                setHeader(getString(R.string.following_screen_title));
+                setHeader(getString(R.string.menu_following));
             }
         } else if (view == itemCategory) {
             resideMenu.closeMenu();
             changeFragment(new CategoriesFragment());
-            setHeader(getString(R.string.menu_categories));
+            setHeader(getString(R.string.menu_home));
         } else if (view == itemSetting) {
             resideMenu.closeMenu();
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
@@ -276,7 +276,7 @@ public class HomeActivity extends BaseActivity {
             } else {
 
                 changeFragment(new SettingFragment());
-                setHeader(getString(R.string.setting_screen_title));
+                setHeader(getString(R.string.menu_setting));
             }
         }
 
@@ -416,7 +416,7 @@ public class HomeActivity extends BaseActivity {
         itemInterest.setTitle(getString(R.string.menu_interest));
         itemFavorite.setTitle(getString(R.string.menu_favorite) + (menuDTO.getFavorite() == 0 ? "" : " (" + menuDTO.getFavorite() + ")"));
         itemFollowing.setTitle(getString(R.string.menu_following) + (menuDTO.getFollowing() == 0 ? "" : " (" + menuDTO.getFollowing() + ")"));
-        itemCategory.setTitle(getString(R.string.menu_categories));
+        itemCategory.setTitle(getString(R.string.menu_home));
         itemSetting.setTitle(getString(R.string.menu_setting));
         itemAlert.setTitle(getString(R.string.menu_alert) + (menuDTO.getAlert() == 0 ? "" : " (" + menuDTO.getAlert() + ")"));
     }

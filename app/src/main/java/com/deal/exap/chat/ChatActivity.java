@@ -21,6 +21,7 @@ import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.ChatDTO;
 import com.deal.exap.model.MessageDTO;
 import com.deal.exap.model.Partner;
+import com.deal.exap.model.PartnerDTO;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.Utils;
@@ -49,6 +50,7 @@ public class ChatActivity extends BaseActivity {
     private DisplayImageOptions options;
     private String receiverId;
     private ListView lvChat;
+    private PartnerDTO partnerDTO;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,8 @@ public class ChatActivity extends BaseActivity {
         setContentView(R.layout.activity_chat);
         lvChat = (ListView) findViewById(R.id.lv_chat);
         mContext = ChatActivity.this;
+
+        //partnerDTO= (PartnerDTO) getIntent().getSerializableExtra("partnerDTO");
         init();
 
         loadMessageList();
@@ -82,6 +86,24 @@ public class ChatActivity extends BaseActivity {
                 .showImageOnFail(R.drawable.default_img)
                 .showImageForEmptyUri(R.drawable.default_img)
                 .build();
+
+
+//        ImageView imgThumnail = (ImageView) findViewById(R.id.thumbnail);
+//        ImageView partner = (ImageView) findViewById(R.id.img_company);
+//
+//        ImageLoader.getInstance().displayImage(partnerDTO.getImage(), imgThumnail,
+//                options);
+//        ImageLoader.getInstance().displayImage(partnerDTO.getLogo(), partner,
+//                options);
+//
+//
+//        if (HelpMe.isArabic(mContext)) {
+//            setTextViewText(R.id.txt_place_tag, partnerDTO.getAddress_ara());
+//            setTextViewText(R.id.txt_title, partnerDTO.getName_ara());
+//        } else {
+//            setTextViewText(R.id.txt_place_tag, partnerDTO.getAddress_eng());
+//            setTextViewText(R.id.txt_title, partnerDTO.getName());
+//        }
     }
 
     @Override

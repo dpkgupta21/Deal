@@ -23,6 +23,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.deal.exap.R;
+import com.deal.exap.customviews.CustomProgressDialog;
 import com.deal.exap.customviews.MyEditTextViewReg;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.utility.DealPreferences;
@@ -187,6 +188,8 @@ public class BuyPaymentDialogActivity extends BaseActivity implements PWTransact
                                  String cvv,
                                  double transactionPrice,
                                  PWCreditCardType creditCardType) {
+
+
         PWPaymentParams paymentParams = null;
         try {
             paymentParams = _binder

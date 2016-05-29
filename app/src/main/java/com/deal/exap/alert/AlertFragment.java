@@ -176,8 +176,8 @@ public class AlertFragment extends BaseFragment {
             params.put("action", Constant.GET_NOTIFICATION);
             params.put("user_id", Utils.getUserId(getActivity()));
             final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
-                    new Response.Listener<JSONObject>() {
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL,
+                    params, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
@@ -233,7 +233,8 @@ public class AlertFragment extends BaseFragment {
             params.put("lang", Utils.getSelectedLanguage(getActivity()));
 
             final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
+                    Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {

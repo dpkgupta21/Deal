@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by Mayur on 02-01-2016.
  */
-public class UserDTO implements Serializable{
+public class UserDTO implements Serializable {
 
     public String id;
     public String language_id;
@@ -13,9 +13,11 @@ public class UserDTO implements Serializable{
     public String mobile;
     public String gender;
     public String image;
+    public String location;
     public String currency;
     public String country_id;
     public String dob;
+    public String age;
     public boolean is_location_service;
     public boolean is_push_alert;
     public boolean is_message_alert;
@@ -27,6 +29,21 @@ public class UserDTO implements Serializable{
     public String userType;
     public String notificationRange;
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
 
     public String getInterest() {
         return interest;

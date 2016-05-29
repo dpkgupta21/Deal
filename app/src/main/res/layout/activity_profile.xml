@@ -25,16 +25,16 @@
                     android:src="@drawable/avtar" />
 
                 <com.deal.exap.customviews.MyTextViewLightCustom
-                    style="@style/tv_heading"
                     android:id="@+id/txt_image_change"
+                    style="@style/tv_heading"
                     android:layout_width="match_parent"
                     android:layout_gravity="bottom"
                     android:background="#90000000"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="@string/change_photo"
-                    android:textStyle="bold"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
             </FrameLayout>
 
             <LinearLayout
@@ -52,8 +52,8 @@
                     android:textColor="@color/black" />
 
                 <com.deal.exap.customviews.MyEditTextViewLight
-                    style="@style/et_style_line"
                     android:id="@+id/txt_name"
+                    style="@style/et_style_line"
                     android:layout_marginTop="5dp"
                     android:hint="@string/enter_here" />
 
@@ -74,12 +74,13 @@
                             android:text="@string/age"
                             android:textColor="@color/black" />
 
-                        <com.deal.exap.customviews.MyTextViewLight14
+                        <com.deal.exap.customviews.MyEditTextViewReg
                             android:id="@+id/et_age"
                             style="@style/et_style_line"
                             android:layout_marginTop="3dp"
-                            android:focusable="false"
-                            android:hint="@string/select_hint" />
+                            android:hint="@string/years"
+                            android:inputType="number"
+                            android:maxLength="2" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -111,13 +112,14 @@
                     android:textColor="@color/black" />
 
                 <com.deal.exap.customviews.MyTextViewLightCustom
-                    style="@style/et_style_line"
                     android:id="@+id/txt_location"
+                    style="@style/et_style_line"
                     android:layout_marginTop="5dp"
                     android:hint="@string/enter_here" />
+
                 <com.deal.exap.customviews.MyButtonViewRegCustom
-                    style="@style/btn_style"
                     android:id="@+id/btn_edit_profile"
+                    style="@style/btn_style"
                     android:layout_width="fill_parent"
                     android:layout_marginTop="10dp"
                     android:text="@string/save_changes" />

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/header_transparent" />
+    <include layout="@layout/header_arabic_transparent" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
             style="@style/btn_style"
             android:layout_width="fill_parent"
             android:layout_alignParentBottom="true"
-            android:hint="@string/use_current_location"
+            android:hint="Use Current location"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColor="@color/white"
