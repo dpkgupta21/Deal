@@ -268,12 +268,12 @@ public class ChatActivity extends BaseActivity {
                 }
             } else {
 
-                Utils.showDialog(this, "Message", "Empty Inbox");
+                Utils.showDialog(this, getString(R.string.message), getString(R.string.alert_empty_inbox));
 
             }
         } else {
 
-            Utils.showDialog(this, "Message", "Empty Inbox");
+            Utils.showDialog(this, getString(R.string.message), getString(R.string.alert_empty_inbox));
 
         }
     }

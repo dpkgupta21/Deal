@@ -309,14 +309,20 @@
 
     <!-- Location screen -->
     <string name="use_current_location">Use Current location</string>
-
+    <string name="search_location">Search location...</string>
 
     <string name="open_helper_classname">com.deal.exap.databasemanager.DatabaseHelper</string>
+
+
     <!-- Menu -->
     <string name="menu">Menu</string>
 
-    <!-- Alert messages -->
+    <!-- Chat -->
+    <string name="alert_empty_inbox">Empty Inbox</string>
     <string name="message">Message</string>
+
+    <!-- Alert messages -->
+
     <string name="please_enter_mobile_number">Please enter mobile number</string>
     <string name="please_enter_valid_mobile_number">Please enter valid mobile number</string>
     <string name="for_access_this_please_login">For access this please login</string>

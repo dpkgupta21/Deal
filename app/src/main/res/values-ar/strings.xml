@@ -276,6 +276,7 @@
 
     <!-- Location screen -->
     <string name="use_current_location">استخدام الموقع الحالي</string>
+    <string name="search_location">البحث عن المواقع ...</string>
 
 
 
@@ -285,4 +286,9 @@
     <string name="verification_note">سوف أمثل إرسال رمز التأكيد على رقم الهاتف المحمول الخاص بك إذا اخترت تسجيل عن طريق الموبايل. مع عملية التسجيل بموجب كنت توافق على شروط الخدمة و سياسة الخصوصية.</string>
 
     <string name="open_helper_classname">com.deal.exap.databasemanager.DatabaseHelper</string>
+
+    <!-- Chat -->
+    <string name="alert_empty_inbox">علبة فارغة</string>
+    <string name="message">الرسالة</string>
+
 </resources>

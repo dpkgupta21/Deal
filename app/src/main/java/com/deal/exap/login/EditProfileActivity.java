@@ -126,7 +126,7 @@ public class EditProfileActivity extends BaseActivity {
 
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
-                .cacheOnDisk(true)
+                .cacheOnDisk(false)
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
@@ -399,6 +399,8 @@ public class EditProfileActivity extends BaseActivity {
                                     userDTO.setUserType(Constant.REGISTER);
                                     DealPreferences.putObjectIntoPref(EditProfileActivity.this,
                                             userDTO, Constant.USER_INFO);
+                                    ImageLoader.getInstance().displayImage(userDTO.getImage(), profile,
+                                            options);
                                     Intent intent = new Intent(EditProfileActivity.this,
                                             HomeActivity.class);
                                     intent.putExtra("fragmentName", EditProfileActivity.this.getString(R.string.setting_screen_title));

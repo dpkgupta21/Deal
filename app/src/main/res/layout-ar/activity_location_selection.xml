@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/header_arabic_transparent" />
+    <include layout="@layout/header_transparent" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,20 +21,23 @@
             android:id="@+id/edt_location_box"
             style="@style/et_style_line"
             android:drawableRight="@android:drawable/ic_menu_search"
-            android:hint="Search location..."
+            android:hint="@string/search_location"
             android:paddingLeft="10dp"
             android:singleLine="true" />
 
         <com.deal.exap.customviews.MyButtonViewRegCustom
             android:id="@+id/btn_current_loc"
-            style="@style/btn_style"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:hint="Use Current location"
+            android:layout_centerInParent="true"
+            android:background="@color/btn_color"
+            android:padding="10dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:textColor="@color/white"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:text="@string/use_current_location"
+            android:textColor="@color/white" />
     </RelativeLayout>
 
 </LinearLayout>
