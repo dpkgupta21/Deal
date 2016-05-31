@@ -61,7 +61,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Not Available"
+                android:text="@string/blank_no_available"
                 android:textColor="@color/app_color"
                 android:textSize="18sp"
                 android:visibility="gone" />

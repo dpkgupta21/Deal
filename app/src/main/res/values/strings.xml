@@ -224,6 +224,7 @@
     <string name="nearby_screen_title">Near By</string>
 
     <string name="all">All</string>
+    <string name="ok">Ok</string>
 
 
     <string name="txt_off">off</string>
@@ -327,6 +328,11 @@
     <string name="please_enter_valid_mobile_number">Please enter valid mobile number</string>
     <string name="for_access_this_please_login">For access this please login</string>
 
+    <string name="alert_title_no_network_connection">No Network Connection</string>
+    <string name="alert_please_check_network_connection">Internet is not available.
+        Please check your network connection.</string>
+    <string name="alert_title_error">Error</string>
+    <string name="alert_some_error_occured">Some Error occured. Please try later.</string>
 
     <!-- verification option screen  -->
     <string name="register_with_email_address">Register with Email Address</string>
@@ -334,6 +340,11 @@
     <string name="verification_note">Exap will send a confirmation code to your mobile number if you choose to register through mobile.
     With this registration process hereby you agree to our terms of services and privacy policy.</string>
 
+    <string name="blank_no_msg_found">No Message found</string>
+    <string name="blank_no_following">No Following</string>
+    <string name="blank_no_available">Not Available</string>
+    <string name="blank_no_favorite">No Favorites</string>
+    <string name="blank_no_nearby_deal">No Nearby Deal</string>
 
     <!-- Android push notifications -->
 

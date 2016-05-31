@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textColor="@color/app_color"
-            android:text="No Following"
+            android:text="@string/blank_no_following"
             android:textSize="18sp"
             android:visibility="gone" />
 

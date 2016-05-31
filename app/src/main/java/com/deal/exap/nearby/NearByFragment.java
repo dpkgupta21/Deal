@@ -447,7 +447,7 @@ public class NearByFragment extends BaseFragment {
 
                                     List<CategoryDTO> categoryList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
                                     CategoryDTO categoryDTO = new CategoryDTO();
-                                    categoryDTO.setName("All");
+                                    categoryDTO.setName(getString(R.string.all));
                                     categoryDTO.setId("0");
                                     categoryList.add(0, categoryDTO);
                                     openCategoryDialog(categoryList);
@@ -504,7 +504,7 @@ public class NearByFragment extends BaseFragment {
 
                         txtCategory.setText(categoryList.get(position).getName());
 
-                        if (categoryList.get(position).getName().equalsIgnoreCase("All")) {
+                        if (categoryList.get(position).getName().equalsIgnoreCase(getString(R.string.all))) {
                             for (DealDTO dealOBJ : dealList) {
                                 visibleDealList.add(dealOBJ);
                             }

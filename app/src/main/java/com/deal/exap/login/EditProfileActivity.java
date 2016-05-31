@@ -39,6 +39,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
+import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
 
 import org.json.JSONObject;
 
@@ -60,7 +61,6 @@ public class EditProfileActivity extends BaseActivity {
     private int CAMERA_REQUEST = 1001;
     private int GALLERY_REQUEST = 1002;
     private int LOCATION_RESULT_REQUEST = 1003;
-    private ImageLoader image_loader;
     private CameraChooseDialogFragment dFragment;
     private File f;
     private byte[] bitmapdata;
@@ -68,6 +68,8 @@ public class EditProfileActivity extends BaseActivity {
     //private String currentAddress;
     private GPSTracker gpsTracker;
     private Activity mActivity;
+
+    //private ImageLoader imageLoader;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -138,7 +140,7 @@ public class EditProfileActivity extends BaseActivity {
 
         profile = (ImageView) findViewById(R.id.profile);
 
-        ImageLoader.getInstance().displayImage(userDTO.getImage(), profile,
+       ImageLoader.getInstance().displayImage(userDTO.getImage(), profile,
                 options);
     }
 
@@ -399,6 +401,16 @@ public class EditProfileActivity extends BaseActivity {
                                     userDTO.setUserType(Constant.REGISTER);
                                     DealPreferences.putObjectIntoPref(EditProfileActivity.this,
                                             userDTO, Constant.USER_INFO);
+
+                                    // delete cache image
+                                    File imageFile =   ImageLoader.getInstance().getDiscCache().get(userDTO.getImage());
+                                    if (imageFile.exists()) {
+                                        imageFile.delete();
+                                    }
+                                    MemoryCacheUtils.removeFromCache(userDTO.getImage(),
+                                            ImageLoader.getInstance().getMemoryCache());
+
+
                                     ImageLoader.getInstance().displayImage(userDTO.getImage(), profile,
                                             options);
                                     Intent intent = new Intent(EditProfileActivity.this,

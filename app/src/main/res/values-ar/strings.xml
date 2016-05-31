@@ -189,8 +189,15 @@
     <string name="txt_later_to_sooner">فلاحقاً</string>
     <string name="nearby_screen_title">العروض القريبة</string>
 
-
+    <string name="all">جميع</string>
+    <string name="ok">حسنا</string>
         <string name="txt_off">بعيدا</string>
+
+    <string name="alert_title_no_network_connection">لا اتصال الشبكة</string>
+    <string name="alert_please_check_network_connection">الإنترنت ليست المتاحة. يرجى التحقق من الاتصال بالشبكة.</string>
+    <string name="alert_title_error">خطأ</string>
+    <string name="alert_some_error_occured">وقعت بعض الأخطاء. يرجى المحاولة لاحقا.</string>
+
     <!--
         <string name="txt_selcted_category">اغذية و مأكولات</string>
         <string name="menu_filter">فلتر</string>
@@ -213,7 +220,7 @@
 
     <!-- coupon Details Screen-->
     <string name="title_activity_coupon_details">كوبون</string>
-    <string name="btn_rate">قيم هذا القسيمة</string>
+    <string name="eceeeeeeecbtn_rate">قيم هذا القسيمة</string>
     <string name="btn_buy">اشتري عبر الانترنت</string>
     <string name="txt_coupon_code">رمز القسيمة</string>
     <string name="title_activity_rate_coupon">رسم خريطة</string>
@@ -290,5 +297,11 @@
     <!-- Chat -->
     <string name="alert_empty_inbox">علبة فارغة</string>
     <string name="message">الرسالة</string>
+
+    <string name="blank_no_msg_found">لم يتم العثور على رسالة</string>
+    <string name="blank_no_following">لا بعد</string>
+    <string name="blank_no_available">غير متاح</string>
+    <string name="blank_no_favorite">لا المفضله</string>
+    <string name="blank_no_nearby_deal">لا صفقة القريبة</string>
 
 </resources>

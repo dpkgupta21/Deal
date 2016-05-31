@@ -29,6 +29,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
+import com.deal.exap.R;
 import com.deal.exap.model.UserDTO;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -100,7 +101,7 @@ public class Utils {
     public static AlertDialog showDialog(Context ctx, String title, String msg,
                                          OnClickListener listener) {
 
-        return showDialog(ctx, title, msg, "Ok", null, listener, null);
+        return showDialog(ctx, title, msg, ctx.getString(R.string.ok), null, listener, null);
     }
 
     public static AlertDialog showDialog(Context ctx, String title, String msg) {
@@ -118,21 +119,21 @@ public class Utils {
 
     public static void showNoNetworkDialog(Context ctx) {
 
-        showDialog(ctx, "No Network Connection",
-                "Internet is not available. Please check your network connection.")
+        showDialog(ctx, ctx.getString(R.string.alert_title_no_network_connection),
+                ctx.getString(R.string.alert_please_check_network_connection))
                 .show();
     }
 
     public static void showExceptionDialog(Context ctx) {
 
-        showDialog(ctx, "Error",
-                "Some Error occured. Please try later.")
-                .show();
+        showDialog(ctx, ctx.getString(R.string.alert_title_error),
+                ctx.getString(R.string.alert_title_error))
+                        .show();
     }
 
     public static void showFailDialog(final Activity ctx) {
 
-        showDialog(ctx, "Error",
+        showDialog(ctx, ctx.getString(R.string.alert_title_error),
                 "Failed to check the subscription.", new OnClickListener() {
 
                     @Override
