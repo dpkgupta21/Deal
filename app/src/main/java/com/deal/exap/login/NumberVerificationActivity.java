@@ -7,29 +7,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.deal.exap.R;
 import com.deal.exap.customviews.MyTextViewRegCustom;
 import com.deal.exap.utility.SessionManager;
 
-public class NumberVerificationActivity extends AppCompatActivity {
+public class NumberVerificationActivity extends BaseActivity {
     private static final String TAG = "<NumberVerificationActivity>";
     private SessionManager session;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.number_verification_base);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         toolbar.setBackgroundColor(getResources().getColor(R.color.app_color));
         setSupportActionBar(toolbar);
-        MyTextViewRegCustom tv_skip_arb = (MyTextViewRegCustom) toolbar.findViewById(R.id.tv_lang_change);
-        tv_skip_arb.setVisibility(View.GONE);
-        MyTextViewRegCustom tv_skip_eng = (MyTextViewRegCustom) toolbar.findViewById(R.id.tv_skip_eng);
-        tv_skip_eng.setVisibility(View.GONE);
+
+        setHeader(getString(R.string.app_name));
+        setLeftClick();
 
         //FrameLayout frame_lay = (FrameLayout) findViewById(R.id.frame_lay);
         //NumberVerificationFragment verificationOptionFragment = NumberVerificationFragment.newInstance();
@@ -45,5 +45,13 @@ public class NumberVerificationActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_back:
+                finish();
+                break;
+        }
+    }
 }
 

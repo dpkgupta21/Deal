@@ -83,6 +83,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -490,7 +491,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 //            setViewVisibility(R.id.btn_buy_deal, View.GONE);
 //            setViewVisibility(R.id.btn_redeem, View.VISIBLE);
 //        }
-        setTextViewText(R.id.txt_discount_rate, dealDTO.getDiscount() + " % " + getString(R.string.txt_off));
+        setTextViewText(R.id.txt_discount_rate, dealDTO.getDiscount() + getString(R.string.percent_off));
         if (HelpMe.isArabic(this)) {
             setTextViewText(R.id.txt_on_which, dealDTO.getName_ara());
             setTextViewText(R.id.txt_details, dealDTO.getDetail_ara());
@@ -527,8 +528,21 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         } else {
             ratingbar.setRating(dealDTO.getRating());
         }
-        setTextViewText(R.id.txt_review, dealDTO.getReview() + "");
-        setTextViewText(R.id.txt_end_date_val, dealDTO.getEnd_date());
+
+        String review = String.valueOf(dealDTO.getReview());
+        if(!review.equalsIgnoreCase("0")){
+            setTextViewText(R.id.txt_review,"(" + review + ")");
+        }
+
+        //setTextViewText(R.id.txt_end_date_val, dealDTO.getEnd_date());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
+        Date now = new Date();
+        String currDate = sdf.format(now);
+
+        String duration = HelpMe.getDurationTime(currDate, dealDTO.getEnd_date());
+        setViewText(R.id.tv_duration_time, duration);
+
         setTextViewText(R.id.txt_redeemed_val, dealDTO.getRedeemed() + "");
         if (HelpMe.isMiles(this))
             setTextViewText(R.id.txt_distance_val, HelpMe.convertKMToMiles(dealDTO.getDistance()) + " " +

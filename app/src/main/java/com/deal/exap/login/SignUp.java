@@ -94,6 +94,7 @@ public class SignUp extends BaseActivity {
     private void init() {
 
         setHeader(getString(R.string.profile_header));
+        setLeftClick();
         ivProfile = (ImageView) findViewById(R.id.iv_profile);
         setClick(R.id.edt_gender);
         //setClick(R.id.edt_dob);
@@ -134,6 +135,9 @@ public class SignUp extends BaseActivity {
                 break;
             case R.id.edt_dob:
                 //showCalendarDialog();
+                break;
+            case R.id.iv_back:
+                finish();
                 break;
         }
     }

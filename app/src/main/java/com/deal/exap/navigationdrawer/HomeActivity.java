@@ -439,7 +439,7 @@ public class HomeActivity extends BaseActivity {
             super.onBackPressed();
         } else {
             this.backPressedToExitOnce = true;
-            Toast.makeText(HomeActivity.this, "Press again to exit", Toast.LENGTH_SHORT).show();
+            Toast.makeText(HomeActivity.this, getString(R.string.press_again_to_exit), Toast.LENGTH_SHORT).show();
             new Handler().postDelayed(new Runnable() {
 
                 @Override

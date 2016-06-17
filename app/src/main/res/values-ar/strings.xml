@@ -11,6 +11,7 @@
     <string name="password_hint">كلمة المرور</string>
     <string name="confirm_password_hint">تأكيد كلمة المرور</string>
     <string name="save_btn">حفظ</string>
+    <string name="register_btn">تسجيل</string>
 
     <string name="alert_please_enter_name">الرجاء إدخال اسم</string>
     <string name="alert_please_enter_age">الرجاء إدخال السن</string>
@@ -101,7 +102,7 @@
     <string name="txt_edit_payment_details">المعلومات الإئتمانية</string>
     <string name="txt_english">English</string>
     <string name="txt_arabic">العربية</string>
-    <string name="txt_signout">تسجيل الخروج</string>
+    <string name="txt_signout">تعديل الملف الشخصي</string>
     <string name="txt_change_language">غير اللغة</string>
 
 
@@ -155,6 +156,7 @@
     <string name="forget_password_header">نسيت كلمة المرور</string>
     <string name="enter_your_email_id_hint">أدخل اسم المستخدم البريد الالكتروني</string>
     <string name="submit_btn">عرض</string>
+    <string name="get_password_btn">احصل على كلمة سر</string>
 
 
     <!--Categories screen-->
@@ -179,10 +181,11 @@
 
     <!-- Near By Screen-->
     <string name="txt_end_date">تينتهي في:</string>
-    <string name="txt_distance">ايبعد:</string>
+    <string name="txt_views">المشاهدات</string>
+    <string name="txt_distance">المسافة</string>
     <string name="txt_filter_distance_unit_km">ككم</string>
     <string name="txt_filter_distance_unit_miles">مميل</string>
-    <string name="txt_discount">تمقدار الخصم</string>
+    <string name="txt_discount">خصم</string>
     <string name="txt_low_to_high">عالقريبة أولاً</string>
     <string name="txt_high_to_low">االبعيدة أولاً</string>
     <string name="txt_sooner_to_later">عقريباً</string>
@@ -197,7 +200,7 @@
     <string name="alert_please_check_network_connection">الإنترنت ليست المتاحة. يرجى التحقق من الاتصال بالشبكة.</string>
     <string name="alert_title_error">خطأ</string>
     <string name="alert_some_error_occured">وقعت بعض الأخطاء. يرجى المحاولة لاحقا.</string>
-
+    <string name="press_again_to_exit">اضغط مرة أخرى للخروج</string>
     <!--
         <string name="txt_selcted_category">اغذية و مأكولات</string>
         <string name="menu_filter">فلتر</string>
@@ -212,10 +215,10 @@
     <string name="title_activity_store_details">رسم خريطة</string>
     <string name="txt_store_online">في مخزن وONLINE</string>
     <string name="txt_store_dis">libero eu sed rhoncus varius, metus nulla ruturm magna, sed rhoncus  augue lectus porttitor nisi.</string>
-    <string name="txt_discount_per">تخفيض السعر</string>
+    <string name="txt_discount_per">خصم</string>
     <string name="txt_store_price">اشتري الآن</string>
-    <string name="txt_cutomer_review">استعراض الزبون</string>
-    <string name="txt_term_condition">شروط وأحكام</string>
+    <string name="txt_cutomer_review">تقييم العملاء</string>
+    <string name="txt_term_condition">الشروط والأحكام</string>
 
 
     <!-- coupon Details Screen-->
@@ -226,7 +229,7 @@
     <string name="title_activity_rate_coupon">رسم خريطة</string>
     <string name="title_activity_buy_coupon">رسم خريطة</string>
     <string name="txt_buy">شراء</string>
-    <string name="redeemed">افتدى</string>
+    <string name="redeemed">تم شراءها</string>
     <string name="on_fanta_pride">على فانتا الكبرياء</string>
     <string name="street_berlin">21 شارع Hansonberg، برلين</string>
 
@@ -273,7 +276,7 @@
     <string name="enter_here">أدخل هنا</string>
     <string name="age">سن</string>
     <string name="gender">جنس</string>
-    <string name="years">سنوات</string>
+    <string name="years">تاريخ الميلاد</string>
     <string name="select_hint">اختار</string>
     <string name="save_changes">حفظ التغيرات</string>
     <string name="location">موقع</string>

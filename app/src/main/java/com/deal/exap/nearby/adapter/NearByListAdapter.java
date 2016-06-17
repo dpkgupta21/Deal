@@ -32,6 +32,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class NearByListAdapter extends RecyclerView
         .Adapter<NearByListAdapter
@@ -192,7 +193,7 @@ public class NearByListAdapter extends RecyclerView
                 options);
         ImageLoader.getInstance().displayImage(mDataset.get(position).getPartner_logo(), holder.ivLogo,
                 options1);
-        holder.tvDiscount.setText(mDataset.get(position).getDiscount() + " % " + context.getString(R.string.txt_off));
+        holder.tvDiscount.setText(mDataset.get(position).getDiscount() + " % - " + context.getString(R.string.txt_off));
         holder.tvEnddate.setText(mDataset.get(position).getEnd_date());
         if (HelpMe.isMiles(context))
             holder.tvDistance.setText(context.getString(R.string.txt_distance) + " " +
@@ -206,10 +207,13 @@ public class NearByListAdapter extends RecyclerView
                 mDataset.get(position).getName_eng(),
                 mDataset.get(position).getName_ara()));
 
+        String noOfPerson = String.valueOf(mDataset.get(position).getReview());
+        if(!noOfPerson.equalsIgnoreCase("0")){
+            holder.tvReview.setText("(" + noOfPerson + ")");
+        }
 
-        holder.tvReview.setText("(" + mDataset.get(position).getReview() + ")");
         if (Build.VERSION.SDK_INT >= 23) {
-            LayerDrawable drawable = (LayerDrawable)  holder.ratingBar.getProgressDrawable();
+            LayerDrawable drawable = (LayerDrawable) holder.ratingBar.getProgressDrawable();
             drawable.getDrawable(0).setColorFilter(Color.parseColor("#FFFFFFFF"),
                     PorterDuff.Mode.SRC_ATOP);
             holder.ratingBar.setRating(mDataset.get(position).getRating());

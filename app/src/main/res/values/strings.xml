@@ -5,7 +5,7 @@
 -->
     <string name="facebook_app_id">1108744365854962</string>
 
-
+    <string name="percent_off"> % - off</string>
     <!-- Splash screen-->
     <string name="title">Lorem ipsum</string>
     <string name="title_separator">|</string>
@@ -39,6 +39,7 @@
     <string name="password_hint">Password</string>
     <string name="confirm_password_hint">Confirm Password</string>
     <string name="save_btn">Save</string>
+    <string name="register_btn">Register</string>
 
     <string name="alert_please_enter_name">Please enter name</string>
     <string name="alert_please_enter_age">Please enter age</string>
@@ -156,7 +157,7 @@
     <string name="lbl_order_total">Order Total</string>
     <string name="lbl_quantity">1 Quantity</string>
     <string name="btn_pay_now">PAY NOW</string>
-    <string name="terms_and_condition">I am agree to the terms &amp; conditions</string>
+    <string name="terms_and_condition">I agree to the terms &amp; conditions</string>
 
     <string name="alert_please_select_credit_card">Please select credit card</string>
     <string name="alert_please_enter_card_number">Please enter card number</string>
@@ -185,6 +186,7 @@
     <string name="forget_password_header">Forget Password</string>
     <string name="enter_your_email_id_hint">Enter your email id</string>
     <string name="submit_btn">Submit</string>
+    <string name="get_password_btn">Get Password</string>
     <string name="verification_msg">By Tapping next above, EXAP will send you a mail to confirm your email id
         and here by you agree to our Terms of Use and privacy Policy.</string>
 
@@ -212,6 +214,7 @@
     <!-- Near By Screen-->
 
     <string name="txt_end_date">End Date</string>
+    <string name="txt_views">Views</string>
     <string name="txt_distance">Distance</string>
     <string name="txt_filter_distance_unit_km">KM</string>
     <string name="txt_slash">/</string>
@@ -333,18 +336,20 @@
         Please check your network connection.</string>
     <string name="alert_title_error">Error</string>
     <string name="alert_some_error_occured">Some Error occured. Please try later.</string>
+    <string name="press_again_to_exit">Press again to exit</string>
 
     <!-- verification option screen  -->
     <string name="register_with_email_address">Register with Email Address</string>
     <string name="register_with_mobile_number">Register with Mobile Number</string>
     <string name="verification_note">Exap will send a confirmation code to your mobile number if you choose to register through mobile.
-    With this registration process hereby you agree to our terms of services and privacy policy.</string>
+    With this registration process you agree to our terms of services and privacy policy.</string>
 
     <string name="blank_no_msg_found">No Message found</string>
     <string name="blank_no_following">No Following</string>
     <string name="blank_no_available">Not Available</string>
     <string name="blank_no_favorite">No Favorites</string>
     <string name="blank_no_nearby_deal">No Nearby Deal</string>
+
 
     <!-- Android push notifications -->
 

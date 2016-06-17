@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/screen_bg_color"
     android:orientation="vertical"
-    tools:context="com.deal.exap.fragment.SettingFragment">
+   >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -204,6 +204,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginTop="20dp"
+                android:visibility="invisible"
                 android:text="@string/txt_change_language" />
 
 

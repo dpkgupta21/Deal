@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
@@ -45,13 +46,13 @@ import java.util.Map;
 public class SplashScreen extends BaseActivity {
     private static final String TAG = "<SplashScreen>";
     private SessionManager session;
-    private ViewPager mViewPager;
-    private SplashScreenPagerAdapter mAdapter;
+    //private ViewPager mViewPager;
+    //private SplashScreenPagerAdapter mAdapter;
     //private Map<Integer, String> mPictures;
-    private String[] mPictureIdsList;
-    private RadioGroup mSwipeIndicator;
+    //private String[] mPictureIdsList;
+    //private RadioGroup mSwipeIndicator;
     // List of Ids of radio buttons for displaying the dot of currently displayed picture
-    private List<Integer> mRadioButtonIds;
+    //private List<Integer> mRadioButtonIds;
     private GPSTracker gpsTracker;
     private Activity mActivity;
 
@@ -64,37 +65,42 @@ public class SplashScreen extends BaseActivity {
 
         //String language = DealPreferences.getAPP_LANG(SplashScreen.this);
         // setUpToolbar();
-        mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        //mViewPager = (ViewPager) findViewById(R.id.view_pager);
         FrameLayout frame_lay = (FrameLayout) findViewById(R.id.frame_lay);
-        populateRadioButtonIds();
-        populateEnglishSplashBackgrounds();
+//        populateRadioButtonIds();
+//        populateEnglishSplashBackgrounds();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+        // Sets the Toolbar to act as the ActionBar for this Activity window.
+        // Make sure the toolbar exists in the activity and is not null
+        setSupportActionBar(toolbar);
+
 
         setClick(R.id.tv_lang_change);
         setClick(R.id.tv_skip_eng);
 
-        mAdapter = new SplashScreenPagerAdapter(this, mPictureIdsList);
-        mViewPager.setAdapter(mAdapter);
-
-        mSwipeIndicator = (RadioGroup) findViewById(R.id.swipe_indicator_radio_group);
-        mSwipeIndicator.check(mRadioButtonIds.get(0));
-
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                mSwipeIndicator.clearCheck();
-                mSwipeIndicator.check(mRadioButtonIds.get(position));
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+//        mAdapter = new SplashScreenPagerAdapter(this, mPictureIdsList);
+//        mViewPager.setAdapter(mAdapter);
+//
+//        mSwipeIndicator = (RadioGroup) findViewById(R.id.swipe_indicator_radio_group);
+//        mSwipeIndicator.check(mRadioButtonIds.get(0));
+//
+//        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                mSwipeIndicator.clearCheck();
+//                mSwipeIndicator.check(mRadioButtonIds.get(position));
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
 
 
         SignInFragment signInFragment = SignInFragment.newInstance();
@@ -119,13 +125,13 @@ public class SplashScreen extends BaseActivity {
         }
     }
 
-    private void populateRadioButtonIds() {
-        mRadioButtonIds = new ArrayList<>();
-        mRadioButtonIds.add(R.id.pic1_indicator);
-        mRadioButtonIds.add(R.id.pic2_indicator);
-        mRadioButtonIds.add(R.id.pic3_indicator);
-        mRadioButtonIds.add(R.id.pic4_indicator);
-    }
+//    private void populateRadioButtonIds() {
+//        mRadioButtonIds = new ArrayList<>();
+//        mRadioButtonIds.add(R.id.pic1_indicator);
+//        mRadioButtonIds.add(R.id.pic2_indicator);
+//        mRadioButtonIds.add(R.id.pic3_indicator);
+//        mRadioButtonIds.add(R.id.pic4_indicator);
+//    }
 
     @Override
     public void onClick(View view) {
@@ -152,22 +158,22 @@ public class SplashScreen extends BaseActivity {
         }
     }
 
-    private void populateEnglishSplashBackgrounds() {
-
-
-//        List<String> mPictureTextList = new ArrayList<>();
-//        mPictureTextList.add("Capture all type of memories. Not just photos. Travel Jar can take anything");
-//        mPictureTextList.add("Share those wonderful moments in the form of a small video created AUTOMATICALLY!.");
-//        mPictureTextList.add("No need to chase people for pictures anymore. Travel Jar automatically syncs everything");
-//        mPictureTextList.add("No need to chase people for pictures anymore. Travel Jar automatically syncs everything");
-
-
-        mPictureIdsList = new String[]{
-                "slide_img", "slide_img", "slide_img", "slide_img"
-        };
-
-
-    }
+//    private void populateEnglishSplashBackgrounds() {
+//
+//
+////        List<String> mPictureTextList = new ArrayList<>();
+////        mPictureTextList.add("Capture all type of memories. Not just photos. Travel Jar can take anything");
+////        mPictureTextList.add("Share those wonderful moments in the form of a small video created AUTOMATICALLY!.");
+////        mPictureTextList.add("No need to chase people for pictures anymore. Travel Jar automatically syncs everything");
+////        mPictureTextList.add("No need to chase people for pictures anymore. Travel Jar automatically syncs everything");
+//
+//
+//        mPictureIdsList = new String[]{
+//                "slide_img", "slide_img", "slide_img", "slide_img"
+//        };
+//
+//
+//    }
 
     /*private void setUpToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);

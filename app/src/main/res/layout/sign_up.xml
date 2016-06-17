@@ -4,8 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:weightSum="3"
-    tools:context=".LoginActivity">
+    android:weightSum="3">
 
 
     <FrameLayout
@@ -158,7 +157,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_weight=".8"
                 android:background="@drawable/btn_red_bcg_shape"
-                android:text="@string/save_btn"
+                android:text="@string/register_btn"
                 android:textColor="@color/white" />
         </LinearLayout>
 

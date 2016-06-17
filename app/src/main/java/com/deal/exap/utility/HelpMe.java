@@ -8,9 +8,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class HelpMe {
 
@@ -18,6 +23,31 @@ public class HelpMe {
         Calendar rightNow = Calendar.getInstance();
     }
 
+
+    public static String getDurationTime(String startTime, String endTime) {
+        //String startDateString = "06/27/2007";
+
+        String diff = null;
+        try {
+            String REQUEST_DATE_FORMAT = "dd MMM yyyy";
+            DateFormat df = new SimpleDateFormat(REQUEST_DATE_FORMAT);
+            Date startDate = df.parse(startTime);
+            Date endDate = df.parse(endTime);
+            long timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
+            diff = String.format("%dD %dH %dM",TimeUnit.MILLISECONDS.toDays(timeDiff),
+                    TimeUnit.MILLISECONDS.toHours(timeDiff)-
+                            TimeUnit.DAYS.toHours(TimeUnit.MILLISECONDS.toDays(timeDiff)),
+                    TimeUnit.MILLISECONDS.toMinutes(timeDiff) -
+                            TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(timeDiff)));
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return diff;
+
+    }
 
     // Check for valid mobile number of 10 digits
     public static void setLocale(String languageCode, Context mContext) {

@@ -106,14 +106,14 @@
                             </LinearLayout>
 
                             <!--<com.deal.exap.customviews.MyTextViewLightCustom-->
-                                <!--android:id="@+id/txt_address"-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:drawableRight="@drawable/nav_nearby_icon"-->
-                                <!--android:gravity="center_vertical"-->
-                                <!--android:text="@string/street_berlin"-->
-                                <!--android:textColor="@color/white"-->
-                                <!--android:textSize="10sp" />-->
+                            <!--android:id="@+id/txt_address"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:drawableRight="@drawable/nav_nearby_icon"-->
+                            <!--android:gravity="center_vertical"-->
+                            <!--android:text="@string/street_berlin"-->
+                            <!--android:textColor="@color/white"-->
+                            <!--android:textSize="10sp" />-->
 
 
                         </LinearLayout>
@@ -192,16 +192,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="@string/txt_end_date"
+                            android:text="@string/txt_views"
                             android:textSize="10sp" />
 
 
                         <com.deal.exap.customviews.MyTextViewRegCustom
-                            android:id="@+id/txt_end_date_val"
+                            android:id="@+id/txt_views_val"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="30th Nov"
+                            android:text=""
                             android:textColor="@color/btn_color"
                             android:textSize="14sp" />
 
@@ -332,13 +332,6 @@
                             android:text="$10"
                             android:textSize="18sp" />
 
-                        <com.deal.exap.customviews.MyTextViewRegCustom
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:text="@string/txt_store_price"
-                            android:textSize="14sp" />
-
                     </LinearLayout>
 
 
@@ -382,15 +375,16 @@
                 </LinearLayout>
 
 
-                <!--<com.deal.exap.customviews.MyTextViewSemiCustom-->
-                <!--style="@style/tv_normal"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:drawableLeft="@drawable/clock_icon"-->
-                <!--android:drawablePadding="10dp"-->
-                <!--android:gravity="center_horizontal"-->
-                <!--android:text="@string/txt_time_left"-->
-                <!--android:textColor="@color/btn_green_color" />-->
+                <com.deal.exap.customviews.MyTextViewSemiCustom
+                    android:id="@+id/tv_duration_time"
+                    style="@style/tv_normal"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/clock_icon"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/txt_time_left"
+                    android:textColor="@color/btn_green_color" />
 
 
                 <LinearLayout
