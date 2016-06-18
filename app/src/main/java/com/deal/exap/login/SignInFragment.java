@@ -228,13 +228,15 @@ public class SignInFragment extends BaseFragment {
 
 
     private void forgotpassword() {
-        ForgetPasswordFragment forgetPasswordFragment = ForgetPasswordFragment.newInstance();
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm
-                .beginTransaction();
-        ft.replace(R.id.frame_lay, forgetPasswordFragment);
-        ft.addToBackStack(null);
-        ft.commit();
+        Intent intent = new Intent(getActivity(), ForgetPasswordActivity.class);
+        startActivity(intent);
+//        ForgetPasswordFragment forgetPasswordFragment = ForgetPasswordFragment.newInstance();
+//        FragmentManager fm = getFragmentManager();
+//        FragmentTransaction ft = fm
+//                .beginTransaction();
+//        ft.replace(R.id.frame_lay, forgetPasswordFragment);
+//        ft.addToBackStack(null);
+//        ft.commit();
 
     }
 

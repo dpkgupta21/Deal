@@ -24,14 +24,14 @@ public class HelpMe {
     }
 
 
-    public static String getDurationTime(String startTime, String endTime) {
+    public static String getDurationTime( String endTime) {
         //String startDateString = "06/27/2007";
 
         String diff = null;
         try {
             String REQUEST_DATE_FORMAT = "dd MMM yyyy";
-            DateFormat df = new SimpleDateFormat(REQUEST_DATE_FORMAT);
-            Date startDate = df.parse(startTime);
+            SimpleDateFormat df = new SimpleDateFormat(REQUEST_DATE_FORMAT,Locale.US);
+            Date startDate = new Date();
             Date endDate = df.parse(endTime);
             long timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
             diff = String.format("%dD %dH %dM",TimeUnit.MILLISECONDS.toDays(timeDiff),

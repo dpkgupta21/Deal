@@ -47,10 +47,12 @@ import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.gson.Gson;
 import com.mobile.connect.PWConnect;
@@ -500,13 +502,17 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
             setTextViewText(R.id.txt_details, dealDTO.getDetail_eng());
         }
 
+        setTextViewText(R.id.txt_views_val, dealDTO.getView_count() );
+
         Button btn_purchase = (Button) findViewById(R.id.btn_buy);
 
         if (dealDTO.getDeal_code() != null && !dealDTO.getDeal_code().equalsIgnoreCase("")) {
-            btn_purchase.setVisibility(View.GONE);
+            //btn_purchase.setVisibility(View.GONE);
+            btn_purchase.setVisibility(View.VISIBLE);
+            btn_purchase.setEnabled(false);
+            btn_purchase.setText(getString(R.string.redeemed));
+            btn_purchase.setBackgroundResource(R.drawable.btn_green_bcg_shape);
         } else {
-
-
             btn_purchase.setVisibility(View.VISIBLE);
             if (dealDTO.getType().equalsIgnoreCase("Paid")) {
                 btn_purchase.setText(getString(R.string.txt_buy));
@@ -530,17 +536,17 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         }
 
         String review = String.valueOf(dealDTO.getReview());
-        if(!review.equalsIgnoreCase("0")){
-            setTextViewText(R.id.txt_review,"(" + review + ")");
+        if (!review.equalsIgnoreCase("0")) {
+            setTextViewText(R.id.txt_review, "(" + review + ")");
         }
 
         //setTextViewText(R.id.txt_end_date_val, dealDTO.getEnd_date());
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
         Date now = new Date();
-        String currDate = sdf.format(now);
+        //  String currDate = sdf.format(now);
 
-        String duration = HelpMe.getDurationTime(currDate, dealDTO.getEnd_date());
+        String duration = HelpMe.getDurationTime(dealDTO.getEnd_date());
         setViewText(R.id.tv_duration_time, duration);
 
         setTextViewText(R.id.txt_redeemed_val, dealDTO.getRedeemed() + "");
@@ -768,6 +774,25 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                                 if (Utils.getWebServiceStatus(response)) {
                                     String dealCode = response.getString("dealcode");
                                     setDealCode(dealCode);
+
+                                    Button btn_purchase = (Button) findViewById(R.id.btn_buy);
+
+                                    if (dealDTO.getDeal_code() != null && !dealDTO.getDeal_code().equalsIgnoreCase("")) {
+                                        //btn_purchase.setVisibility(View.GONE);
+                                        btn_purchase.setVisibility(View.VISIBLE);
+                                        btn_purchase.setEnabled(false);
+                                        btn_purchase.setText(getString(R.string.redeemed));
+                                        btn_purchase.setBackgroundResource(R.drawable.btn_green_bcg_shape);
+                                    } else {
+                                        btn_purchase.setVisibility(View.VISIBLE);
+                                        if (dealDTO.getType().equalsIgnoreCase("Paid")) {
+                                            btn_purchase.setText(getString(R.string.txt_buy));
+                                            btn_purchase.setBackgroundResource(R.drawable.btn_green_bcg_shape);
+                                        } else {
+                                            btn_purchase.setText(getString(R.string.btn_reedme));
+                                            btn_purchase.setBackgroundResource(R.drawable.btn_red_bcg_shape);
+                                        }
+                                    }
                                     // finish();
                                     //callWalletFragment();
 
@@ -976,50 +1001,63 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        MapSupport.createMarker(mMap, DealPreferences.getLatitude(this.
-                getApplicationContext()), DealPreferences.getLongitude(this.
-                getApplicationContext()), "current", this, "");
-        MapSupport.createMarker(mMap, dealDTO.getLat(), dealDTO.getLng(),
-                "position", this, dealDTO.getDiscount() + "%");
+        try {
+            mMap = googleMap;
+            if (mMap != null) {
+                MapSupport.createMarker(mMap, DealPreferences.getLatitude(this.
+                        getApplicationContext()), DealPreferences.getLongitude(this.
+                        getApplicationContext()), "current", this, "");
+                MapSupport.createMarker(mMap, dealDTO.getLat(), dealDTO.getLng(),
+                        "position", this, dealDTO.getDiscount() + "%");
 
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                try {
+                mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        try {
 
-                    if (dealDTO.getWebsite() != null && !dealDTO.equals("")) {
-                        Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(dealDTO.getWebsite()));
-                        startActivity(myIntent);
+                            if (dealDTO.getWebsite() != null && !dealDTO.equals("")) {
+                                Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(dealDTO.getWebsite()));
+                                startActivity(myIntent);
+                            }
+                        } catch (Exception e) {
+                            Toast.makeText(mActivity, "No application can handle this request."
+                                    + " Please install a web browser", Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        }
+                        return true;
                     }
-                } catch (Exception e) {
-                    Toast.makeText(mActivity, "No application can handle this request."
-                            + " Please install a web browser", Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
-                }
-                return true;
-            }
-        });
-        new MapSupport().drawPath(DealPreferences.getLatitude(this.
-                getApplicationContext()), DealPreferences.getLongitude(this.
-                getApplicationContext()), dealDTO.getLat(), dealDTO.getLng(), mMap);
+                });
+                new MapSupport().drawPath(DealPreferences.getLatitude(this.
+                        getApplicationContext()), DealPreferences.getLongitude(this.
+                        getApplicationContext()), dealDTO.getLat(), dealDTO.getLng(), mMap);
 //        new MapSupport().drawPath(DealPreferences.getLatitude(this.
 //                getApplicationContext()), DealPreferences.getLongitude(this.
 //                getApplicationContext()), 27.221721, 77.488052, mMap);
+//        LatLng currentLatlng=new LatLng(DealPreferences.getLatitude(this.
+//                getApplicationContext()), DealPreferences.getLongitude(this.
+//                getApplicationContext()));
+//        LatLng dealLatlng=new LatLng( dealDTO.getLat(), dealDTO.getLng());
+//        LatLngBounds latLngBounds= new LatLngBounds.Builder().build();
+//        latLngBounds.including(currentLatlng);
+//        latLngBounds.including(dealLatlng);
+//
+//        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 20));
+                mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(LatLng point) {
 
-            @Override
-            public void onMapClick(LatLng point) {
-
-                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                        Uri.parse("http://maps.google.com/maps?saddr=" + DealPreferences.getLatitude(BuyCouponActivity.this) + ","
-                                + DealPreferences.getLongitude(BuyCouponActivity.this) + "&daddr=" +
-                                dealDTO.getLat() + "," + dealDTO.getLng() + ""));
-                startActivity(intent);
+                        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                                Uri.parse("http://maps.google.com/maps?saddr=" + DealPreferences.getLatitude(BuyCouponActivity.this) + ","
+                                        + DealPreferences.getLongitude(BuyCouponActivity.this) + "&daddr=" +
+                                        dealDTO.getLat() + "," + dealDTO.getLng() + ""));
+                        startActivity(intent);
+                    }
+                });
             }
-        });
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

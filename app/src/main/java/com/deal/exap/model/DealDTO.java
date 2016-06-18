@@ -68,15 +68,26 @@ public class DealDTO implements Serializable {
     @DatabaseField
     private int total_codes;
 
+    private String view_count;
     private double lat;
 
     private double lng;
+
+
 
     private String is_chat_on;
 
     private List<String> deal_images;
 
     private String website;
+
+    public String getView_count() {
+        return view_count;
+    }
+
+    public void setView_count(String view_count) {
+        this.view_count = view_count;
+    }
 
     public String getPartner_name_eng() {
         return partner_name_eng;

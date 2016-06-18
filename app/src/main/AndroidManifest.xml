@@ -89,6 +89,12 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
+            android:name=".login.ForgetPasswordActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity
             android:name=".login.NumberVerificationActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"

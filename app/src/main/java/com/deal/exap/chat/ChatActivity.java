@@ -147,11 +147,24 @@ public class ChatActivity extends BaseActivity {
                                             etMessage.setText("");
 
                                             chatList.clear();
-                                            chatAdatper.setChatList(chat.getMessageList());
-                                            chatAdatper.notifyDataSetChanged();
+                                            chatList = chat.getMessageList();
+                                            if (chat.getMessageList() != null && chat.getMessageList().size() > 0) {
+                                                if (chatAdatper == null) {
+                                                    chatAdatper = new ChatListAdapter((Activity) mContext, chat.getMessageList());
+
+                                                    lvChat.setAdapter(chatAdatper);
+
+                                                } else {
+                                                    chatAdatper.setChatList(chatList);
+                                                    chatAdatper.notifyDataSetChanged();
+                                                    lvChat.smoothScrollToPosition(chatList.size());
+
+                                                }
+                                            }
                                         }
                                     } else {
-                                        Utils.showDialog(mContext, "Message", Utils.getWebServiceMessage(response));
+                                        Utils.showDialog(mContext, "Message",
+                                                Utils.getWebServiceMessage(response));
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -194,9 +207,11 @@ public class ChatActivity extends BaseActivity {
 
                                 Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                 chatDTO = new Gson().fromJson(response.toString(), ChatDTO.class);
-                                if (chatDTO.isStatus()) {
+                                setChatList();
+
+                                if (chatDTO.getMessageList() != null && chatDTO.getMessageList().size() != 0) {
                                     lvChat.setVisibility(View.VISIBLE);
-                                    setChatList();
+
                                 } else {
                                     lvChat.setVisibility(View.GONE);
                                     String msg = response.getString("message");
@@ -266,10 +281,6 @@ public class ChatActivity extends BaseActivity {
                     chatAdatper.notifyDataSetChanged();
 
                 }
-            } else {
-
-                Utils.showDialog(this, getString(R.string.message), getString(R.string.alert_empty_inbox));
-
             }
         } else {
 

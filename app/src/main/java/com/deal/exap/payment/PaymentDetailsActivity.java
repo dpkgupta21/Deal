@@ -6,7 +6,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.Editable;
@@ -20,9 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.deal.exap.R;
 import com.deal.exap.customviews.CustomProgressDialog;
@@ -55,11 +52,11 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
 
 
     // For production
-//    private static final String APPLICATIONIDENTIFIER = "Hyperpay.6085WorldOfSS.mcommerce";//"gate2play.WorldofSS.mcommerce.test";
-//    private static final String PROFILETOKEN = "44a2f1d0f1a711e5a7dc11fc67275b56"; //"930e6e9744154563afc4718ab0352b9a";
+    private static final String APPLICATIONIDENTIFIER = "Hyperpay.6085WorldOfSS.mcommerce";//"gate2play.WorldofSS.mcommerce.test";
+    private static final String PROFILETOKEN = "44a2f1d0f1a711e5a7dc11fc67275b56"; //"930e6e9744154563afc4718ab0352b9a";
 
-    private static final String APPLICATIONIDENTIFIER = "payworks.sandbox";
-    private static final String PROFILETOKEN = "20d5a0d5ce1d4501a4826a8b7e159d19";
+//    private static final String APPLICATIONIDENTIFIER = "payworks.sandbox";
+//    private static final String PROFILETOKEN = "20d5a0d5ce1d4501a4826a8b7e159d19";
 
     private ServiceConnection _serviceConnection = new ServiceConnection() {
         @Override

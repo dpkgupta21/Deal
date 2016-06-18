@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_gravity="center"
-            android:src="@drawable/bottom_logo" />
+            android:src="@drawable/top_logo" />
 
         <com.deal.exap.customviews.MyTextViewReg14
             android:layout_width="match_parent"
