@@ -502,7 +502,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
             setTextViewText(R.id.txt_details, dealDTO.getDetail_eng());
         }
 
-        setTextViewText(R.id.txt_views_val, dealDTO.getView_count() );
+        setTextViewText(R.id.txt_views_val, dealDTO.getView_count());
 
         Button btn_purchase = (Button) findViewById(R.id.btn_buy);
 
@@ -1016,7 +1016,8 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                         try {
 
                             if (dealDTO.getWebsite() != null && !dealDTO.equals("")) {
-                                Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(dealDTO.getWebsite()));
+                                Intent myIntent = new Intent(Intent.ACTION_VIEW,
+                                        Uri.parse(dealDTO.getWebsite()));
                                 startActivity(myIntent);
                             }
                         } catch (Exception e) {
@@ -1027,21 +1028,27 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                         return true;
                     }
                 });
-                new MapSupport().drawPath(DealPreferences.getLatitude(this.
-                        getApplicationContext()), DealPreferences.getLongitude(this.
-                        getApplicationContext()), dealDTO.getLat(), dealDTO.getLng(), mMap);
+//                new MapSupport().drawPath(DealPreferences.getLatitude(this.
+//                        getApplicationContext()), DealPreferences.getLongitude(this.
+//                        getApplicationContext()), dealDTO.getLat(), dealDTO.getLng(), mMap);
 //        new MapSupport().drawPath(DealPreferences.getLatitude(this.
 //                getApplicationContext()), DealPreferences.getLongitude(this.
 //                getApplicationContext()), 27.221721, 77.488052, mMap);
-//        LatLng currentLatlng=new LatLng(DealPreferences.getLatitude(this.
-//                getApplicationContext()), DealPreferences.getLongitude(this.
-//                getApplicationContext()));
-//        LatLng dealLatlng=new LatLng( dealDTO.getLat(), dealDTO.getLng());
+
 //        LatLngBounds latLngBounds= new LatLngBounds.Builder().build();
 //        latLngBounds.including(currentLatlng);
 //        latLngBounds.including(dealLatlng);
 //
 //        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 20));
+
+                LatLng currentLatlng = new LatLng(DealPreferences.getLatitude(this.
+                        getApplicationContext()), DealPreferences.getLongitude(this.
+                        getApplicationContext()));
+                LatLng dealLatlng = new LatLng(dealDTO.getLat(), dealDTO.getLng());
+                LatLngBounds settingBounds = new LatLngBounds(
+                         dealLatlng, currentLatlng);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(settingBounds, 50));
+
                 mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
                     @Override
