@@ -102,14 +102,14 @@ public class CategoryDealListActivity extends BaseActivity {
                         public void onResponse(JSONObject response) {
                             try {
                                 if (response.getBoolean("status")) {
-                                    mRecyclerView.setVisibility(View.VISIBLE);
+                                    mSwipeRefreshLayout.setVisibility(View.VISIBLE);
                                     Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                     Type type = new TypeToken<ArrayList<DealDTO>>() {
                                     }.getType();
                                     dealList = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
                                     setDealList();
                                 } else {
-                                    mRecyclerView.setVisibility(View.GONE);
+                                    mSwipeRefreshLayout.setVisibility(View.GONE);
                                     String msg = response.getString("message");
                                     TextView txt_blank = (TextView) findViewById(R.id.txt_blank);
                                     txt_blank.setVisibility(View.VISIBLE);

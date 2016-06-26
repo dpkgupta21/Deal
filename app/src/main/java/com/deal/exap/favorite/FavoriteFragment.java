@@ -25,6 +25,7 @@ import com.deal.exap.databasemanager.DatabaseHelper;
 import com.deal.exap.databasemanager.DatabaseManager;
 import com.deal.exap.deal.CategoryDealListActivity;
 import com.deal.exap.favorite.adapter.FavoriteListAdapter;
+import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.CategoryDTO;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
@@ -74,6 +75,7 @@ public class FavoriteFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_favorite, container, false);
+        ((BaseActivity) getActivity()).resetToolbar(getString(R.string.menu_favorite));
         return view;
 
     }

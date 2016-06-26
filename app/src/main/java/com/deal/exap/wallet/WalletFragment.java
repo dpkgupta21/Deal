@@ -22,6 +22,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
+import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.partner.FollowingPartnerDetails;
@@ -65,10 +66,11 @@ public class WalletFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         view = inflater.inflate(R.layout.fragment_wallet, container, false);
+        ((BaseActivity) getActivity()).resetToolbar(getString(R.string.menu_wallet));
         return view;
     }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -145,18 +147,18 @@ public class WalletFragment extends Fragment {
                         public void onResponse(JSONObject response) {
                             try {
                                 TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
-                                if(Utils.getWebServiceStatus(response)) {
+                                if (Utils.getWebServiceStatus(response)) {
                                     Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                                     Type type = new TypeToken<ArrayList<DealDTO>>() {
                                     }.getType();
                                     walletValues = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
-                                    if(walletValues.size()!=0) {
+                                    if (walletValues.size() != 0) {
                                         setWalletValues();
-                                    }else{
+                                    } else {
                                         mRecyclerView.setVisibility(View.GONE);
                                         txt_blank.setVisibility(View.VISIBLE);
                                     }
-                                }else{
+                                } else {
                                     mRecyclerView.setVisibility(View.GONE);
                                     String msg = response.getString("message");
                                     txt_blank.setVisibility(View.VISIBLE);

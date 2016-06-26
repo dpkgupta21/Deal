@@ -34,6 +34,7 @@ public class CategoriesListAdapter extends RecyclerView
         TextView txtFolloNumber;
         ImageView ivThumb;
         ImageView imgLike;
+        ImageView imgCategoryIcon;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
@@ -42,6 +43,7 @@ public class CategoriesListAdapter extends RecyclerView
             txtFolloNumber = (TextView) itemView.findViewById(R.id.txt_follower_number);
             ivThumb = (ImageView) itemView.findViewById(R.id.thumbnail);
             imgLike = (ImageView) itemView.findViewById(R.id.img_like);
+            imgCategoryIcon = (ImageView) itemView.findViewById(R.id.img_category);
             ivThumb.setOnClickListener(this);
             imgLike.setOnClickListener(this);
         }
@@ -69,9 +71,9 @@ public class CategoriesListAdapter extends RecyclerView
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
-                .showImageOnLoading(R.drawable.default_img)
-                .showImageOnFail(R.drawable.default_img)
-                .showImageForEmptyUri(R.drawable.default_img)
+                .showImageOnLoading(R.drawable.auto_icon)
+                .showImageOnFail(R.drawable.auto_icon)
+                .showImageForEmptyUri(R.drawable.auto_icon)
                 .build();
     }
 
@@ -102,6 +104,9 @@ public class CategoriesListAdapter extends RecyclerView
 
 
         ImageLoader.getInstance().displayImage(categoryValues.get(position).getImage(), holder.ivThumb,
+                options);
+
+        ImageLoader.getInstance().displayImage(categoryValues.get(position).getIcon_image(), holder.imgCategoryIcon,
                 options);
     }
 

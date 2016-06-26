@@ -6,7 +6,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
@@ -18,6 +17,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.IBinder;
 import android.text.TextUtils;
 import android.util.Log;
@@ -56,17 +56,8 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.gson.Gson;
 import com.mobile.connect.PWConnect;
-import com.mobile.connect.checkout.dialog.PWConnectCheckoutActivity;
-import com.mobile.connect.checkout.meta.PWConnectCheckoutCreateToken;
-import com.mobile.connect.checkout.meta.PWConnectCheckoutPaymentMethod;
-import com.mobile.connect.checkout.meta.PWConnectCheckoutSettings;
 import com.mobile.connect.exception.PWException;
-import com.mobile.connect.exception.PWProviderNotInitializedException;
 import com.mobile.connect.payment.PWAccount;
-import com.mobile.connect.payment.PWCurrency;
-import com.mobile.connect.payment.PWPaymentParams;
-import com.mobile.connect.provider.PWTransaction;
-import com.mobile.connect.service.PWConnectService;
 import com.mobile.connect.service.PWProviderBinder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -85,12 +76,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.lang.String;
 
 public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallback {
 
@@ -114,6 +103,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
     private StringBuffer shareStr = new StringBuffer();
     private Activity mActivity;
     private String imageName;
+    private String currentLocation;
     //private int topHeight=0;
 
 
@@ -632,7 +622,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                     dealDTO.getPartner_name_eng();
         }
         merge = dealName + "" + ((partnerName == null || partnerName.equalsIgnoreCase("")) ?
-                "" : " @ " + partnerName);
+                "" : " " + getString(R.string.txt_at_the_rate_of) + " " + partnerName);
         intent.putExtra("dealName", merge);
         intent.putExtra("BUY_PRICE", price);
         startActivityForResult(intent, 10001);
@@ -1028,9 +1018,9 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                         return true;
                     }
                 });
-//                new MapSupport().drawPath(DealPreferences.getLatitude(this.
-//                        getApplicationContext()), DealPreferences.getLongitude(this.
-//                        getApplicationContext()), dealDTO.getLat(), dealDTO.getLng(), mMap);
+                new MapSupport().drawPath(DealPreferences.getLatitude(this.
+                        getApplicationContext()), DealPreferences.getLongitude(this.
+                        getApplicationContext()), dealDTO.getLat(), dealDTO.getLng(), mMap);
 //        new MapSupport().drawPath(DealPreferences.getLatitude(this.
 //                getApplicationContext()), DealPreferences.getLongitude(this.
 //                getApplicationContext()), 27.221721, 77.488052, mMap);
@@ -1041,12 +1031,22 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 //
 //        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 20));
 
+                retrieveAddress(DealPreferences.getLatitude(this.
+                        getApplicationContext()), DealPreferences.getLongitude(this.
+                        getApplicationContext()));
+
                 LatLng currentLatlng = new LatLng(DealPreferences.getLatitude(this.
                         getApplicationContext()), DealPreferences.getLongitude(this.
                         getApplicationContext()));
                 LatLng dealLatlng = new LatLng(dealDTO.getLat(), dealDTO.getLng());
-                LatLngBounds settingBounds = new LatLngBounds(
-                         dealLatlng, currentLatlng);
+                LatLngBounds settingBounds = null;
+                try {
+                    settingBounds = new LatLngBounds(
+                            dealLatlng, currentLatlng);
+                } catch (IllegalArgumentException e) {
+                    settingBounds = new LatLngBounds(
+                            currentLatlng, dealLatlng);
+                }
                 mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(settingBounds, 50));
 
                 mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -1054,10 +1054,16 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                     @Override
                     public void onMapClick(LatLng point) {
 
+//                        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+//                                Uri.parse("http://maps.google.com/maps?saddr=" + DealPreferences.getLatitude(BuyCouponActivity.this) + ","
+//                                        + DealPreferences.getLongitude(BuyCouponActivity.this) + "&daddr=" +
+//                                        dealDTO.getLat() + "," + dealDTO.getLng() + ""));
+
                         Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                                Uri.parse("http://maps.google.com/maps?saddr=" + DealPreferences.getLatitude(BuyCouponActivity.this) + ","
-                                        + DealPreferences.getLongitude(BuyCouponActivity.this) + "&daddr=" +
-                                        dealDTO.getLat() + "," + dealDTO.getLng() + ""));
+                                Uri.parse("http://maps.google.com/maps?saddr='" +
+                                        currentLocation + "'&daddr='" +
+                                        dealDTO.getLocation() + "'"));
+
                         startActivity(intent);
                     }
                 });
@@ -1067,5 +1073,21 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         }
     }
 
+
+    private void retrieveAddress(final double lat, final double lng) {
+        Handler handler = new Handler();
+        Runnable r = new Runnable() {
+            public void run() {
+                String address = Utils.getAddress(lat, lng,
+                        mActivity);
+                if (address != null) {
+                    currentLocation = address;
+                }
+
+            }
+        };
+        handler.post(r);
+
+    }
 
 }

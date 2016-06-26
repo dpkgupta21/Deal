@@ -1,6 +1,5 @@
 package com.deal.exap.navigationdrawer;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -223,12 +222,11 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public void onClick(View view) {
-
-
         if (view == itemAlert) {
             resideMenu.closeMenu();
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
-                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
+                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login),
+                        "Login", "Cancel", login);
             } else {
                 changeFragment(AlertFragment.newInstance(false));
                 setHeader(getString(R.string.menu_alert));
@@ -240,7 +238,8 @@ public class HomeActivity extends BaseActivity {
         } else if (view == itemWallet) {
             resideMenu.closeMenu();
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
-                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
+                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login),
+                        "Login", "Cancel", login);
             } else {
                 changeFragment(new WalletFragment());
                 setHeader(getString(R.string.menu_wallet));
@@ -252,7 +251,8 @@ public class HomeActivity extends BaseActivity {
         } else if (view == itemFavorite) {
             resideMenu.closeMenu();
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
-                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
+                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login),
+                        "Login", "Cancel", login);
             } else {
                 changeFragment(new FavoriteFragment());
                 setHeader(getString(R.string.menu_favorite));
@@ -260,7 +260,8 @@ public class HomeActivity extends BaseActivity {
         } else if (view == itemFollowing) {
             resideMenu.closeMenu();
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
-                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
+                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login),
+                        "Login", "Cancel", login);
             } else {
                 changeFragment(new FollowingFragment());
                 setHeader(getString(R.string.menu_following));
@@ -268,11 +269,14 @@ public class HomeActivity extends BaseActivity {
         } else if (view == itemCategory) {
             resideMenu.closeMenu();
             changeFragment(new CategoriesFragment());
-            setHeader(getString(R.string.menu_home));
+            //setHeader(getString(R.string.menu_home));
+            //removeToolbar();
+            setHeader("");
         } else if (view == itemSetting) {
             resideMenu.closeMenu();
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
-                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login), "Login", "Cancel", login);
+                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login),
+                        "Login", "Cancel", login);
             } else {
 
                 changeFragment(new SettingFragment());
@@ -286,9 +290,11 @@ public class HomeActivity extends BaseActivity {
                 ///  isopend = true;
                 if (resideMenu.isOpened() == false) {
 
-                    if (DealPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ENGLISH_CODE)) {
+                    if (DealPreferences.getAPP_LANG(mContext).
+                            contains(Constant.LANG_ENGLISH_CODE)) {
                         resideMenu.openMenu(ResideMenuSecond.DIRECTION_LEFT);
-                    } else if (DealPreferences.getAPP_LANG(mContext).contains(Constant.LANG_ARABIC_CODE)) {
+                    } else if (DealPreferences.getAPP_LANG(mContext).
+                            contains(Constant.LANG_ARABIC_CODE)) {
                         resideMenu.openMenu(ResideMenuSecond.DIRECTION_RIGHT);
                     }
 

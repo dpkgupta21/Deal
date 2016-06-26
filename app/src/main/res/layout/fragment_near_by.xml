@@ -3,6 +3,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/header"
+        android:visibility="invisible"/>
+
     <include
         layout="@layout/coupon_filter"
         android:layout_width="fill_parent"
@@ -21,8 +24,7 @@
                 android:id="@+id/recycler_view_nearby"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="vertical"
-                />
+                android:scrollbars="vertical" />
 
             <com.deal.exap.customviews.MyTextViewLightCustom
                 android:id="@+id/txt_blank"

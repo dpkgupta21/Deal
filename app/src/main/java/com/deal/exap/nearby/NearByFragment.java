@@ -28,6 +28,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
+import com.deal.exap.login.BaseActivity;
 import com.deal.exap.login.BaseFragment;
 import com.deal.exap.model.CategoryDTO;
 import com.deal.exap.model.DealDTO;
@@ -98,7 +99,7 @@ public class NearByFragment extends BaseFragment {
         // Inflate the layout for this fragment
 
         view = inflater.inflate(R.layout.fragment_near_by, container, false);
-
+        ((BaseActivity) getActivity()).resetToolbar(getString(R.string.menu_near_by));
         init();
 
         return view;

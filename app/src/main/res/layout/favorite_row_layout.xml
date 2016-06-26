@@ -26,27 +26,29 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_alignParentLeft="true">
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/number_layout">
 
                 <ImageView
                     android:id="@+id/img_category"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/auto_icon" />
+                    android:layout_gravity="center_vertical" />
 
                 <com.deal.exap.customviews.MyTextViewReg16
                     android:id="@+id/txt_category_name"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="5dp"
                     android:gravity="center_vertical"
-                    android:text=""
+                    android:maxLines="1"
+                    android:text="wvqdvef jefp rw prwj pwr reevwvwr rg "
                     android:textColor="@color/white"
                     android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/number_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true">
@@ -63,7 +65,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
                     android:gravity="center_vertical"
-                    android:text="3001"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 

@@ -24,6 +24,7 @@ import com.deal.exap.R;
 import com.deal.exap.databasemanager.DatabaseHelper;
 import com.deal.exap.databasemanager.DatabaseManager;
 import com.deal.exap.following.adapter.FollowingListAdapter;
+import com.deal.exap.login.BaseActivity;
 import com.deal.exap.misc.MyOnClickListener;
 import com.deal.exap.misc.RecyclerTouchListener;
 import com.deal.exap.model.FollowingDTO;
@@ -72,6 +73,7 @@ public class FollowingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_following, container, false);
+        ((BaseActivity) getActivity()).resetToolbar(getString(R.string.menu_following));
         return view;
     }
 

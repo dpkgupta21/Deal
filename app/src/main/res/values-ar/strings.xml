@@ -66,7 +66,7 @@
 
     <string name="menu_home">الرئيسية</string>
     <string name="menu_alert">الرسائل والاعلانات</string>
-    <string name="menu_near_by">عروض قريبة</string>
+    <string name="menu_near_by">العروض القریبة</string>
     <string name="menu_wallet">المحفظة</string>
     <string name="menu_interest">الاهتمامات</string>
     <string name="menu_favorite">المفضلة</string>
@@ -113,21 +113,25 @@
     -->
 
     <!--Payment Details Screen-->
+    <string name="payment_header">وسیلة الدفع</string>
     <string name="payment">دفع</string>
-    <string name="hint_card_no">بطاقة رقم</string>
-    <string name="hint_name_on_card">الاسم على البطاقة</string>
+    <string name="hint_card_no">رقم البطاقة</string>
+    <string name="hint_name_on_card">حامل إسم</string>
     <string name="hint_mm_yy">MM / YY</string>
-    <string name="hint_ccv">CVV</string>
+    <string name="hint_ccv">التحقق من البطاقة</string>
     <string name="btn_pay_usd">Pay USD 20</string>
     <string name="btn_save">حفظ</string>
     <string name="chk_remember_me">تذكرنى</string>
     <string name="title_payment_pop_up">تفاصيل الدفع</string>
     <string name="visa">Visa</string>
     <string name="master_card">Master Card</string>
-    <string name="lbl_order_total">الطلب الكلي</string>
-    <string name="lbl_quantity">1 الكمية</string>
+    <string name="lbl_order_total">المجموع الكلي </string>
+    <string name="lbl_quantity">1 من متجر</string>
     <string name="btn_pay_now">ادفع الآن</string>
-    <string name="terms_and_condition">أنا أوافق على الشروط والأحكام</string>
+    <string name="terms_and_condition">بواسطة الأجر، فإنك توافق على
+        EXAP’s <a href="https://www.exap.sa/beta/terms-conditions?lang=eng/ara
+">Terms of Use</a> and <a href="https://www.exap.sa/beta/terms-conditions?lang=eng/ara
+">Privacy Poilcy</a></string>
 
     <string name="alert_please_select_credit_card">الرجاء اختيار بطاقة الائتمان</string>
     <string name="alert_please_enter_card_number">الرجاء إدخال رقم بطاقة</string>
@@ -213,12 +217,13 @@
     <!--Store details Screen-->
     <string name="btn_reedme">خلص</string>
     <string name="title_activity_store_details">رسم خريطة</string>
-    <string name="txt_store_online">في مخزن وONLINE</string>
+    <string name="txt_store_online">المحلوالمتجر الإلكتروني</string>
     <string name="txt_store_dis">libero eu sed rhoncus varius, metus nulla ruturm magna, sed rhoncus  augue lectus porttitor nisi.</string>
     <string name="txt_discount_per">خصم</string>
     <string name="txt_store_price">اشتري الآن</string>
     <string name="txt_cutomer_review">تقييم العملاء</string>
     <string name="txt_term_condition">الشروط والأحكام</string>
+    <string name="txt_at_the_rate_of">من متجر</string>
 
 
     <!-- coupon Details Screen-->

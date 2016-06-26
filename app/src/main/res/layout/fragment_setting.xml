@@ -1,10 +1,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/screen_bg_color"
-    android:orientation="vertical"
-   >
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/header"
+        android:visibility="invisible" />
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -72,21 +75,21 @@
                         android:textSize="10sp" />
 
                     <!--<com.deal.exap.customviews.MyTextViewReg12-->
-                        <!--android:id="@+id/btn_slash"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="@string/txt_slash"-->
-                        <!--android:textSize="10sp" />-->
+                    <!--android:id="@+id/btn_slash"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="@string/txt_slash"-->
+                    <!--android:textSize="10sp" />-->
 
                     <!--<com.deal.exap.customviews.MyTextViewReg12-->
-                        <!--android:id="@+id/btn_select_miles"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:gravity="center"-->
-                        <!--android:padding="3dp"-->
-                        <!--android:text="@string/txt_filter_distance_unit_miles"-->
-                        <!--android:textColor="@color/black"-->
-                        <!--android:textSize="10sp" />-->
+                    <!--android:id="@+id/btn_select_miles"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center"-->
+                    <!--android:padding="3dp"-->
+                    <!--android:text="@string/txt_filter_distance_unit_miles"-->
+                    <!--android:textColor="@color/black"-->
+                    <!--android:textSize="10sp" />-->
                 </LinearLayout>
 
             </RelativeLayout>
@@ -199,19 +202,19 @@
 
             </RelativeLayout>
 
-            <com.deal.exap.customviews.MyTextViewReg14
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginTop="20dp"
-                android:visibility="invisible"
-                android:text="@string/txt_change_language" />
+            <!--<com.deal.exap.customviews.MyTextViewReg14-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:visibility="invisible"-->
+            <!--android:text="@string/txt_change_language" />-->
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="20dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:weightSum="1">
@@ -241,12 +244,10 @@
             </LinearLayout>
 
 
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/white">
 
                 <com.deal.exap.customviews.MyTextViewReg16
@@ -291,9 +292,9 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:layout_marginBottom="50dp"
                 android:orientation="horizontal">
 
 

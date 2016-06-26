@@ -25,6 +25,7 @@ import com.deal.exap.R;
 import com.deal.exap.customviews.CustomProgressDialog;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg12;
+import com.deal.exap.login.BaseActivity;
 import com.deal.exap.login.BaseFragment;
 import com.deal.exap.login.EditProfileActivity;
 import com.deal.exap.model.CountriesDTO;
@@ -87,6 +88,7 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
         // Inflate the layout for this fragment
 
         view = inflater.inflate(R.layout.fragment_setting, container, false);
+        ((BaseActivity) getActivity()).resetToolbar(getString(R.string.menu_setting));
         init();
 
         return view;

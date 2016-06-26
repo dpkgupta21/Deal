@@ -24,6 +24,7 @@ import com.deal.exap.R;
 import com.deal.exap.alert.adapter.AlertListAdapter;
 import com.deal.exap.alert.adapter.MessageListAdapter;
 import com.deal.exap.favorite.bean.DataObject;
+import com.deal.exap.login.BaseActivity;
 import com.deal.exap.login.BaseFragment;
 import com.deal.exap.model.ConversionsDTO;
 import com.deal.exap.model.NotificationDTO;
@@ -77,6 +78,7 @@ public class AlertFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_alert, container, false);
+        ((BaseActivity) getActivity()).resetToolbar(getString(R.string.menu_alert));
 
         init();
         return view;
@@ -178,31 +180,31 @@ public class AlertFragment extends BaseFragment {
             final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL,
                     params, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                if (response.getBoolean("status")) {
-                                    lvNotification.setVisibility(View.VISIBLE);
-                                    TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
-                                    txt_blank.setVisibility(View.GONE);
-                                    Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                    Type type = new TypeToken<ArrayList<NotificationDTO>>() {
-                                    }.getType();
-                                    notificationList = new Gson().fromJson(response.getJSONArray("notifications").toString(), type);
-                                    setNotificationList();
-                                } else {
-                                    lvNotification.setVisibility(View.GONE);
-                                    String msg = response.getString("message");
-                                    TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
-                                    txt_blank.setVisibility(View.VISIBLE);
-                                    txt_blank.setText(msg);
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            pdialog.dismiss();
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        if (response.getBoolean("status")) {
+                            lvNotification.setVisibility(View.VISIBLE);
+                            TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
+                            txt_blank.setVisibility(View.GONE);
+                            Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                            Type type = new TypeToken<ArrayList<NotificationDTO>>() {
+                            }.getType();
+                            notificationList = new Gson().fromJson(response.getJSONArray("notifications").toString(), type);
+                            setNotificationList();
+                        } else {
+                            lvNotification.setVisibility(View.GONE);
+                            String msg = response.getString("message");
+                            TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
+                            txt_blank.setVisibility(View.VISIBLE);
+                            txt_blank.setText(msg);
                         }
-                    }, new Response.ErrorListener() {
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    pdialog.dismiss();
+                }
+            }, new Response.ErrorListener() {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {

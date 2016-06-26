@@ -141,6 +141,7 @@
 
 
     <!--Payment Details Screen-->
+    <string name="payment_header">Payment</string>
     <string name="payment">Payment</string>
     <string name="hint_card_no">Card No.</string>
     <string name="hint_name_on_card">Name On Card</string>
@@ -157,7 +158,10 @@
     <string name="lbl_order_total">Order Total</string>
     <string name="lbl_quantity">1 Quantity</string>
     <string name="btn_pay_now">PAY NOW</string>
-    <string name="terms_and_condition">I agree to the terms &amp; conditions</string>
+    <string name="terms_and_condition">By pay, you agree to EXAP’s
+        <a href="https://www.exap.sa/beta/terms-conditions?lang=eng/ara
+">Terms of Use</a> and <a href="https://www.exap.sa/beta/terms-conditions?lang=eng/ara
+">Privacy Poilcy</a></string>
 
     <string name="alert_please_select_credit_card">Please select credit card</string>
     <string name="alert_please_enter_card_number">Please enter card number</string>
@@ -255,6 +259,7 @@
     <string name="title_activity_rate_coupon">Map</string>
     <string name="title_activity_buy_coupon">Map</string>
     <string name="txt_buy">Buy</string>
+    <string name="txt_at_the_rate_of">\@</string>
     <string name="redeemed">Redeemed</string>
     <string name="on_fanta_pride">on Fanta Pride</string>
     <string name="street_berlin">21 Street, Hansonberg, Berlin</string>

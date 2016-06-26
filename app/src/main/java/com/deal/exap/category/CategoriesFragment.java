@@ -69,7 +69,7 @@ public class CategoriesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+
 
     }
 
@@ -80,6 +80,7 @@ public class CategoriesFragment extends Fragment {
         // Inflate the layout for this fragmen
 
         view = inflater.inflate(R.layout.fragment_blank, container, false);
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -87,7 +88,11 @@ public class CategoriesFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ((BaseActivity) getActivity()).setHeader(getString(R.string.menu_home));
+
+        // set title here
+        //((BaseActivity) getActivity()).setHeader("");
+
+
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_category);
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -112,6 +117,9 @@ public class CategoriesFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_categories, menu);
+
+        ((BaseActivity) getActivity()).removeToolbar();
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 

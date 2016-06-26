@@ -31,6 +31,7 @@ import com.deal.exap.category.CategoriesFragment;
 import com.deal.exap.customviews.MyTextViewReg16;
 import com.deal.exap.databasemanager.DatabaseHelper;
 import com.deal.exap.databasemanager.DatabaseManager;
+import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.InterestDTO;
 import com.deal.exap.model.UserDTO;
 import com.deal.exap.utility.Constant;
@@ -89,6 +90,7 @@ public class InterestFragment extends Fragment {
         // Inflate the layout for this fragment
 
         view = inflater.inflate(R.layout.fragment_interest, container, false);
+        ((BaseActivity) getActivity()).resetToolbar(getString(R.string.menu_interest));
         return view;
     }
 

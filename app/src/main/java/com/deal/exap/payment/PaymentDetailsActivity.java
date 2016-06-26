@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.Editable;
@@ -168,11 +169,12 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
     }
 
     private void init() {
-        setHeader(getString(R.string.payment));
+        setHeader(getString(R.string.payment_header));
         setLeftClick();
         setClick(R.id.btn_save);
         setClick(R.id.img_master_card);
         setClick(R.id.img_visa);
+        setClick(R.id.txt_payment_terms);
         months = Utils.getMonths();
         years = Utils.getYears();
 //        setClick(R.id.txt_month);
@@ -208,6 +210,12 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
                 creditCardType = PWCreditCardType.MASTERCARD;
                 setImageResourseBackground(R.id.img_visa, R.drawable.visa_grey);
                 setImageResourseBackground(R.id.img_master_card, R.drawable.mastercard);
+                break;
+            case R.id.txt_payment_terms:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://www.exap.sa/beta/terms-conditions?lang="
+                                + Utils.getSelectedLanguage(mActivity)));
+                startActivity(browserIntent);
                 break;
         }
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -45,12 +45,20 @@
 
     </LinearLayout>-->
 
-    <include layout="@layout/header" />
-
     <FrameLayout
         android:id="@+id/body_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"></FrameLayout>
 
-</LinearLayout>
+    <FrameLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/header" />
+
+
+    </FrameLayout>
+
+</RelativeLayout>
