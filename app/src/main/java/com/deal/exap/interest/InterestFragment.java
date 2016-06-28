@@ -34,6 +34,7 @@ import com.deal.exap.databasemanager.DatabaseManager;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.InterestDTO;
 import com.deal.exap.model.UserDTO;
+import com.deal.exap.payment.PaymentDetailsActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.HelpMe;
@@ -90,7 +91,8 @@ public class InterestFragment extends Fragment {
         // Inflate the layout for this fragment
 
         view = inflater.inflate(R.layout.fragment_interest, container, false);
-        ((BaseActivity) getActivity()).resetToolbar(getString(R.string.menu_interest));
+        mActivity = getActivity();
+        ((BaseActivity) mActivity).resetToolbar(getString(R.string.menu_interest));
         return view;
     }
 
@@ -264,9 +266,9 @@ public class InterestFragment extends Fragment {
         if (Utils.isOnline(getActivity())) {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.GET_INTEREST);
-            params.put("lang", Utils.getSelectedLanguage(getActivity()));
-            params.put("user_id", Utils.getUserId(getActivity()));
-            final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
+            params.put("lang", Utils.getSelectedLanguage(mActivity));
+            params.put("user_id", Utils.getUserId(mActivity));
+            final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -324,24 +326,32 @@ public class InterestFragment extends Fragment {
             }
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.ADD_INTEREST);
-            params.put("user_id", Utils.getUserId(getActivity()));
+            params.put("user_id", Utils.getUserId(mActivity));
             params.put("interest", interestIds.toString());
 
-            final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
+            final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Utils.ShowLog(Constant.TAG, "Response -> " + response.toString());
-                                pdialog.dismiss();
-                                CategoriesFragment categoriesFragment = new CategoriesFragment();
-                                FragmentManager fm = getFragmentManager();
-                                FragmentTransaction ft = fm
-                                        .beginTransaction();
-                                ft.replace(R.id.body_layout, categoriesFragment);
-                                ft.commit();
+                                if (Utils.getWebServiceStatus(response)) {
+                                    Utils.ShowLog(Constant.TAG, "Response -> " + response.toString());
+                                    pdialog.dismiss();
+                                    CategoriesFragment categoriesFragment = new CategoriesFragment();
+                                    FragmentManager fm = getFragmentManager();
+                                    FragmentTransaction ft = fm
+                                            .beginTransaction();
+                                    ft.replace(R.id.body_layout, categoriesFragment);
+                                    ft.commit();
+                                } else {
+                                    pdialog.dismiss();
+                                    Utils.showDialog(mActivity,
+                                            getString(R.string.alert_title_error),
+                                            Utils.getWebServiceMessage(response));
+                                }
                             } catch (Exception e) {
+                                pdialog.dismiss();
                                 e.printStackTrace();
                             }
                         }

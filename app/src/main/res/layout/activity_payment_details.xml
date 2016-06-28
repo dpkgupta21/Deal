@@ -205,7 +205,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
                     android:padding="10dp"
-                    gr
                     android:text="@string/terms_and_condition"
                     android:textColor="@color/black" />
             </LinearLayout>
