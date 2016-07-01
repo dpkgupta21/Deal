@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:src="@drawable/back_btn"
+            android:background="@drawable/circle_shape"
             android:visibility="invisible" />
 
         <ImageView

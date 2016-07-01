@@ -223,9 +223,16 @@ public class CategoriesFragment extends Fragment {
                     case R.id.thumbnail:
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("categoryDTO", categoryList.get(position));
+                        Intent intent = new Intent(getActivity(), HomeActivity.class);
+                        //intent.putExtras(bundle);
+                        intent.putExtra("categoryId", categoryList.get(position).getId());
+                        intent.putExtra("fragmentName", getActivity().getString(R.string.nearby_screen_title));
+                        startActivity(intent);
+
+
                         Intent i = new Intent(getActivity(), CategoryDealListActivity.class);
-                        i.putExtras(bundle);
-                        startActivity(i);
+//                        i.putExtras(bundle);
+//                        startActivity(i);
                         break;
                     case R.id.img_like:
                         addRemove(categoryList.get(position).getId(), categoryList.get(position).getFavourite());

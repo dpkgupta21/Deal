@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:padding="10dp"
-        android:text="Dee"
+        android:text=""
         android:textColor="@color/white" />
 
     <ImageView

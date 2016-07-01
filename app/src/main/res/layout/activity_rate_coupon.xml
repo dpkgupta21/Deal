@@ -59,7 +59,7 @@
                             android:id="@+id/txt_discount_rate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="35% off"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="12sp" />
 
@@ -67,7 +67,7 @@
                             android:id="@+id/txt_on_which"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="on Fanta Pride"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="10sp" />
 
@@ -76,8 +76,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/nav_nearby_icon"
-                            android:text="21Street, Hansonberg, Berlin "
                             android:gravity="center_vertical"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="10sp" />
 
@@ -106,7 +106,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="USD 10"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="12sp" />
 
@@ -130,14 +130,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:numStars="5"
-                            android:rating="5.0"
-                            android:stepSize="1.0" />
+                            android:stepSize="1.0"
+                            android:theme="@style/RatingBar" />
 
                         <com.deal.exap.customviews.MyTextViewRegCustom
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:text="(15)"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="6sp" />
                     </LinearLayout>
@@ -178,7 +178,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="30th Nov"
+                        android:text=""
                         android:textColor="@color/btn_color"
                         android:textSize="14sp" />
 
@@ -202,7 +202,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="456"
+                        android:text=""
                         android:textColor="@color/btn_color"
                         android:textSize="14sp" />
 
@@ -226,7 +226,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="1.2 Km"
+                        android:text=""
                         android:textColor="@color/btn_color"
                         android:textSize="14sp" />
 
@@ -240,8 +240,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:gravity="center_horizontal"
-                android:textSize="14sp"
                 android:text="@string/txt_store_online"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <com.deal.exap.customviews.MyTextViewLightCustom
@@ -249,7 +249,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:padding="10dp"
-                android:text="@string/txt_store_dis"
+                android:text=""
                 android:textSize="12sp" />
 
             <LinearLayout
@@ -268,7 +268,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="AD457S"
+                        android:text=""
                         android:textSize="16sp"
                         android:textStyle="bold" />
 

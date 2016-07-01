@@ -27,7 +27,7 @@
         android:layout_below="@id/image_home"
         android:layout_marginTop="15dp"
         android:gravity="center_horizontal"
-        android:text="@string/title"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="30sp" />
 
@@ -39,7 +39,7 @@
         android:layout_below="@id/txt_title"
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
-        android:text="@string/title"
+        android:text=""
         android:textColor="@color/white" />
 
 </RelativeLayout>

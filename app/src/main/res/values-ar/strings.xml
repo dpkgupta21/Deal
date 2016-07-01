@@ -1,6 +1,9 @@
 <resources>
 
 
+    <string name="percent_sign"> % - </string>
+    <string name="percent_off">خصم</string>
+
     <!-- Sign up screen arabic-->
     <string name="profile_header">الملف الشخصي</string>
     <string name="add_photo">إضافة صورة</string>
@@ -186,7 +189,7 @@
     <!-- Near By Screen-->
     <string name="txt_end_date">تينتهي في:</string>
     <string name="txt_views">المشاهدات</string>
-    <string name="txt_distance">المسافة</string>
+    <string name="txt_distance">يبعد</string>
     <string name="txt_filter_distance_unit_km">ككم</string>
     <string name="txt_filter_distance_unit_miles">مميل</string>
     <string name="txt_discount">خصم</string>
@@ -234,7 +237,7 @@
     <string name="title_activity_rate_coupon">رسم خريطة</string>
     <string name="title_activity_buy_coupon">رسم خريطة</string>
     <string name="txt_buy">شراء</string>
-    <string name="redeemed">تم شراءها</string>
+    <string name="redeemed">عدد المشترين</string>
     <string name="on_fanta_pride">على فانتا الكبرياء</string>
     <string name="street_berlin">21 شارع Hansonberg، برلين</string>
 
@@ -277,14 +280,14 @@
 
     <!-- Edit Profile screen -->
     <string name="change_photo">تغيير صور</string>
-    <string name="full_name">الاسم الكامل</string>
+    <string name="full_name">الاسم كاملا</string>
     <string name="enter_here">أدخل هنا</string>
-    <string name="age">سن</string>
-    <string name="gender">جنس</string>
+    <string name="age">العمر</string>
+    <string name="gender">الجنس</string>
     <string name="years">تاريخ الميلاد</string>
     <string name="select_hint">اختار</string>
     <string name="save_changes">حفظ التغيرات</string>
-    <string name="location">موقع</string>
+    <string name="location">الموقع الجغرافي</string>
     <string name="done">فعله</string>
     <string name="edit_profile_header">تعديل الملف الشخصي</string>
 

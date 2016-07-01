@@ -99,7 +99,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="3dp"
-                            android:text="30 sep 2015"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="8sp" />
 
@@ -186,11 +186,11 @@
 
                     <RatingBar
                         android:id="@+id/rating_bar"
+                        android:theme="@style/RatingBar"
                         style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:numStars="5"
-                        android:rating="5"
                         android:stepSize="1.0" />
 
                     <com.deal.exap.customviews.MyTextViewRegCustom
@@ -198,7 +198,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
-                        android:text="(15)"
+                        android:text=""
                         android:layout_marginRight="2dp"
                         android:textColor="@color/white"
                         android:textSize="8sp" />

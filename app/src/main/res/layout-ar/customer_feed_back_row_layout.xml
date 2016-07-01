@@ -16,13 +16,13 @@
 
         <RatingBar
             android:id="@+id/ratingBar"
+            android:theme="@style/RatingBar"
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:numStars="5"
-            android:rating="2.0"
             android:stepSize="1.0" />
 
         <com.deal.exap.customviews.MyTextViewReg14
@@ -32,7 +32,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
             android:singleLine="false"
-            android:text="@string/its_great_to_save_money" />
+            android:text="" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,13 +48,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
-                android:text=" | 23 Sep | 11:00 PM " />
+                android:text="" />
 
             <com.deal.exap.customviews.MyTextViewReg12
                 android:id="@+id/txt_customer_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/feedback_name"
+                android:text=""
                 android:textColor="@color/btn_color" />
 
 

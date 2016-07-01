@@ -5,7 +5,8 @@
 -->
     <string name="facebook_app_id">1108744365854962</string>
 
-    <string name="percent_off"> % - off</string>
+    <string name="percent_sign"> % - </string>
+    <string name="percent_off">off</string>
     <!-- Splash screen-->
     <string name="title">Lorem ipsum</string>
     <string name="title_separator">|</string>

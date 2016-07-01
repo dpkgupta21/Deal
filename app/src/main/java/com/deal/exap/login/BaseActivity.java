@@ -294,6 +294,7 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener,
         ImageView ivLeft = (ImageView) toolbar.findViewById(R.id.iv_back);
         ivLeft.setVisibility(View.VISIBLE);
         ivLeft.setOnClickListener(this);
+
         ivLeft.setImageResource(drawbleId);
     }
 

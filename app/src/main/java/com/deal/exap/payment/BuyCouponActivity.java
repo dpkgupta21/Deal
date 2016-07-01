@@ -483,7 +483,8 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 //            setViewVisibility(R.id.btn_buy_deal, View.GONE);
 //            setViewVisibility(R.id.btn_redeem, View.VISIBLE);
 //        }
-        setTextViewText(R.id.txt_discount_rate, dealDTO.getDiscount() + getString(R.string.percent_off));
+        setTextViewText(R.id.txt_discount_rate, dealDTO.getDiscount() +
+                getString(R.string.percent_sign)+ getString(R.string.percent_off));
         if (HelpMe.isArabic(this)) {
             setTextViewText(R.id.txt_on_which, dealDTO.getName_ara());
             setTextViewText(R.id.txt_details, dealDTO.getDetail_ara());

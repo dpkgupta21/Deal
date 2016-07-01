@@ -75,7 +75,7 @@
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/place_marker"
                             android:singleLine="true"
-                            android:text="@string/street_berlin"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="14sp" />
 

@@ -277,6 +277,7 @@ public class SignInFragment extends BaseFragment {
                                     System.out.println("Success");
                                     //String jsonresult = String.valueOf(json);
                                     try {
+                                        String pictureUrl= json.getJSONObject("picture").getJSONObject("data").getString("url");
                                         doSocialLogin("facebook", json.getString("email"),
                                                 json.getString("id"), json.getString("name"));
                                     } catch (Exception e) {
@@ -290,7 +291,7 @@ public class SignInFragment extends BaseFragment {
                 );
                 Bundle param = new Bundle();
                 //, gender, birthday, first_name, last_name, link
-                param.putString("fields", "id, name, email");
+                param.putString("fields", "id, name, email, gender,birthday, picture.type(large)");
                 req.setParameters(param);
                 req.executeAsync();
             }

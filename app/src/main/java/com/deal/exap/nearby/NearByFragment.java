@@ -1,5 +1,6 @@
 package com.deal.exap.nearby;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -75,9 +77,20 @@ public class NearByFragment extends BaseFragment {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     //private List<CategoryDTO> categoryList;
     private Dialog dialog;
+    private Activity mActivity;
+
 
     public static NearByFragment newInstance() {
         NearByFragment fragment = new NearByFragment();
+
+        return fragment;
+    }
+
+    public static NearByFragment newInstance(String categoryId) {
+        NearByFragment fragment = new NearByFragment();
+        Bundle b = new Bundle();
+        b.putString("categoryId", categoryId);
+        fragment.setArguments(b);
 
         return fragment;
     }
@@ -99,6 +112,7 @@ public class NearByFragment extends BaseFragment {
         // Inflate the layout for this fragment
 
         view = inflater.inflate(R.layout.fragment_near_by, container, false);
+        mActivity = getActivity();
         ((BaseActivity) getActivity()).resetToolbar(getString(R.string.menu_near_by));
         init();
 
@@ -156,7 +170,14 @@ public class NearByFragment extends BaseFragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        getDealList();
+        Bundle bundle = getArguments();
+        String categoryId = "";
+        if (bundle != null) {
+            categoryId = bundle.getString("categoryId", "");
+            getCategoryDealList(categoryId);
+        } else {
+            getDealList();
+        }
 
 
         // Add pull to refresh functionality
@@ -167,6 +188,27 @@ public class NearByFragment extends BaseFragment {
             public void onRefresh() {
                 getDealList();
                 mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                boolean enable = false;
+                if (mRecyclerView != null && mRecyclerView.getChildCount() > 0) {
+                    // check if the first item of the list is visible
+                    boolean firstItemVisible = ((GridLayoutManager) mRecyclerView.getLayoutManager()).findFirstVisibleItemPosition() == 0;
+                    // check if the top of the first item is visible
+                    boolean topOfFirstItemVisible = mRecyclerView.getChildAt(0).getTop() == 0;
+                    // enabling or disabling the refresh layout
+                    enable = firstItemVisible && topOfFirstItemVisible;
+                }
+                mSwipeRefreshLayout.setEnabled(enable);
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
             }
         });
 
@@ -264,6 +306,69 @@ public class NearByFragment extends BaseFragment {
         }
     }
 
+    public void getCategoryDealList(String categoryId) {
+        if (Utils.isOnline(mActivity)) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constant.GET_CATEGORY_DEAL);
+            params.put("lang", Utils.getSelectedLanguage(mActivity));
+            params.put("lng", String.valueOf(DealPreferences.getLongitude(mActivity)));
+            params.put("lat", String.valueOf(DealPreferences.getLatitude(mActivity)));
+            params.put("category_id", categoryId);
+            params.put("user_id", Utils.getUserId(mActivity));
+            final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
+
+            CustomJsonRequest postReq = new CustomJsonRequest(
+                    Request.Method.POST,
+                    Constant.SERVICE_BASE_URL,
+                    params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                if (response.getBoolean("status")) {
+                                    mRecyclerView.setVisibility(View.VISIBLE);
+                                    TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
+                                    txt_blank.setVisibility(View.GONE);
+                                    Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                    Type type = new TypeToken<ArrayList<DealDTO>>() {
+                                    }.getType();
+                                    dealList = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
+//                                    for (DealDTO dealOBJ : dealList) {
+//                                        visibleDealList.add(dealOBJ);
+//                                    }
+                                    //visibleDealList = dealList;
+                                    setDealList();
+                                } else {
+                                    mRecyclerView.setVisibility(View.GONE);
+                                    String msg = response.getString("message");
+                                    TextView txt_blank = (TextView) view.findViewById(R.id.txt_blank);
+                                    txt_blank.setVisibility(View.VISIBLE);
+                                    txt_blank.setText(msg);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            pdialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(mActivity);
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            pdialog.show();
+        } else {
+            Utils.showNoNetworkDialog(mActivity);
+        }
+    }
+
     public void getDealList() {
         if (Utils.isOnline(getActivity())) {
             Map<String, String> params = new HashMap<>();
@@ -274,6 +379,7 @@ public class NearByFragment extends BaseFragment {
             params.put("lng", String.valueOf(DealPreferences.getLongitude(getActivity().
                     getApplicationContext())));
             params.put("user_id", Utils.getUserId(getActivity()));
+
 
             final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,

@@ -32,7 +32,8 @@
                     android:id="@+id/iv_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/circle_shape"
                     android:scaleType="centerCrop"
                     android:src="@drawable/next_btn" />
 
@@ -41,7 +42,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:padding="5dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/circle_shape"
                     android:scaleType="centerCrop"
                     android:src="@drawable/chat_btn" />
 
@@ -90,7 +92,7 @@
                                     android:id="@+id/txt_discount_rate"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="35% off"
+                                    android:text=""
                                     android:textColor="@color/white"
                                     android:textSize="12sp" />
 
@@ -98,7 +100,7 @@
                                     android:id="@+id/txt_on_which"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/on_fanta_pride"
+                                    android:text=""
                                     android:textColor="@color/white"
                                     android:textSize="10sp" />
 
@@ -147,11 +149,11 @@
 
                             <RatingBar
                                 android:id="@+id/rating_bar"
+                                android:theme="@style/RatingBar"
                                 style="?android:attr/ratingBarStyleSmall"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:numStars="5"
-                                android:rating="5.0"
                                 android:stepSize="1.0" />
 
 
@@ -160,7 +162,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:gravity="center"
-                                android:text="(15)"
+                                android:text=""
                                 android:textColor="@color/white"
                                 android:textSize="6sp" />
                         </LinearLayout>
@@ -232,7 +234,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="456"
+                            android:text=""
                             android:textColor="@color/btn_color"
                             android:textSize="14sp" />
 
@@ -286,7 +288,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:padding="10dp"
-                    android:text="@string/txt_store_dis"
+                    android:text=""
                     android:textSize="12sp" />
 
                 <LinearLayout
@@ -307,7 +309,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="35%"
+                            android:text=""
                             android:textSize="18sp" />
 
                         <com.deal.exap.customviews.MyTextViewRegCustom
@@ -330,7 +332,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="$10"
+                            android:text=""
                             android:textSize="18sp" />
 
                     </LinearLayout>
@@ -358,7 +360,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="AD457S"
+                            android:text=""
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -384,7 +386,7 @@
                     android:drawableLeft="@drawable/clock_icon"
                     android:drawablePadding="10dp"
                     android:gravity="center_horizontal"
-                    android:text="@string/txt_time_left"
+                    android:text=""
                     android:textColor="@color/btn_green_color" />
 
 

@@ -168,7 +168,7 @@
                     style="@style/btn_style"
                     android:layout_width="fill_parent"
                     android:layout_marginTop="7dp"
-                    android:text="@string/btn_pay_usd" />
+                    android:text="" />
 
             </LinearLayout>
         </LinearLayout>
