@@ -37,17 +37,67 @@
         android:textColor="@color/white" />
 
 
-    <com.deal.exap.customviews.MyTextViewReg16
-        android:id="@+id/txt_note"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="@string/verification_note"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:orientation="horizontal">
+
+        <com.deal.exap.customviews.MyTextViewRegCustom
+            android:id="@+id/txt_sign_up_terms_and_policy"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="3dp"
+            android:gravity="center"
+            android:text="@string/verification_msg"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_sign_up_terms_and_policy"
+            android:layout_marginTop="3dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <com.deal.exap.customviews.MyTextViewRegCustom
+                android:id="@+id/txt_sign_up_terms_use"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="3dp"
+                android:gravity="left"
+                android:text="@string/terms_use"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <com.deal.exap.customviews.MyTextViewRegCustom
+                android:id="@+id/txt_and"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="3dp"
+                android:gravity="center"
+                android:text="@string/and"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <com.deal.exap.customviews.MyTextViewRegCustom
+                android:id="@+id/txt_sign_up_private_policy_use"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="3dp"
+                android:gravity="right"
+                android:text="@string/private_policy"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

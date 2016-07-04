@@ -180,12 +180,10 @@
                 android:textColor="@color/black" />
 
 
-
             <LinearLayout
                 android:id="@+id/linearayout_chk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -196,14 +194,66 @@
 
                     />
 
-                <TextView
-                    android:id="@+id/txt_payment_terms"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
-                    android:padding="10dp"
-                    android:text="@string/terms_and_condition"
-                    android:textColor="@color/black" />
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.deal.exap.customviews.MyTextViewRegCustom
+                        android:id="@+id/txt_payment_terms"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/payment_terms_and_condition"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_payment_terms"
+                        android:layout_marginTop="3dp"
+                        android:orientation="horizontal">
+
+                        <com.deal.exap.customviews.MyTextViewRegCustom
+                            android:id="@+id/txt_payment_terms_use"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginTop="20dp"
+                            android:text="@string/terms_use"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <com.deal.exap.customviews.MyTextViewRegCustom
+                            android:id="@+id/txt_and"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginTop="20dp"
+                            android:gravity="center"
+                            android:text="@string/and"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <com.deal.exap.customviews.MyTextViewRegCustom
+                            android:id="@+id/txt_payment_private_policy_use"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginTop="20dp"
+                            android:gravity="center"
+                            android:text="@string/private_policy"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
 
             <com.deal.exap.customviews.MyButtonViewSemi

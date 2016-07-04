@@ -143,7 +143,7 @@ public class SignUp extends BaseActivity {
     }
 
     public void showSexDialog() {
-        final CharSequence[] items = {"Male", "Female"};
+        final CharSequence[] items = {getString(R.string.male), getString(R.string.female)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose Gender");

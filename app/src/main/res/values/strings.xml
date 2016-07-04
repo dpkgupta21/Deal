@@ -13,7 +13,7 @@
     <string name="title_left">EXAP</string>
     <string name="title_right">اكسب</string>
 
-
+    <string name="category_deal_title">Category Deal</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -28,6 +28,16 @@
     </string>
     <string name="please_enter_username">Please enter username</string>
     <string name="please_enter_password">Please enter password</string>
+    <string name="login_terms">By using EXAP , you agree to EXAP</string>
+    <string name="terms_use"> <a href="https://www.exap.sa/beta/terms-conditions?lang=eng">Terms of Use</a></string>
+    <string name="and">and</string>
+    <string name="private_policy"><a href="https://www.exap.sa/beta/privacy-policy?lang=eng">Privacy Poilcy</a></string>
+
+    <string name="terms_of_use">Terms of use &lt;a href=\&quot;https://www.exap.sa/beta/terms-conditions?lang=eng\&quot;&gt;link1&lt;/a></string>
+    <string name="login_terms_and_conditions">By using EXAP , you agree to EXAP
+        <a href="https://www.exap.sa/beta/terms-conditions?lang=eng">Terms of Use</a>
+        and <a href="https://www.exap.sa/beta/privacy-policy?lang=eng">Privacy Poilcy</a>
+    </string>
 
 
     <!-- Sign up screen-->
@@ -64,8 +74,11 @@
     <string name="not_yet_registered">Not yet Registered?</string>
     <string name="register_now">Register Now!</string>
     <string name="forgot_password">Forgot Password?</string>
-    <string name="terms_and_conditions">By using EXAP, You are agree to EXAP’s Terms of
-        Use &amp; Privacy Policy</string>
+
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <!--<string name="terms_and_conditions">By using EXAP, You are agree to EXAP’s Terms of-->
+        <!--Use &amp; Privacy Policy</string>-->
 
 
     <!-- Number verification screen step1 -->
@@ -159,11 +172,7 @@
     <string name="lbl_order_total">Order Total</string>
     <string name="lbl_quantity">1 Quantity</string>
     <string name="btn_pay_now">PAY NOW</string>
-    <string name="terms_and_condition">By pay, you agree to EXAP’s
-        <a href="https://www.exap.sa/beta/terms-conditions?lang=eng/ara
-">Terms of Use</a> and <a href="https://www.exap.sa/beta/terms-conditions?lang=eng/ara
-">Privacy Poilcy</a></string>
-
+    <string name="payment_terms_and_condition">By pay, you agree to EXAP\'s</string>
     <string name="alert_please_select_credit_card">Please select credit card</string>
     <string name="alert_please_enter_card_number">Please enter card number</string>
     <string name="alert_please_enter_cardholder_name">Please enter cardholder name</string>
@@ -192,8 +201,7 @@
     <string name="enter_your_email_id_hint">Enter your email id</string>
     <string name="submit_btn">Submit</string>
     <string name="get_password_btn">Get Password</string>
-    <string name="verification_msg">By Tapping next above, EXAP will send you a mail to confirm your email id
-        and here by you agree to our Terms of Use and privacy Policy.</string>
+    <string name="verification_msg">By tapping next above, EXAP will send you a SMS message to confirm your phone number and you agree to our</string>
 
 
     <!--Categories screen-->

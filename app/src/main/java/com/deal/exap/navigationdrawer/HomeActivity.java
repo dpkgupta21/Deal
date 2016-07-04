@@ -189,9 +189,12 @@ public class HomeActivity extends BaseActivity {
             changeFragment(AlertFragment.newInstance(isForInbox));
         } else if (fragmentName.equalsIgnoreCase(getString(R.string.nearby_screen_title))) {
             String categoryId = getIntent().getStringExtra("categoryId");
+            String categoryName = getIntent().getStringExtra("categoryName");
             if (categoryId != null && !categoryId.equalsIgnoreCase("")) {
-                changeFragment(NearByFragment.newInstance(categoryId));
+                setHeader(getString(R.string.category_deal_title));
+                changeFragment(NearByFragment.newInstance(categoryId, categoryName));
             } else {
+                setHeader(getString(R.string.menu_near_by));
                 changeFragment(NearByFragment.newInstance());
             }
         } else {

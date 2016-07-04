@@ -174,13 +174,12 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
         setClick(R.id.btn_save);
         setClick(R.id.img_master_card);
         setClick(R.id.img_visa);
-        setClick(R.id.txt_payment_terms);
+        setClick(R.id.txt_payment_terms_use);
+        setClick(R.id.txt_payment_private_policy_use);
+
         months = Utils.getMonths();
         years = Utils.getYears();
-//        setClick(R.id.txt_month);
-//        setClick(R.id.txt_year);
-        //setViewText(R.id.txt_month, months.get(0));
-        //setViewText(R.id.txt_year, years.get(0));
+
     }
 
     @Override
@@ -211,11 +210,17 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
                 setImageResourseBackground(R.id.img_visa, R.drawable.visa_grey);
                 setImageResourseBackground(R.id.img_master_card, R.drawable.mastercard);
                 break;
-            case R.id.txt_payment_terms:
+            case R.id.txt_payment_terms_use:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("https://www.exap.sa/beta/terms-conditions?lang="
                                 + Utils.getSelectedLanguage(mActivity)));
                 startActivity(browserIntent);
+                break;
+            case R.id.txt_payment_private_policy_use:
+                Intent privateIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://www.exap.sa/beta/privacy-policy?lang="
+                                + Utils.getSelectedLanguage(mActivity)));
+                startActivity(privateIntent);
                 break;
         }
     }

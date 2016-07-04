@@ -1,7 +1,9 @@
 package com.deal.exap.login;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -30,11 +32,12 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class VerificationOptionFragment extends Fragment {
+public class VerificationOptionFragment extends BaseFragment {
 
 
     private static final String TAG = "VerificationOptionFragment";
     private View view;
+    private Activity mActivity;
 
     public static VerificationOptionFragment newInstance() {
         VerificationOptionFragment fragment = new VerificationOptionFragment();
@@ -56,7 +59,7 @@ public class VerificationOptionFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.verification_option, container, false);
-
+        mActivity= getActivity();
         return view;
     }
 
@@ -70,6 +73,9 @@ public class VerificationOptionFragment extends Fragment {
     private void init() {
         ((MyButtonViewSemi) view.findViewById(R.id.btn_register_from_email_address)).setOnClickListener(callToSignUp);
         ((MyButtonViewSemi) view.findViewById(R.id.btn_register_from_mob_number)).setOnClickListener(numberVerification);
+        setClick(R.id.txt_sign_up_terms_use, view);
+        setClick(R.id.txt_sign_up_private_policy_use, view);
+
     }
 
     View.OnClickListener callToSignUp = new View.OnClickListener() {
@@ -86,18 +92,29 @@ public class VerificationOptionFragment extends Fragment {
         @Override
         public void onClick(View v) {
             verifyMobNumberDigit();
-//            NumberVerificationFragment numberVerification = NumberVerificationFragment.newInstance();
-//            FragmentManager fm = getFragmentManager();
-//            FragmentTransaction ft = fm
-//                    .beginTransaction();
-//            ft.replace(R.id.frame_lay, numberVerification);
-//            ft.addToBackStack(null);
-//            ft.commit();
 
 
         }
     };
 
+    @Override
+    public void onClick(View arg0) {
+        switch (arg0.getId()) {
+
+            case R.id.txt_sign_up_terms_use:
+                Intent  termsIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://www.exap.sa/beta/terms-conditions?lang="
+                                + Utils.getSelectedLanguage(mActivity)));
+                startActivity(termsIntent);
+                break;
+            case R.id.txt_sign_up_private_policy_use:
+                Intent privateIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://www.exap.sa/beta/privacy-policy?lang="
+                                + Utils.getSelectedLanguage(mActivity)));
+                startActivity(privateIntent);
+                break;
+        }
+    }
 
     private void verifyMobNumberDigit() {
         Digits.getSessionManager().clearActiveSession();
@@ -117,13 +134,6 @@ public class VerificationOptionFragment extends Fragment {
             String num = phoneNumber.substring(3, phoneNumber.length());
             doCheckMobile(num);
 
-//            if (num.equalsIgnoreCase(phoneNum)) {
-//                Intent intent = new Intent(getContext(), SignUp.class);
-//                intent.putExtra("MOB_NUMBER", phoneNum);
-//                startActivity(intent);
-//            } else {
-//                Utils.showDialog(getActivity(), "Error", Constant.WRONG_NUMBER_ERROR);
-//            }
         }
 
         @Override

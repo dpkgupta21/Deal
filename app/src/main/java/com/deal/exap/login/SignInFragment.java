@@ -1,14 +1,21 @@
 package com.deal.exap.login;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -22,6 +29,7 @@ import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
+import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -42,6 +50,7 @@ import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -62,6 +71,7 @@ public class SignInFragment extends BaseFragment {
     TwitterSession session;
 
     private LoginButton btnFbLogin;
+    private Activity mActivity;
 
 
     public static SignInFragment newInstance() {
@@ -85,7 +95,7 @@ public class SignInFragment extends BaseFragment {
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.sign_in, container, false);
-
+        mActivity=getActivity();
 
         init();
         return view;
@@ -93,7 +103,7 @@ public class SignInFragment extends BaseFragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        gpsTracker = new GPSTracker(getActivity());
+        gpsTracker = new GPSTracker(mActivity);
         ((MyTextViewReg12) view.findViewById(R.id.txt_sign_up_click)).
                 setOnClickListener(goToNumberVerificationClick);
         ((MyButtonViewSemi) view.findViewById(R.id.btn_login)).
@@ -127,12 +137,15 @@ public class SignInFragment extends BaseFragment {
 //        }
 //    }
 
-    private void init() {
 
+    private void init() {
         btnTwitterLogin = (TwitterLoginButton) view.findViewById(R.id.twitter_login_button);
         setClick(R.id.btn_twitter_login, view);
         setClick(R.id.btn_facebook_login, view);
         setClick(R.id.txt_forgot_password, view);
+        setClick(R.id.txt_terms_use, view);
+        setClick(R.id.txt_private_policy_use, view);
+
         btnTwitterLogin.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
@@ -277,7 +290,7 @@ public class SignInFragment extends BaseFragment {
                                     System.out.println("Success");
                                     //String jsonresult = String.valueOf(json);
                                     try {
-                                        String pictureUrl= json.getJSONObject("picture").getJSONObject("data").getString("url");
+                                        String pictureUrl = json.getJSONObject("picture").getJSONObject("data").getString("url");
                                         doSocialLogin("facebook", json.getString("email"),
                                                 json.getString("id"), json.getString("name"));
                                     } catch (Exception e) {
@@ -485,6 +498,18 @@ public class SignInFragment extends BaseFragment {
                 break;
             case R.id.txt_forgot_password:
                 forgotpassword();
+                break;
+            case R.id.txt_terms_use:
+                Intent  termsIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://www.exap.sa/beta/terms-conditions?lang="
+                                + Utils.getSelectedLanguage(mActivity)));
+                startActivity(termsIntent);
+                break;
+            case R.id.txt_private_policy_use:
+                Intent privateIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://www.exap.sa/beta/privacy-policy?lang="
+                                + Utils.getSelectedLanguage(mActivity)));
+                startActivity(privateIntent);
                 break;
         }
     }

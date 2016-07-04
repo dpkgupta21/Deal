@@ -102,6 +102,27 @@ public class FollowingFragment extends Fragment {
             }
         });
 
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                boolean enable = false;
+                if (mRecyclerView != null && mRecyclerView.getChildCount() > 0) {
+                    // check if the first item of the list is visible
+                    boolean firstItemVisible = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstVisibleItemPosition() == 0;
+                    // check if the top of the first item is visible
+                    boolean topOfFirstItemVisible = mRecyclerView.getChildAt(0).getTop() == 0;
+                    // enabling or disabling the refresh layout
+                    enable = firstItemVisible && topOfFirstItemVisible;
+                }
+                mSwipeRefreshLayout.setEnabled(enable);
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+
 
     }
 

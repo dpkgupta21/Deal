@@ -4,6 +4,8 @@
     <string name="percent_sign"> % - </string>
     <string name="percent_off">خصم</string>
 
+    <string name="category_deal_title">الفئة صفقة</string>
+
     <!-- Sign up screen arabic-->
     <string name="profile_header">الملف الشخصي</string>
     <string name="add_photo">إضافة صورة</string>
@@ -27,7 +29,6 @@
     <string name="alert_password_not_match">كلمة المرور لا تتطابق</string>
 
 
-
     <!--Sign in screen arabic-->
 
     <string name="connect_with_facebook_btn">Facebook</string>
@@ -45,6 +46,12 @@
     <string name="please_enter_username">الرجاء إدخال اسم المستخدم</string>
     <string name="please_enter_password">الرجاء إدخال كلمة المرورs</string>
 
+    <string name="login_terms">بواسطة الأجر، فإنك توافق على</string>
+
+
+    <string name="male">ذكر</string>
+    <string name="female">أنثى</string>
+
 
     <!-- Number verification screen arabic step1 -->
     <string name="verify_your_phone">التوثيق وربط رقم الجوال</string>
@@ -52,9 +59,8 @@
     <string name="country_code_hint">المتحدة الدولة +1</string>
     <string name="enter_your_phone_number_hint">أدخل رقم الجوال</string>
     <string name="send_confirmation_code">أرسل رمز التحقق</string>
-    <string name="verification_msg">تخطيك لهذه الخطوة يعني موافقتك على تلقي رسالة من خلال تطبيق إكسب وذلك للتحقق من رقم الجوال المسجل وموافقتك على شروط وأحكام الخدمة وخصوصيتها.</string>
-
-
+    <string name="verification_msg">بالنقر فوق التالي، سوف مثال نرسل لك رسالة لتأكيد رقم الهاتف الخاص بك، وأنت توافق على موقعنا
+       </string>
     <!-- Number verification screen  arabic step2 -->
     <string name="enter_confirmation_code">أدخل رمز التحققذ</string>
     <string name="enter_code_hint">رمز التحقق</string>
@@ -131,10 +137,13 @@
     <string name="lbl_order_total">المجموع الكلي </string>
     <string name="lbl_quantity">1 من متجر</string>
     <string name="btn_pay_now">ادفع الآن</string>
-    <string name="terms_and_condition">بواسطة الأجر، فإنك توافق على
-        EXAP’s <a href="https://www.exap.sa/beta/terms-conditions?lang=eng/ara
-">Terms of Use</a> and <a href="https://www.exap.sa/beta/terms-conditions?lang=eng/ara
-">Privacy Poilcy</a></string>
+    <string name="payment_terms_and_condition">بواسطة الأجر ، فإنك توافق على</string>
+    <string name="terms_use"> <a href="https://www.exap.sa/beta/terms-conditions?lang=eng">
+        تعليمات الاستخدام</a></string>
+    <string name="and">و</string>
+    <string name="private_policy"><a href="https://www.exap.sa/beta/privacy-policy?lang=eng">سياسة الخصوصية.</a></string>
+
+
 
     <string name="alert_please_select_credit_card">الرجاء اختيار بطاقة الائتمان</string>
     <string name="alert_please_enter_card_number">الرجاء إدخال رقم بطاقة</string>
@@ -151,7 +160,6 @@
     <string name="alert_charged">متهم</string>
     <string name="alert_preparing">إعداد ...</string>
     <string name="alert_please_enter_valid_details">يرجى إدخال تفاصيل صالحة</string>
-
 
 
     <!--Favorite Screen-->
@@ -201,7 +209,7 @@
 
     <string name="all">جميع</string>
     <string name="ok">حسنا</string>
-        <string name="txt_off">بعيدا</string>
+    <string name="txt_off">بعيدا</string>
 
     <string name="alert_title_no_network_connection">لا اتصال الشبكة</string>
     <string name="alert_please_check_network_connection">الإنترنت ليست المتاحة. يرجى التحقق من الاتصال بالشبكة.</string>
@@ -254,7 +262,6 @@
     <string name="feedback_name"> Asvin Mizak </string>
 
 
-
     <!--Terms and Conditions Screen-->
     <string name="term_and_condition_header">أحكام وشروط</string>
 
@@ -295,7 +302,6 @@
     <!-- Location screen -->
     <string name="use_current_location">استخدام الموقع الحالي</string>
     <string name="search_location">البحث عن المواقع ...</string>
-
 
 
     <!-- verification option screen  -->

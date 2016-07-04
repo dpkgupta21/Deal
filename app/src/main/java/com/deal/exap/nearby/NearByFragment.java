@@ -86,10 +86,12 @@ public class NearByFragment extends BaseFragment {
         return fragment;
     }
 
-    public static NearByFragment newInstance(String categoryId) {
+    public static NearByFragment newInstance(String categoryId, String categoryName) {
         NearByFragment fragment = new NearByFragment();
         Bundle b = new Bundle();
         b.putString("categoryId", categoryId);
+        b.putString("categoryName", categoryName);
+
         fragment.setArguments(b);
 
         return fragment;
@@ -113,7 +115,15 @@ public class NearByFragment extends BaseFragment {
 
         view = inflater.inflate(R.layout.fragment_near_by, container, false);
         mActivity = getActivity();
-        ((BaseActivity) getActivity()).resetToolbar(getString(R.string.menu_near_by));
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            ((BaseActivity) getActivity()).resetToolbar(getString(R.string.category_deal_title));
+
+        } else {
+            ((BaseActivity) getActivity()).resetToolbar(getString(R.string.menu_near_by));
+        }
+
+
         init();
 
         return view;
@@ -123,21 +133,21 @@ public class NearByFragment extends BaseFragment {
         llFilter = (LinearLayout) view.findViewById(R.id.ll_filter);
         txtCategory = (TextView) view.findViewById(R.id.et_category);
         txtCategory.setText(getActivity().getString(R.string.all));
-        setTouchNClick(R.id.btn_km, view);
+        // setTouchNClick(R.id.btn_km, view);
         //setTouchNClick(R.id.btn_miles, view);
         //btnMiles = (Button) view.findViewById(R.id.btn_miles);
-        btnKm = (Button) view.findViewById(R.id.btn_km);
+        // btnKm = (Button) view.findViewById(R.id.btn_km);
 
 //        setViewText(R.id.btn_miles, HelpMe.getDistanceUnitSign(Constant.DISTANCE_UNIT_MILES_ENG,
 //                        getActivity().getApplicationContext()),
 //                view);
 
-        setViewText(R.id.btn_km,
-                HelpMe.getDistanceUnitSign(Constant.DISTANCE_UNIT_KM_ENG,
-                        getActivity().getApplicationContext()),
-                view);
+//        setViewText(R.id.btn_km,
+//                HelpMe.getDistanceUnitSign(Constant.DISTANCE_UNIT_KM_ENG,
+//                        getActivity().getApplicationContext()),
+//                view);
 
-        selectedKMButton(DealPreferences.getDistanceUnit(getActivity().getApplicationContext()));
+     //   selectedKMButton(DealPreferences.getDistanceUnit(getActivity().getApplicationContext()));
 
         btnDistantLth = (Button) view.findViewById(R.id.btn_distance_lth);
         btnDistantLth.setSelected(true);
@@ -175,6 +185,9 @@ public class NearByFragment extends BaseFragment {
         if (bundle != null) {
             categoryId = bundle.getString("categoryId", "");
             getCategoryDealList(categoryId);
+
+            txtCategory.setText(bundle.getString("categoryName", ""));
+
         } else {
             getDealList();
         }
@@ -197,7 +210,7 @@ public class NearByFragment extends BaseFragment {
                 boolean enable = false;
                 if (mRecyclerView != null && mRecyclerView.getChildCount() > 0) {
                     // check if the first item of the list is visible
-                    boolean firstItemVisible = ((GridLayoutManager) mRecyclerView.getLayoutManager()).findFirstVisibleItemPosition() == 0;
+                    boolean firstItemVisible = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstVisibleItemPosition() == 0;
                     // check if the top of the first item is visible
                     boolean topOfFirstItemVisible = mRecyclerView.getChildAt(0).getTop() == 0;
                     // enabling or disabling the refresh layout
@@ -262,16 +275,16 @@ public class NearByFragment extends BaseFragment {
 ////                btnKm.setSelected(false);
 ////                btnKm.setTextColor(getResources().getColor(R.color.tv_color));
 //                break;
-            case R.id.btn_km:
-
-                //DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_KM_);
-                selectedKMButton(Constant.DISTANCE_UNIT_KM_ENG);
-                mAdapter.notifyDataSetChanged();
+//            case R.id.btn_km:
+//
+//                //DealPreferences.setDistanceUnit(getActivity().getApplicationContext(), Constant.DISTANCE_UNIT_KM_);
+//                selectedKMButton(Constant.DISTANCE_UNIT_KM_ENG);
+//                mAdapter.notifyDataSetChanged();
 //                btnMiles.setSelected(false);
 //                btnMiles.setTextColor(getResources().getColor(R.color.tv_color));
 //                btnKm.setSelected(true);
 //                btnKm.setTextColor(getResources().getColor(R.color.white));
-                break;
+            //               break;
             case R.id.btn_discount_htl:
                 btnDiscountHtl.setSelected(true);
                 btnDiscountLth.setSelected(false);
@@ -630,24 +643,24 @@ public class NearByFragment extends BaseFragment {
     }
 
 
-    private void selectedKMButton(String STATUS_CODE) {
-        if (STATUS_CODE.contains(Constant.DISTANCE_UNIT_KM_ENG)) {
-
-            btnKm.setBackgroundColor(getResources().getColor(R.color.btn_color));
-            //btnMiles.setBackgroundColor(getResources().getColor(R.color.white));
-
-            btnKm.setTextColor(getResources().getColor(R.color.white));
-            //btnMiles.setTextColor(getResources().getColor(R.color.black));
-
-        } else {
-
-            //btnMiles.setBackgroundColor(getResources().getColor(R.color.btn_color));
-            btnKm.setBackgroundColor(getResources().getColor(R.color.white));
-
-            //btnMiles.setTextColor(getResources().getColor(R.color.white));
-            btnKm.setTextColor(getResources().getColor(R.color.black));
-        }
-    }
+//    private void selectedKMButton(String STATUS_CODE) {
+//        if (STATUS_CODE.contains(Constant.DISTANCE_UNIT_KM_ENG)) {
+//
+//            btnKm.setBackgroundColor(getResources().getColor(R.color.btn_color));
+//            //btnMiles.setBackgroundColor(getResources().getColor(R.color.white));
+//
+//            btnKm.setTextColor(getResources().getColor(R.color.white));
+//            //btnMiles.setTextColor(getResources().getColor(R.color.black));
+//
+//        } else {
+//
+//            //btnMiles.setBackgroundColor(getResources().getColor(R.color.btn_color));
+//            btnKm.setBackgroundColor(getResources().getColor(R.color.white));
+//
+//            //btnMiles.setTextColor(getResources().getColor(R.color.white));
+//            btnKm.setTextColor(getResources().getColor(R.color.black));
+//        }
+//    }
 
 
 }
