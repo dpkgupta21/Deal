@@ -233,8 +233,9 @@ public class HomeActivity extends BaseActivity {
         if (view == itemAlert) {
             resideMenu.closeMenu();
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
-                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login),
-                        "Login", "Cancel", login);
+                Utils.showDialog(mContext, getString(R.string.message),
+                        getString(R.string.for_access_this_please_login),
+                        getString(R.string.login_btn), getString(R.string.cancel_btn), login);
             } else {
                 changeFragment(AlertFragment.newInstance(false));
                 setHeader(getString(R.string.menu_alert));
@@ -246,8 +247,9 @@ public class HomeActivity extends BaseActivity {
         } else if (view == itemWallet) {
             resideMenu.closeMenu();
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
-                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login),
-                        "Login", "Cancel", login);
+                Utils.showDialog(mContext, getString(R.string.message),
+                        getString(R.string.for_access_this_please_login),
+                        getString(R.string.login_btn), getString(R.string.cancel_btn), login);
             } else {
                 changeFragment(new WalletFragment());
                 setHeader(getString(R.string.menu_wallet));
@@ -259,8 +261,9 @@ public class HomeActivity extends BaseActivity {
         } else if (view == itemFavorite) {
             resideMenu.closeMenu();
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
-                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login),
-                        "Login", "Cancel", login);
+                Utils.showDialog(mContext, getString(R.string.message),
+                        getString(R.string.for_access_this_please_login),
+                        getString(R.string.login_btn), getString(R.string.cancel_btn), login);
             } else {
                 changeFragment(new FavoriteFragment());
                 setHeader(getString(R.string.menu_favorite));
@@ -268,8 +271,9 @@ public class HomeActivity extends BaseActivity {
         } else if (view == itemFollowing) {
             resideMenu.closeMenu();
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
-                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login),
-                        "Login", "Cancel", login);
+                Utils.showDialog(mContext, getString(R.string.message),
+                        getString(R.string.for_access_this_please_login),
+                        getString(R.string.login_btn), getString(R.string.cancel_btn), login);
             } else {
                 changeFragment(new FollowingFragment());
                 setHeader(getString(R.string.menu_following));
@@ -283,8 +287,9 @@ public class HomeActivity extends BaseActivity {
         } else if (view == itemSetting) {
             resideMenu.closeMenu();
             if (Utils.getUserType(mContext).contains(Constant.NON_REGISTER)) {
-                Utils.showDialog(mContext, getString(R.string.message), getString(R.string.for_access_this_please_login),
-                        "Login", "Cancel", login);
+                Utils.showDialog(mContext, getString(R.string.message),
+                        getString(R.string.for_access_this_please_login),
+                        getString(R.string.login_btn), getString(R.string.cancel_btn), login);
             } else {
 
                 changeFragment(new SettingFragment());
@@ -356,14 +361,22 @@ public class HomeActivity extends BaseActivity {
             params.put("action", Constant.MENU_COUNT);
             params.put("user_id", Utils.getUserId(mContext));
 
-            final ProgressDialog pdialog = Utils.createProgressDialog(mContext, null, false);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+            final ProgressDialog pdialog = Utils.createProgressDialog(mContext,
+                    null,
+                    false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
+                    Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                menuDTO = new Gson().fromJson(response.getJSONObject("count").toString(), MenuDTO.class);
+                                Utils.ShowLog(Constant.TAG, "got some response = "
+                                        + response.toString());
+
+                                menuDTO = new Gson().fromJson(
+                                        response.getJSONObject("count").toString(),
+                                        MenuDTO.class);
+
                                 setUpMenu();
 
                             } catch (Exception e) {

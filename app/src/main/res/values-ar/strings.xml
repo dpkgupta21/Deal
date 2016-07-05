@@ -107,7 +107,7 @@
     <string name="message_alert">الرسائل</string>
     <string name="deal_expiry_alert">تنبيهات الكوبونات المنتهية</string>
     <string name="txt_change_currency">تغيير العملة</string>
-    <string name="txt_edit_profile">عديل الملف الشخصي</string>
+    <string name="txt_edit_profile">تعديل الملف الشخصي</string>
     <string name="txt_edit_payment_details">المعلومات الإئتمانية</string>
     <string name="txt_english">English</string>
     <string name="txt_arabic">العربية</string>
@@ -122,13 +122,16 @@
     -->
 
     <!--Payment Details Screen-->
+    <string name="sar">ريال</string>
     <string name="payment_header">وسیلة الدفع</string>
     <string name="payment">دفع</string>
     <string name="hint_card_no">رقم البطاقة</string>
-    <string name="hint_name_on_card">حامل إسم</string>
+    <string name="hint_name_on_card">اسم حامل البطاقة</string>
     <string name="hint_mm_yy">MM / YY</string>
-    <string name="hint_ccv">التحقق من البطاقة</string>
-    <string name="btn_pay_usd">Pay USD 20</string>
+    <string name="hint_mm">الشهر</string>
+    <string name="hint_yy">السنة</string>
+    <string name="hint_ccv">رمز التحقق</string>
+    <string name="btn_pay_usd">Pay USD</string>
     <string name="btn_save">حفظ</string>
     <string name="chk_remember_me">تذكرنى</string>
     <string name="title_payment_pop_up">تفاصيل الدفع</string>

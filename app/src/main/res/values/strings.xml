@@ -155,15 +155,16 @@
 
 
     <!--Payment Details Screen-->
+    <string name="sar">SAR</string>
     <string name="payment_header">Payment</string>
     <string name="payment">Payment</string>
     <string name="hint_card_no">Card No.</string>
-    <string name="hint_name_on_card">Name On Card</string>
+    <string name="hint_name_on_card">Name on the Card</string>
     <string name="hint_mm_yy">MM / YY</string>
     <string name="hint_mm">MM</string>
     <string name="hint_yy">YYYY</string>
     <string name="hint_ccv">CVV</string>
-    <string name="btn_pay_usd">Pay USD 20</string>
+    <string name="btn_pay_usd">Pay USD</string>
     <string name="btn_save">Save</string>
     <string name="chk_remember_me">Remember Me</string>
     <string name="visa">Visa</string>

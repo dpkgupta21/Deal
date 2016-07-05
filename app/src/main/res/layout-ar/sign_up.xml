@@ -80,7 +80,7 @@
                     android:drawableRight="@drawable/dob_icon"
                     android:hint="@string/years"
                     android:inputType="number"
-                    android:maxLength="2"
+                    android:maxLength="3"
                     android:textSize="@dimen/edit_text_color" />
 
                 <com.deal.exap.customviews.MyEditTextViewLight

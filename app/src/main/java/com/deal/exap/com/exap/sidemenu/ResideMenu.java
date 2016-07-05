@@ -270,7 +270,6 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
      * @return
      */
     private void showMenuItem(ResideMenuItem menuItem,int menu_index){
-
         layout_menu.addView(menuItem);
         ViewHelper.setAlpha(menuItem, 0);
         AnimatorSet scaleUp = new AnimatorSet();
@@ -301,9 +300,11 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
         // with animation;
         scaleUp.setStartDelay(50 * menu_index);
         scaleUp.setDuration(1000).start();
+
     }
 
     private void buildAnimationSet(){
+
         scaleUp_activity   = buildScaleUpAnimation(view_activity,1.0f,1.0f);
         scaleUp_shadow     = buildScaleUpAnimation(iv_shadow,1.0f,1.0f);
         scaleDown_activity = buildScaleDownAnimation(view_activity,0.5f,0.5f);
@@ -312,6 +313,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
         scaleUp_activity.playTogether(scaleUp_shadow);
         scaleDown_shadow.addListener(animationListener);
         scaleDown_activity.playTogether(scaleDown_shadow);
+
     }
 
     /**
@@ -322,6 +324,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
      * @param targetScaleY
      * @return
      */
+
     private AnimatorSet buildScaleDownAnimation(View target,float targetScaleX,float targetScaleY){
 
         // set the pivotX and pivotY to scale;

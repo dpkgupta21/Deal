@@ -69,7 +69,7 @@ public class MenuCountHandler implements Runnable {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     // CustomProgressDialog.hideProgressDialog();
-                    Utils.showExceptionDialog(mActivity);
+                    //Utils.showExceptionDialog(mActivity);
                     //setUpMenu();
                     //       CustomProgressDialog.hideProgressDialog();
                 }
@@ -87,7 +87,7 @@ public class MenuCountHandler implements Runnable {
     }
 
     private void handleMenuCountResponse(MenuDTO menuDTO) {
-        Utils.ShowLog(TAG,"handleMenuCountResponse");
+        Utils.ShowLog(TAG, "handleMenuCountResponse");
         Message msg = handler.obtainMessage(Constant.MENU_COUNT_HANDLER, menuDTO);
         handler.sendMessage(msg);
 

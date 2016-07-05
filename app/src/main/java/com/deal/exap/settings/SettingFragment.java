@@ -1,5 +1,6 @@
 package com.deal.exap.settings;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -22,6 +23,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
+import com.deal.exap.com.exap.sidemenu.ResideMenuSecond;
 import com.deal.exap.customviews.CustomProgressDialog;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg12;
@@ -62,13 +64,14 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
     private Switch switch_push;
     private Switch switch_message;
     private Switch switch_expiry;
-    private List<CountriesDTO> countryList;
+    //private List<CountriesDTO> countryList;
     private String currencyName;
     private SeekBar seekBar;
 
     private UserDTO userDTO;
+    private Activity mActivity;
 
-    private Dialog dialog;
+    //private Dialog dialog;
 
 
     public SettingFragment() {
@@ -88,7 +91,8 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
         // Inflate the layout for this fragment
 
         view = inflater.inflate(R.layout.fragment_setting, container, false);
-        ((BaseActivity) getActivity()).resetToolbar(getString(R.string.menu_setting));
+        mActivity = getActivity();
+        ((BaseActivity) mActivity).resetToolbar(getString(R.string.menu_setting));
         init();
 
         return view;
@@ -565,6 +569,15 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
     SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            if (HelpMe.isArabic(mActivity)) {
+                ((HomeActivity) mActivity).getResideMenu().
+                        setSwipeDirectionDisable(ResideMenuSecond.DIRECTION_RIGHT);
+
+            } else {
+                ((HomeActivity) mActivity).getResideMenu().
+                        setSwipeDirectionDisable(ResideMenuSecond.DIRECTION_LEFT);
+
+            }
 
 
             seekBar.setProgress(progress);
@@ -574,10 +587,23 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
 
+
+
         }
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
+            ((HomeActivity) mActivity).getResideMenu().setOpened(true);
+            if (HelpMe.isArabic(mActivity)) {
+                ((HomeActivity) mActivity).getResideMenu().
+                        setSwipeDirectionEnable(ResideMenuSecond.DIRECTION_RIGHT);
+
+            } else {
+                ((HomeActivity) mActivity).getResideMenu().
+                        setSwipeDirectionEnable(ResideMenuSecond.DIRECTION_LEFT);
+
+            }
+
 
         }
     };

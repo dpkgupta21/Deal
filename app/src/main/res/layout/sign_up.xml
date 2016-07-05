@@ -94,7 +94,7 @@
                     android:drawableLeft="@drawable/dob_icon"
                     android:hint="@string/years"
                     android:inputType="number"
-                    android:maxLength="2"
+                    android:maxLength="3"
                     android:singleLine="true"
                     android:textSize="@dimen/edit_text_color" />
 

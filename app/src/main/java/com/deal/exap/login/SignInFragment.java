@@ -3,19 +3,12 @@ package com.deal.exap.login;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -29,7 +22,6 @@ import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
-import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -39,7 +31,9 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.Profile;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
@@ -50,10 +44,10 @@ import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -95,7 +89,7 @@ public class SignInFragment extends BaseFragment {
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.sign_in, container, false);
-        mActivity=getActivity();
+        mActivity = getActivity();
 
         init();
         return view;
@@ -154,7 +148,7 @@ public class SignInFragment extends BaseFragment {
 
                 String username = session.getUserName();
                 //Long userid = session.getUserId();
-                doSocialLogin("twitter", username, session.getId() + "", username);
+                doSocialLogin("twitter", username, session.getId() + "", username, "");
                 //getEmailidFromTwitter();
 
             }
@@ -276,6 +270,8 @@ public class SignInFragment extends BaseFragment {
         btnFbLogin.registerCallback(callbackmanager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(final LoginResult loginResult) {
+                Profile profile = Profile.getCurrentProfile();
+                Set val = loginResult.getRecentlyDeniedPermissions();
                 System.out.println("Success");
                 GraphRequest req = GraphRequest.newMeRequest(
                         loginResult.getAccessToken(),
@@ -288,11 +284,13 @@ public class SignInFragment extends BaseFragment {
                                     Log.i("info", "onCompleted Error.");
                                 } else {
                                     System.out.println("Success");
-                                    //String jsonresult = String.valueOf(json);
+                                    //String jsonResult = String.valueOf(json);
                                     try {
-                                        String pictureUrl = json.getJSONObject("picture").getJSONObject("data").getString("url");
+                                        String pictureUrl = json.getJSONObject("picture").
+                                                getJSONObject("data").getString("url");
                                         doSocialLogin("facebook", json.getString("email"),
-                                                json.getString("id"), json.getString("name"));
+                                                json.getString("id"), json.getString("name"),
+                                                json.getString("gender"));
                                     } catch (Exception e) {
                                         e.printStackTrace();
 //                                        Utils.sendEmail(getActivity(), "Error", e.getMessage());
@@ -303,8 +301,8 @@ public class SignInFragment extends BaseFragment {
 
                 );
                 Bundle param = new Bundle();
-                //, gender, birthday, first_name, last_name, link
-                param.putString("fields", "id, name, email, gender,birthday, picture.type(large)");
+                // token_id, gender, birthday, first_name, last_name, link
+                param.putString("fields", "id, name, email, gender, birthday, picture.type(large)");
                 req.setParameters(param);
                 req.executeAsync();
             }
@@ -414,22 +412,29 @@ public class SignInFragment extends BaseFragment {
         }
     }
 
-    public void doSocialLogin(String socialType, String username, String socialId, String name) {
+    public void doSocialLogin(final String socialType,
+                              String username,
+                              String socialId,
+                              String name,
+                              String gender) {
         Utils.hideKeyboard(getActivity());
 
         if (Utils.isOnline(getActivity())) {
-
-
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.DO_SOCIAL_LOGIN);
             params.put("name", name);
             params.put("email", username);
             params.put("social_id", socialId);
             params.put("device", "android");
+            params.put("lat", "" + gpsTracker.getLatitude());
+            params.put("lng", "" + gpsTracker.getLongitude());
+            if (!gender.equalsIgnoreCase(""))
+                params.put("gender", gender.equalsIgnoreCase("Male") ? "M" : "F");
             // params.put("device_id", DealPreferences.getPushRegistrationId(getActivity().getApplicationContext()));
             params.put("social_type", socialType);
             final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
+                    Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -443,6 +448,10 @@ public class SignInFragment extends BaseFragment {
                                     //startActivity(new Intent(getActivity(), HomeActivity.class));
                                     getActivity().finish();
                                     DealPreferences.setIsShowSurveyAfterLogin(getActivity().getApplicationContext(), true);
+
+                                    if (socialType.equalsIgnoreCase("facebook")) {
+                                        LoginManager.getInstance().logOut();
+                                    }
                                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                                     intent.putExtra("fragmentName",
                                             getActivity().getString(R.string.interest_screen_title));
@@ -500,7 +509,7 @@ public class SignInFragment extends BaseFragment {
                 forgotpassword();
                 break;
             case R.id.txt_terms_use:
-                Intent  termsIntent = new Intent(Intent.ACTION_VIEW,
+                Intent termsIntent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("https://www.exap.sa/beta/terms-conditions?lang="
                                 + Utils.getSelectedLanguage(mActivity)));
                 startActivity(termsIntent);

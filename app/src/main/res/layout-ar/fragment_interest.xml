@@ -9,22 +9,26 @@
         layout="@layout/header"
         android:visibility="invisible" />
 
-    <org.apmem.tools.layouts.FlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:f="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/flowLayout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:gravity="right"
-        android:orientation="horizontal"
-        android:paddingBottom="12dp"
-        android:paddingLeft="12dp"
-        android:paddingRight="6dp"
-        android:paddingTop="6dp"
-        f:layoutDirection="rtl"
-        f:weightDefault="1.0">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    </org.apmem.tools.layouts.FlowLayout>
+        <org.apmem.tools.layouts.FlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:f="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/flowLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:paddingBottom="12dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="6dp"
+            android:paddingTop="6dp"
+            f:layoutDirection="rtl"
+            f:weightDefault="1.0">
 
+        </org.apmem.tools.layouts.FlowLayout>
+    </ScrollView>
 
 </LinearLayout>

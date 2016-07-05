@@ -559,7 +559,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
             setViewVisibility(R.id.ll_deal_code, View.GONE);
             setTextViewText(R.id.txt_discount, dealDTO.getDiscount() + "%");
             setTextViewText(R.id.txt_store_price, dealDTO.getFinal_price() + " " +
-                    HelpMe.getCurrencySign(BuyCouponActivity.this));
+                    getString(R.string.sar));
 
         }
 
