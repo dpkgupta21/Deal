@@ -145,7 +145,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
-                            android:gravity="right">
+                            android:gravity="left">
 
                             <RatingBar
                                 android:id="@+id/rating_bar"

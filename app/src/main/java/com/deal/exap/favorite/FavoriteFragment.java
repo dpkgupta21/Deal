@@ -27,6 +27,7 @@ import com.deal.exap.deal.CategoryDealListActivity;
 import com.deal.exap.favorite.adapter.FavoriteListAdapter;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.CategoryDTO;
+import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
@@ -213,9 +214,17 @@ public class FavoriteFragment extends Fragment {
                     case R.id.thumbnail:
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("categoryDTO", favoriteList.get(position));
-                        Intent i = new Intent(getActivity(), CategoryDealListActivity.class);
-                        i.putExtras(bundle);
-                        startActivity(i);
+
+                        Intent intent = new Intent(getActivity(), HomeActivity.class);
+                        //intent.putExtras(bundle);
+                        intent.putExtra("categoryId", favoriteList.get(position).getId());
+                        intent.putExtra("categoryName", favoriteList.get(position).getName());
+                        intent.putExtra("fragmentName", getActivity().getString(R.string.nearby_screen_title));
+                        startActivity(intent);
+
+//                        Intent i = new Intent(getActivity(), CategoryDealListActivity.class);
+//                        i.putExtras(bundle);
+//                        startActivity(i);
                         break;
                     case R.id.img_like:
                         addRemove(favoriteList.get(position).getId());

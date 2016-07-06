@@ -104,7 +104,7 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
         edt_card_number.addTextChangedListener(new FourDigitCardFormatWatcher());
 
         setViewText(R.id.txt_order_name, dealName);
-        setViewText(R.id.txt_order_total_val, transactionPrice + " SAR");
+        setViewText(R.id.txt_order_total_val, transactionPrice + " " + getString(R.string.sar));
 
         startService(new Intent(this,
                 com.mobile.connect.service.PWConnectService.class));
@@ -170,7 +170,8 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
 
     private void init() {
         setHeader(getString(R.string.payment_header));
-        setLeftClick();
+        setLeftClick(R.drawable.cross_btn);
+        //setLeftClick();
         setClick(R.id.btn_save);
         setClick(R.id.img_master_card);
         setClick(R.id.img_visa);

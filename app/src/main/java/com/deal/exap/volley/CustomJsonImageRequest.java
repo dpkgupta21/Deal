@@ -2,6 +2,7 @@ package com.deal.exap.volley;
 
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -16,6 +17,7 @@ import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.SessionManager;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
@@ -27,6 +29,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 public class CustomJsonImageRequest extends Request<JSONObject> {
@@ -37,6 +41,7 @@ public class CustomJsonImageRequest extends Request<JSONObject> {
     private File file;
     // private MultipartEntity entity = new MultipartEntity();
     private HttpEntity mHttpEntity;
+
 
     public CustomJsonImageRequest(String url, Map<String, String> params,
                                   Listener<JSONObject> reponseListener, ErrorListener errorListener) {
@@ -73,6 +78,7 @@ public class CustomJsonImageRequest extends Request<JSONObject> {
 
     private HttpEntity buildMultipartEntity(File file) {
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
         if (file != null) {
             String fileName = file.getName();
 
@@ -82,6 +88,7 @@ public class CustomJsonImageRequest extends Request<JSONObject> {
         try {
             for (String key : params.keySet())
                 builder.addPart(key, new StringBody(params.get(key)));
+                //builder.addPart(key, new StringBody(params.get(key)));
 
         } catch (UnsupportedEncodingException e) {
             VolleyLog.e("UnsupportedEncodingException");
@@ -101,11 +108,19 @@ public class CustomJsonImageRequest extends Request<JSONObject> {
 //        }
 //    }
 
-
+//    @Override
+//    public String getBodyContentType() {
+//        return "application/x-www-form-urlencoded; charset=UTF-8";
+//    }
     @Override
     public String getBodyContentType() {
         return mHttpEntity.getContentType().getValue();
     }
+
+//    @Override
+//    public Map<String, String> getHeaders() throws AuthFailureError {
+//        return (mHeaders != null) ? mHeaders : super.getHeaders();
+//    }
 
     @Override
     public byte[] getBody() throws com.android.volley.AuthFailureError {

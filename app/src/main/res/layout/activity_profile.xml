@@ -78,9 +78,9 @@
                             android:id="@+id/et_age"
                             style="@style/et_style_line"
                             android:layout_marginTop="3dp"
-                            android:hint="@string/years"
+                            android:hint="@string/age"
                             android:inputType="number"
-                            android:maxLength="2" />
+                            android:maxLength="3" />
                     </LinearLayout>
 
                     <LinearLayout

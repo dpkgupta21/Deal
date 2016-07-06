@@ -8,6 +8,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.deal.exap.gps.GPSTracker;
 import com.deal.exap.model.MenuDTO;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.Utils;
@@ -43,9 +44,13 @@ public class MenuCountHandler implements Runnable {
     private void getMenuCount() {
 
         if (Utils.isOnline(mActivity)) {
+            GPSTracker gpsTracker = new GPSTracker(mActivity);
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.MENU_COUNT);
             params.put("user_id", Utils.getUserId(mActivity));
+            params.put("lat", gpsTracker.getLatitude() + "");
+            params.put("lng", gpsTracker.getLongitude() + "");
+
 
             //CustomProgressDialog.showProgDialog(mActivity, null);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,

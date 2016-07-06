@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +67,7 @@ public class SignInFragment extends BaseFragment {
 
     private LoginButton btnFbLogin;
     private Activity mActivity;
-
+    private String address = "";
 
     public static SignInFragment newInstance() {
         SignInFragment fragment = new SignInFragment();
@@ -103,6 +104,8 @@ public class SignInFragment extends BaseFragment {
         ((MyButtonViewSemi) view.findViewById(R.id.btn_login)).
                 setOnClickListener(goToHomePage);
         //((MyTextViewRegCustom) view.findViewById(R.id.btn_facebook_login)).setOnClickListener(goToFacebookLogin);
+
+        retrieveAddress(gpsTracker.getLatitude(), gpsTracker.getLongitude(), false);
 
 
         super.onActivityCreated(savedInstanceState);
@@ -164,6 +167,8 @@ public class SignInFragment extends BaseFragment {
         btnFbLogin.setText("Hi");
         btnFbLogin.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         setFbClick();
+
+
     }
 
 //    void getEmailidFromTwitter() {
@@ -255,12 +260,28 @@ public class SignInFragment extends BaseFragment {
 //            startActivity(i);
 
             //while (gpsTracker.canGetLocation()) {
-            doLogin();
+            retrieveAddress(gpsTracker.getLatitude(), gpsTracker.getLongitude(), true);
+            //doLogin(retrieveAddress);
             //}
 
         }
     };
 
+    private void retrieveAddress(final double lat, final double lng,final boolean isNormalLogin) {
+        Handler handler = new Handler();
+        Runnable r = new Runnable() {
+            public void run() {
+                address = Utils.getAddress(lat, lng,
+                        mActivity);
+                if (isNormalLogin) {
+                    doLogin(address);
+                }
+
+            }
+        };
+        handler.post(r);
+
+    }
 
     private void setFbClick() {
         callbackmanager = CallbackManager.Factory.create();
@@ -288,6 +309,7 @@ public class SignInFragment extends BaseFragment {
                                     try {
                                         String pictureUrl = json.getJSONObject("picture").
                                                 getJSONObject("data").getString("url");
+                                        //retrieveAddress(gpsTracker.getLatitude(), gpsTracker.getLongitude(), true);
                                         doSocialLogin("facebook", json.getString("email"),
                                                 json.getString("id"), json.getString("name"),
                                                 json.getString("gender"));
@@ -347,7 +369,7 @@ public class SignInFragment extends BaseFragment {
     }
 
 
-    public void doLogin() {
+    public void doLogin(String address) {
         Utils.hideKeyboard(getActivity());
         if (validateForm()) {
             if (Utils.isOnline(getActivity())) {
@@ -360,7 +382,7 @@ public class SignInFragment extends BaseFragment {
                 //   params.put("device_id", DealPreferences.getPushRegistrationId(getActivity().getApplicationContext()));
                 params.put("lat", "" + gpsTracker.getLatitude());
                 params.put("lng", "" + gpsTracker.getLongitude());
-                params.put("address", "");
+                params.put("address", address);
 
                 final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
@@ -428,6 +450,8 @@ public class SignInFragment extends BaseFragment {
             params.put("device", "android");
             params.put("lat", "" + gpsTracker.getLatitude());
             params.put("lng", "" + gpsTracker.getLongitude());
+            params.put("address", address);
+
             if (!gender.equalsIgnoreCase(""))
                 params.put("gender", gender.equalsIgnoreCase("Male") ? "M" : "F");
             // params.put("device_id", DealPreferences.getPushRegistrationId(getActivity().getApplicationContext()));

@@ -388,6 +388,7 @@ public class EditProfileActivity extends BaseActivity {
             CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST,
                     Constant.SERVICE_BASE_URL, params, f,
                     new Response.Listener<JSONObject>() {
+
                         @Override
                         public void onResponse(JSONObject response) {
                             Utils.ShowLog(TAG, "Response -> " + response.toString());

@@ -189,7 +189,7 @@
     <string name="txt_downloads">مجموع المشتريات</string>
     <string name="txt_active_coupons">كوبونات نشطة</string>
     <string name="btn_follow_this_partner">اتبع هذا الشريك</string>
-    <string name="btn_unfollow_this_partner">UnFollow this Partner</string>
+    <string name="btn_unfollow_this_partner">فولو هذا الشريك</string>
     <string name="txt_featured">امميز</string>
 
     <!--<string name="txt_active_coupons_val">10</string>

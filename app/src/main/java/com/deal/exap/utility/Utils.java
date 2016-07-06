@@ -128,7 +128,7 @@ public class Utils {
 
         showDialog(ctx, ctx.getString(R.string.alert_title_error),
                 ctx.getString(R.string.alert_title_error))
-                        .show();
+                .show();
     }
 
     public static void showFailDialog(final Activity ctx) {
@@ -178,18 +178,24 @@ public class Utils {
 
 
     public static final void hideKeyboard(Activity ctx) {
-
-        if (ctx.getCurrentFocus() != null) {
-            InputMethodManager imm = (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(ctx.getCurrentFocus().getWindowToken(), 0);
+        try {
+            if (ctx.getCurrentFocus() != null) {
+                InputMethodManager imm = (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(ctx.getCurrentFocus().getWindowToken(), 0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public static final void showKeyboard(Activity ctx) {
-
-        if (ctx.getCurrentFocus() != null) {
-            InputMethodManager imm = (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        try {
+            if (ctx.getCurrentFocus() != null) {
+                InputMethodManager imm = (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -606,7 +612,7 @@ public class Utils {
 
         c.drawBitmap(bitmap, 4, 4, p);
         /*p.setXfermode(null);
-		p.setStyle(Style.STROKE);                                           
+        p.setStyle(Style.STROKE);
 		p.setColor(Color.WHITE);                                            
 		p.setStrokeWidth(3);                                                
 		c.drawCircle((w / 2) + 4, (h / 2) + 4, radius, p);                */

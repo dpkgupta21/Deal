@@ -136,6 +136,7 @@
             android:background="@drawable/edt_txt_gray_bcg_shape"
             android:drawablePadding="10dp"
             android:drawableRight="@drawable/user_icon_dark"
+            android:gravity="right|center_vertical"
             android:hint="@string/username_hint"
             android:imeOptions="actionNext"
             android:inputType="text"
@@ -150,11 +151,10 @@
             android:background="@drawable/edt_txt_gray_bcg_shape"
             android:drawablePadding="10dp"
             android:drawableRight="@drawable/lock_icon_dark"
-            android:gravity="right"
+            android:gravity="right|center_vertical"
             android:hint="@string/password_sign_in_hint"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
-            android:maxLength="10"
             android:minEms="10"
             android:singleLine="true" />
 

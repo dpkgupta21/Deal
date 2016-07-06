@@ -55,6 +55,7 @@
                     android:id="@+id/txt_name"
                     style="@style/et_style_line"
                     android:layout_marginTop="5dp"
+                    android:gravity="right"
                     android:hint="@string/enter_here" />
 
                 <LinearLayout
@@ -78,8 +79,9 @@
                             android:id="@+id/et_age"
                             style="@style/et_style_line"
                             android:layout_marginTop="3dp"
-                            android:hint="@string/years"
-                            android:maxLength="2" />
+                            android:gravity="right"
+                            android:hint="@string/age"
+                            android:maxLength="3" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -100,6 +102,7 @@
                             android:layout_marginTop="3dp"
                             android:drawableRight="@drawable/selec_icon"
                             android:focusable="false"
+                            android:gravity="right"
                             android:hint="@string/select_hint" />
                     </LinearLayout>
                 </LinearLayout>
@@ -114,6 +117,7 @@
                     android:id="@+id/txt_location"
                     style="@style/et_style_line"
                     android:layout_marginTop="5dp"
+                    android:gravity="right"
                     android:hint="@string/enter_here" />
 
                 <Button

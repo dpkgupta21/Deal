@@ -55,7 +55,7 @@ public class NearByListAdapter extends RecyclerView
         TextView tvDetail;
         RatingBar ratingBar;
         LinearLayout llCouponItem;
-        Button btnBuy;
+        //Button btnBuy;
         LinearLayout llBuy;
         ImageView ivLogo;
         ImageView ivThumnail;
@@ -79,34 +79,34 @@ public class NearByListAdapter extends RecyclerView
 
             llCouponItem = (LinearLayout) itemView.findViewById(R.id.ll_filter_item);
             llBuy = (LinearLayout) itemView.findViewById(R.id.ll_buy);
-            btnBuy = (Button) itemView.findViewById(R.id.btn_buy);
+            //btnBuy = (Button) itemView.findViewById(R.id.btn_buy);
             ivLogo = (ImageView) itemView.findViewById(R.id.img_title);
             ivThumnail = (ImageView) itemView.findViewById(R.id.thumbnail);
 
-            btnBuy.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+//            btnBuy.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//
+//
+//                    llBuy.setVisibility(View.VISIBLE);
+//                    btnBuy.setVisibility(View.GONE);
+//
+//                }
+//            });
 
 
-                    llBuy.setVisibility(View.VISIBLE);
-                    btnBuy.setVisibility(View.GONE);
-
-                }
-            });
-
-
-            llBuy.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //if (pressedTwoTime) {
-                    myClickListener.onItemClick(getAdapterPosition(), view);
+//            llBuy.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    //if (pressedTwoTime) {
+//                    myClickListener.onItemClick(getAdapterPosition(), view);
                     //}
 //                    else {
 //                        btnBuy.setVisibility(View.VISIBLE);
 //                        llBuy.setVisibility(View.GONE);
 //                    }
-                }
-            });
+//                }
+//            });
 
             Log.i(LOG_TAG, "Adding Listener");
             ivThumnail.setOnClickListener(this);
@@ -180,14 +180,14 @@ public class NearByListAdapter extends RecyclerView
 //        }
 
 
-        if (mDataset.get(position).getType().equalsIgnoreCase("Paid")) {
-
-            holder.btnBuy.setText(context.getString(R.string.txt_buy));
-            holder.btnBuy.setBackgroundResource(R.drawable.btn_green_bcg_shape);
-        } else {
-            holder.btnBuy.setText(context.getString(R.string.btn_reedme));
-            holder.btnBuy.setBackgroundResource(R.drawable.btn_red_bcg_shape);
-        }
+//        if (mDataset.get(position).getType().equalsIgnoreCase("Paid")) {
+//
+//            holder.btnBuy.setText(context.getString(R.string.txt_buy));
+//            holder.btnBuy.setBackgroundResource(R.drawable.btn_green_bcg_shape);
+//        } else {
+//            holder.btnBuy.setText(context.getString(R.string.btn_reedme));
+//            holder.btnBuy.setBackgroundResource(R.drawable.btn_red_bcg_shape);
+//        }
 
         ImageLoader.getInstance().displayImage(mDataset.get(position).getDeal_image(), holder.ivThumnail,
                 options);

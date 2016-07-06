@@ -361,11 +361,16 @@ public class ResideMenuSecond extends FrameLayout {
     }
 
     public void setSwipeDirectionDisable(int direction) {
-        disabledSwipeDirection.add(direction);
+        if (disabledSwipeDirection != null) {
+            disabledSwipeDirection.add(direction);
+        }
     }
 
     public void setSwipeDirectionEnable(int direction) {
-        disabledSwipeDirection.clear();
+
+        if (disabledSwipeDirection != null) {
+            disabledSwipeDirection.clear();
+        }
     }
 
 

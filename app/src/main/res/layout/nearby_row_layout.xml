@@ -17,11 +17,11 @@
             android:src="@drawable/default_img" />
 
         <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="right|center_vertical"-->
-            <!--android:padding="5dp"-->
-            <!--android:src="@drawable/share_active_icon" />-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="right|center_vertical"-->
+        <!--android:padding="5dp"-->
+        <!--android:src="@drawable/share_active_icon" />-->
 
 
         <LinearLayout
@@ -134,9 +134,9 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginRight="3dp"
                 android:layout_weight=".3"
                 android:gravity="center_vertical"
-                android:layout_marginRight="3dp"
                 android:orientation="vertical">
 
                 <com.deal.exap.customviews.MyButtonViewRegCustom
@@ -148,7 +148,8 @@
                     android:background="@drawable/btn_green_bcg_shape"
                     android:text="@string/txt_buy"
                     android:textAllCaps="false"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/ll_buy"
@@ -158,13 +159,15 @@
                     android:background="@drawable/txt_outer_border_grey"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="visible"
+                    android:weightSum="2">
 
                     <com.deal.exap.customviews.MyTextViewRegCustom
                         android:id="@+id/txt_final_price"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/white"
                         android:textSize="12sp" />
@@ -172,9 +175,10 @@
                     <com.deal.exap.customviews.MyTextViewLightCustom
                         android:id="@+id/txt_visible_price"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:gravity="center_horizontal"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_black"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="@color/white"
                         android:textSize="8sp" />
@@ -192,12 +196,12 @@
 
                     <RatingBar
                         android:id="@+id/rating_bar"
-                        android:theme="@style/RatingBar"
                         style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:numStars="5"
-                        android:stepSize="1.0" />
+                        android:stepSize="1.0"
+                        android:theme="@style/RatingBar" />
 
                     <com.deal.exap.customviews.MyTextViewRegCustom
                         android:id="@+id/txt_no_of_person"

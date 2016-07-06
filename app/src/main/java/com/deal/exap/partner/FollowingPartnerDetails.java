@@ -259,20 +259,20 @@ public class FollowingPartnerDetails extends BaseActivity {
             setViewVisibility(R.id.iv_chat, View.VISIBLE);
             setClick(R.id.iv_chat);
         }
-        if (partnerDTO.getIs_follow().equalsIgnoreCase("1")) {
-            setViewVisibility(R.id.btn_follow_this_partner, View.VISIBLE);
-            if (partnerDTO.getUser_follow().equalsIgnoreCase("0")) {
-                // Set Follow this partner label over button
-                setButtonText(R.id.btn_follow_this_partner, getString(R.string.btn_follow_this_partner));
-                //setViewVisibility(R.id.btn_follow_this_partner, View.VISIBLE);
-            } else {
-                // Set UnFollow this partner label over button
-                setButtonText(R.id.btn_follow_this_partner, getString(R.string.btn_unfollow_this_partner));
-                //setViewVisibility(R.id.btn_follow_this_partner, View.GONE);
-            }
+//        if (partnerDTO.getIs_follow().equalsIgnoreCase("1")) {
+//            setViewVisibility(R.id.btn_follow_this_partner, View.VISIBLE);
+        if (partnerDTO.getUser_follow().equalsIgnoreCase("0")) {
+            // Set Follow this partner label over button
+            setButtonText(R.id.btn_follow_this_partner, getString(R.string.btn_follow_this_partner));
+            //setViewVisibility(R.id.btn_follow_this_partner, View.VISIBLE);
         } else {
-            setViewVisibility(R.id.btn_follow_this_partner, View.GONE);
+            // Set UnFollow this partner label over button
+            setButtonText(R.id.btn_follow_this_partner, getString(R.string.btn_unfollow_this_partner));
+            //setViewVisibility(R.id.btn_follow_this_partner, View.GONE);
         }
+//        } else {
+//            setViewVisibility(R.id.btn_follow_this_partner, View.GONE);
+//        }
 //        ((NearByListAdapter) mAdapter).setOnItemClickListener(new NearByListAdapter.MyClickListener() {
 //            @Override
 //            public void onItemClick(int position, View v) {

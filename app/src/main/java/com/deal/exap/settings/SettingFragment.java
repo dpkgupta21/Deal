@@ -569,41 +569,53 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
     SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            if (HelpMe.isArabic(mActivity)) {
-                ((HomeActivity) mActivity).getResideMenu().
-                        setSwipeDirectionDisable(ResideMenuSecond.DIRECTION_RIGHT);
+            try {
+                ResideMenuSecond resideMenuSecond = ((HomeActivity) mActivity).getResideMenu();
+                if (resideMenuSecond != null) {
+                    if (HelpMe.isArabic(mActivity)) {
+                        resideMenuSecond.
+                                setSwipeDirectionDisable(ResideMenuSecond.DIRECTION_RIGHT);
 
-            } else {
-                ((HomeActivity) mActivity).getResideMenu().
-                        setSwipeDirectionDisable(ResideMenuSecond.DIRECTION_LEFT);
+                    } else {
+                        resideMenuSecond.
+                                setSwipeDirectionDisable(ResideMenuSecond.DIRECTION_LEFT);
 
+                    }
+                }
+
+                seekBar.setProgress(progress);
+                syncSetting("notification_range", progress + "");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-
-            seekBar.setProgress(progress);
-            syncSetting("notification_range", progress + "");
         }
 
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
 
 
-
         }
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            ((HomeActivity) mActivity).getResideMenu().setOpened(true);
-            if (HelpMe.isArabic(mActivity)) {
-                ((HomeActivity) mActivity).getResideMenu().
-                        setSwipeDirectionEnable(ResideMenuSecond.DIRECTION_RIGHT);
+            try {
+                ResideMenuSecond resideMenuSecond = ((HomeActivity) mActivity).getResideMenu();
 
-            } else {
-                ((HomeActivity) mActivity).getResideMenu().
-                        setSwipeDirectionEnable(ResideMenuSecond.DIRECTION_LEFT);
+                resideMenuSecond.setOpened(true);
+                if (resideMenuSecond != null) {
+                    if (HelpMe.isArabic(mActivity)) {
+                        resideMenuSecond.
+                                setSwipeDirectionEnable(ResideMenuSecond.DIRECTION_RIGHT);
 
+                    } else {
+                        resideMenuSecond.
+                                setSwipeDirectionEnable(ResideMenuSecond.DIRECTION_LEFT);
+
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
 
         }
     };
