@@ -17,11 +17,13 @@ import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.SessionManager;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.util.CharsetUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,6 +31,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,7 +59,7 @@ public class CustomJsonImageRequest extends Request<JSONObject> {
                                   Listener<JSONObject> reponseListener, ErrorListener errorListener) {
         super(method, url, errorListener);
         this.listener = reponseListener;
-        params.put("device_id",DealPreferences.getPushRegistrationId(AppController.getAppContext()));
+        params.put("device_id", DealPreferences.getPushRegistrationId(AppController.getAppContext()));
         this.params = params;
 
     }
@@ -69,7 +72,7 @@ public class CustomJsonImageRequest extends Request<JSONObject> {
                                   ErrorListener errorListener) {
         super(method, url, errorListener);
         this.listener = reponseListener;
-        params.put("device_id",DealPreferences.getPushRegistrationId(AppController.getAppContext()));
+        params.put("device_id", DealPreferences.getPushRegistrationId(AppController.getAppContext()));
         this.params = params;
         this.file = file;
         mHttpEntity = buildMultipartEntity(file);
@@ -77,18 +80,22 @@ public class CustomJsonImageRequest extends Request<JSONObject> {
     }
 
     private HttpEntity buildMultipartEntity(File file) {
-        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-        if (file != null) {
-            String fileName = file.getName();
-
-            FileBody fileBody = new FileBody(file);
-            builder.addPart(KEY_PICTURE, fileBody);
-        }
+        MultipartEntityBuilder builder = null;
         try {
+            builder = MultipartEntityBuilder.create();
+            builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+            builder.setCharset(CharsetUtils.get("UTF-8"));
+            if (file != null) {
+                String fileName = file.getName();
+
+                FileBody fileBody = new FileBody(file);
+                builder.addPart(KEY_PICTURE, fileBody);
+            }
+
             for (String key : params.keySet())
-                builder.addPart(key, new StringBody(params.get(key)));
-                //builder.addPart(key, new StringBody(params.get(key)));
+                builder.addTextBody(key, params.get(key),
+                        ContentType.create("text/plain", Charset.forName("UTF-8")));
+            //builder.addPart(key, new StringBody(params.get(key)));
 
         } catch (UnsupportedEncodingException e) {
             VolleyLog.e("UnsupportedEncodingException");
@@ -108,13 +115,14 @@ public class CustomJsonImageRequest extends Request<JSONObject> {
 //        }
 //    }
 
-//    @Override
+    //    @Override
 //    public String getBodyContentType() {
 //        return "application/x-www-form-urlencoded; charset=UTF-8";
 //    }
     @Override
     public String getBodyContentType() {
-        return mHttpEntity.getContentType().getValue();
+        String content = mHttpEntity.getContentType().getValue();
+        return content;
     }
 
 //    @Override
@@ -136,6 +144,7 @@ public class CustomJsonImageRequest extends Request<JSONObject> {
     @Override
     protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
         try {
+
             String jsonString = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers));
             return Response.success(new JSONObject(jsonString),
@@ -157,7 +166,8 @@ public class CustomJsonImageRequest extends Request<JSONObject> {
 //                }
                 UserDTO userDTO = DealPreferences.getObjectFromPref(AppController.getAppContext(), Constant.USER_INFO);
                 userDTO = null;
-                DealPreferences.putObjectIntoPref(AppController.getAppContext(), userDTO, Constant.USER_INFO);
+                DealPreferences.putObjectIntoPref(AppController.getAppContext(),
+                        userDTO, Constant.USER_INFO);
                 SessionManager.logoutUser(AppController.getAppContext());
 
             } else {
