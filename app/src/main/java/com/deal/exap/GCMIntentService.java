@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.deal.exap.login.OrgSplashActivity;
 import com.deal.exap.login.SplashScreen;
@@ -63,7 +64,15 @@ public class GCMIntentService extends GCMBaseIntentService {
     protected void onMessage(Context context, Intent intent) {
 
         String message = intent.getExtras().getString(CommonUtilities.EXTRA_MESSAGE);
+        String url = intent.getExtras().getString(CommonUtilities.EXTRA_URL);
+
+        if(url !=null && !url.equalsIgnoreCase("")){
+
+        }
+
         Log.i(TAG, "Received message :" + message);
+
+        Toast.makeText(context, "URL :" + url, Toast.LENGTH_SHORT).show();
 
         displayMessage(context, message);
         // notifies user

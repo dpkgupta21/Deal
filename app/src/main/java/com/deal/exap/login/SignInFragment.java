@@ -267,7 +267,7 @@ public class SignInFragment extends BaseFragment {
         }
     };
 
-    private void retrieveAddress(final double lat, final double lng,final boolean isNormalLogin) {
+    private void retrieveAddress(final double lat, final double lng, final boolean isNormalLogin) {
         Handler handler = new Handler();
         Runnable r = new Runnable() {
             public void run() {

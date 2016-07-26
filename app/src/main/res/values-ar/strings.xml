@@ -140,7 +140,7 @@
     <string name="lbl_order_total">المجموع الكلي </string>
     <string name="lbl_quantity">1 من متجر</string>
     <string name="btn_pay_now">ادفع الآن</string>
-    <string name="payment_terms_and_condition">بواسطة الأجر ، فإنك توافق على</string>
+    <string name="payment_terms_and_condition">عند دفعك ، فإنك توافق على</string>
     <string name="terms_use"> <a href="https://www.exap.sa/beta/terms-conditions?lang=eng">
         تعليمات الاستخدام</a></string>
     <string name="and">و</string>
@@ -242,13 +242,14 @@
 
     <!-- coupon Details Screen-->
     <string name="title_activity_coupon_details">كوبون</string>
-    <string name="eceeeeeeecbtn_rate">قيم هذا القسيمة</string>
+    <string name="btn_rate">تقييم تجربة الشراء</string>
     <string name="btn_buy">اشتري عبر الانترنت</string>
     <string name="txt_coupon_code">رمز القسيمة</string>
     <string name="title_activity_rate_coupon">رسم خريطة</string>
     <string name="title_activity_buy_coupon">رسم خريطة</string>
     <string name="txt_buy">شراء</string>
     <string name="redeemed">تم الشراء</string>
+    <string name="sold_out">انتهت الكمية</string>
     <!--<string name="on_fanta_pride">على فانتا الكبرياء</string>-->
     <!--<string name="street_berlin">21 شارع Hansonberg، برلين</string>-->
     <string name="day_notation">ي</string>
@@ -260,7 +261,7 @@
     <!--Post your feedback screen-->
     <string name="post_your_feedback_header">إضافة ملاحظاتك</string>
     <string name="write_your_comments_hint">إرسال تعليقاتكم ...</string>
-    <string name="post_comments_btn">آخر تعليقات</string>
+    <string name="post_comments_btn">إرسال</string>
     <string name="cancel_btn">إلغاء</string>
     <string name="title_activity_org_splash">OrgSplashActivity</string>
     <string name="title_custom_feedback">تقييم العملاء</string>

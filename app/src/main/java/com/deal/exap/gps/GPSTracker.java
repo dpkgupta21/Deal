@@ -12,8 +12,10 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
+import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
 import com.google.android.gms.common.ConnectionResult;
@@ -181,7 +183,8 @@ public class GPSTracker implements ConnectionCallbacks,
     protected void startLocationUpdates() {
         // The final argument to {@code requestLocationUpdates()} is a LocationListener
         // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
-        int permissionCheck = ContextCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_FINE_LOCATION);
+        int permissionCheck = ContextCompat.checkSelfPermission(mActivity,
+                Manifest.permission.ACCESS_FINE_LOCATION);
 
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
             //Execute location service call if user has explicitly granted ACCESS_FINE_LOCATION..
@@ -211,7 +214,8 @@ public class GPSTracker implements ConnectionCallbacks,
 
             if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
 
-                mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                mCurrentLocation = LocationServices.FusedLocationApi.
+                        getLastLocation(mGoogleApiClient);
             }
             if (mCurrentLocation != null) {
                 canGetLocation = true;

@@ -496,21 +496,30 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         setTextViewText(R.id.txt_views_val, dealDTO.getView_count());
 
         Button btn_purchase = (Button) findViewById(R.id.btn_buy);
+        int totalCodes = dealDTO.getTotal_codes();
 
-        if (dealDTO.getDeal_code() != null && !dealDTO.getDeal_code().equalsIgnoreCase("")) {
-            //btn_purchase.setVisibility(View.GONE);
-            btn_purchase.setVisibility(View.VISIBLE);
+        if (totalCodes == 0) {
+
+            btn_purchase.setText(getString(R.string.sold_out));
             btn_purchase.setEnabled(false);
-            btn_purchase.setText(getString(R.string.redeemed));
-            btn_purchase.setBackgroundResource(R.drawable.btn_green_bcg_shape);
+
         } else {
-            btn_purchase.setVisibility(View.VISIBLE);
-            if (dealDTO.getType().equalsIgnoreCase("Paid")) {
-                btn_purchase.setText(getString(R.string.txt_buy));
+            if (dealDTO.getDeal_code() != null &&
+                    !dealDTO.getDeal_code().equalsIgnoreCase("")) {
+                //btn_purchase.setVisibility(View.GONE);
+                btn_purchase.setVisibility(View.VISIBLE);
+                btn_purchase.setEnabled(false);
+                btn_purchase.setText(getString(R.string.redeemed));
                 btn_purchase.setBackgroundResource(R.drawable.btn_green_bcg_shape);
             } else {
-                btn_purchase.setText(getString(R.string.btn_reedme));
-                btn_purchase.setBackgroundResource(R.drawable.btn_red_bcg_shape);
+                btn_purchase.setVisibility(View.VISIBLE);
+                if (dealDTO.getType().equalsIgnoreCase("Paid")) {
+                    btn_purchase.setText(getString(R.string.txt_buy));
+                    btn_purchase.setBackgroundResource(R.drawable.btn_green_bcg_shape);
+                } else {
+                    btn_purchase.setText(getString(R.string.btn_reedme));
+                    btn_purchase.setBackgroundResource(R.drawable.btn_red_bcg_shape);
+                }
             }
         }
 
@@ -757,7 +766,8 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
             final ProgressDialog pdialog = Utils.createProgressDialog(BuyCouponActivity.this, null, false);
 
 
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
+                    Constant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -766,9 +776,11 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 
                                 if (Utils.getWebServiceStatus(response)) {
                                     String dealCode = response.getString("dealcode");
+                                    dealDTO.setDeal_code(dealCode);
                                     setDealCode(dealCode);
 
                                     Button btn_purchase = (Button) findViewById(R.id.btn_buy);
+
 
                                     if (dealCode != null && !dealCode.equalsIgnoreCase("")) {
                                         //btn_purchase.setVisibility(View.GONE);
@@ -786,6 +798,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
                                             btn_purchase.setBackgroundResource(R.drawable.btn_red_bcg_shape);
                                         }
                                     }
+
                                     // finish();
                                     //callWalletFragment();
 

@@ -133,11 +133,14 @@
                         <com.deal.exap.customviews.MyButtonViewRegCustom
                             android:id="@+id/btn_buy"
                             style="@style/btn_style_small"
-                            android:layout_width="70dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:layout_gravity="left"
                             android:background="@drawable/btn_green_bcg_shape"
                             android:maxLines="1"
+                            android:minWidth="70dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
                             android:text="@string/txt_buy"
                             android:textColor="@color/white" />
 
@@ -149,12 +152,12 @@
 
                             <RatingBar
                                 android:id="@+id/rating_bar"
-                                android:theme="@style/RatingBar"
                                 style="?android:attr/ratingBarStyleSmall"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:numStars="5"
-                                android:stepSize="1.0" />
+                                android:stepSize="1.0"
+                                android:theme="@style/RatingBar" />
 
 
                             <com.deal.exap.customviews.MyTextViewReg14
@@ -313,11 +316,11 @@
                             android:textSize="18sp" />
 
                         <!--<com.deal.exap.customviews.MyTextViewRegCustom-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:gravity="center_horizontal"-->
-                            <!--android:text="@string/txt_discount_per"-->
-                            <!--android:textSize="14sp" />-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:gravity="center_horizontal"-->
+                        <!--android:text="@string/txt_discount_per"-->
+                        <!--android:textSize="14sp" />-->
 
                     </LinearLayout>
 

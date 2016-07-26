@@ -53,13 +53,13 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
 
 
     // For production
-//    private static final String APPLICATIONIDENTIFIER = "Hyperpay.6085WorldOfSS.mcommerce";//"gate2play.WorldofSS.mcommerce.test";
-//    private static final String PROFILETOKEN = "44a2f1d0f1a711e5a7dc11fc67275b56"; //"930e6e9744154563afc4718ab0352b9a";
+    private static final String APPLICATIONIDENTIFIER = "Hyperpay.6085WorldOfSS.mcommerce";//"gate2play.WorldofSS.mcommerce.test";
+    private static final String PROFILETOKEN = "44a2f1d0f1a711e5a7dc11fc67275b56"; //"930e6e9744154563afc4718ab0352b9a";
 //    private static final PWConnect.PWProviderMode = PWConnect.PWProviderMode.LIVE;
-//    private static final PWConnect.PWProviderMode = PWConnect.PWProviderMode.TE;
+//    private static final PWConnect.PWProviderMode = PWConnect.PWProviderMode.TEST;
 
-    private static final String APPLICATIONIDENTIFIER = "payworks.sandbox";
-    private static final String PROFILETOKEN = "20d5a0d5ce1d4501a4826a8b7e159d19";
+//    private static final String APPLICATIONIDENTIFIER = "payworks.sandbox";
+//    private static final String PROFILETOKEN = "20d5a0d5ce1d4501a4826a8b7e159d19";
 
     private ServiceConnection _serviceConnection = new ServiceConnection() {
         @Override
@@ -67,7 +67,7 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
             _binder = (PWProviderBinder) service;
             // we have a connection to the service
             try {
-                _binder.initializeProvider(PWConnect.PWProviderMode.TEST,
+                _binder.initializeProvider(PWConnect.PWProviderMode.LIVE,
                         APPLICATIONIDENTIFIER, PROFILETOKEN);
                 _binder.addTransactionListener(PaymentDetailsActivity.this);
             } catch (PWException ee) {
@@ -131,7 +131,7 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
             String holder = ((MyEditTextViewReg) findViewById(R.id.edt_card_holder_name)).
                     getText().toString().trim();
             String cardNumber = ((MyEditTextViewReg) findViewById(R.id.edt_card_number)).
-                    getText().toString().trim().replace(" ", "");//"4005550000000001";
+                    getText().toString().trim().replace("-", "");//"4005550000000001";
 
             String cvv = ((MyEditTextViewReg) findViewById(R.id.edt_card_cvv)).
                     getText().toString().trim();//123
@@ -144,7 +144,7 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
             paymentParams = _binder
                     .getPaymentParamsFactory()
                     .createCreditCardPaymentParams(transactionPrice,
-                            PWCurrency.EURO, "A test charge", holder,
+                            PWCurrency.SAUDI_ARABIA_RIYAL, "A Live charge", holder,
                             creditCardType, cardNumber, year, month, cvv);
 
         } catch (PWProviderNotInitializedException e) {
@@ -355,7 +355,7 @@ public class PaymentDetailsActivity extends BaseActivity implements PWTransactio
     public static class FourDigitCardFormatWatcher implements TextWatcher {
 
         // Change this to what you want... ' ', '-' etc..
-        final char space = ' ';
+        final char space = '-';
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {

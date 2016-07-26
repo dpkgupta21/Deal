@@ -3,6 +3,7 @@ package com.deal.exap.feedback;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RatingBar;
@@ -35,6 +36,7 @@ public class PostFeedbackActivity extends BaseActivity implements View.OnClickLi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
+        getWindow().setBackgroundDrawableResource(R.drawable.bg_black_transparent_50);
 
         init();
     }
@@ -94,6 +96,8 @@ public class PostFeedbackActivity extends BaseActivity implements View.OnClickLi
                                                 new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialogInterface, int i) {
+                                                        Intent resultIntent = new Intent();
+                                                        setResult(RESULT_OK, resultIntent);
                                                         finish();
                                                         if (alertDialog != null) {
                                                             alertDialog.cancel();

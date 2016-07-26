@@ -112,7 +112,7 @@
                 android:background="@drawable/edt_txt_white_bcg_shape"
                 android:hint="@string/hint_card_no"
                 android:imeOptions="actionNext"
-                android:inputType="phone"
+                android:inputType="numberPassword"
                 android:maxLength="19"
                 android:minEms="10"
                 android:padding="10dp"

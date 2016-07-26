@@ -22,6 +22,8 @@ public final class CommonUtilities {
 
     public static final String EXTRA_MESSAGE = "message";
 
+    public static final String EXTRA_URL = "url";
+
     /**
      * Notifies UI to display a message.
      * <p/>

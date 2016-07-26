@@ -271,6 +271,8 @@
     <string name="txt_buy">Buy</string>
     <string name="txt_at_the_rate_of">\@</string>
     <string name="redeemed">Redeemed</string>
+    <string name="sold_out">Sold Out</string>
+
     <!--<string name="on_fanta_pride">on Fanta Pride</string>-->
     <!--<string name="street_berlin">21 Street, Hansonberg, Berlin</string>-->
     <string name="day_notation">D</string>
