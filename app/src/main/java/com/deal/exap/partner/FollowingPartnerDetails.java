@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.chat.ChatActivity;
 import com.deal.exap.customviews.CustomProgressDialog;
+import com.deal.exap.gps.GPSTracker;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.model.PartnerDTO;
@@ -26,6 +27,7 @@ import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.nearby.adapter.NearByListAdapter;
 import com.deal.exap.payment.BuyCouponActivity;
 import com.deal.exap.utility.Constant;
+import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
@@ -62,6 +64,8 @@ public class FollowingPartnerDetails extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_following_partner_details);
         mActivity = FollowingPartnerDetails.this;
+
+        GPSTracker gpsTracker = new GPSTracker(mActivity);
         init();
 
         getPartnerDetails();
@@ -74,6 +78,28 @@ public class FollowingPartnerDetails extends BaseActivity {
             public void onRefresh() {
                 getPartnerDetails();
                 mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                boolean enable = false;
+                if (mRecyclerView != null && mRecyclerView.getChildCount() > 0) {
+                    // check if the first item of the list is visible
+                    boolean firstItemVisible = ((LinearLayoutManager) mRecyclerView.
+                            getLayoutManager()).findFirstVisibleItemPosition() == 0;
+                    // check if the top of the first item is visible
+                    boolean topOfFirstItemVisible = mRecyclerView.getChildAt(0).getTop() == 0;
+                    // enabling or disabling the refresh layout
+                    enable = firstItemVisible && topOfFirstItemVisible;
+                }
+                mSwipeRefreshLayout.setEnabled(enable);
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
             }
         });
 
@@ -144,7 +170,8 @@ public class FollowingPartnerDetails extends BaseActivity {
             params.put("partner_id", partnerID + "");
             params.put("lang", Utils.getSelectedLanguage(mActivity));
             params.put("user_id", Utils.getUserId(mActivity));
-
+            params.put("lat", String.valueOf(DealPreferences.getLatitude(mActivity)));
+            params.put("lng", String.valueOf(DealPreferences.getLongitude(mActivity)));
 
             //  final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,

@@ -24,18 +24,18 @@ public class HelpMe {
     }
 
 
-    public static String getDurationTime( String endTime) {
+    public static String getDurationTime(String endTime, String format) {
         //String startDateString = "06/27/2007";
 
         String diff = null;
         try {
             String REQUEST_DATE_FORMAT = "dd MMM yyyy";
-            SimpleDateFormat df = new SimpleDateFormat(REQUEST_DATE_FORMAT,Locale.US);
+            SimpleDateFormat df = new SimpleDateFormat(REQUEST_DATE_FORMAT, Locale.US);
             Date startDate = new Date();
             Date endDate = df.parse(endTime);
             long timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
-            diff = String.format("%dD %dH %dM",TimeUnit.MILLISECONDS.toDays(timeDiff),
-                    TimeUnit.MILLISECONDS.toHours(timeDiff)-
+            diff = String.format(format, TimeUnit.MILLISECONDS.toDays(timeDiff),
+                    TimeUnit.MILLISECONDS.toHours(timeDiff) -
                             TimeUnit.DAYS.toHours(TimeUnit.MILLISECONDS.toDays(timeDiff)),
                     TimeUnit.MILLISECONDS.toMinutes(timeDiff) -
                             TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(timeDiff)));
@@ -104,12 +104,14 @@ public class HelpMe {
         } else
             return false;
     }
+
     public static boolean isCurrencyCheck(Context mContext, String currencyNameEng) {
         if (DealPreferences.getCurrencyEng(mContext).equalsIgnoreCase(currencyNameEng)) {
             return true;
         } else
             return false;
     }
+
     public static double convertKMToMiles(String kilometers) {
 
         DecimalFormat decimalFormat = new DecimalFormat("#");
@@ -117,7 +119,7 @@ public class HelpMe {
         double miles = 0.621 * km;
 
         decimalFormat.format(miles);
-        return    Math.abs(miles);
+        return Math.abs(miles);
     }
 
     public static void pullDb(Context context) {

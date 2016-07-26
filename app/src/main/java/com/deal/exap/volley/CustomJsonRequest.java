@@ -11,6 +11,7 @@ import com.deal.exap.model.UserDTO;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.SessionManager;
+import com.deal.exap.utility.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +31,9 @@ public class CustomJsonRequest extends Request<JSONObject> {
         super(Method.GET, url, errorListener);
         this.listener = reponseListener;
         params.put("device_id", DealPreferences.getPushRegistrationId(AppController.getAppContext()));
+        params.put("loginuser_id", Utils.getUserId(AppController.getAppContext()));
+
+
         this.params = params;
     }
 
@@ -38,6 +42,8 @@ public class CustomJsonRequest extends Request<JSONObject> {
         super(method, url, errorListener);
         this.listener = reponseListener;
         params.put("device_id", DealPreferences.getPushRegistrationId(AppController.getAppContext()));
+        params.put("loginuser_id", Utils.getUserId(AppController.getAppContext()));
+
         this.params = params;
     }
 
@@ -74,7 +80,8 @@ public class CustomJsonRequest extends Request<JSONObject> {
 //                }
                 UserDTO userDTO = DealPreferences.getObjectFromPref(AppController.getAppContext(), Constant.USER_INFO);
                 userDTO = null;
-                DealPreferences.putObjectIntoPref(AppController.getAppContext(), userDTO, Constant.USER_INFO);
+                DealPreferences.putObjectIntoPref(AppController.getAppContext(),
+                        userDTO, Constant.USER_INFO);
                 SessionManager.logoutUser(AppController.getAppContext());
 
             } else {

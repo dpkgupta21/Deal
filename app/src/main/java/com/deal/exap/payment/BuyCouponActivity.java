@@ -484,7 +484,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 //            setViewVisibility(R.id.btn_redeem, View.VISIBLE);
 //        }
         setTextViewText(R.id.txt_discount_rate, dealDTO.getDiscount() +
-                getString(R.string.percent_sign)+ getString(R.string.percent_off));
+                getString(R.string.percent_sign) + getString(R.string.percent_off));
         if (HelpMe.isArabic(this)) {
             setTextViewText(R.id.txt_on_which, dealDTO.getName_ara());
             setTextViewText(R.id.txt_details, dealDTO.getDetail_ara());
@@ -537,7 +537,9 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
         Date now = new Date();
         //  String currDate = sdf.format(now);
 
-        String duration = HelpMe.getDurationTime(dealDTO.getEnd_date());
+        String duration = HelpMe.getDurationTime(dealDTO.getEnd_date(),
+                "%d" + getString(R.string.day_notation) +
+                        " %d" + getString(R.string.hour_notation) + " %d" + getString(R.string.month_notation));
         setViewText(R.id.tv_duration_time, duration);
 
         setTextViewText(R.id.txt_redeemed_val, dealDTO.getRedeemed() + "");
@@ -768,7 +770,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 
                                     Button btn_purchase = (Button) findViewById(R.id.btn_buy);
 
-                                    if (dealDTO.getDeal_code() != null && !dealDTO.getDeal_code().equalsIgnoreCase("")) {
+                                    if (dealCode != null && !dealCode.equalsIgnoreCase("")) {
                                         //btn_purchase.setVisibility(View.GONE);
                                         btn_purchase.setVisibility(View.VISIBLE);
                                         btn_purchase.setEnabled(false);

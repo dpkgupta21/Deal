@@ -29,7 +29,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:padding="5dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/circle_shape"
                 android:scaleType="centerCrop"
                 android:src="@drawable/back_btn" />
 
@@ -38,7 +39,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:padding="5dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/circle_shape"
                 android:scaleType="centerCrop"
                 android:src="@drawable/chat_btn"
                 android:visibility="gone" />
@@ -54,7 +56,7 @@
                     android:id="@+id/linear_image"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:background="@drawable/rect_transparent_bcg_shape"
+                    android:background="@drawable/rect_black_bcg_shape"
                     android:gravity="fill"
                     android:orientation="horizontal">
 
@@ -76,6 +78,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@id/img_company"
+                        android:layout_toLeftOf="@+id/img_featured"
                         android:orientation="vertical">
 
                         <com.deal.exap.customviews.MyTextViewSemiCustom
@@ -93,8 +96,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/place_marker"
-                            android:text=""
                             android:singleLine="true"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="14sp" />
 

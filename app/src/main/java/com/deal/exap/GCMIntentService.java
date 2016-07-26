@@ -4,11 +4,14 @@ import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
+import com.deal.exap.login.OrgSplashActivity;
 import com.deal.exap.login.SplashScreen;
 import com.deal.exap.utility.DealPreferences;
 
@@ -110,7 +113,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 
         String title = message;
 
-        Intent notificationIntent = new Intent(context, SplashScreen.class);
+        Intent notificationIntent = new Intent(context, OrgSplashActivity.class);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent intent = PendingIntent.getActivity(context, 0,
@@ -130,7 +133,8 @@ public class GCMIntentService extends GCMBaseIntentService {
             notification = new Notification();
             notification.icon = R.mipmap.ic_launcher;
             try {
-                Method deprecatedMethod = notification.getClass().getMethod("setLatestEventInfo", Context.class, CharSequence.class, CharSequence.class, PendingIntent.class);
+                Method deprecatedMethod = notification.getClass().getMethod("setLatestEventInfo",
+                        Context.class, CharSequence.class, CharSequence.class, PendingIntent.class);
                 deprecatedMethod.invoke(notification, context, title, message, intent);
             } catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException
                     | InvocationTargetException e) {
@@ -148,10 +152,12 @@ public class GCMIntentService extends GCMBaseIntentService {
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
         // Play default notification sound
-        notification.defaults |= Notification.DEFAULT_SOUND;
-
+        //notification.defaults |= Notification.DEFAULT_SOUND;
+        notification.sound = Uri.parse("android.resource://"
+                + context.getPackageName() + "/" + R.raw.notification);
         // Vibrate if vibrate is enabled
-        notification.defaults |= Notification.DEFAULT_VIBRATE;
+        notification.defaults = Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE;
+
         notificationManager.notify(0, notification);
 
     }

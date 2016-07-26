@@ -248,9 +248,13 @@
     <string name="title_activity_rate_coupon">رسم خريطة</string>
     <string name="title_activity_buy_coupon">رسم خريطة</string>
     <string name="txt_buy">شراء</string>
-    <string name="redeemed">عدد المشترين</string>
-    <string name="on_fanta_pride">على فانتا الكبرياء</string>
-    <string name="street_berlin">21 شارع Hansonberg، برلين</string>
+    <string name="redeemed">تم الشراء</string>
+    <!--<string name="on_fanta_pride">على فانتا الكبرياء</string>-->
+    <!--<string name="street_berlin">21 شارع Hansonberg، برلين</string>-->
+    <string name="day_notation">ي</string>
+    <string name="hour_notation">س</string>
+    <string name="month_notation">د</string>
+
 
 
     <!--Post your feedback screen-->

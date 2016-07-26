@@ -26,7 +26,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/rect_transparent_bcg_shape"
+                android:background="@drawable/rect_black_bcg_shape"
                 android:gravity="fill"
                 android:orientation="horizontal">
 

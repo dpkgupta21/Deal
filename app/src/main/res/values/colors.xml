@@ -26,4 +26,5 @@
     <color name="transparent">#00000000</color>
     <color name="gray_light1">#EEEEEE</color>
     <color name="switch_off_color">#9B5756</color>
+    <color name="transparent_black_50">#80000000</color>
 </resources>

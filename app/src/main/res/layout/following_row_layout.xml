@@ -34,7 +34,7 @@
                     android:id="@+id/linear_image"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:background="@drawable/rect_transparent_bcg_shape"
+                    android:background="@drawable/rect_black_bcg_shape"
                     android:gravity="fill"
                     android:orientation="horizontal">
 

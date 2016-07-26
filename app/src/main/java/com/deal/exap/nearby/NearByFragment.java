@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -30,6 +29,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
+import com.deal.exap.gps.GPSTracker;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.login.BaseFragment;
 import com.deal.exap.model.CategoryDTO;
@@ -40,7 +40,6 @@ import com.deal.exap.partner.FollowingPartnerDetails;
 import com.deal.exap.payment.BuyCouponActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
-import com.deal.exap.utility.HelpMe;
 import com.deal.exap.utility.Utils;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -115,6 +114,7 @@ public class NearByFragment extends BaseFragment {
 
         view = inflater.inflate(R.layout.fragment_near_by, container, false);
         mActivity = getActivity();
+        GPSTracker gpsTracker=new GPSTracker(mActivity);
         Bundle bundle = getArguments();
         if (bundle != null) {
             ((BaseActivity) getActivity()).resetToolbar(getString(R.string.category_deal_title));

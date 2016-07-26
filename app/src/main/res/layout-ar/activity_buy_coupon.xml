@@ -312,12 +312,12 @@
                             android:text=""
                             android:textSize="18sp" />
 
-                        <com.deal.exap.customviews.MyTextViewRegCustom
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:text="@string/txt_discount_per"
-                            android:textSize="14sp" />
+                        <!--<com.deal.exap.customviews.MyTextViewRegCustom-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:gravity="center_horizontal"-->
+                            <!--android:text="@string/txt_discount_per"-->
+                            <!--android:textSize="14sp" />-->
 
                     </LinearLayout>
 

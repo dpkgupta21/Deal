@@ -96,7 +96,7 @@ public class ChatListAdapter extends BaseAdapter {
         }
 
         mHolder.tv_msg.setText(chat.getMessage());
-        mHolder.tv_date.setText(Utils.secondsToDate(chat.getTimestamp()));
+        mHolder.tv_date.setText(chat.getTimestamp());
         ImageLoader.getInstance().displayImage(chat.getImage(), mHolder.iv_profile,
                 option);
 

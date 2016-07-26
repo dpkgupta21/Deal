@@ -150,6 +150,7 @@
                     android:hint="@string/hint_mm"
                     android:imeOptions="actionNext"
                     android:inputType="number"
+                    android:maxLength="2"
                     android:padding="10dp"
                     android:singleLine="true"
                     android:textColor="@color/black" />
@@ -165,6 +166,7 @@
                     android:hint="@string/hint_yy"
                     android:imeOptions="actionNext"
                     android:inputType="number"
+                    android:maxLength="4"
                     android:padding="10dp"
                     android:singleLine="true"
                     android:textColor="@color/black" />
@@ -193,17 +195,15 @@
 
                 <CheckBox
                     android:id="@+id/chk_terms"
-                    android:gravity="top"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:gravity="top" />
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="bottom"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
                     <com.deal.exap.customviews.MyTextViewRegCustom
@@ -218,15 +218,12 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/txt_payment_terms"
-                        android:layout_marginTop="3dp"
                         android:orientation="horizontal">
 
                         <com.deal.exap.customviews.MyTextViewRegCustom
                             android:id="@+id/txt_payment_terms_use"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:gravity="center"
                             android:text="@string/terms_use"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
@@ -235,9 +232,7 @@
                             android:id="@+id/txt_and"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
                             android:layout_marginLeft="3dp"
-                            android:gravity="center"
                             android:text="@string/and"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
@@ -246,9 +241,7 @@
                             android:id="@+id/txt_payment_private_policy_use"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
                             android:layout_marginLeft="3dp"
-                            android:gravity="center"
                             android:text="@string/private_policy"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
@@ -262,7 +255,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:background="@color/btn_color"
                 android:text="@string/btn_pay_now"
                 android:textColor="@color/white" />
