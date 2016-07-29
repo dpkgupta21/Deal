@@ -26,6 +26,7 @@ import com.deal.exap.login.BaseActivity;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.partner.FollowingPartnerDetails;
+import com.deal.exap.payment.BuyCouponActivity;
 import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.utility.Utils;
@@ -221,9 +222,12 @@ public class WalletFragment extends Fragment {
                 Intent i;
                 switch (v.getId()) {
                     case R.id.thumbnail:
-                        i = new Intent(getActivity(), ShowWalletDetails.class);
+                        i = new Intent(getActivity(), BuyCouponActivity.class);
                         i.putExtra("id", walletValues.get(position).getId());
                         startActivity(i);
+//                        i = new Intent(getActivity(), ShowWalletDetails.class);
+//                        i.putExtra("id", walletValues.get(position).getId());
+//                        startActivity(i);
                         break;
 
                     case R.id.img_title:

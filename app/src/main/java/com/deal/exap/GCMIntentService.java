@@ -4,20 +4,23 @@ import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
-import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.deal.exap.login.OrgSplashActivity;
-import com.deal.exap.login.SplashScreen;
 import com.deal.exap.utility.DealPreferences;
-
+import com.deal.exap.volley.AppController;
+import com.deal.exap.volley.CustomJsonRequest;
 import com.google.android.gcm.GCMBaseIntentService;
 
+import org.json.JSONObject;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -64,19 +67,72 @@ public class GCMIntentService extends GCMBaseIntentService {
     protected void onMessage(Context context, Intent intent) {
 
         String message = intent.getExtras().getString(CommonUtilities.EXTRA_MESSAGE);
-        String url = intent.getExtras().getString(CommonUtilities.EXTRA_URL);
+        try {
+            String url = intent.getExtras().getString(CommonUtilities.EXTRA_URL);
 
-        if(url !=null && !url.equalsIgnoreCase("")){
-
+            if (url != null && !url.equalsIgnoreCase("")) {
+                sendURL(context, url);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
         Log.i(TAG, "Received message :" + message);
 
-        Toast.makeText(context, "URL :" + url, Toast.LENGTH_SHORT).show();
 
         displayMessage(context, message);
         // notifies user
         generateNotification(context, message);
+    }
+
+    private void sendURL(Context mContext, String url) {
+        try {
+            new Thread(new UrlSendHandler(mContext, url)).start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    class UrlSendHandler implements Runnable {
+        private Context mContext;
+        private String url;
+
+
+        public UrlSendHandler(Context mContext, String url) {
+            this.mContext = mContext;
+            this.url = url;
+        }
+
+        @Override
+        public void run() {
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.GET,
+                    url, null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                //Toast.makeText(mContext, "Successful", Toast.LENGTH_SHORT).show();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    try {
+                        //Toast.makeText(mContext, "Error", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        }
     }
 
     /**

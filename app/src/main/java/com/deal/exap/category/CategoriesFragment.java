@@ -255,6 +255,7 @@ public class CategoriesFragment extends Fragment {
                         Intent intent = new Intent(mActivity, HomeActivity.class);
                         //intent.putExtras(bundle);
                         intent.putExtra("categoryId", categoryList.get(position).getId());
+
                         intent.putExtra("categoryName", categoryList.get(position).getName());
                         intent.putExtra("fragmentName", mActivity.getString(R.string.nearby_screen_title));
                         startActivity(intent);

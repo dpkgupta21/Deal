@@ -3,6 +3,7 @@ package com.deal.exap.wallet;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.deal.exap.R;
 import com.deal.exap.customerfeedback.CustomerFeedBackActivity;
+import com.deal.exap.gps.GPSTracker;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.misc.ImageActivity;
 import com.deal.exap.model.DealDTO;
@@ -49,7 +51,7 @@ public class ShowWalletDetails extends BaseActivity {
     private DealDTO dealDTO;
     private DisplayImageOptions options;
     private ArrayList<String> imageList;
-
+    private Activity mActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,9 @@ public class ShowWalletDetails extends BaseActivity {
         setContentView(R.layout.activity_buy_coupon);
 
         setViewVisibility(R.id.btn_buy, View.GONE);
+
+        mActivity = ShowWalletDetails.this;
+        GPSTracker gpsTracker = new GPSTracker(mActivity);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         /*SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

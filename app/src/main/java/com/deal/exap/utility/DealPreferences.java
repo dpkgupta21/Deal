@@ -3,6 +3,8 @@ package com.deal.exap.utility;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.deal.exap.R;
+
 import java.io.IOException;
 
 
@@ -35,7 +37,7 @@ public class DealPreferences {
 
     public static String getCurrencyEng(Context context) {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(CURRENCY_ENG,
-                "SAR");
+                context.getString(R.string.sar));
     }
 
     public static void setCurrencyAra(Context context, String userId) {
@@ -48,7 +50,7 @@ public class DealPreferences {
 
     public static String getCurrencyAra(Context context) {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(CURRENCY_ARA,
-                "ر");
+                context.getString(R.string.sar));
     }
 
     public static void setIsShowSurveyAfterLogin(Context context, Boolean isShowSurveyAfterLogin) {

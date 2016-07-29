@@ -310,6 +310,9 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener,
         toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_transparent_color));
     }
 
+
+
+
 //    @Override
 //    public void onRequestPermissionsResult(int requestCode,
 //                                           String permissions[], int[] grantResults) {

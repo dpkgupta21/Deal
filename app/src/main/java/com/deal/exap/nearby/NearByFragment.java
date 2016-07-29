@@ -114,10 +114,11 @@ public class NearByFragment extends BaseFragment {
 
         view = inflater.inflate(R.layout.fragment_near_by, container, false);
         mActivity = getActivity();
-        GPSTracker gpsTracker=new GPSTracker(mActivity);
+        GPSTracker gpsTracker = new GPSTracker(mActivity);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            ((BaseActivity) getActivity()).resetToolbar(getString(R.string.category_deal_title));
+
+            ((BaseActivity) getActivity()).resetToolbar(bundle.getString("categoryName", ""));
 
         } else {
             ((BaseActivity) getActivity()).resetToolbar(getString(R.string.menu_near_by));
@@ -147,7 +148,7 @@ public class NearByFragment extends BaseFragment {
 //                        getActivity().getApplicationContext()),
 //                view);
 
-     //   selectedKMButton(DealPreferences.getDistanceUnit(getActivity().getApplicationContext()));
+        //   selectedKMButton(DealPreferences.getDistanceUnit(getActivity().getApplicationContext()));
 
         btnDistantLth = (Button) view.findViewById(R.id.btn_distance_lth);
         btnDistantLth.setSelected(true);

@@ -122,7 +122,7 @@
     -->
 
     <!--Payment Details Screen-->
-    <string name="sar">ريال</string>
+    <string name="sar">ر.س</string>
     <string name="payment_header">وسیلة الدفع</string>
     <string name="payment">دفع</string>
     <string name="hint_card_no">رقم البطاقة</string>
@@ -189,7 +189,7 @@
     <string name="txt_downloads">مجموع المشتريات</string>
     <string name="txt_active_coupons">كوبونات نشطة</string>
     <string name="btn_follow_this_partner">اتبع هذا الشريك</string>
-    <string name="btn_unfollow_this_partner">فولو هذا الشريك</string>
+    <string name="btn_unfollow_this_partner">إلغاء المتابعة</string>
     <string name="txt_featured">امميز</string>
 
     <!--<string name="txt_active_coupons_val">10</string>
@@ -198,7 +198,7 @@
 
 
     <!-- Near By Screen-->
-    <string name="txt_end_date">تينتهي في:</string>
+    <string name="txt_end_date">ينتهي في</string>
     <string name="txt_views">المشاهدات</string>
     <string name="txt_distance">يبعد</string>
     <string name="txt_filter_distance_unit_km">ككم</string>
@@ -294,7 +294,7 @@
 
 
     <!-- Edit Profile screen -->
-    <string name="change_photo">تغيير صور</string>
+    <string name="change_photo">تغيير الصورة</string>
     <string name="full_name">الاسم كاملا</string>
     <string name="enter_here">أدخل هنا</string>
     <string name="age">العمر</string>

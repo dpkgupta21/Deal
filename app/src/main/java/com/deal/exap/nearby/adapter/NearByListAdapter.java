@@ -221,8 +221,10 @@ public class NearByListAdapter extends RecyclerView
             holder.ratingBar.setRating(mDataset.get(position).getRating());
         }
 
-        holder.txt_final_price.setText(mDataset.get(position).getFinal_price() + " " + HelpMe.getCurrencySign(context));
-        holder.txt_visible_price.setText(mDataset.get(position).getVisible_price() + " " + HelpMe.getCurrencySign(context));
+        holder.txt_final_price.setText(mDataset.get(position).getFinal_price() + " " +
+                HelpMe.getCurrencySign(context));
+        holder.txt_visible_price.setText(mDataset.get(position).getVisible_price() + " " +
+                HelpMe.getCurrencySign(context));
         holder.txt_visible_price.setPaintFlags(holder.txt_visible_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     }
 
