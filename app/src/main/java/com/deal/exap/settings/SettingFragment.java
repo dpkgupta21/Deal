@@ -55,11 +55,10 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
     private MyButtonViewSemi btn_select_arabic;
     private MyTextViewReg12 btn_select_km;
     //private MyTextViewReg12 btn_select_miles;
-
-    //    private ArrayList<String> months;
-//    private ArrayList<String> years;
-//    private TextView txtMonth;
-//    private TextView txtYear;
+    //private ArrayList<String> months;
+    //private ArrayList<String> years;
+    //private TextView txtMonth;
+    //private TextView txtYear;
     private Switch switch_location;
     private Switch switch_push;
     private Switch switch_message;

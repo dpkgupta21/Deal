@@ -106,6 +106,14 @@ public class EditProfileActivity extends BaseActivity {
         else
             setTextViewText(R.id.txt_name, "");
 
+
+        if (userDTO.getEmail() != null && !userDTO.getEmail().equalsIgnoreCase(""))
+            setTextViewText(R.id.edt_email_id, userDTO.getEmail());
+        else
+            setTextViewText(R.id.edt_email_id, "");
+
+
+
         if (userDTO.getAge() != null && !userDTO.getAge().equalsIgnoreCase(""))
             setTextViewText(R.id.et_age, userDTO.getAge());
         else
@@ -380,6 +388,7 @@ public class EditProfileActivity extends BaseActivity {
             params.put("action", Constant.EDIT_PROFILE);
             params.put("user_id", Utils.getUserId(this));
             params.put("name", getViewText(R.id.txt_name));
+            params.put("email", getViewText(R.id.edt_email_id));
             params.put("gender", getViewText(R.id.et_sex).equals("Male") ? "M" : "F");
             params.put("age", getViewText(R.id.et_age));
             params.put("location", getViewText(R.id.txt_location));

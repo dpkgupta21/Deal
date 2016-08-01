@@ -22,7 +22,7 @@ public class Constant {
     public static final int RESULT_EXCEPTION = 1002;
     public static final int RESULT_TIMEOUT = 1003;
 
-    public static final int REQUEST_LOCATION_PERMISSION = 2001;
+    public static final int REQUEST_LOCATION_PERMISSION = 200;
 
     //public static final String SERVICE_BASE_URL = "http://128.199.234.133/exap/webservices/";
     public static final String SERVICE_BASE_URL = "https://www.exap.sa/beta/webservices";

@@ -6,21 +6,21 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp">
+                android:layout_height="280dp">
 
                 <ImageView
                     android:id="@+id/profile"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="280dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/avtar" />
 
@@ -39,9 +39,8 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingBottom="10dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:paddingTop="10dp">
@@ -54,14 +53,26 @@
                 <com.deal.exap.customviews.MyEditTextViewLight
                     android:id="@+id/txt_name"
                     style="@style/et_style_line"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:gravity="right"
+                    android:hint="@string/enter_here" />
+
+                <com.deal.exap.customviews.MyTextViewRegCustom
+                    style="@style/tv_normal"
+                    android:layout_marginTop="7dp"
+                    android:text="@string/email_id_hint"
+                    android:textColor="@color/black" />
+
+                <com.deal.exap.customviews.MyEditTextViewLight
+                    android:id="@+id/edt_email_id"
+                    style="@style/et_style_line"
+                    android:layout_marginTop="3dp"
                     android:hint="@string/enter_here" />
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="7dp"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -109,14 +120,14 @@
 
                 <com.deal.exap.customviews.MyTextViewRegCustom
                     style="@style/tv_normal"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="7dp"
                     android:text="@string/location"
                     android:textColor="@color/black" />
 
                 <com.deal.exap.customviews.MyTextViewLightCustom
                     android:id="@+id/txt_location"
                     style="@style/et_style_line"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:gravity="right"
                     android:hint="@string/enter_here" />
 

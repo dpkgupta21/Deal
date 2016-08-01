@@ -184,28 +184,28 @@ public class GPSTracker implements ConnectionCallbacks,
     protected void startLocationUpdates() {
         // The final argument to {@code requestLocationUpdates()} is a LocationListener
         // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
-        int permissionCheck = ContextCompat.checkSelfPermission(mActivity,
-                Manifest.permission.ACCESS_FINE_LOCATION);
+        //int permissionCheck = ContextCompat.checkSelfPermission(mActivity,
+        //      Manifest.permission.ACCESS_FINE_LOCATION);
 
-//        if (Build.VERSION.SDK_INT >= 23 &&
-//                ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.ACCESS_FINE_LOCATION)
-//                        == PackageManager.PERMISSION_GRANTED &&
-//                ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.ACCESS_COARSE_LOCATION)
-//                        == PackageManager.PERMISSION_GRANTED) {
+        if (Build.VERSION.SDK_INT >= 23 &&
+                ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED) {
 
 
-        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+            //if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
             //Execute location service call if user has explicitly granted ACCESS_FINE_LOCATION..
             LocationServices.FusedLocationApi.requestLocationUpdates(
                     mGoogleApiClient, mLocationRequest, this);
+            //}
+        } else {
+            ActivityCompat.requestPermissions(mActivity,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION},
+                    Constant.REQUEST_LOCATION_PERMISSION);
+
         }
-//        } else {
-//            ActivityCompat.requestPermissions(mActivity,
-//                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-//                            Manifest.permission.ACCESS_COARSE_LOCATION},
-//                    Constant.REQUEST_LOCATION_PERMISSION);
-//
-//        }
 
     }
 
@@ -225,20 +225,33 @@ public class GPSTracker implements ConnectionCallbacks,
     @Override
     public void onConnected(Bundle bundle) {
         if (mCurrentLocation == null) {
-            int permissionCheck = ContextCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_FINE_LOCATION);
+            // int permissionCheck = ContextCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_FINE_LOCATION);
 
 
-            if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= 23 &&
+                    ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+
+                // if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
 
                 mCurrentLocation = LocationServices.FusedLocationApi.
                         getLastLocation(mGoogleApiClient);
-            }
+                //}
 
-            if (mCurrentLocation != null) {
-                canGetLocation = true;
-                DealPreferences.setLatitude(mActivity, mCurrentLocation.getLatitude());
-                DealPreferences.setLongitude(mActivity, mCurrentLocation.getLongitude());
-                // mLocationChangedListener.onReceiveLocation(mCurrentLocation, 1);
+                if (mCurrentLocation != null) {
+                    canGetLocation = true;
+                    DealPreferences.setLatitude(mActivity, mCurrentLocation.getLatitude());
+                    DealPreferences.setLongitude(mActivity, mCurrentLocation.getLongitude());
+                    // mLocationChangedListener.onReceiveLocation(mCurrentLocation, 1);
+                }
+            } else {
+                ActivityCompat.requestPermissions(mActivity,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION},
+                        Constant.REQUEST_LOCATION_PERMISSION);
+
             }
         }
         if (mCurrentLocation == null && mGoogleApiClient.isConnected()) {
