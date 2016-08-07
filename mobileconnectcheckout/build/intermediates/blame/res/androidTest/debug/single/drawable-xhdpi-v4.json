@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "/Users/DeepakGupta/Workspace1/Deal/mobileconnectcheckout/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/connect_checkout_close.xml",
+        "source": "/Users/DeepakGupta/Workspace1/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/connect_checkout_close.xml"
+    },
+    {
+        "merged": "/Users/DeepakGupta/Workspace1/Deal/mobileconnectcheckout/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/connect_checkout_shadow_top_layer.xml",
+        "source": "/Users/DeepakGupta/Workspace1/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/connect_checkout_shadow_top_layer.xml"
+    },
+    {
+        "merged": "/Users/DeepakGupta/Workspace1/Deal/mobileconnectcheckout/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/connect_checkout_background.xml",
+        "source": "/Users/DeepakGupta/Workspace1/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/connect_checkout_background.xml"
+    },
+    {
+        "merged": "/Users/DeepakGupta/Workspace1/Deal/mobileconnectcheckout/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/connect_checkout_shadow_bottom_layer.xml",
+        "source": "/Users/DeepakGupta/Workspace1/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/connect_checkout_shadow_bottom_layer.xml"
+    },
+    {
+        "merged": "/Users/DeepakGupta/Workspace1/Deal/mobileconnectcheckout/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/connect_checkout_shadow_icon_layer.xml",
+        "source": "/Users/DeepakGupta/Workspace1/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/connect_checkout_shadow_icon_layer.xml"
+    },
+    {
+        "merged": "/Users/DeepakGupta/Workspace1/Deal/mobileconnectcheckout/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/connect_checkout_shadow_top.9.png",
+        "source": "/Users/DeepakGupta/Workspace1/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/connect_checkout_shadow_top.9.png"
+    },
+    {
+        "merged": "/Users/DeepakGupta/Workspace1/Deal/mobileconnectcheckout/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/connect_checkout_shadow_bottom.9.png",
+        "source": "/Users/DeepakGupta/Workspace1/Deal/mobileconnectcheckout/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/connect_checkout_shadow_bottom.9.png"
+    }
+]

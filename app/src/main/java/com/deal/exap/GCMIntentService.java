@@ -14,6 +14,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.deal.exap.login.OrgSplashActivity;
 import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.volley.AppController;
@@ -105,33 +106,28 @@ public class GCMIntentService extends GCMBaseIntentService {
 
         @Override
         public void run() {
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.GET,
-                    url, null,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                //Toast.makeText(mContext, "Successful", Toast.LENGTH_SHORT).show();
-                            } catch (Exception e) {
-                                e.printStackTrace();
+            try {
+
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                // Display the first 500 characters of the response string.
+
                             }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
 
-                        }
-                    }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    try {
-                        //Toast.makeText(mContext, "Error", Toast.LENGTH_SHORT).show();
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
-                }
-            });
-            AppController.getInstance().getRequestQueue().add(postReq);
-            postReq.setRetryPolicy(new DefaultRetryPolicy(
-                    30000, 0,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                });
+                AppController.getInstance().getRequestQueue().add(stringRequest);
+                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                        30000, 0,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

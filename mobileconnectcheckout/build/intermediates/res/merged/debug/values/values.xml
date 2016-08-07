@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/DeepakGupta/Workspace1/Deal/mobileconnectcheckout/src/main/res/values/booleans.xml -->
-    <eat-comment/>
     <bool name="connect_checkout_show_toasts">false</bool>
-    <!-- From: file:/Users/DeepakGupta/Workspace1/Deal/mobileconnectcheckout/src/main/res/values/strings.xml -->
-    <eat-comment/>
     <string name="connect_checkout_layout_accessibility_cancel_checkout">cancel checkout</string>
     <string name="connect_checkout_layout_accessibility_list_disclosure">select payment method</string>
     <string name="connect_checkout_layout_accessibility_originating_app_icon">originating app icon</string>
@@ -59,8 +55,6 @@
     <string name="connect_checkout_payment_jcb">JCB</string>
     <string name="connect_checkout_payment_mastercard">Mastercard</string>
     <string name="connect_checkout_payment_visa">VISA</string>
-    <!-- From: file:/Users/DeepakGupta/Workspace1/Deal/mobileconnectcheckout/src/main/res/values/styles.xml -->
-    <eat-comment/>
     <style name="ConnectCheckout" parent="android:Theme.Translucent.NoTitleBar">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>

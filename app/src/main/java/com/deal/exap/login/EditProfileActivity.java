@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -55,9 +54,9 @@ import java.util.Map;
 public class EditProfileActivity extends BaseActivity {
 
     private static final String TAG = "EditProfile";
+
     private UserDTO userDTO;
     private DisplayImageOptions options;
-
     private int CAMERA_REQUEST = 1001;
     private int GALLERY_REQUEST = 1002;
     private int LOCATION_RESULT_REQUEST = 1003;
@@ -66,7 +65,8 @@ public class EditProfileActivity extends BaseActivity {
     private byte[] bitmapdata;
     private ImageView profile;
     //private String currentAddress;
-    private GPSTracker gpsTracker;
+    //private GPSTracker gpsTracker;
+
     private Activity mActivity;
 
     //private ImageLoader imageLoader;
@@ -78,7 +78,7 @@ public class EditProfileActivity extends BaseActivity {
         mActivity = EditProfileActivity.this;
 
         init();
-        gpsTracker = new GPSTracker(mActivity);
+        GPSTracker gpsTracker = new GPSTracker(mActivity);
 //        try {
 //            currentAddress = Utils.getAddress(gpsTracker.getLatitude(), gpsTracker.getLongitude(),
 //                    mActivity);

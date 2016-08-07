@@ -30,8 +30,10 @@ public class CustomJsonRequest extends Request<JSONObject> {
                              Listener<JSONObject> reponseListener, ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
         this.listener = reponseListener;
-        params.put("device_id", DealPreferences.getPushRegistrationId(AppController.getAppContext()));
-        params.put("loginuser_id", Utils.getUserId(AppController.getAppContext()));
+        if (AppController.getAppContext() != null) {
+            params.put("device_id", DealPreferences.getPushRegistrationId(AppController.getAppContext()));
+            params.put("loginuser_id", Utils.getUserId(AppController.getAppContext()));
+        }
 
 
         this.params = params;
@@ -41,8 +43,11 @@ public class CustomJsonRequest extends Request<JSONObject> {
                              Listener<JSONObject> reponseListener, ErrorListener errorListener) {
         super(method, url, errorListener);
         this.listener = reponseListener;
-        params.put("device_id", DealPreferences.getPushRegistrationId(AppController.getAppContext()));
-        params.put("loginuser_id", Utils.getUserId(AppController.getAppContext()));
+
+        if (AppController.getAppContext() != null) {
+            params.put("device_id", DealPreferences.getPushRegistrationId(AppController.getAppContext()));
+            params.put("loginuser_id", Utils.getUserId(AppController.getAppContext()));
+        }
 
         this.params = params;
     }
@@ -85,6 +90,7 @@ public class CustomJsonRequest extends Request<JSONObject> {
                 SessionManager.logoutUser(AppController.getAppContext());
 
             } else {
+
                 listener.onResponse(response);
             }
         } catch (Exception e) {
