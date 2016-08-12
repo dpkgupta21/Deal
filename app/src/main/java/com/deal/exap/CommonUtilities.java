@@ -23,6 +23,8 @@ public final class CommonUtilities {
     public static final String EXTRA_MESSAGE = "message";
 
     public static final String EXTRA_URL = "url";
+    public static final String EXTRA_NOTIFY_TYPE = "notify_type";
+    public static final String EXTRA_DATA_ID = "DataId";
 
     /**
      * Notifies UI to display a message.

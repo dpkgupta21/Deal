@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -16,6 +17,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.deal.exap.login.OrgSplashActivity;
+import com.deal.exap.payment.BuyCouponActivity;
+import com.deal.exap.utility.Constant;
 import com.deal.exap.utility.DealPreferences;
 import com.deal.exap.volley.AppController;
 import com.deal.exap.volley.CustomJsonRequest;
@@ -66,7 +69,8 @@ public class GCMIntentService extends GCMBaseIntentService {
      */
     @Override
     protected void onMessage(Context context, Intent intent) {
-
+        Toast.makeText(context, "Received", Toast.LENGTH_SHORT).show();
+        String dealId = null;
         String message = intent.getExtras().getString(CommonUtilities.EXTRA_MESSAGE);
         try {
             String url = intent.getExtras().getString(CommonUtilities.EXTRA_URL);
@@ -74,15 +78,25 @@ public class GCMIntentService extends GCMBaseIntentService {
             if (url != null && !url.equalsIgnoreCase("")) {
                 sendURL(context, url);
             }
+
+
+            String notify_type = intent.getExtras().getString(CommonUtilities.EXTRA_NOTIFY_TYPE);
+            if (notify_type != null && !notify_type.equalsIgnoreCase("")) {
+                dealId = intent.getExtras().getString(CommonUtilities.EXTRA_DATA_ID);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         Log.i(TAG, "Received message :" + message);
 
-
-        displayMessage(context, message);
-        // notifies user
-        generateNotification(context, message);
+        try {
+            displayMessage(context, message);
+            // notifies user
+            generateNotification(context, message, dealId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void sendURL(Context mContext, String url) {
@@ -140,7 +154,7 @@ public class GCMIntentService extends GCMBaseIntentService {
         String message = getString(R.string.gcm_deleted, total);
         displayMessage(context, message);
         // notifies user
-        generateNotification(context, message);
+        generateNotification(context, message, null);
     }
 
     /**
@@ -165,61 +179,82 @@ public class GCMIntentService extends GCMBaseIntentService {
      * Issues a notification to inform the user that server has sent a message.
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    private static void generateNotification(Context context, String message) {
-        int icon = R.mipmap.ic_launcher;
-        long when = System.currentTimeMillis();
-        NotificationManager notificationManager = (NotificationManager) context
-                .getSystemService(Context.NOTIFICATION_SERVICE);
-        // Notification notification = new Notification(icon, message, when);
+    private static void generateNotification(Context context, String message, String dealId) {
+        try {
+            int icon = R.mipmap.ic_launcher;
+            long when = System.currentTimeMillis();
+            NotificationManager notificationManager = (NotificationManager) context
+                    .getSystemService(Context.NOTIFICATION_SERVICE);
+            // Notification notification = new Notification(icon, message, when);
 
-        String title = message;
-
-        Intent notificationIntent = new Intent(context, OrgSplashActivity.class);
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent intent = PendingIntent.getActivity(context, 0,
-                notificationIntent, 0);
-        //notification.setLatestEventInfo(context, title, message, intent);
-        //notification.flags |= Notification.FLAG_AUTO_CANCEL;
-
-        // Play default notification sound
-        //  notification.defaults |= Notification.DEFAULT_SOUND;
-
-        // Vibrate if vibrate is enabled
-        //  notification.defaults |= Notification.DEFAULT_VIBRATE;
-
-
-        Notification notification = null;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            notification = new Notification();
-            notification.icon = R.mipmap.ic_launcher;
-            try {
-                Method deprecatedMethod = notification.getClass().getMethod("setLatestEventInfo",
-                        Context.class, CharSequence.class, CharSequence.class, PendingIntent.class);
-                deprecatedMethod.invoke(notification, context, title, message, intent);
-            } catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException
-                    | InvocationTargetException e) {
-                Log.w(TAG, "Method not found", e);
+            String title = message;
+            PendingIntent intent = null;
+            if (dealId != null && !dealId.equalsIgnoreCase("")) {
+                if (DealPreferences.getObjectFromPref(context, Constant.USER_INFO) != null) {
+                    Intent notificationIntent = new Intent(context, BuyCouponActivity.class);
+                    notificationIntent.putExtra("id", dealId);
+                    notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                            Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent = PendingIntent.getActivity(context, 0,
+                            notificationIntent, 0);
+                } else {
+                    Intent notificationIntent = new Intent(context, OrgSplashActivity.class);
+                    notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                            Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent = PendingIntent.getActivity(context, 0,
+                            notificationIntent, 0);
+                }
+            } else {
+                Intent notificationIntent = new Intent(context, OrgSplashActivity.class);
+                notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                        Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent = PendingIntent.getActivity(context, 0,
+                        notificationIntent, 0);
             }
-        } else {
-            // Use new API
-            Notification.Builder builder = new Notification.Builder(context)
-                    .setContentIntent(intent)
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle(title).setContentText(message);
-            notification = builder.build();
+            //notification.setLatestEventInfo(context, title, message, intent);
+            //notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+            // Play default notification sound
+            //  notification.defaults |= Notification.DEFAULT_SOUND;
+
+            // Vibrate if vibrate is enabled
+            //  notification.defaults |= Notification.DEFAULT_VIBRATE;
+
+
+            Notification notification = null;
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+                notification = new Notification();
+                notification.icon = R.mipmap.ic_launcher;
+                try {
+                    Method deprecatedMethod = notification.getClass().getMethod("setLatestEventInfo",
+                            Context.class, CharSequence.class, CharSequence.class, PendingIntent.class);
+                    deprecatedMethod.invoke(notification, context, title, message, intent);
+                } catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException
+                        | InvocationTargetException e) {
+                    Log.w(TAG, "Method not found", e);
+                }
+            } else {
+                // Use new API
+                Notification.Builder builder = new Notification.Builder(context)
+                        .setContentIntent(intent)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle(title).setContentText(message);
+                notification = builder.build();
+            }
+
+            notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+            // Play default notification sound
+            //notification.defaults |= Notification.DEFAULT_SOUND;
+            notification.sound = Uri.parse("android.resource://"
+                    + context.getPackageName() + "/" + R.raw.notification);
+            // Vibrate if vibrate is enabled
+            notification.defaults = Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE;
+
+            notificationManager.notify(0, notification);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-
-        // Play default notification sound
-        //notification.defaults |= Notification.DEFAULT_SOUND;
-        notification.sound = Uri.parse("android.resource://"
-                + context.getPackageName() + "/" + R.raw.notification);
-        // Vibrate if vibrate is enabled
-        notification.defaults = Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE;
-
-        notificationManager.notify(0, notification);
 
     }
 

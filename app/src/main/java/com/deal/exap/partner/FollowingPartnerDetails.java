@@ -164,139 +164,145 @@ public class FollowingPartnerDetails extends BaseActivity {
     }
 
     private void getPartnerDetails() {
-        if (Utils.isOnline(mActivity)) {
-            Map<String, String> params = new HashMap<>();
-            params.put("action", Constant.GET_PARTNER);
-            params.put("partner_id", partnerID + "");
-            params.put("lang", Utils.getSelectedLanguage(mActivity));
-            params.put("user_id", Utils.getUserId(mActivity));
-            params.put("lat", String.valueOf(DealPreferences.getLatitude(mActivity)));
-            params.put("lng", String.valueOf(DealPreferences.getLongitude(mActivity)));
+        try {
+            if (Utils.isOnline(mActivity)) {
+                Map<String, String> params = new HashMap<>();
+                params.put("action", Constant.GET_PARTNER);
+                params.put("partner_id", partnerID + "");
+                params.put("lang", Utils.getSelectedLanguage(mActivity));
+                params.put("user_id", Utils.getUserId(mActivity));
+                params.put("lat", String.valueOf(DealPreferences.getLatitude(mActivity)));
+                params.put("lng", String.valueOf(DealPreferences.getLongitude(mActivity)));
 
-            //  final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                if (response.getBoolean("status")) {
-                                    Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                    Type type = new TypeToken<ArrayList<DealDTO>>() {
-                                    }.getType();
-                                    // dealList = new Gson().fromJson(response.getJSONArray("deals").toString(), type);
-                                    partnerDTO = new Gson().fromJson(response.getJSONObject("partner").toString(),
-                                            PartnerDTO.class);
-                                    setPartnerDetails();
-                                } else {
-                                    mRecyclerView.setVisibility(View.GONE);
-                                    String msg = response.getString("message");
-                                    TextView txt_blank = (TextView) findViewById(R.id.txt_blank);
-                                    txt_blank.setVisibility(View.VISIBLE);
-                                    txt_blank.setText(msg);
+                //  final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
+                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    if (response.getBoolean("status")) {
+                                        Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                        Type type = new TypeToken<ArrayList<DealDTO>>() {
+                                        }.getType();
+                                        // dealList = new Gson().fromJson(response.getJSONArray("deals").toString(), type);
+                                        partnerDTO = new Gson().fromJson(response.getJSONObject("partner").toString(),
+                                                PartnerDTO.class);
+                                        setPartnerDetails();
+                                    } else {
+                                        mRecyclerView.setVisibility(View.GONE);
+                                        String msg = response.getString("message");
+                                        TextView txt_blank = (TextView) findViewById(R.id.txt_blank);
+                                        txt_blank.setVisibility(View.VISIBLE);
+                                        txt_blank.setText(msg);
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
                                 }
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                                CustomProgressDialog.hideProgressDialog();
+                                //pdialog.dismiss();
                             }
-                            CustomProgressDialog.hideProgressDialog();
-                            //pdialog.dismiss();
-                        }
-                    }, new Response.ErrorListener() {
+                        }, new Response.ErrorListener() {
 
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    //pdialog.dismiss();
-                    CustomProgressDialog.hideProgressDialog();
-                    Utils.showExceptionDialog(mActivity);
-                    //       CustomProgressDialog.hideProgressDialog();
-                }
-            });
-            AppController.getInstance().getRequestQueue().add(postReq);
-            postReq.setRetryPolicy(new DefaultRetryPolicy(
-                    30000, 0,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            //pdialog.show();
-        } else {
-            CustomProgressDialog.hideProgressDialog();
-            Utils.showNoNetworkDialog(this);
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //pdialog.dismiss();
+                        CustomProgressDialog.hideProgressDialog();
+                        Utils.showExceptionDialog(mActivity);
+                        //       CustomProgressDialog.hideProgressDialog();
+                    }
+                });
+                AppController.getInstance().getRequestQueue().add(postReq);
+                postReq.setRetryPolicy(new DefaultRetryPolicy(
+                        30000, 0,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                //pdialog.show();
+            } else {
+                CustomProgressDialog.hideProgressDialog();
+                Utils.showNoNetworkDialog(this);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
 
     private void setPartnerDetails() {
 
+        try {
 
-        if (partnerDTO.getDeals() != null) {
-            mAdapter = new NearByListAdapter(partnerDTO.getDeals(), mActivity);
-            mRecyclerView.setAdapter(mAdapter);
-            ((NearByListAdapter) mAdapter).setOnItemClickListener(new NearByListAdapter.MyClickListener() {
-                @Override
-                public void onItemClick(int position, View v) {
 
-                    Intent i;
-                    switch (v.getId()) {
-                        case R.id.thumbnail:
-                            i = new Intent(mActivity, BuyCouponActivity.class);
-                            i.putExtra("id", partnerDTO.getDeals().get(position).getId());
-                            startActivity(i);
-                            break;
-                        case R.id.ll_buy:
-                            i = new Intent(mActivity, BuyCouponActivity.class);
-                            i.putExtra("id", partnerDTO.getDeals().get(position).getId());
-                            startActivity(i);
-                            break;
+            if (partnerDTO.getDeals() != null) {
+                mAdapter = new NearByListAdapter(partnerDTO.getDeals(), mActivity);
+                mRecyclerView.setAdapter(mAdapter);
+                ((NearByListAdapter) mAdapter).setOnItemClickListener(new NearByListAdapter.MyClickListener() {
+                    @Override
+                    public void onItemClick(int position, View v) {
+
+                        Intent i;
+                        switch (v.getId()) {
+                            case R.id.thumbnail:
+                                i = new Intent(mActivity, BuyCouponActivity.class);
+                                i.putExtra("id", partnerDTO.getDeals().get(position).getId());
+                                startActivity(i);
+                                break;
+                            case R.id.ll_buy:
+                                i = new Intent(mActivity, BuyCouponActivity.class);
+                                i.putExtra("id", partnerDTO.getDeals().get(position).getId());
+                                startActivity(i);
+                                break;
+
+                        }
+
 
                     }
+                });
+            }
+
+            ImageView imgThumnail = (ImageView) findViewById(R.id.thumbnail);
+            ImageView partner = (ImageView) findViewById(R.id.img_company);
+
+            ImageLoader.getInstance().displayImage(partnerDTO.getImage(), imgThumnail,
+                    options);
+            ImageLoader.getInstance().displayImage(partnerDTO.getLogo(), partner,
+                    options);
 
 
-                }
-            });
-        }
+            if (HelpMe.isArabic(mActivity)) {
+                setTextViewText(R.id.txt_place_tag, partnerDTO.getAddress_ara());
+                setTextViewText(R.id.txt_title, partnerDTO.getName_ara());
+            } else {
+                setTextViewText(R.id.txt_place_tag, partnerDTO.getAddress_eng());
+                setTextViewText(R.id.txt_title, partnerDTO.getName());
+            }
 
-        ImageView imgThumnail = (ImageView) findViewById(R.id.thumbnail);
-        ImageView partner = (ImageView) findViewById(R.id.img_company);
-
-        ImageLoader.getInstance().displayImage(partnerDTO.getImage(), imgThumnail,
-                options);
-        ImageLoader.getInstance().displayImage(partnerDTO.getLogo(), partner,
-                options);
-
-
-        if (HelpMe.isArabic(mActivity)) {
-            setTextViewText(R.id.txt_place_tag, partnerDTO.getAddress_ara());
-            setTextViewText(R.id.txt_title, partnerDTO.getName_ara());
-        } else {
-            setTextViewText(R.id.txt_place_tag, partnerDTO.getAddress_eng());
-            setTextViewText(R.id.txt_title, partnerDTO.getName());
-        }
-
-        setTextViewText(R.id.txt_active_coupons_val, partnerDTO.getActive_coupan());
-        setTextViewText(R.id.txt_downloads_val, partnerDTO.getDownload());
-        setTextViewText(R.id.txt_followers_val, partnerDTO.getFollower());
+            setTextViewText(R.id.txt_active_coupons_val, partnerDTO.getActive_coupan());
+            setTextViewText(R.id.txt_downloads_val, partnerDTO.getDownload());
+            setTextViewText(R.id.txt_followers_val, partnerDTO.getFollower());
 
 
-        if (partnerDTO.getIs_featured().equalsIgnoreCase("0")) {
-            setViewVisibility(R.id.img_featured, View.GONE);
-        } else {
-            setViewVisibility(R.id.img_featured, View.VISIBLE);
-        }
+            if (partnerDTO.getIs_featured().equalsIgnoreCase("0")) {
+                setViewVisibility(R.id.img_featured, View.GONE);
+            } else {
+                setViewVisibility(R.id.img_featured, View.VISIBLE);
+            }
 
-        if (partnerDTO.getIs_chat_on().equalsIgnoreCase("0")) {
-            setViewVisibility(R.id.iv_chat, View.GONE);
-        } else {
-            setViewVisibility(R.id.iv_chat, View.VISIBLE);
-            setClick(R.id.iv_chat);
-        }
+            if (partnerDTO.getIs_chat_on().equalsIgnoreCase("0")) {
+                setViewVisibility(R.id.iv_chat, View.GONE);
+            } else {
+                setViewVisibility(R.id.iv_chat, View.VISIBLE);
+                setClick(R.id.iv_chat);
+            }
 //        if (partnerDTO.getIs_follow().equalsIgnoreCase("1")) {
 //            setViewVisibility(R.id.btn_follow_this_partner, View.VISIBLE);
-        if (partnerDTO.getUser_follow().equalsIgnoreCase("0")) {
-            // Set Follow this partner label over button
-            setButtonText(R.id.btn_follow_this_partner, getString(R.string.btn_follow_this_partner));
-            //setViewVisibility(R.id.btn_follow_this_partner, View.VISIBLE);
-        } else {
-            // Set UnFollow this partner label over button
-            setButtonText(R.id.btn_follow_this_partner, getString(R.string.btn_unfollow_this_partner));
-            //setViewVisibility(R.id.btn_follow_this_partner, View.GONE);
-        }
+            if (partnerDTO.getUser_follow().equalsIgnoreCase("0")) {
+                // Set Follow this partner label over button
+                setButtonText(R.id.btn_follow_this_partner, getString(R.string.btn_follow_this_partner));
+                //setViewVisibility(R.id.btn_follow_this_partner, View.VISIBLE);
+            } else {
+                // Set UnFollow this partner label over button
+                setButtonText(R.id.btn_follow_this_partner, getString(R.string.btn_unfollow_this_partner));
+                //setViewVisibility(R.id.btn_follow_this_partner, View.GONE);
+            }
 //        } else {
 //            setViewVisibility(R.id.btn_follow_this_partner, View.GONE);
 //        }
@@ -309,55 +315,61 @@ public class FollowingPartnerDetails extends BaseActivity {
 //
 //            }
 //        });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
     private void followPartner(int followStatus) {
-        if (Utils.isOnline(this)) {
-            Map<String, String> params = new HashMap<>();
-            params.put("action", Constant.ADD_FOLLOWER);
-            params.put("partner_id", partnerID + "");
-            params.put("lang", Utils.getSelectedLanguage(this));
-            params.put("user_id", Utils.getUserId(this));
-            params.put("status", followStatus + "");
+        try {
+            if (Utils.isOnline(this)) {
+                Map<String, String> params = new HashMap<>();
+                params.put("action", Constant.ADD_FOLLOWER);
+                params.put("partner_id", partnerID + "");
+                params.put("lang", Utils.getSelectedLanguage(this));
+                params.put("user_id", Utils.getUserId(this));
+                params.put("status", followStatus + "");
 
 
-            final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
-                                if (Utils.getWebServiceStatus(response)) {
-                                    finish();
-                                    callFollowingFragment();
+                final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
+                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
+                                    if (Utils.getWebServiceStatus(response)) {
+                                        finish();
+                                        callFollowingFragment();
 
-                                } else {
-                                    //Utils.showDialog(FollowingPartnerDetails.this, "", Utils.getWebServiceMessage(response));
+                                    } else {
+                                        //Utils.showDialog(FollowingPartnerDetails.this, "", Utils.getWebServiceMessage(response));
+                                    }
+
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
                                 }
-
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                                pdialog.dismiss();
                             }
-                            pdialog.dismiss();
-                        }
-                    }, new Response.ErrorListener() {
+                        }, new Response.ErrorListener() {
 
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    pdialog.dismiss();
-                    Utils.showExceptionDialog(mActivity);
-                    //       CustomProgressDialog.hideProgressDialog();
-                }
-            });
-            AppController.getInstance().getRequestQueue().add(postReq);
-            pdialog.show();
-        } else {
-            Utils.showNoNetworkDialog(this);
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pdialog.dismiss();
+                        Utils.showExceptionDialog(mActivity);
+                        //       CustomProgressDialog.hideProgressDialog();
+                    }
+                });
+                AppController.getInstance().getRequestQueue().add(postReq);
+                pdialog.show();
+            } else {
+                Utils.showNoNetworkDialog(this);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
 
     }
 
