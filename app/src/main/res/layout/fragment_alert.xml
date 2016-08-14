@@ -69,6 +69,7 @@
                 android:textColor="@color/app_color"
                 android:textSize="18sp"
                 android:visibility="gone" />
+
         </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 

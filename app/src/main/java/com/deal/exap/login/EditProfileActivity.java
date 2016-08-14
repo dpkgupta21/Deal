@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -113,7 +114,6 @@ public class EditProfileActivity extends BaseActivity {
             setTextViewText(R.id.edt_email_id, "");
 
 
-
         if (userDTO.getAge() != null && !userDTO.getAge().equalsIgnoreCase(""))
             setTextViewText(R.id.et_age, userDTO.getAge());
         else
@@ -148,7 +148,7 @@ public class EditProfileActivity extends BaseActivity {
 
         profile = (ImageView) findViewById(R.id.profile);
 
-       ImageLoader.getInstance().displayImage(userDTO.getImage(), profile,
+        ImageLoader.getInstance().displayImage(userDTO.getImage(), profile,
                 options);
     }
 
@@ -413,7 +413,8 @@ public class EditProfileActivity extends BaseActivity {
                                             userDTO, Constant.USER_INFO);
 
                                     // delete cache image
-                                    File imageFile =   ImageLoader.getInstance().getDiscCache().get(userDTO.getImage());
+                                    File imageFile = ImageLoader.getInstance().getDiscCache().
+                                            get(userDTO.getImage());
                                     if (imageFile.exists()) {
                                         imageFile.delete();
                                     }

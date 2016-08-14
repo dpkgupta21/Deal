@@ -16,7 +16,20 @@ repositories {
 
 
 android {
-
+    signingConfigs {
+        config {
+            keyAlias 'Exap'
+            keyPassword '123456'
+            storeFile file('/Users/DeepakGupta/Project Contents/Deal app/Deal Keystore/exap.keystore.jks')
+            storePassword '123456'
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
     dexOptions {
         jumboMode = true
 
@@ -38,12 +51,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     productFlavors {
     }
-
-
 }
 
 dependencies {
@@ -52,7 +64,6 @@ dependencies {
     compile('com.twitter.sdk.android:twitter:1.11.0@aar') {
         transitive = true;
     }
-
     android {
         packagingOptions {
             exclude 'META-INF/DEPENDENCIES.txt'
