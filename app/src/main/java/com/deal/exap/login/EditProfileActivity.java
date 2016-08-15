@@ -426,7 +426,8 @@ public class EditProfileActivity extends BaseActivity {
                                             options);
                                     Intent intent = new Intent(EditProfileActivity.this,
                                             HomeActivity.class);
-                                    intent.putExtra("fragmentName", EditProfileActivity.this.getString(R.string.setting_screen_title));
+                                    intent.putExtra("fragmentName",
+                                            EditProfileActivity.this.getString(R.string.setting_screen_title));
                                     startActivity(intent);
 
                                 } else {

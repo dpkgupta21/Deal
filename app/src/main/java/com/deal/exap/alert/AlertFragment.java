@@ -190,7 +190,8 @@ public class AlertFragment extends BaseFragment {
                             Utils.ShowLog(Constant.TAG, "got some response = " + response.toString());
                             Type type = new TypeToken<ArrayList<NotificationDTO>>() {
                             }.getType();
-                            notificationList = new Gson().fromJson(response.getJSONArray("notifications").toString(), type);
+                            notificationList = new Gson().fromJson(response.getJSONArray("notifications").
+                                    toString(), type);
                             setNotificationList();
                         } else {
                             lvNotification.setVisibility(View.GONE);

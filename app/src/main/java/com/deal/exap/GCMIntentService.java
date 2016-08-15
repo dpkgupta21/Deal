@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -69,7 +70,7 @@ public class GCMIntentService extends GCMBaseIntentService {
      */
     @Override
     protected void onMessage(Context context, Intent intent) {
-        Toast.makeText(context, "Received", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "Received", Toast.LENGTH_SHORT).show();
         String dealId = null;
         String message = intent.getExtras().getString(CommonUtilities.EXTRA_MESSAGE);
         try {
@@ -191,12 +192,24 @@ public class GCMIntentService extends GCMBaseIntentService {
             PendingIntent intent = null;
             if (dealId != null && !dealId.equalsIgnoreCase("")) {
                 if (DealPreferences.getObjectFromPref(context, Constant.USER_INFO) != null) {
+
                     Intent notificationIntent = new Intent(context, BuyCouponActivity.class);
                     notificationIntent.putExtra("id", dealId);
+
+                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+// Adds the back stack
+                    stackBuilder.addParentStack(BuyCouponActivity.class);
+
+// Adds the Intent to the top of the stack
+                    stackBuilder.addNextIntent(notificationIntent);
+// Gets a PendingIntent containing the entire back stack
                     notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                             Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    intent = PendingIntent.getActivity(context, 0,
-                            notificationIntent, 0);
+                    intent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+//                    intent = PendingIntent.getActivity(context, 0,
+//                            notificationIntent, 0);
                 } else {
                     Intent notificationIntent = new Intent(context, OrgSplashActivity.class);
                     notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |

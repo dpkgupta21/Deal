@@ -143,6 +143,7 @@
             android:name=".payment.BuyCouponActivity"
             android:label="@string/title_activity_buy_coupon"
             android:screenOrientation="portrait"
+            android:parentActivityName="navigationdrawer.HomeActivity"
             android:windowSoftInputMode="stateAlwaysHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

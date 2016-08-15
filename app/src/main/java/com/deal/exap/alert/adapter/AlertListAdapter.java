@@ -89,7 +89,7 @@ public class AlertListAdapter extends BaseAdapter {
             }
 
 
-            holder.txt_date_time.setText(Utils.secondsToDate(list.get(position).getTimestamp()));
+            holder.txt_date_time.setText(list.get(position).getTimestamp());
             holder.txt_desc.setText(list.get(position).getMessage());
             holder.txt_title.setText(list.get(position).getUser());
             ImageLoader.getInstance().displayImage(list.get(position).getImage(), holder.img,

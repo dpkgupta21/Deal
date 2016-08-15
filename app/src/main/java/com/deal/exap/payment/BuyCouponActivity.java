@@ -183,7 +183,7 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
     private void init() {
 
         String dealId = getIntent().getStringExtra("id");
-
+        //Toast.makeText(mActivity, "Deal Id :" + dealId, Toast.LENGTH_SHORT).show();
         imageList = new ArrayList<>();
 
         options = new DisplayImageOptions.Builder()

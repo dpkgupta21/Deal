@@ -4,9 +4,9 @@
 
     <item
         android:id="@+id/menu_check"
-        android:icon="@drawable/check_btn"
-        app:showAsAction="always"
         android:background="@drawable/circle_shape"
-        android:title="@string/menu_check"></item>
+        android:icon="@drawable/menu_check_layer"
+        android:title="@string/menu_check"
+        app:showAsAction="always"></item>
 
 </menu>
