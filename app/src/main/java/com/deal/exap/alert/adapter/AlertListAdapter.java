@@ -115,6 +115,17 @@ public class AlertListAdapter extends BaseAdapter {
                 }
             });
 
+            if(!list.get(position).isRead()){
+                holder.txt_date_time.setTextColor(context.getResources().getColor(R.color.black));
+                holder.txt_desc.setTextColor(context.getResources().getColor(R.color.black));
+                holder.txt_title.setTextColor(context.getResources().getColor(R.color.black));
+
+            }else{
+                holder.txt_date_time.setTextColor(context.getResources().getColor(R.color.gray_light));
+                holder.txt_desc.setTextColor(context.getResources().getColor(R.color.gray_light));
+                holder.txt_title.setTextColor(context.getResources().getColor(R.color.gray_light));
+
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -10,6 +10,15 @@ public class NotificationDTO implements Serializable{
     private String user;
     private int dataid;
     private String timestamp;
+    private boolean read;
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
+    }
 
     public String getType() {
         return type;
