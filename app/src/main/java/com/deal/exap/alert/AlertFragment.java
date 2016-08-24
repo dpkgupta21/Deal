@@ -55,7 +55,7 @@ public class AlertFragment extends BaseFragment {
     private ArrayList<NotificationDTO> notificationList;
     private ArrayList<ConversionsDTO> messageList;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private   ListView lvCommon;
+    private ListView lvCommon;
 
     public static AlertFragment newInstance(boolean isForInbox) {
         AlertFragment fragment = new AlertFragment();
@@ -97,17 +97,18 @@ public class AlertFragment extends BaseFragment {
         btnMessage = (Button) view.findViewById(R.id.btn_message);
 
         if (getArguments().getBoolean("isForInbox")) {
-            lvCommon=lvMessage;
-            btnMessage.setSelected(true);
-            lvNotification.setVisibility(View.GONE);
-            lvMessage.setVisibility(View.VISIBLE);
-            getMessageList();
-        } else {
-            lvCommon=lvNotification;
+            lvCommon = lvNotification;
             btnNotification.setSelected(true);
             lvNotification.setVisibility(View.VISIBLE);
             lvMessage.setVisibility(View.GONE);
             getNotificationList();
+        } else {
+            lvCommon = lvMessage;
+            btnMessage.setSelected(true);
+            lvNotification.setVisibility(View.GONE);
+            lvMessage.setVisibility(View.VISIBLE);
+            getMessageList();
+
         }
 
 
@@ -139,7 +140,7 @@ public class AlertFragment extends BaseFragment {
                     // check if the first item of the list is visible
                     boolean firstItemVisible = lvCommon.getFirstVisiblePosition() == 0;
                     // check if the top of the first item is visible
-                    boolean topOfFirstItemVisible =lvCommon.getChildAt(0).getTop() == 0;
+                    boolean topOfFirstItemVisible = lvCommon.getChildAt(0).getTop() == 0;
                     // enabling or disabling the refresh layout
                     enable = firstItemVisible && topOfFirstItemVisible;
                 }
@@ -203,6 +204,7 @@ public class AlertFragment extends BaseFragment {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.GET_NOTIFICATION);
             params.put("user_id", Utils.getUserId(getActivity()));
+            params.put("lang", Utils.getSelectedLanguage(getActivity()));
             final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL,
                     params, new Response.Listener<JSONObject>() {

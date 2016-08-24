@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -71,6 +72,7 @@ public class SignUp extends BaseActivity {
     private AsyncTask<Void, Void, Void> mRegisterTask;
     private Activity mActivity;
     private GPSTracker gpsTracker;
+    private String address;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -88,6 +90,7 @@ public class SignUp extends BaseActivity {
         ((Button) findViewById(R.id.btn_signup)).setOnClickListener(signUpClick);
         ((ImageView) findViewById(R.id.img_add_photo)).setOnClickListener(addImageClick);
 
+        retrieveAddress(gpsTracker.getLatitude(), gpsTracker.getLongitude(), false);
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -357,6 +360,19 @@ public class SignUp extends BaseActivity {
 
     }
 
+    private void retrieveAddress(final double lat, final double lng, final boolean isNormalLogin) {
+        Handler handler = new Handler();
+        Runnable r = new Runnable() {
+            public void run() {
+                address = Utils.getAddress(lat, lng,
+                        mActivity);
+                    doSignUp();
+            }
+        };
+        handler.post(r);
+
+    }
+
 
     public void doSignUp() {
         Utils.hideKeyboard(SignUp.this);
@@ -377,6 +393,7 @@ public class SignUp extends BaseActivity {
                 params.put("mobile", mobNumber != null ? mobNumber : "");
                 params.put("lat", "" + gpsTracker.getLatitude());
                 params.put("lng", "" + gpsTracker.getLongitude());
+                params.put("address", address != null ? address : "");
 
                 final ProgressDialog pdialog = Utils.createProgressDialog(SignUp.this, null, false);
                 CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST,
