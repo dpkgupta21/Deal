@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -52,6 +55,7 @@ public class AlertFragment extends BaseFragment {
     private ArrayList<NotificationDTO> notificationList;
     private ArrayList<ConversionsDTO> messageList;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private   ListView lvCommon;
 
     public static AlertFragment newInstance(boolean isForInbox) {
         AlertFragment fragment = new AlertFragment();
@@ -93,11 +97,13 @@ public class AlertFragment extends BaseFragment {
         btnMessage = (Button) view.findViewById(R.id.btn_message);
 
         if (getArguments().getBoolean("isForInbox")) {
+            lvCommon=lvMessage;
             btnMessage.setSelected(true);
             lvNotification.setVisibility(View.GONE);
             lvMessage.setVisibility(View.VISIBLE);
             getMessageList();
         } else {
+            lvCommon=lvNotification;
             btnNotification.setSelected(true);
             lvNotification.setVisibility(View.VISIBLE);
             lvMessage.setVisibility(View.GONE);
@@ -120,6 +126,26 @@ public class AlertFragment extends BaseFragment {
             }
         });
 
+        lvCommon.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                boolean enable = false;
+                if (lvCommon != null && lvCommon.getChildCount() > 0) {
+                    // check if the first item of the list is visible
+                    boolean firstItemVisible = lvCommon.getFirstVisiblePosition() == 0;
+                    // check if the top of the first item is visible
+                    boolean topOfFirstItemVisible =lvCommon.getChildAt(0).getTop() == 0;
+                    // enabling or disabling the refresh layout
+                    enable = firstItemVisible && topOfFirstItemVisible;
+                }
+                mSwipeRefreshLayout.setEnabled(enable);
+            }
+        });
 
     }
 

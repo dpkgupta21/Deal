@@ -31,6 +31,7 @@ import com.deal.exap.WakeLocker;
 import com.deal.exap.camera.CameraChooseDialogFragment;
 import com.deal.exap.camera.CameraSelectInterface;
 import com.deal.exap.camera.GallerySelectInterface;
+import com.deal.exap.gps.GPSTracker;
 import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
@@ -68,7 +69,8 @@ public class SignUp extends BaseActivity {
     private File f = null;
     private byte[] bitmapdata;
     private AsyncTask<Void, Void, Void> mRegisterTask;
-    private Context mContext;
+    private Activity mActivity;
+    private GPSTracker gpsTracker;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -80,7 +82,8 @@ public class SignUp extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
-        mContext = SignUp.this;
+        mActivity = SignUp.this;
+        gpsTracker = new GPSTracker(mActivity);
         init();
         ((Button) findViewById(R.id.btn_signup)).setOnClickListener(signUpClick);
         ((ImageView) findViewById(R.id.img_add_photo)).setOnClickListener(addImageClick);
@@ -372,6 +375,8 @@ public class SignUp extends BaseActivity {
                 params.put("age", getViewText(R.id.edt_dob));
                 params.put("confirm_password", getViewText(R.id.edt_confirm_password));
                 params.put("mobile", mobNumber != null ? mobNumber : "");
+                params.put("lat", "" + gpsTracker.getLatitude());
+                params.put("lng", "" + gpsTracker.getLongitude());
 
                 final ProgressDialog pdialog = Utils.createProgressDialog(SignUp.this, null, false);
                 CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST,
@@ -391,16 +396,16 @@ public class SignUp extends BaseActivity {
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").
                                                 toString(), UserDTO.class);
                                         userDTO.setUserType(Constant.REGISTER);
-                                        DealPreferences.putObjectIntoPref(mContext, userDTO, Constant.USER_INFO);
+                                        DealPreferences.putObjectIntoPref(mActivity, userDTO, Constant.USER_INFO);
 
                                         DealPreferences.setIsShowSurveyAfterLogin(
-                                                mContext, true);
+                                                mActivity, true);
 
-                                        Intent intent = new Intent(mContext, HomeActivity.class);
-                                        intent.putExtra("fragmentName", mContext.getString(R.string.interest_screen_title));
+                                        Intent intent = new Intent(mActivity, HomeActivity.class);
+                                        intent.putExtra("fragmentName", mActivity.getString(R.string.interest_screen_title));
                                         startActivity(intent);
                                     } else {
-                                        Utils.showDialog(mContext, getString(R.string.message), Utils.getWebServiceMessage(response));
+                                        Utils.showDialog(mActivity, getString(R.string.message), Utils.getWebServiceMessage(response));
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();

@@ -30,6 +30,8 @@ public class ChatListAdapter extends BaseAdapter {
     private List<MessageDTO> chatList;
     private String userId;
     private DisplayImageOptions option;
+    private static final int TYPE_RIGHT_USER = 0;
+    private static final int TYPE_LEFT_USER = 1;
 
     public ChatListAdapter(Activity mActivity, List<MessageDTO> chatList) {
         this.mActivity = mActivity;
@@ -48,9 +50,15 @@ public class ChatListAdapter extends BaseAdapter {
                 .build();
     }
 
-    public void setChatList(List<MessageDTO> chatList){
+    public void setChatList(List<MessageDTO> chatList) {
         this.chatList = chatList;
     }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
@@ -70,43 +78,77 @@ public class ChatListAdapter extends BaseAdapter {
     }
 
     @Override
+    public int getItemViewType(int position) {
+        int type= chatList.get(position).getUser_id().equals(userId) ? TYPE_RIGHT_USER : TYPE_LEFT_USER;
+        return type;
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View mView=convertView;
-        ViewHolder mHolder;
 
+        LayoutInflater li = (LayoutInflater) mActivity
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        int type = getItemViewType(position);
         MessageDTO chat = chatList.get(position);
-        if(mView==null) {
 
-            LayoutInflater li = (LayoutInflater) mActivity
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            if (chat.getUser_id().equals(userId))
-                mView = (View) li.inflate(R.layout.item_chat_right, parent, false);
-            else
-                mView = (View) li.inflate(R.layout.item_chat_left, parent, false);
+        switch (type) {
+            case TYPE_RIGHT_USER:
+                ViewHolder mHolder = null;
 
-            mHolder=new ViewHolder();
+                if (convertView == null) {
 
-            mHolder.tv_msg=(TextView)mView.findViewById(R.id.tv_msg);
-            mHolder.tv_date=(TextView)mView.findViewById(R.id.tv_date);
-            mHolder.iv_profile=(ImageView)mView.findViewById(R.id.iv_profile);
+                    mHolder = new ViewHolder();
+                    convertView = li.inflate(R.layout.item_chat_right, null);
+                    mHolder.tv_msg = (TextView) convertView.findViewById(R.id.tv_msg);
+                    mHolder.tv_date = (TextView) convertView.findViewById(R.id.tv_date);
+                    mHolder.iv_profile = (ImageView) convertView.findViewById(R.id.iv_profile);
+                    convertView.setTag(mHolder);
+                } else {
+                    mHolder = (ViewHolder) convertView.getTag();
+                }
+                mHolder.tv_msg.setText(chat.getMessage());
+                mHolder.tv_date.setText(chat.getTimestamp());
+                ImageLoader.getInstance().displayImage(chat.getImage(), mHolder.iv_profile,
+                        option);
 
-            mView.setTag(mHolder);
-        }else{
-            mHolder = (ViewHolder) mView.getTag();
+                return convertView;
+            case TYPE_LEFT_USER:
+                ViewHolderLeft mHolderLeft = null;
+
+                if (convertView == null) {
+
+                    mHolderLeft = new ViewHolderLeft();
+                    convertView = li.inflate(R.layout.item_chat_left, null);
+                    mHolderLeft.tv_msg_left = (TextView) convertView.findViewById(R.id.tv_msg_left);
+                    mHolderLeft.tv_date_left = (TextView) convertView.findViewById(R.id.tv_date_left);
+                    mHolderLeft.iv_profile_left = (ImageView) convertView.findViewById(R.id.iv_profile_left);
+                    convertView.setTag(mHolderLeft);
+
+
+                } else {
+                    mHolderLeft = (ViewHolderLeft) convertView.getTag();
+                }
+                mHolderLeft.tv_msg_left.setText(chat.getMessage());
+                mHolderLeft.tv_date_left.setText(chat.getTimestamp());
+                ImageLoader.getInstance().displayImage(chat.getImage(), mHolderLeft.iv_profile_left,
+                        option);
+                return convertView;
         }
 
-        mHolder.tv_msg.setText(chat.getMessage());
-        mHolder.tv_date.setText(chat.getTimestamp());
-        ImageLoader.getInstance().displayImage(chat.getImage(), mHolder.iv_profile,
-                option);
-
-        return mView;
+        return null;
     }
 
 
     public static class ViewHolder {
-        TextView tv_msg;
-        TextView tv_date;
-        ImageView iv_profile;
+        public TextView tv_msg;
+        public TextView tv_date;
+        public ImageView iv_profile;
+    }
+
+    public static class ViewHolderLeft {
+        public TextView tv_msg_left;
+        public TextView tv_date_left;
+        public ImageView iv_profile_left;
     }
 }

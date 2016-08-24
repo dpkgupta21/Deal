@@ -10,7 +10,7 @@
 
 
     <ImageView
-        android:id="@+id/iv_profile"
+        android:id="@+id/iv_profile_left"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginRight="10dp"
@@ -25,16 +25,16 @@
         android:orientation="vertical">
 
         <com.deal.exap.customviews.MyTextViewLightCustom
+            android:id="@+id/tv_msg_left"
             style="@style/tv_normal"
             android:background="@drawable/white_bg_border"
             android:padding="10dp"
-            android:id="@+id/tv_msg"
             android:text="@string/how_are_you"
             android:textColor="@color/black" />
 
         <com.deal.exap.customviews.MyTextViewLightCustom
+            android:id="@+id/tv_date_left"
             style="@style/tv_small"
-            android:id="@+id/tv_date"
             android:layout_marginTop="5dp"
             android:text="23 Sep 11 PM"
             android:textColor="@color/black" />

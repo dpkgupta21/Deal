@@ -282,6 +282,8 @@ public class ChatActivity extends BaseActivity {
 
                 }
             }
+
+            lvChat.smoothScrollToPosition(chatList.size());
         } else {
 
             Utils.showDialog(this, getString(R.string.message), getString(R.string.alert_empty_inbox));

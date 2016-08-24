@@ -8,9 +8,17 @@ public class NotificationDTO implements Serializable{
     private String message;
     private String image;
     private String user;
-    private int dataid;
+    private String dataid="";
     private String timestamp;
     private boolean read;
+
+    public String getDataid() {
+        return dataid;
+    }
+
+    public void setDataid(String dataid) {
+        this.dataid = dataid;
+    }
 
     public boolean isRead() {
         return read;
@@ -52,13 +60,6 @@ public class NotificationDTO implements Serializable{
         this.user = user;
     }
 
-    public int getDataid() {
-        return dataid;
-    }
-
-    public void setDataid(int dataid) {
-        this.dataid = dataid;
-    }
 
     public String getTimestamp() {
         return timestamp;

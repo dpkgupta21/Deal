@@ -105,10 +105,10 @@ public class AlertListAdapter extends BaseAdapter {
                             i = new Intent(act, FollowingPartnerDetails.class);
                             i.putExtra("partnerId", list.get(position).getDataid());
                             act.startActivity(i);
-                        } else {
+                        } else  if (!list.get(position).getDataid().equalsIgnoreCase("")) {
 
                             i = new Intent(act, BuyCouponActivity.class);
-                            i.putExtra("id", list.get(position).getDataid() + "");
+                            i.putExtra("id", list.get(position).getDataid());
                             act.startActivity(i);
                         }
                     }
@@ -121,9 +121,9 @@ public class AlertListAdapter extends BaseAdapter {
                 holder.txt_title.setTextColor(context.getResources().getColor(R.color.black));
 
             }else{
-                holder.txt_date_time.setTextColor(context.getResources().getColor(R.color.gray_light));
-                holder.txt_desc.setTextColor(context.getResources().getColor(R.color.gray_light));
-                holder.txt_title.setTextColor(context.getResources().getColor(R.color.gray_light));
+                holder.txt_date_time.setTextColor(context.getResources().getColor(R.color.btn_dark_gray_color));
+                holder.txt_desc.setTextColor(context.getResources().getColor(R.color.btn_dark_gray_color));
+                holder.txt_title.setTextColor(context.getResources().getColor(R.color.btn_dark_gray_color));
 
             }
         } catch (Exception e) {
