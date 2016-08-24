@@ -366,7 +366,6 @@ public class SignUp extends BaseActivity {
             public void run() {
                 address = Utils.getAddress(lat, lng,
                         mActivity);
-                    doSignUp();
             }
         };
         handler.post(r);
