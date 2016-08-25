@@ -16,7 +16,8 @@
     string in this file.
     -->
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
-        AIzaSyDKr4oBZHVw9h_1g62T8v_9CYcgQAH7wqg
+        <!-- play store key -->
+        AIzaSyDUOOxLZPYT-T78DjNYaVmdQAFQARdNZDw
         <!-- deepak's api key -->
         <!--AIzaSyDAoPg0-P0dQLMuCHQmdTexjc7yKyItBpA-->
 </string>
