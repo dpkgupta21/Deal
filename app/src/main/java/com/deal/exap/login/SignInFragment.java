@@ -482,16 +482,31 @@ public class SignInFragment extends BaseFragment {
                                     userDTO.setUserType(Constant.REGISTER);
                                     DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
                                     //startActivity(new Intent(getActivity(), HomeActivity.class));
-                                    getActivity().finish();
-                                    DealPreferences.setIsShowSurveyAfterLogin(getActivity().getApplicationContext(), true);
+                                    Intent serviceIntent = null;
+                                    if (userDTO.is_location_service()) {
+                                        serviceIntent = new Intent(mActivity, LocationTrackService.class);
+                                        mActivity.stopService(serviceIntent);
+                                        mActivity.startService(serviceIntent);
+                                    } else {
+                                        serviceIntent = new Intent(mActivity, LocationTrackService.class);
+                                        mActivity.stopService(serviceIntent);
+                                    }
 
+                                    DealPreferences.setIsShowSurveyAfterLogin(
+                                            getActivity().getApplicationContext(), true);
+                                    getActivity().finish();
+                                    Intent intent = new Intent(getActivity(), HomeActivity.class);
+                                    if (userDTO.getInterest().equalsIgnoreCase("0")) {
+                                        intent.putExtra("fragmentName", getActivity().getString(R.string.interest_screen_title));
+                                    } else if (userDTO.getInterest().equalsIgnoreCase("1")) {
+                                        intent.putExtra("fragmentName", getActivity().getString(R.string.nearby_screen_title));
+                                    }
+
+                                    startActivity(intent);
                                     if (socialType.equalsIgnoreCase("facebook")) {
                                         LoginManager.getInstance().logOut();
                                     }
-                                    Intent intent = new Intent(getActivity(), HomeActivity.class);
-                                    intent.putExtra("fragmentName",
-                                            getActivity().getString(R.string.interest_screen_title));
-                                    startActivity(intent);
+
                                 } else {
                                     Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));
                                 }
