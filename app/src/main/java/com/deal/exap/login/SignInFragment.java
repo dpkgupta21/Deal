@@ -19,6 +19,7 @@ import com.deal.exap.R;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg12;
 import com.deal.exap.gps.GPSTracker;
+import com.deal.exap.locationupdate.LocationTrackService;
 import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
 import com.deal.exap.utility.Constant;
@@ -396,6 +397,17 @@ public class SignInFragment extends BaseFragment {
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
                                         userDTO.setUserType(Constant.REGISTER);
                                         DealPreferences.putObjectIntoPref(getActivity(), userDTO, Constant.USER_INFO);
+                                        // Start Location service
+
+                                        Intent serviceIntent = null;
+                                        if (userDTO.is_location_service()) {
+                                            serviceIntent = new Intent(mActivity, LocationTrackService.class);
+                                            mActivity.stopService(serviceIntent);
+                                            mActivity.startService(serviceIntent);
+                                        } else {
+                                            serviceIntent = new Intent(mActivity, LocationTrackService.class);
+                                            mActivity.stopService(serviceIntent);
+                                        }
 
                                         DealPreferences.setIsShowSurveyAfterLogin(
                                                 getActivity().getApplicationContext(), true);

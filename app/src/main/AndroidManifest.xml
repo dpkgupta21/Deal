@@ -92,7 +92,6 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
         <activity
             android:name=".login.NumberVerificationActivity"
             android:label="@string/app_name"
@@ -142,8 +141,8 @@
         <activity
             android:name=".payment.BuyCouponActivity"
             android:label="@string/title_activity_buy_coupon"
-            android:screenOrientation="portrait"
             android:parentActivityName="navigationdrawer.HomeActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -268,7 +267,12 @@
         <!-- End Push Notification -->
         <activity
             android:name=".locationselection.LocationSelectionActivity"
-            android:label="@string/title_activity_location_selection"></activity>
+            android:label="@string/title_activity_location_selection" />
+
+        <service
+            android:name=".locationupdate.LocationTrackService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

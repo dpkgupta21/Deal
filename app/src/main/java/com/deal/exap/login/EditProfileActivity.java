@@ -66,7 +66,7 @@ public class EditProfileActivity extends BaseActivity {
     private byte[] bitmapdata;
     private ImageView profile;
     //private String currentAddress;
-    //private GPSTracker gpsTracker;
+    private GPSTracker gpsTracker;
 
     private Activity mActivity;
 
@@ -79,7 +79,7 @@ public class EditProfileActivity extends BaseActivity {
         mActivity = EditProfileActivity.this;
 
         init();
-        GPSTracker gpsTracker = new GPSTracker(mActivity);
+        gpsTracker = new GPSTracker(mActivity);
 //        try {
 //            currentAddress = Utils.getAddress(gpsTracker.getLatitude(), gpsTracker.getLongitude(),
 //                    mActivity);
@@ -392,6 +392,8 @@ public class EditProfileActivity extends BaseActivity {
             params.put("gender", getViewText(R.id.et_sex).equals("Male") ? "M" : "F");
             params.put("age", getViewText(R.id.et_age));
             params.put("location", getViewText(R.id.txt_location));
+            params.put("lat", "" + gpsTracker.getLatitude());
+            params.put("lng", "" + gpsTracker.getLongitude());
 
             final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
             CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST,

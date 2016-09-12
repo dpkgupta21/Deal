@@ -27,6 +27,7 @@ import com.deal.exap.com.exap.sidemenu.ResideMenuSecond;
 import com.deal.exap.customviews.CustomProgressDialog;
 import com.deal.exap.customviews.MyButtonViewSemi;
 import com.deal.exap.customviews.MyTextViewReg12;
+import com.deal.exap.locationupdate.LocationTrackService;
 import com.deal.exap.login.BaseActivity;
 import com.deal.exap.login.BaseFragment;
 import com.deal.exap.login.EditProfileActivity;
@@ -454,9 +455,15 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
                 break;
 
             case R.id.switch_location:
+                Intent intent = null;
                 if (isChecked) {
+                    intent = new Intent(mActivity, LocationTrackService.class);
+                    mActivity.stopService(intent);
+                    mActivity.startService(intent);
                     syncSetting("is_location_service", "1");
                 } else {
+                    intent = new Intent(mActivity, LocationTrackService.class);
+                    mActivity.stopService(intent);
                     syncSetting("is_location_service", "0");
 
                 }

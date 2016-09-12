@@ -23,9 +23,25 @@ public class DealPreferences {
     public static final String IS_SHOW_SURVEY_AFTER_LOGIN = "IS_SHOW_SURVEY_AFTER_LOGIN";
     public static final String CURRENCY_ENG = "CURRENCY_ENG";
     public static final String CURRENCY_ARA = "CURRENCY_ARA";
+    public static final String IS_UPDATE_LOCATION = "IS_UPDATE_LOCATION";
+
 
     // for payment info
     public static final String ACCOUNTS = "ACCOUNTS";
+
+    public static void setIsUpdateLocation(Context context, boolean isUpdateLocation) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(IS_UPDATE_LOCATION, isUpdateLocation);
+        editor.apply();
+    }
+
+    public static boolean getIsUpdateLocation(Context context) {
+        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getBoolean(IS_UPDATE_LOCATION,
+                false);
+    }
+
 
     public static void setCurrencyEng(Context context, String userId) {
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
