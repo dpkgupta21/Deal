@@ -227,7 +227,7 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
                 HelpMe.setLocale(Constant.LANG_ENGLISH_CODE, getActivity().getApplicationContext());
                 selectedButton(Constant.LANG_ENGLISH_CODE);
                 DealPreferences.setAPP_LANG(getActivity().getApplicationContext(), Constant.LANG_ENGLISH_CODE);
-                syncSetting("language_id", Constant.LANG_ENGLISH_CODE);
+                syncSetting("language_id", Constant.SYNC_LANG_ENGLISH_CODE);
 
 
             }
@@ -242,7 +242,7 @@ public class SettingFragment extends BaseFragment implements CompoundButton.OnCh
                 HelpMe.setLocale(Constant.LANG_ARABIC_CODE, getActivity().getApplicationContext());
                 selectedButton(Constant.LANG_ARABIC_CODE);
                 DealPreferences.setAPP_LANG(getActivity().getApplicationContext(), Constant.LANG_ARABIC_CODE);
-                syncSetting("language_id", Constant.LANG_ARABIC_CODE);
+                syncSetting("language_id", Constant.SYNC_LANG_ARABIC_CODE);
 
             }
         }

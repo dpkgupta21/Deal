@@ -58,15 +58,11 @@ public class HomeActivity extends BaseActivity {
     private ResideMenuItem itemAlert, itemNearby, itemWallet,
             itemInterest, itemFavorite, itemFollowing,
             itemCategory, itemSetting;
-    //Boolean isopend = false;
-    View topView;
     private String fragmentName;
-    private boolean isFromLogin;
     private MenuDTO menuDTO;
     private boolean backPressedToExitOnce = false;
     private final MenuHandler myHandler =
             new MenuHandler(HomeActivity.this);
-
     private Tracker mTracker;
 
 
@@ -476,7 +472,6 @@ public class HomeActivity extends BaseActivity {
             }, 2000);
         }
     }
-
 
 
 }

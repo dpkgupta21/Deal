@@ -144,7 +144,7 @@ public class LocationTrackService extends Service implements GoogleApiClient.Con
             return;
         }
         LocationServices.FusedLocationApi
-                .requestLocationUpdates(mGoogleApiClient, mLocationRequest,this);
+                .requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     }
 
     /**
@@ -174,18 +174,15 @@ public class LocationTrackService extends Service implements GoogleApiClient.Con
     @Override
     public void onLocationChanged(Location location) {
 
-        new Thread(new LocationUpdateHandler(
-                getApplicationContext(), location)).start();
+        new Thread(new LocationUpdateHandler(location)).start();
         //updateUserLocation(location.getLatitude(), location.getLongitude());
     }
 
     private class LocationUpdateHandler implements Runnable {
 
-        private Context mContext;
         private Location mLocation;
 
-        LocationUpdateHandler(Context mContext, Location mLocation) {
-            this.mContext = mContext;
+        LocationUpdateHandler(Location mLocation) {
             this.mLocation = mLocation;
         }
 
@@ -193,45 +190,53 @@ public class LocationTrackService extends Service implements GoogleApiClient.Con
         public void run() {
             updateUserLocation(mLocation.getLatitude(), mLocation.getLongitude());
         }
-    }
 
-    public void updateUserLocation(double lat, double lng) {
-        if (Utils.isOnline(getApplicationContext())) {
-            Map<String, String> params = new HashMap<>();
-            params.put("action", "saveuserloc");
-            params.put("user_id", Utils.getUserId(getApplicationContext()));
-            params.put("lat", "" + lat);
-            params.put("lng", "" + lng);
 
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constant.SERVICE_BASE_URL, params,
-                    new Response.Listener<JSONObject>() {
+        private void updateUserLocation(double lat, double lng) {
+            try {
+                if (Utils.isOnline(LocationTrackService.this)) {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("action", "saveuserloc");
+                    params.put("user_id", Utils.getUserId(LocationTrackService.this));
+                    params.put("lat", "" + lat);
+                    params.put("lng", "" + lng);
+                    Utils.ShowLog(TAG, "User id :" + Utils.getUserId(LocationTrackService.this));
+                    CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
+                            Constant.SERVICE_BASE_URL, params,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    try {
+                                        Utils.ShowLog(TAG, "Location Update success" + response);
+                                        //  Toast.makeText(LocationTrackService.this, "Location Update :" + response, Toast.LENGTH_SHORT).show();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            }, new Response.ErrorListener() {
+
                         @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                Utils.ShowLog(TAG, "Location Update success" + response);
-                               //  Toast.makeText(LocationTrackService.this, "Location Update :" + response, Toast.LENGTH_SHORT).show();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
+                        public void onErrorResponse(VolleyError error) {
+                            Utils.ShowLog(TAG, "Location Update error" + error);
                         }
-                    }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Utils.ShowLog(TAG, "Location Update error" + error);
+                    });
+                    AppController.getInstance().getRequestQueue().add(postReq);
+                    postReq.setRetryPolicy(new DefaultRetryPolicy(
+                            30000, 0,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                 }
-            });
-            AppController.getInstance().getRequestQueue().add(postReq);
-            postReq.setRetryPolicy(new DefaultRetryPolicy(
-                    30000, 0,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        }
 
+
+            } catch (Exception e) {
+
+            }
+        }
     }
 
     @Override
     public void onDestroy() {
+        Utils.ShowLog(TAG, "Service stop");
         stopLocationUpdates();
         super.onDestroy();
     }

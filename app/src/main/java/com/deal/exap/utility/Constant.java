@@ -7,6 +7,8 @@ public class Constant {
     public static final String USER_INFO = "user_info";
     public static final String LANG_ENGLISH_CODE = "eng";
     public static final String LANG_ARABIC_CODE = "ara";
+    public static final String SYNC_LANG_ENGLISH_CODE = "1";
+    public static final String SYNC_LANG_ARABIC_CODE = "2";
     public static final String DISTANCE_UNIT_KM_ENG = "KM";
     public static final String DISTANCE_UNIT_KM_ARA = "كم";
 

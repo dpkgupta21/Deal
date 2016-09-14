@@ -13,6 +13,7 @@ import com.deal.exap.R;
 import com.deal.exap.WakeLocker;
 import com.deal.exap.databasemanager.DatabaseHelper;
 import com.deal.exap.databasemanager.DatabaseManager;
+import com.deal.exap.locationupdate.LocationTrackService;
 import com.deal.exap.model.DealDTO;
 import com.deal.exap.model.UserDTO;
 import com.deal.exap.navigationdrawer.HomeActivity;
@@ -76,7 +77,15 @@ public class OrgSplashActivity extends FragmentActivity {
                 if (userDTO == null) {
                     i = new Intent(OrgSplashActivity.this, SplashScreen.class);
                 } else {
-
+                    Intent serviceIntent = null;
+                    if (userDTO.is_location_service()) {
+                        serviceIntent = new Intent(mContext, LocationTrackService.class);
+                        mContext.stopService(serviceIntent);
+                        mContext.startService(serviceIntent);
+                    } else {
+                        serviceIntent = new Intent(mContext, LocationTrackService.class);
+                        mContext.stopService(serviceIntent);
+                    }
                     i = new Intent(OrgSplashActivity.this, HomeActivity.class);
                     i.putExtra("fragmentName", getString(R.string.interest_screen_title));
                 }
