@@ -42,10 +42,10 @@ public class LocationTrackService extends Service implements GoogleApiClient.Con
         GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
     private static final String TAG = "LocationTrackService";
-    private static final float MIN_DISTANCE_CHANGE_FOR_UPDATES = 0; // 0 meters
+    private static final float MIN_DISTANCE_CHANGE_FOR_UPDATES = 100; // 0 meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 10; // 10 minute
 
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
             0;

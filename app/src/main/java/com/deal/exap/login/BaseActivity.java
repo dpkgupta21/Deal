@@ -218,25 +218,28 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener,
     }
 
     public void removeToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        setSupportActionBar(toolbar);
-        //toolbar.setVisibility(View.GONE);
-        toolbar.setBackgroundColor(getResources().getColor(R.color.transparent));
+        try {
+            Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+            setSupportActionBar(toolbar);
+            //toolbar.setVisibility(View.GONE);
+            toolbar.setBackgroundColor(getResources().getColor(R.color.transparent));
 //
 //        ImageView ivClose = (ImageView) toolbar.findViewById(R.id.iv_close);
 //        ivClose.setVisibility(View.INVISIBLE);
 
-        TextView tvHeader = (TextView) toolbar.findViewById(R.id.tv_header);
-        tvHeader.setText("");
+            TextView tvHeader = (TextView) toolbar.findViewById(R.id.tv_header);
+            tvHeader.setText("");
 
-        try {
-            Menu imenu = toolbar.getMenu();
-            imenu.findItem(R.id.menu_notification).setVisible(false);
-            imenu.removeItem(R.id.menu_notification);
+            try {
+                Menu imenu = toolbar.getMenu();
+                imenu.findItem(R.id.menu_notification).setVisible(false);
+                imenu.removeItem(R.id.menu_notification);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
     }
 
@@ -309,8 +312,6 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener,
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_transparent_color));
     }
-
-
 
 
     @Override

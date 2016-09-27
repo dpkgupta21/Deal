@@ -329,18 +329,21 @@ public class HomeActivity extends BaseActivity {
     };
 
     private void changeFragment(Fragment targetFragment) {
+        try {
+            Utils.ShowLog(TAG, "changeFragment");
+            // call menu count webservice in handler
+            new Thread(new MenuCountHandler(myHandler,
+                    HomeActivity.this)).start();
 
-        Utils.ShowLog(TAG, "changeFragment");
-        // call menu count webservice in handler
-        new Thread(new MenuCountHandler(myHandler,
-                HomeActivity.this)).start();
-
-        resideMenu.clearIgnoredViewList();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.body_layout, targetFragment, "fragment")
-                .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
+            resideMenu.clearIgnoredViewList();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.body_layout, targetFragment, "fragment")
+                    .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -269,6 +269,9 @@
             android:name=".locationselection.LocationSelectionActivity"
             android:label="@string/title_activity_location_selection" />
 
+        <activity android:name="com.mixpanel.android.surveys.SurveyActivity" />
+
+
         <service
             android:name=".locationupdate.LocationTrackService"
             android:enabled="true"

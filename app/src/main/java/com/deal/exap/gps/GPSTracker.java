@@ -54,6 +54,15 @@ public class GPSTracker implements ConnectionCallbacks,
     private Location mCurrentLocation; // location
 
 
+    public GPSTracker(Activity mActivity, boolean isShowGpsDisableDialog) {
+        this.mActivity = mActivity;
+        LocationManager manager = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
+        if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildGoogleApiClient();
+            isGPSEnabled = true;
+        }
+    }
+
     public GPSTracker(Activity mActivity) {
         this.mActivity = mActivity;
         LocationManager manager = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
@@ -137,31 +146,43 @@ public class GPSTracker implements ConnectionCallbacks,
      * lauch Settings Options
      */
     public void showSettingsAlert() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mActivity);
+        try {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(mActivity);
 
-        // Setting Dialog Title
-        alertDialog.setTitle("GPS is settings");
+            // Setting Dialog Title
+            alertDialog.setTitle("GPS is settings");
+            alertDialog.setCancelable(false);
+            // Setting Dialog Message
+            alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
 
-        // Setting Dialog Message
-        alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
+            // On pressing Settings button
+            alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    if (dialog != null) {
+                        dialog.dismiss();
+                        dialog = null;
+                    }
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    mActivity.startActivity(intent);
+                }
+            });
 
-        // On pressing Settings button
-        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                mActivity.startActivity(intent);
-            }
-        });
+            // on pressing cancel button
+            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    if (dialog != null) {
+                        dialog.dismiss();
+                        dialog = null;
+                    }
 
-        // on pressing cancel button
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+                }
+            });
 
-        // Showing Alert Message
-        alertDialog.show();
+            // Showing Alert Message
+            alertDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -268,8 +289,6 @@ public class GPSTracker implements ConnectionCallbacks,
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
-
-
 
 
 }

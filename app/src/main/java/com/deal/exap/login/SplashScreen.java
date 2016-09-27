@@ -46,13 +46,6 @@ import java.util.Map;
 public class SplashScreen extends BaseActivity {
     private static final String TAG = "<SplashScreen>";
     private SessionManager session;
-    //private ViewPager mViewPager;
-    //private SplashScreenPagerAdapter mAdapter;
-    //private Map<Integer, String> mPictures;
-    //private String[] mPictureIdsList;
-    //private RadioGroup mSwipeIndicator;
-    // List of Ids of radio buttons for displaying the dot of currently displayed picture
-    //private List<Integer> mRadioButtonIds;
     private GPSTracker gpsTracker;
     private Activity mActivity;
 
@@ -77,31 +70,7 @@ public class SplashScreen extends BaseActivity {
 
         setClick(R.id.tv_lang_change);
         setClick(R.id.tv_skip_eng);
-
-//        mAdapter = new SplashScreenPagerAdapter(this, mPictureIdsList);
-//        mViewPager.setAdapter(mAdapter);
-//
-//        mSwipeIndicator = (RadioGroup) findViewById(R.id.swipe_indicator_radio_group);
-//        mSwipeIndicator.check(mRadioButtonIds.get(0));
-//
-//        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//
-//            }
-//
-//            @Override
-//            public void onPageSelected(int position) {
-//                mSwipeIndicator.clearCheck();
-//                mSwipeIndicator.check(mRadioButtonIds.get(position));
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//
-//            }
-//        });
-
+        gpsTracker = new GPSTracker(mActivity);
 
         SignInFragment signInFragment = SignInFragment.newInstance();
         FragmentManager fm = getSupportFragmentManager();
@@ -112,8 +81,13 @@ public class SplashScreen extends BaseActivity {
         ft.setTransition(FragmentTransaction.TRANSIT_NONE);
         ft.commit();
 
-        gpsTracker = new GPSTracker(this);
+
         CustomProgressDialog.hideProgressDialog();
+    }
+
+
+    public GPSTracker getGpsTracker() {
+        return gpsTracker;
     }
 
     @Override

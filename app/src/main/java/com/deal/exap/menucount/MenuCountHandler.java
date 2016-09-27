@@ -44,7 +44,7 @@ public class MenuCountHandler implements Runnable {
     private void getMenuCount() {
 
         if (Utils.isOnline(mActivity)) {
-            GPSTracker gpsTracker = new GPSTracker(mActivity);
+            GPSTracker gpsTracker = new GPSTracker(mActivity, false);
             Map<String, String> params = new HashMap<>();
             params.put("action", Constant.MENU_COUNT);
             params.put("user_id", Utils.getUserId(mActivity));

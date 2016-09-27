@@ -79,6 +79,7 @@ public class SignInFragment extends BaseFragment {
         // Required empty public constructor
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,17 +100,22 @@ public class SignInFragment extends BaseFragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        gpsTracker = new GPSTracker(mActivity);
-        ((MyTextViewReg12) view.findViewById(R.id.txt_sign_up_click)).
-                setOnClickListener(goToNumberVerificationClick);
-        ((MyButtonViewSemi) view.findViewById(R.id.btn_login)).
-                setOnClickListener(goToHomePage);
-        //((MyTextViewRegCustom) view.findViewById(R.id.btn_facebook_login)).setOnClickListener(goToFacebookLogin);
+        //gpsTracker = new GPSTracker(mActivity);
+        try {
+            gpsTracker = ((SplashScreen) getActivity()).getGpsTracker();
+            ((MyTextViewReg12) view.findViewById(R.id.txt_sign_up_click)).
+                    setOnClickListener(goToNumberVerificationClick);
+            ((MyButtonViewSemi) view.findViewById(R.id.btn_login)).
+                    setOnClickListener(goToHomePage);
+            //((MyTextViewRegCustom) view.findViewById(R.id.btn_facebook_login)).setOnClickListener(goToFacebookLogin);
 
-        retrieveAddress(gpsTracker.getLatitude(), gpsTracker.getLongitude(), false);
+            retrieveAddress(gpsTracker.getLatitude(), gpsTracker.getLongitude(), false);
 
 
-        super.onActivityCreated(savedInstanceState);
+            super.onActivityCreated(savedInstanceState);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         //showHashKey(getActivity().getApplicationContext());
 
     }
