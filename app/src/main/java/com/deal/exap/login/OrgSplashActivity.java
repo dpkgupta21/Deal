@@ -73,6 +73,8 @@ public class OrgSplashActivity extends FragmentActivity {
                     DealPreferences.setIsShowSurveyAfterLogin(
                             mContext, true);
                 }
+
+                DealPreferences.setIsGpsEnable(mContext, true);
                 Intent i = null;
                 if (userDTO == null) {
                     i = new Intent(OrgSplashActivity.this, SplashScreen.class);

@@ -70,7 +70,10 @@ public class GPSTracker implements ConnectionCallbacks,
             buildGoogleApiClient();
             isGPSEnabled = true;
         } else {
-            showSettingsAlert();
+            if (DealPreferences.getIsGpsEnable(mActivity)) {
+                showSettingsAlert();
+            }
+
         }
     }
 
@@ -174,6 +177,7 @@ public class GPSTracker implements ConnectionCallbacks,
                         dialog.dismiss();
                         dialog = null;
                     }
+                    DealPreferences.setIsGpsEnable(mActivity, false);
 
                 }
             });

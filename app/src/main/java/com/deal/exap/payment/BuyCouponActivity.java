@@ -159,16 +159,6 @@ public class BuyCouponActivity extends BaseActivity implements OnMapReadyCallbac
 
         addShareView();
 
-//        final Button btn_buy=(Button)findViewById(R.id.btn_buy);
-//        btn_buy.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                topHeight = btn_buy.getheTop();
-//                addShareView();
-//            }
-//        });
-
-
     }
 
 
